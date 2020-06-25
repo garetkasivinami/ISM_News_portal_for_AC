@@ -4,14 +4,12 @@
     ViewBag.Title = "Home Page";
 }
 
-    <head>
-        <link href="~/Content/Site.css" rel="stylesheet" />
-    </head>
+<head>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+</head>
 
 <div class="jumbotron">
     <h1>ACME COSMETICS</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
 <div>
@@ -35,47 +33,29 @@
                     <hr />
                     @for (int i = 0; i < 30; i++)  //Сюда подключим n последних новостей
                     {
-                        <p><a href="#">One of the recent news</a></p>}
+                        <p><a href="#">One of the recent news</a></p>
+                    }
                     <hr />
                 </div>
                 <div>
                     <div class="news-flex">
                         @for (int i = 0; i < 12; i++) //А вот сюда самые популярные новости в формате картинка + заголовок
-                         {
+                        {
                             <div class="news-flex-item">
                                 <img src="https://i.pinimg.com/originals/0f/6f/8d/0f6f8d6b12e35404713b9fed2211272e.jpg" alt="rnd pic" width="300" height="300" /> <!--Фотку сюда-->
                                 <br />
                                 <p>Some text Some text Some text Some text Some text Some text Some text</p>                <!--Здесь берем подпись с базы данных-->
                             </div>
-                         }
+                        }
                     </div>
                 </div>
-                </div>
-                <button class="btn-more">Далі...</button>
+            </div>
+            <button class="btn-more">Далі...</button>
         </div>
     </div>
 </div>
 
-<!--<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
+<!--
     @if (Model.Any())
     {
         <table>
@@ -86,4 +66,4 @@
         </table>
     }
     @Html.ActionLink("Створити користувача!", "AddNewUser", "Home", null, new { })
-</div>-->
+-->
