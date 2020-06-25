@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 0;
     padding-bottom: 20px;
 }
 
@@ -21,4 +21,28 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+header .nav-item {
+    margin-left: 20px;
+}
+
+header .navbar-light a {
+    color: black;
+    font-size: 24px;
+}
+
+header .navbar-light a.navbar-brand {
+    color: red;
+    font-size: 28px;
+}
+
+footer a {
+    color: black;
+    margin-left: 10px;
+}
+
+footer a:hover {
+    color: red;
+    text-decoration: none;
 }
