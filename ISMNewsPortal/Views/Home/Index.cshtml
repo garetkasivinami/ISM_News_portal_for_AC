@@ -4,13 +4,59 @@
     ViewBag.Title = "Home Page";
 }
 
+    <head>
+        <link href="~/Content/Site.css" rel="stylesheet" />
+    </head>
+
 <div class="jumbotron">
     <h1>ACME COSMETICS</h1>
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<div class="row">
+<div>
+    <div class="wrapper">
+        <div class="search container-fluid">
+            <form action="/" method="post">
+                <input type="text" name="search" value="" placeholder="Search some news" />
+            </form>
+            <p>Some adds here</p>
+        </div>
+        <div class="main-part">
+            <!--Адаптива пока нет, но вы держитесь-->
+            <div class="main-flex">
+                <div class="news-list">
+                    <div class="recent-head">
+                        <div>
+                            <p>Новини</p>
+                        </div>
+                        <div class="selector"><span>Останні</span><span>Головні</span></div>
+                    </div>
+                    <hr />
+                    @for (int i = 0; i < 30; i++)  //Сюда подключим n последних новостей
+                    {
+                        <p><a href="#">One of the recent news</a></p>}
+                    <hr />
+                </div>
+                <div>
+                    <div class="news-flex">
+                        @for (int i = 0; i < 12; i++) //А вот сюда самые популярные новости в формате картинка + заголовок
+                         {
+                            <div class="news-flex-item">
+                                <img src="https://i.pinimg.com/originals/0f/6f/8d/0f6f8d6b12e35404713b9fed2211272e.jpg" alt="rnd pic" width="300" height="300" /> <!--Фотку сюда-->
+                                <br />
+                                <p>Some text Some text Some text Some text Some text Some text Some text</p>                <!--Здесь берем подпись с базы данных-->
+                            </div>
+                         }
+                    </div>
+                </div>
+                </div>
+                <button class="btn-more">Далі...</button>
+        </div>
+    </div>
+</div>
+
+<!--<div class="row">
     <div class="col-md-4">
         <h2>Getting started</h2>
         <p>
@@ -40,4 +86,4 @@
         </table>
     }
     @Html.ActionLink("Створити користувача!", "AddNewUser", "Home", null, new { })
-</div>
+</div>-->

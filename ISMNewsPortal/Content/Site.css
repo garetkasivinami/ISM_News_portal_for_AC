@@ -46,3 +46,85 @@ footer a:hover {
     color: red;
     text-decoration: none;
 }
+
+.wrapper{
+    max-width:1400px;
+}
+
+.wrapper > h1 {
+    text-align: center;
+}
+
+.search > p {
+    font-size: 24px;
+    text-align: center;
+}
+
+.search > form > input {
+    width: 400px;
+}
+
+.news-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.news-flex-item > p {
+    padding: 5px 0 0 5px;
+}
+
+.news-flex-item {
+    width: 300px;
+    height: 350px;
+}
+
+.recent-head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+    .recent-head > div > span {
+        padding: 0 10px;
+    }
+
+    .recent-head > div > p {
+        font-size: 22px;
+        font-weight: bold;
+    }
+
+.selector {
+    padding-top: 5px;
+}
+
+    .selector > span:first-child {
+        border-bottom: 2px solid red;
+    }
+
+.news-list > p > a {
+    color: black;
+}
+
+    .news-list > p > a:hover {
+        color: red;
+    }
+
+.news-list {
+    background-color: #FFFAFA;
+}
+
+.btn-more {
+    display: block;
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    margin: 30px auto;
+}
+
+.main-flex{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
