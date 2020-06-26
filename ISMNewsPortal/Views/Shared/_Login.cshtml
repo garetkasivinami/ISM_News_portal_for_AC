@@ -1,0 +1,17 @@
+﻿
+
+@if (Request.IsAuthenticated)
+{
+    <li class="nav-item">
+        @Html.ActionLink($"Вийти з акаунта {User.Identity.Name}", "Logoff", "Account", null, new { @class = "nav-link" })
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        @Html.ActionLink("Авторизуватися", "Login", "Account", null, new { @class = "nav-link" })
+    </li>
+    <li class="nav-item">
+        @Html.ActionLink("Зареєструватися", "Register", "Account", null, new { @class = "nav-link" })
+    </li>
+}
