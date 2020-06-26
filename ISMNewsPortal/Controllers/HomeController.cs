@@ -18,15 +18,7 @@ namespace ISMNewsPortal.Controllers
             }
             return View(users);
         }
-        public ActionResult AddNewUser()
-        {
-            using (NewsModel db = new NewsModel())
-            {
-                db.Users.Add(new Models.User() { About = "", AvatarPath = "", Login = "LOG", Password = "pass", UserName = $"user {db.Users.Count()}", RegistrationDate = DateTime.Now});
-                db.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

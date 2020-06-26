@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Реєстрація";
 }
-
-@using (Html.BeginForm()) 
+<h1>Реєстрація</h1>
+@using (Html.BeginForm(Html.BeginForm(Html.BeginForm("Register", "Account", FormMethod.Post, new { })))) 
 {
     @Html.AntiForgeryToken()
     

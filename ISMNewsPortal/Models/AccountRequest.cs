@@ -16,41 +16,43 @@ namespace ISMNewsPortal.Models
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "Введений логін не валідний!")]
         [MaxLength(128)]
-        public string Login;
-        [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [MinLength(8)]
-        [MaxLength(64)]
-        public string Password;
-    }
-    public class RegisterModel
-    {
-        [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "Введений емайл не валідний!")]
-        [MinLength(4)]
-        [MaxLength(64)]
-        [Display(Name = "Ім'я користувача")]
-        public string UserName;
-        [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "Введений емайл не валідний!")]
-        [MaxLength(128)]
-        [Display(Name = "Ваш емейл")]
-        public string Email;
+        [Display(Name = "Ваш логін")]
+        public string Login { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(8)]
         [MaxLength(64)]
         [Display(Name = "Ваш пароль")]
-        public string Password;
+        public string Password { get; set; }
+    }
+    public class RegisterModel
+    {
+        [Required(ErrorMessage = HelperActions.ErrorMessage)]
+        [MinLength(4)]
+        [MaxLength(64)]
+        [Display(Name = "Ім'я користувача")]
+        public string UserName { get; set; }
+        [Required(ErrorMessage = HelperActions.ErrorMessage)]
+        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "Введений емайл не валідний!")]
+        [MaxLength(128)]
+        [Display(Name = "Ваш емейл")]
+        public string Email { get; set; }
+        [Required(ErrorMessage = HelperActions.ErrorMessage)]
+        [MinLength(8)]
+        [MaxLength(64)]
+        [Display(Name = "Ваш пароль")]
+        public string Password { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(8)]
         [MaxLength(64)]
         [Display(Name = "Повторіть пароль")]
-        public string RepeatPassword;
+        public string RepeatPassword { get; set; }
         [Range(1000000, 10000000)]
         [Display(Name = "Номер телефона (не обов'язково)")]
-        public int Phone;
+        public int? Phone { get; set; }
         [Range(0,1)]
-        public short PhoneCountry;
+        public short? PhoneCountry { get; set; }
         [DataType(DataType.MultilineText)]
-        public string About;
+        [Display(Name = "Про мене (не обов'язково)")]
+        public string About { get; set; }
     }
 }
