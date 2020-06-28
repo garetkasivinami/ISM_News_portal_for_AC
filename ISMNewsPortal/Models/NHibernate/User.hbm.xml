@@ -62,5 +62,9 @@
     <property name="HideRegistrationDate" 
               type="boolean"
               not-null="true"/>
+    <bag name="Comments" inverse="true">
+      <key column="UserId"/>
+      <one-to-many class="Comment"/>
+    </bag>
   </class>
 </hibernate-mapping>

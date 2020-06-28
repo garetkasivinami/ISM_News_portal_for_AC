@@ -8,7 +8,8 @@ namespace ISMNewsPortal.Models
     public class Admin
     {
         public virtual int Id { get; set; }
-        public virtual Users User { get; set; }
+        public virtual int UserId { get; set; }
         public virtual byte AccessLevel { get; set; }
+        public virtual IList<NewsPost> NewsPosts { get; set; }
     }
 }

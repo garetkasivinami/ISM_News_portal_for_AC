@@ -146,6 +146,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -154,6 +155,8 @@
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Like.cs" />
     <Compile Include="Models\NewsPost.cs" />
+    <Compile Include="Models\NewsPostView.cs" />
+    <Compile Include="Models\Security.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="NHibernateSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -315,6 +318,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_AdminHeader.cshtml" />
+    <Content Include="Views\News\Details.cshtml" />
+    <Content Include="Views\Shared\_Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

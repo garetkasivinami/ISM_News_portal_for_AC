@@ -1,0 +1,39 @@
+﻿@model ISMNewsPortal.Models.NewsPostViewModel
+
+@Html.ActionLink(Model.Author.UserName, "Index", "Home", new { @id = Model.Author.Id }, null)
+<br />
+
+<h1>@Model.NewsPost.Name</h1>
+<h2>@Model.NewsPost.CreatedDate</h2>
+@if (Model.NewsPost.EditDate != null)
+{
+    <h2>Post edited: @Model.NewsPost.EditDate</h2>
+}
+<img src="@Model.NewsPost.ImagePath" />
+
+<!--Поки не трогать-->
+@Model.NewsPost.Descrition
+<!---->
+
+<br />
+<p>Commens count: @Model.NewsPost.CommentsCount</p>
+@if (Model.Comments.Any())
+{
+    foreach (ISMNewsPortal.Models.CommentViewModel comment in Model.Comments)
+    {
+        <br />
+        <h1>@comment.Author.UserName</h1>
+        <h2>@comment.Date</h2>
+        if (comment.IsEdited)
+        {
+            <p>Edited</p>
+        }
+        if(comment.Editable)
+        {
+            @Html.ActionLink("Edit", "EditComment", "News")
+            @Html.ActionLink("Delete", "DeleteComment", "News", new { @id = comment.Id, @pageId = Model.NewsPost.Id}, new { });
+        }
+        <p>@comment.Text</p>
+    }
+}
+@Html.Partial("_Comment", new ISMNewsPortal.Models.CommentModel() {PageId = Model.NewsPost.Id})

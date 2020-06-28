@@ -1,4 +1,5 @@
 ﻿using ISMNewsPortal.Models;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,12 @@ namespace ISMNewsPortal.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            ICollection<NewsPost> newsPosts;
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                newsPosts = session.Query<NewsPost>().ToList();
+            }
+            return View(newsPosts);
         }
 
         public ActionResult About()

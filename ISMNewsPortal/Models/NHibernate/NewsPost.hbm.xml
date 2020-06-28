@@ -21,7 +21,7 @@
               not-null="true"/>
     <property name="EditDate"  
               type="datetime"
-              not-null="true"/>
+              not-null="false"/>
     <property name="ImagePath"  
               type="string"
               length="256"
@@ -29,5 +29,14 @@
     <property name="ForRegistered"  
               type="boolean"
               not-null="true"/>
+    <many-to-one name="Author" 
+                 class="Admin"
+                 column="AuthorId" 
+                 cascade = "save-update"
+                 not-null="true"/>
+    <bag name="Comments" inverse="true">
+      <key column="NewsPostId"/>
+      <one-to-many class="Comment"/>
+    </bag>
   </class>
 </hibernate-mapping>

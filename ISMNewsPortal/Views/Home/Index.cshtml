@@ -1,4 +1,5 @@
-﻿
+﻿@model ICollection<ISMNewsPortal.Models.NewsPost>
+
 @{
     ViewBag.Title = "Home Page";
 }
@@ -32,6 +33,18 @@
         </div>
     </form>
     <br />
+    @if (Model.Any())
+    {
+        foreach(ISMNewsPortal.Models.NewsPost newsPost in Model)
+        {
+            <div class="news-item">
+                <img src="@newsPost.ImagePath" alt="new-image" width="100" height="100" />
+                @Html.ActionLink(newsPost.Name, "Details", "News", new { id = newsPost.Id}, new { })
+                <p>@newsPost.Descrition.Substring(0, 256)...</p>
+            </div>
+            <hr />
+        }
+    }
     @for (int i = 0; i </*Сюда количество новостей из базы*/ 5; i++)
     {
         <div class="news-item">
@@ -42,5 +55,5 @@
             <p>And here is description bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla</p>
         </div>
         <hr />
-        }
-    </div>
+    }
+</div>

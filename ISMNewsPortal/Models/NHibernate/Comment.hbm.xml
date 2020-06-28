@@ -15,5 +15,15 @@
               type="string"
               length="1000"
               not-null="true"/>
+    <many-to-one name="User" 
+                 class="Users"
+                 column="UserId" 
+                 cascade = "save-update"
+                 not-null="true"/>
+    <many-to-one name="NewsPost" 
+                 class="NewsPost"
+                 column="NewsPostId" 
+                 cascade = "save-update"
+                 not-null="true"/>
   </class>
 </hibernate-mapping>

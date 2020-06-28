@@ -12,7 +12,6 @@ namespace ISMNewsPortal.Controllers
 {
     public class AccountController : Controller
     {
-        Random random = new Random();
         public bool IsAuthorized
         {
             get
@@ -40,12 +39,10 @@ namespace ISMNewsPortal.Controllers
                     Users user = session.Query<Users>().FirstOrDefault(u => u.Login == model.Email || u.UserName == model.UserName);
                     if (user == null)
                     {
-                        string salt = RandomString(64);
                         Users createdUser = new Users();
                         createdUser.UserName = model.UserName;
                         createdUser.Login = model.Email;
-                        createdUser.Password = SHA512(model.Password, salt);
-                        createdUser.Salt = salt;
+                        Users.ChangePassword(createdUser, model.Password);
                         createdUser.Phone = model.Phone;
                         createdUser.PhoneCountry = 0;
                         createdUser.RegistrationDate = DateTime.Now;
@@ -59,7 +56,6 @@ namespace ISMNewsPortal.Controllers
                         createdUser.IsBanned = false;
                         createdUser.IsActivated = true;
                         createdUser.Comments = new List<Comment>();
-                        createdUser.NewsPosts = new List<NewsPost>();
                         using (ITransaction transaction = session.BeginTransaction())   //  Begin a transaction
                         {
                             session.Save(createdUser); //  Save the book in session
@@ -103,11 +99,10 @@ namespace ISMNewsPortal.Controllers
             {
                 using (ISession session = NHibernateSession.OpenSession())
                 {
-                    Users user = session.Query<Users>().FirstOrDefault(u => u.Login == model.Login);
+                    Users user = Users.GetUserByLogin(model.Login, session);
                     if (user != null)
                     {
-                        string password = SHA512(model.Password, user.Salt);
-                        if (user.Password == password)
+                        if (Users.ComparePasswords(user, model.Password))
                         {
                             // а це точно потрібно?
                             if (IsAuthorized)
@@ -128,27 +123,6 @@ namespace ISMNewsPortal.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
-        }
-        public string SHA512(string input, string salt)
-        {
-            var bytes = System.Text.Encoding.UTF8.GetBytes(input);
-            var saltBytes = Encoding.UTF8.GetBytes(salt);
-            bytes = bytes.Concat(saltBytes).ToArray();
-            Array.Resize(ref bytes, 64);
-            using (var hash = System.Security.Cryptography.SHA512.Create())
-            {
-                var hashedInputBytes = hash.ComputeHash(bytes);
-                var hashedInputStringBuilder = new StringBuilder(128);
-                foreach (var b in hashedInputBytes)
-                    hashedInputStringBuilder.Append(b.ToString("X2"));
-                return hashedInputStringBuilder.ToString();
-            }
-        }
-        public string RandomString(int length)
-        {
-            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }
