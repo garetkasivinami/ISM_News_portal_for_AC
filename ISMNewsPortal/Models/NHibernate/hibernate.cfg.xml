@@ -8,7 +8,7 @@
       NHibernate.Driver.SqlClientDriver
     </property>
     <property name="connection.connection_string">
-      Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\ISM\TEST\ISM_News_portal_for_AC\ISMNewsPortal\App_Data\NewsDatabase.mdf;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework
+      Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\NewsDatabase.mdf;Integrated Security=True;MultipleActiveResultSets=True;Application Name=EntityFramework
     </property>
     <property name="dialect">
       NHibernate.Dialect.MsSql2012Dialect

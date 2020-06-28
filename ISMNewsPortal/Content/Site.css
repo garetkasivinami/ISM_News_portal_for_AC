@@ -32,109 +32,83 @@ header .navbar-light a {
     font-size: 24px;
 }
 
-header .navbar-light a.navbar-brand {
-    color: red;
-    font-size: 28px;
-}
+    header .navbar-light a.navbar-brand {
+        color: red;
+        font-size: 28px;
+    }
 
 footer a {
     color: black;
     margin-left: 10px;
 }
 
-footer a:hover {
-    color: red;
-    text-decoration: none;
-}
+    footer a:hover {
+        color: red;
+        text-decoration: none;
+    }
 
 header .logout {
     margin-left: 20px;
 }
 
-.wrapper{
-    max-width:1400px;
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.wrapper > h1 {
-    text-align: center;
+.btn-filter {
+    color: #a2cabc;
 }
 
-.search > p {
-    font-size: 24px;
-    text-align: center;
+.news-item > a {
+    color: red;
+    font-size: 28px;
 }
 
-.search > form > input {
-    width: 400px;
+.news-item > p {
+    color: darkslategrey;
+    font-size: 20px;
 }
 
-.news-flex {
+.btn-filter, .btn-sort {
+    width: 150px;
+    height: 45px;
+    background-color: white;
+    border: none;
+    color: red;
+    font-size: 26px;
+}
+
+.input-search {
+    width: 800px;
+    height: 45px;
+    border: 3px solid gray;
+    font-size: 26px;
+    border-radius: 4px;
+}
+
+.btn-search {
+    width: 150px;
+    height: 45px;
+    border: 2px solid black;
+    border-radius: 4px;
+    color: black;
+    font-size: 26px;
+    background-color: white;
+}
+
+.dropdown {
     display: flex;
+    justify-content: space-between;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
 }
 
-.news-flex-item > p {
-    padding: 5px 0 0 5px;
-}
-
-.news-flex-item {
-    width: 300px;
-    height: 350px;
-}
-
-.recent-head {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-    .recent-head > div > span {
-        padding: 0 10px;
+    .dropdown > div {
+        padding: 10px;
     }
 
-    .recent-head > div > p {
-        font-size: 22px;
-        font-weight: bold;
-    }
-
-.selector {
-    margin:5px 0 0 40px;
-}
-
-    .selector > span:first-child {
-        border-bottom: 2px solid red;
-    }
-
-.news-list > p > a {
+.news-item > a:hover {
+    text-decoration: none;
     color: black;
-}
-
-    .news-list > p > a:hover {
-        color: red;
-    }
-
-.news-list {
-    background-color: #FFFAFA;
-}
-
-.btn-more {
-    display: block;
-    width: 150px;
-    height: 40px;
-    border-radius: 10px;
-    margin: 30px auto;
-}
-
-.main-flex{
-    display:flex;
-    flex-direction:row;
-    justify-content:space-between;
-}
-
-@media (max-width: 700px){
-    .main-flex{
-        flex-wrap:wrap;
-    }
 }

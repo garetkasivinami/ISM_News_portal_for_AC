@@ -3,53 +3,44 @@
     ViewBag.Title = "Home Page";
 }
 
-<head>
-    <link href="~/Content/Site.css" rel="stylesheet" />
-</head>
-
 <div class="jumbotron">
     <h1>ACME COSMETICS</h1>
 </div>
 
-<div>
-    <div class="wrapper">
-        <div class="search container-fluid">
-            <form action="/" method="post">
-                <input type="text" name="search" value="" placeholder="Search some news" />
-            </form>
-            <p>Some adds here</p>
-        </div>
-        <div class="main-part">
-            <!--Адаптива пока нет, но вы держитесь-->
-            <div class="main-flex">
-                <div class="news-list">
-                    <div class="recent-head">
-                        <div>
-                            <p>Новини</p>
-                        </div>
-                        <div class="selector"><span>Останні</span><span>Головні</span></div>
-                    </div>
-                    <hr />
-                    @for (int i = 0; i < 30; i++)  //Сюда подключим n последних новостей
-                    {
-                        <p><a href="#">One of the recent news</a></p>
-                    }
-                    <hr />
+<div class="wrapper">
+    <form action="/" method="post">
+        <div class="dropdown">
+            <div>
+                <button class="btn-filter dropdown-toggle" id="filterDropdownButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by...</button>
+                <div class="dropdown-menu" aria-labelledby="filterDropdownButton">
+                    <a class="dropdown-item" href="#">Today</a>
+                    <a class="dropdown-item" href="#">Yesterday</a>
+                    <a class="dropdown-item" href="#">This week</a>
+                    <a class="dropdown-item" href="#">All</a>
                 </div>
-                <div>
-                    <div class="news-flex">
-                        @for (int i = 0; i < 12; i++) //А вот сюда самые популярные новости в формате картинка + заголовок
-                        {
-                            <div class="news-flex-item">
-                                <img src="https://i.pinimg.com/originals/0f/6f/8d/0f6f8d6b12e35404713b9fed2211272e.jpg" alt="rnd pic" width="300" height="300" /> <!--Фотку сюда-->
-                                <br />
-                                <p>Some text Some text Some text Some text Some text Some text Some text</p>                <!--Здесь берем подпись с базы данных-->
-                            </div>
-                        }
-                    </div>
+                <button class="btn-sort dropdown-toggle" id="sortDropdownButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by...</button>
+                <div class="dropdown-menu" aria-labelledby="SortDropdownButton">
+                    <a class="dropdown-item" href="#">Name</a>
+                    <a class="dropdown-item" href="#">Description</a>
+                    <a class="dropdown-item" href="#">Date</a>
                 </div>
             </div>
-            <button class="btn-more">Далі...</button>
+            <div class="search">
+                <input type="text" placeholder="Search something" class="input-search">
+                <button class="btn-search">Search</button>
+            </div>
         </div>
+    </form>
+    <br />
+    @for (int i = 0; i </*Сюда количество новостей из базы*/ 5; i++)
+    {
+        <div class="news-item">
+            <img src="https://memepedia.ru/wp-content/uploads/2018/07/oc3-768x507.jpg" alt="new-image" width="100" height="100" />
+            <a href="#">
+                Here is name
+            </a>
+            <p>And here is description bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla</p>
+        </div>
+        <hr />
+        }
     </div>
-</div>
