@@ -22,6 +22,7 @@ namespace ISMNewsPortal.Models
         [MinLength(8)]
         [MaxLength(64)]
         [Display(Name = "Ваш пароль")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
     }
     public class RegisterModel
@@ -40,13 +41,16 @@ namespace ISMNewsPortal.Models
         [MinLength(8)]
         [MaxLength(64)]
         [Display(Name = "Ваш пароль")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(8)]
         [MaxLength(64)]
         [Display(Name = "Повторіть пароль")]
+        [DataType(DataType.Password)]
         public string RepeatPassword { get; set; }
-        [Range(1000000, 10000000)]
+        [DataType(DataType.PhoneNumber)]
+        [Range(1000000, 10000000, ErrorMessage = "Введений номер телефона не коректний!")]
         [Display(Name = "Номер телефона (не обов'язково)")]
         public int? Phone { get; set; }
         [Range(0,1)]

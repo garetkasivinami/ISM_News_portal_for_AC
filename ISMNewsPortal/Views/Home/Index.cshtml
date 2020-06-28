@@ -1,5 +1,4 @@
-﻿@model IEnumerable<ISMNewsPortal.Models.User>
-
+﻿
 @{
     ViewBag.Title = "Home Page";
 }
@@ -54,16 +53,3 @@
         </div>
     </div>
 </div>
-
-<!--
-    @if (Model.Any())
-    {
-        <table>
-            @foreach (ISMNewsPortal.Models.User user in Model)
-            {
-                <p>I`m user! My name is @user.UserName</p>
-            }
-        </table>
-    }
-    @Html.ActionLink("Створити користувача!", "AddNewUser", "Home", null, new { })
--->

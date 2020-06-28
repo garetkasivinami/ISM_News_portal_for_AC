@@ -11,12 +11,7 @@ namespace ISMNewsPortal.Controllers
     {
         public ActionResult Index()
         {
-            List<User> users;
-            using (NewsModel db = new NewsModel())
-            {
-                users = db.Users.ToList();
-            }
-            return View(users);
+            return View();
         }
 
         public ActionResult About()

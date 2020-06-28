@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using ISMNewsPortal.Models;
+using NHibernate;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -34,15 +35,17 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (NewsModel db = new NewsModel())
+                using (ISession session = NHibernateSession.OpenSession())
                 {
-                    User user = db.Users.FirstOrDefault(u => u.Login == model.Email || u.UserName == model.UserName);
+                    Users user = session.Query<Users>().FirstOrDefault(u => u.Login == model.Email || u.UserName == model.UserName);
                     if (user == null)
                     {
-                        User createdUser = new User();
+                        string salt = RandomString(64);
+                        Users createdUser = new Users();
                         createdUser.UserName = model.UserName;
                         createdUser.Login = model.Email;
-                        createdUser.Password = SHA512(model.Password, "TEST SALT");
+                        createdUser.Password = SHA512(model.Password, salt);
+                        createdUser.Salt = salt;
                         createdUser.Phone = model.Phone;
                         createdUser.PhoneCountry = 0;
                         createdUser.RegistrationDate = DateTime.Now;
@@ -54,15 +57,18 @@ namespace ISMNewsPortal.Controllers
                         createdUser.HidePhone = true;
                         createdUser.HideRegistrationDate = true;
                         createdUser.IsBanned = false;
-                        createdUser.IsAdmin = false;
                         createdUser.IsActivated = true;
-
-                        db.Users.Add(createdUser);
-                        db.SaveChanges();
-
+                        createdUser.Comments = new List<Comment>();
+                        createdUser.NewsPosts = new List<NewsPost>();
+                        using (ITransaction transaction = session.BeginTransaction())   //  Begin a transaction
+                        {
+                            session.Save(createdUser); //  Save the book in session
+                            transaction.Commit();   //  Commit the changes to the database
+                        }
                         FormsAuthentication.SetAuthCookie(createdUser.Login, true);
                         return RedirectToAction("Index", "Home");
-                    } else
+                    }
+                    else
                     {
                         if (user.UserName == model.UserName)
                         {
@@ -73,7 +79,10 @@ namespace ISMNewsPortal.Controllers
                             ModelState.AddModelError("", "Користувач з таким логіном вже існує!");
                         }
                     }
+                    //using (NewsModel db = new NewsModel())
+                    //{
                 }
+                //}
             }
 
             return View(model);
@@ -86,7 +95,40 @@ namespace ISMNewsPortal.Controllers
             }
             return View();
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ISession session = NHibernateSession.OpenSession())
+                {
+                    Users user = session.Query<Users>().FirstOrDefault(u => u.Login == model.Login);
+                    if (user != null)
+                    {
+                        string password = SHA512(model.Password, user.Salt);
+                        if (user.Password == password)
+                        {
+                            // а це точно потрібно?
+                            if (IsAuthorized)
+                            {
+                                FormsAuthentication.SignOut();
+                            }
+                            FormsAuthentication.SetAuthCookie(user.Login, true);
+                            return RedirectToAction("Index", "Home");
+                        }
+                    }
+                    ModelState.AddModelError("", "Користувач з таким логіном або паролем відсутній!");
+                }
+            }
+            return View();
+        }
+        [Authorize]
+        public ActionResult Logoff()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
         public string SHA512(string input, string salt)
         {
             var bytes = System.Text.Encoding.UTF8.GetBytes(input);
