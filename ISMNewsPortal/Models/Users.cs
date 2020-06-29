@@ -9,6 +9,8 @@ namespace ISMNewsPortal.Models
     using System.Configuration;
     using System.Data.Entity.Spatial;
     using System.Linq;
+    using System.Security.Principal;
+    using System.Web;
 
     public partial class Users
     {

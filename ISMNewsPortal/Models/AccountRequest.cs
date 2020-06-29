@@ -59,4 +59,42 @@ namespace ISMNewsPortal.Models
         [Display(Name = "About me (optional)")]
         public string About { get; set; }
     }
+    public class UserSafeModel
+    {
+        public UserSafeModel(Users user)
+        {
+            Id = user.Id;
+            Login = user.Login;
+            UserName = user.UserName;
+            Phone = user.Phone;
+            PhoneCountry = user.PhoneCountry;
+            About = user.About;
+            RegistrationDate = user.RegistrationDate;
+            CommentsCount = user.CommentsCount;
+            LikesCount = user.LikesCount;
+            IsBanned = user.IsBanned;
+            WarningsCount = user.WarningsCount;
+            AvatarPath = user.AvatarPath;
+            HideCommentsCount = user.HideCommentsCount;
+            HideLogin = user.HideLogin;
+            HidePhone = user.HidePhone;
+            HideRegistrationDate = user.HideRegistrationDate;
+        }
+        public int Id { get; set; }
+        public string Login { get; set; }
+        public string UserName { get; set; }
+        public int? Phone { get; set; }
+        public short? PhoneCountry { get; set; }
+        public string About { get; set; }
+        public DateTime RegistrationDate { get; set; }
+        public int CommentsCount { get; set; }
+        public int LikesCount { get; set; }
+        public bool IsBanned { get; set; }
+        public byte WarningsCount { get; set; }
+        public string AvatarPath { get; set; }
+        public bool HideLogin { get; set; }
+        public bool HidePhone { get; set; }
+        public bool HideCommentsCount { get; set; }
+        public bool HideRegistrationDate { get; set; }
+    }
 }

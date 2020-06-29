@@ -29,9 +29,12 @@
                         </div>
                     </li>
                 </ul>
+                <!--
                 <form class="form-inline logout">
                     <button class="btn btn-sm btn-outline-secondary" type="button">logout</button>
                 </form>
+                -->
+                @Html.ActionLink("Logoff", "Logoff", "Account", new { }, new { @class = "nav-link" })
             </div>
         </div>
     </nav>

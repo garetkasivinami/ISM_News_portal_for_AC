@@ -23,7 +23,7 @@ namespace ISMNewsPortal.Controllers
             using (ISession session = NHibernateSession.OpenSession())
             {
                 NewsPost newsPost = session.Get<NewsPost>(id);
-                if (newsPost == null || newsPost.ForRegistered && Request.IsAuthenticated)
+                if (newsPost == null || newsPost.ForRegistered && !Request.IsAuthenticated)
                 {
                     return RedirectToAction("Index", "Home");
                 }
@@ -61,10 +61,12 @@ namespace ISMNewsPortal.Controllers
                     comment.Text = model.Text;
                     comment.User = Users.GetUserByLogin(User.Identity.Name, session);
                     comment.NewsPost.CommentsCount++;
+                    comment.User.CommentsCount++;
                     using (ITransaction transaction = session.BeginTransaction())   //  Begin a transaction
                     {
                         session.Save(comment); //  Save the book in session
                         session.Update(comment.NewsPost);
+                        session.Update(comment.User);
                         transaction.Commit();   //  Commit the changes to the database
                     }
                     return RedirectToAction("Details", "News", new { @id = model.PageId });
@@ -87,10 +89,12 @@ namespace ISMNewsPortal.Controllers
                     }
                     NewsPost newsPost = comment.NewsPost;
                     newsPost.CommentsCount--;
+                    user.CommentsCount--;
                     using (ITransaction transaction = session.BeginTransaction())   //  Begin a transaction
                     {
                         session.Delete(comment); //  Save the book in session
                         session.Update(newsPost);
+                        session.Update(user);
                         transaction.Commit();   //  Commit the changes to the database
                     }
                     return RedirectToAction("Details", "News", new { @id = postId });

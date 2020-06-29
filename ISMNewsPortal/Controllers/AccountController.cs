@@ -122,7 +122,27 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
+            Session["AdminAccessLevel"] = null;
             return RedirectToAction("Index", "Home");
+        }
+        [Authorize]
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            UserSafeModel userModel;
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                Users user = session.Get<Users>(id);
+                if (user == null)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                userModel = new UserSafeModel(user);
+            }
+            return View(userModel);
         }
     }
 }

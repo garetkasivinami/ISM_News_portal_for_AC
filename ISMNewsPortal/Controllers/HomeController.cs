@@ -16,6 +16,10 @@ namespace ISMNewsPortal.Controllers
             using (ISession session = NHibernateSession.OpenSession())
             {
                 newsPosts = session.Query<NewsPost>().ToList();
+                if (!User.Identity.IsAuthenticated)
+                {
+                    newsPosts = newsPosts.Where(u => u.ForRegistered == false).ToList();
+                }
             }
             return View(newsPosts);
         }

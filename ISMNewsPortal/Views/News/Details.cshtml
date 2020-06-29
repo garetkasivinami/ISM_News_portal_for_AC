@@ -1,6 +1,6 @@
 ﻿@model ISMNewsPortal.Models.NewsPostViewModel
 
-@Html.ActionLink(Model.Author.UserName, "Index", "Home", new { @id = Model.Author.UserId }, null)
+@Html.ActionLink(Model.Author.UserName, "Details", "Account", new { @id = Model.Author.UserId }, null)
 <br />
 
 <h1>@Model.NewsPost.Name</h1>
@@ -32,7 +32,7 @@ else
     foreach (ISMNewsPortal.Models.CommentViewModel comment in Model.Comments)
     {
         <hr />
-        @Html.ActionLink(comment.Author.UserName, "Index", "Home", new { @id = comment.Author.UserId }, new { });
+        @Html.ActionLink(comment.Author.UserName, "Details", "Account", new { @id = comment.Author.UserId }, new { });
         <h2>@comment.Date</h2>
         if (comment.IsEdited)
         {
@@ -41,7 +41,7 @@ else
         if (comment.Editable)
         {
             @Html.ActionLink("Edit", "EditComment", "News", new { @id = comment.Id }, new { })
-            @Html.ActionLink("Delete", "DeleteComment", "News", new { @id = comment.Id, @pageId = Model.NewsPost.Id }, new { })
+            @Html.ActionLink("Delete", "DeleteComment", "News", new { @id = comment.Id, @postId = Model.NewsPost.Id }, new { })
         }
         <p>@comment.Text</p>
     }

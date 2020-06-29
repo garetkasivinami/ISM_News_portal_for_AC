@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 
@@ -19,6 +20,38 @@ namespace ISMNewsPortal.Models
         public AuthorInfo Author { get; set; }
         public ICollection <CommentViewModel> Comments { get; set; }
         public bool IsLiked { get; set; }
+    }
+    public class NewsPostAdminView
+    {
+        public NewsPostAdminView()
+        {
+
+        }
+        public NewsPostAdminView(NewsPost newsPost)
+        {
+            Id = newsPost.Id;
+            Name = newsPost.Name;
+            Descrition = newsPost.Descrition;
+            CreatedDate = newsPost.CreatedDate;
+            CommentsCount = newsPost.CommentsCount;
+            LikesCount = newsPost.LikesCount;
+            EditDate = newsPost.EditDate;
+            ImagePath = newsPost.ImagePath;
+            ForRegistered = newsPost.ForRegistered;
+            AuthorId = newsPost.Author.Id;
+            AuthorName = newsPost.Author.UserName;
+        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Descrition { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public int CommentsCount { get; set; }
+        public int LikesCount { get; set; }
+        public DateTime? EditDate { get; set; }
+        public string ImagePath { get; set; }
+        public bool ForRegistered { get; set; }
+        public string AuthorName { get; set; }
+        public int AuthorId { get; set; }
     }
     public class AuthorInfo
     {
