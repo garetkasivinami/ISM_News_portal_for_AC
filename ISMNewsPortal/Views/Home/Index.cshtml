@@ -9,37 +9,44 @@
 </div>
 
 <div class="wrapper">
-    <form action="/" method="post">
-        <div class="dropdown">
-            <div>
-                <button class="btn-filter dropdown-toggle" id="filterDropdownButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filter by...</button>
-                <div class="dropdown-menu" aria-labelledby="filterDropdownButton">
-                    <a class="dropdown-item" href="#">Today</a>
-                    <a class="dropdown-item" href="#">Yesterday</a>
-                    <a class="dropdown-item" href="#">This week</a>
-                    <a class="dropdown-item" href="#">All</a>
-                </div>
-                <button class="btn-sort dropdown-toggle" id="sortDropdownButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by...</button>
-                <div class="dropdown-menu" aria-labelledby="SortDropdownButton">
-                    <a class="dropdown-item" href="#">Name</a>
-                    <a class="dropdown-item" href="#">Description</a>
-                    <a class="dropdown-item" href="#">Date</a>
-                </div>
-            </div>
-            <div class="search">
-                <input type="text" placeholder="Search something" class="input-search">
-                <button class="btn-search">Search</button>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Filter by...
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Today</a>
+                        <a class="dropdown-item" href="#">Yesterday</a>
+                        <a class="dropdown-item" href="#">This week</a>
+                        <a class="dropdown-item" href="#">All</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sort by...
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Name</a>
+                        <a class="dropdown-item" href="#">Description</a>
+                        <a class="dropdown-item" href="#">Date</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </div>
-    </form>
-    <br />
+    </nav>
     @if (Model.Any())
     {
-        foreach(ISMNewsPortal.Models.NewsPost newsPost in Model)
+        foreach (ISMNewsPortal.Models.NewsPost newsPost in Model)
         {
             <div class="news-item">
                 <img src="@newsPost.ImagePath" alt="new-image" width="100" height="100" />
-                @Html.ActionLink(newsPost.Name, "Details", "News", new { id = newsPost.Id}, new { })
+                @Html.ActionLink(newsPost.Name, "Details", "News", new { id = newsPost.Id }, new { })
                 <p>@newsPost.Descrition.Substring(0, 256)...</p>
             </div>
             <hr />

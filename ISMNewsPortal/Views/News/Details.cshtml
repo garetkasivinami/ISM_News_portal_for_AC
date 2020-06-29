@@ -8,11 +8,11 @@
 <h3>Likes count: @Model.NewsPost.LikesCount</h3>
 @if (Model.IsLiked)
 {
-    @Html.ActionLink("Вже не подобається!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { style = "color: red;"});
+    @Html.ActionLink("Unlike!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { style = "color: red;"});
 }
 else
 {
-    @Html.ActionLink("Вподобати!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { });
+    @Html.ActionLink("Like!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { });
 }
 @if (Model.NewsPost.EditDate != null)
 {

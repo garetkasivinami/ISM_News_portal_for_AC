@@ -9,19 +9,19 @@ namespace ISMNewsPortal.Models
     public static class HelperActions
     {
         public const string EmailRegex = @"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
-        public const string ErrorMessage = "Це поле необхідно заповнити!";
+        public const string ErrorMessage = "This field is required!";
     }
     public class LoginModel
     {
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "Введений логін не валідний!")]
+        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "The login you entered was not valid!")]
         [MaxLength(128)]
-        [Display(Name = "Ваш логін")]
+        [Display(Name = "Login")]
         public string Login { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(8)]
         [MaxLength(64)]
-        [Display(Name = "Ваш пароль")]
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
@@ -30,33 +30,33 @@ namespace ISMNewsPortal.Models
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(4)]
         [MaxLength(64)]
-        [Display(Name = "Ім'я користувача")]
+        [Display(Name = "Username")]
         public string UserName { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "Введений емайл не валідний!")]
+        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "The email you entered was not valid!")]
         [MaxLength(128)]
-        [Display(Name = "Ваш емейл")]
+        [Display(Name = "Email adress")]
         public string Email { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(8)]
         [MaxLength(64)]
-        [Display(Name = "Ваш пароль")]
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(8)]
         [MaxLength(64)]
-        [Display(Name = "Повторіть пароль")]
+        [Display(Name = "Confirm password")]
         [DataType(DataType.Password)]
         public string RepeatPassword { get; set; }
         [DataType(DataType.PhoneNumber)]
-        [Range(1000000, 10000000, ErrorMessage = "Введений номер телефона не коректний!")]
-        [Display(Name = "Номер телефона (не обов'язково)")]
+        [Range(1000000, 10000000, ErrorMessage = "The phone number you entered was not valid!")]
+        [Display(Name = "Phone number (optional)")]
         public int? Phone { get; set; }
         [Range(0,1)]
         public short? PhoneCountry { get; set; }
         [DataType(DataType.MultilineText)]
-        [Display(Name = "Про мене (не обов'язково)")]
+        [Display(Name = "About me (optional)")]
         public string About { get; set; }
     }
 }

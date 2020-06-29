@@ -1,9 +1,9 @@
 ﻿@model ISMNewsPortal.Models.RegisterModel
 
 @{
-    ViewBag.Title = "Реєстрація";
+    ViewBag.Title = "Register";
 }
-<h1>Реєстрація</h1>
+    <h1>Sign up</h1>
 @using (Html.BeginForm(Html.BeginForm(Html.BeginForm("Register", "Account", FormMethod.Post, new { })))) 
 {
     @Html.AntiForgeryToken()
@@ -62,7 +62,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Створити" class="btn btn-default" />
+                <input type="submit" value="Sign up" class="btn btn-default" />
             </div>
         </div>
     </div>

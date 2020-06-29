@@ -68,11 +68,11 @@ namespace ISMNewsPortal.Controllers
                     {
                         if (user.UserName == model.UserName)
                         {
-                            ModelState.AddModelError("", "Користувач з таким іменем вже існує!");
+                            ModelState.AddModelError("", "There already exists a user with this username!");
                         }
                         if (user.Login == model.Email)
                         {
-                            ModelState.AddModelError("", "Користувач з таким логіном вже існує!");
+                            ModelState.AddModelError("", "There already exists a user with this login!");
                         }
                     }
                     //using (NewsModel db = new NewsModel())
@@ -113,7 +113,7 @@ namespace ISMNewsPortal.Controllers
                             return RedirectToAction("Index", "Home");
                         }
                     }
-                    ModelState.AddModelError("", "Користувач з таким логіном або паролем відсутній!");
+                    ModelState.AddModelError("", "Invalid login and/or password!");
                 }
             }
             return View();

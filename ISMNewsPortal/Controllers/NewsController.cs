@@ -28,7 +28,11 @@ namespace ISMNewsPortal.Controllers
                     return RedirectToAction("Index", "Home");
                 }
                 Users currentUser = Users.GetUserByLogin(User.Identity.Name, session);
-                Admin admin = session.Query<Admin>().FirstOrDefault(u => u.UserId == currentUser.Id);
+                Admin admin = null;
+                if (currentUser != null)
+                {
+                    admin = session.Query<Admin>().FirstOrDefault(u => u.UserId == currentUser.Id);
+                }
                 bool adminRequest = admin != null && admin.AccessLevel > 0;
                 List<CommentViewModel> comments = new List<CommentViewModel>();
                 foreach (Comment comment in newsPost.Comments)
@@ -36,7 +40,7 @@ namespace ISMNewsPortal.Controllers
                     Users user = comment.User;
                     comments.Add(new CommentViewModel(comment, new AuthorInfo() { UserId = user.Id, UserName = user.UserName }, adminRequest || (currentUser != null ? user.Id == currentUser.Id : false)));
                 }
-                UserLike userLike = currentUser.Likes.FirstOrDefault(u => u.NewsPost.Id == id);
+                UserLike userLike = currentUser?.Likes.FirstOrDefault(u => u.NewsPost.Id == id);
                 Users authorOfPost = newsPost.Author;
                 newsPostViewModel = new NewsPostViewModel(newsPost, new AuthorInfo() { UserId = authorOfPost.Id, UserName = authorOfPost.UserName}, comments, userLike != null);
             }
