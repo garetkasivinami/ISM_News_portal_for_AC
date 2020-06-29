@@ -66,5 +66,14 @@
       <key column="UserId"/>
       <one-to-many class="Comment"/>
     </bag>
+    <bag name="Likes" inverse="true">
+      <key column="UserId"/>
+      <one-to-many class="UserLike"/>
+    </bag>
+    <bag name="NewsPosts"
+     inverse="true">
+      <key column="AuthorId"/>
+      <one-to-many class="NewsPost"/>
+    </bag>
   </class>
 </hibernate-mapping>

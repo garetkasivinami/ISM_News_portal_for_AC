@@ -8,13 +8,8 @@
     <property name="AccessLevel"
               type="byte"
               not-null="true"/>
-    <bag name="NewsPosts" 
-         inverse="true">
-      <key column="AuthorId"/>
-      <one-to-many class="NewsPost"/>
-    </bag>
     <property name="UserId"
               type ="int"
-              not-null="false"/>
+              not-null="true"/>
   </class>
 </hibernate-mapping>

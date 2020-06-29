@@ -153,7 +153,7 @@
     <Compile Include="Models\AccountRequest.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\Like.cs" />
+    <Compile Include="Models\UserLike.cs" />
     <Compile Include="Models\NewsPost.cs" />
     <Compile Include="Models\NewsPostView.cs" />
     <Compile Include="Models\Security.cs" />
@@ -185,7 +185,7 @@
     <Content Include="Models\NHibernate\Admin.hbm.xml" />
     <Content Include="Models\NHibernate\Comment.hbm.xml" />
     <Content Include="Models\NHibernate\hibernate.cfg.xml" />
-    <Content Include="Models\NHibernate\Like.hbm.xml" />
+    <Content Include="Models\NHibernate\UserLike.hbm.xml" />
     <Content Include="Models\NHibernate\NewsPost.hbm.xml" />
     <Content Include="Models\NHibernate\User.hbm.xml" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -320,6 +320,7 @@
     <Content Include="Views\Shared\_AdminHeader.cshtml" />
     <Content Include="Views\News\Details.cshtml" />
     <Content Include="Views\Shared\_Comment.cshtml" />
+    <Content Include="Views\News\EditComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

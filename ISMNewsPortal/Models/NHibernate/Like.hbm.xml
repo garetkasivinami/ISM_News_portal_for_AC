@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" auto-import="true" assembly="ISMNewsPortal" namespace="ISMNewsPortal.Models">
-  <class name="Like" dynamic-update="true" >
-    <cache usage="read-write"/>
-    <id name="Id" type="int">
-      <generator class="identity" />
-    </id>
-  </class>
-</hibernate-mapping>

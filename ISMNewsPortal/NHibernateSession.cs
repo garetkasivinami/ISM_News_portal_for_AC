@@ -28,7 +28,7 @@ namespace ISMNewsPortal
             userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\Models\NHibernate\Admin.hbm.xml");
             configuration.AddFile(userConfigurationFile);
 
-            userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\Models\NHibernate\Like.hbm.xml");
+            userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\Models\NHibernate\UserLike.hbm.xml");
             configuration.AddFile(userConfigurationFile);
 
             ISessionFactory sessionFactory = configuration.BuildSessionFactory();

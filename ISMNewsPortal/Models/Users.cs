@@ -32,6 +32,8 @@ namespace ISMNewsPortal.Models
         public virtual bool HideCommentsCount { get; set; }
         public virtual bool HideRegistrationDate { get; set; }
         public virtual IList<Comment> Comments { get; set; }
+        public virtual IList<UserLike> Likes { get; set; }
+        public virtual IList<NewsPost> NewsPosts { get; set; }
         public static void ChangePassword(Users user, string password)
         {
             ChangePassword(user, password, Security.RandomString(Security.PasswordUserLength));

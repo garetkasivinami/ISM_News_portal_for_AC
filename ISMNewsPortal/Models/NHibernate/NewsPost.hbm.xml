@@ -19,6 +19,9 @@
     <property name="CommentsCount"  
               type="int"
               not-null="true"/>
+    <property name="LikesCount"
+              type="int"
+              not-null="true"/>
     <property name="EditDate"  
               type="datetime"
               not-null="false"/>
@@ -30,13 +33,17 @@
               type="boolean"
               not-null="true"/>
     <many-to-one name="Author" 
-                 class="Admin"
+                 class="Users"
                  column="AuthorId" 
                  cascade = "save-update"
                  not-null="true"/>
     <bag name="Comments" inverse="true">
       <key column="NewsPostId"/>
       <one-to-many class="Comment"/>
+    </bag>
+    <bag name="Likes" inverse="true">
+      <key column="NewsPostId"/>
+      <one-to-many class="UserLike"/>
     </bag>
   </class>
 </hibernate-mapping>
