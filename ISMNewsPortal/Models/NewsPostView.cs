@@ -21,6 +21,19 @@ namespace ISMNewsPortal.Models
         public ICollection <CommentViewModel> Comments { get; set; }
         public bool IsLiked { get; set; }
     }
+    public class NewsPostModelCreate
+    {
+        [Required]
+        [MaxLength(128)]
+        public string Name { get; set; }
+        [Required]
+        [MaxLength(10000)]
+        public string Desc { get; set; }
+        [Required]
+        [MaxLength(256)]
+        public string ImagePath { get; set; }
+        public bool ForRegistered { get; set; }
+    }
     public class NewsPostAdminView
     {
         public NewsPostAdminView()

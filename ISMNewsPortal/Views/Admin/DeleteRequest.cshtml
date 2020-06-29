@@ -1,0 +1,13 @@
+﻿@model ISMNewsPortal.Models.NewsPostAdminView
+
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<div class="news-item">
+    <img src="@Model.ImagePath" alt="new-image" width="100" height="100" />
+    @Html.ActionLink(Model.Name, "Details", "News", new { id = Model.Id }, new { })
+    <p>@Model.Descrition.Substring(0, 256)...</p>
+</div>
+<hr />
+@Html.ActionLink("Delete", "Delete", "Admin", new { @id = Model.Id }, null);
