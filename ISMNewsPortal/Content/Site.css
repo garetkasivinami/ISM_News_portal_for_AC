@@ -32,20 +32,20 @@ header .navbar-light a {
     font-size: 24px;
 }
 
-    header .navbar-light a.navbar-brand {
-        color: red;
-        font-size: 28px;
-    }
+header .navbar-light a.navbar-brand {
+    color: red;
+    font-size: 28px;
+}
 
 footer a {
     color: black;
     margin-left: 10px;
 }
 
-    footer a:hover {
-        color: red;
-        text-decoration: none;
-    }
+footer a:hover {
+    color: red;
+    text-decoration: none;
+}
 
 header .logout {
     margin-left: 20px;
@@ -54,10 +54,6 @@ header .logout {
 .wrapper {
     max-width: 1200px;
     margin: 0 auto;
-}
-
-.btn-filter {
-    color: #a2cabc;
 }
 
 .news-item > a {
@@ -69,44 +65,6 @@ header .logout {
     color: darkslategrey;
     font-size: 20px;
 }
-
-.btn-filter, .btn-sort {
-    width: 150px;
-    height: 45px;
-    background-color: white;
-    border: none;
-    color: red;
-    font-size: 26px;
-}
-
-.input-search {
-    width: 800px;
-    height: 45px;
-    border: 3px solid gray;
-    font-size: 26px;
-    border-radius: 4px;
-}
-
-.btn-search {
-    width: 150px;
-    height: 45px;
-    border: 2px solid black;
-    border-radius: 4px;
-    color: black;
-    font-size: 26px;
-    background-color: white;
-}
-
-.drop-flex {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-    .dropdown > div {
-        padding: 10px;
-    }
 
 .news-item > a:hover {
     text-decoration: none;
