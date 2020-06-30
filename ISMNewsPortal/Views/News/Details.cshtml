@@ -19,7 +19,7 @@ else
     <h2>Post edited: @Model.NewsPost.EditDate</h2>
 }
 <br />
-<img src="@Model.NewsPost.ImagePath" />
+<img src="@Model.NewsPost.ImagePath" width="30%" />
 
 <!--Поки не трогать-->
 @Model.NewsPost.Descrition
@@ -43,7 +43,16 @@ else
             @Html.ActionLink("Edit", "EditComment", "News", new { @id = comment.Id }, new { })
             @Html.ActionLink("Delete", "DeleteComment", "News", new { @id = comment.Id, @postId = Model.NewsPost.Id }, new { })
         }
-        <p>@comment.Text</p>
+        <p>
+            @for (int i = 0; i < comment.Text.Length; i++)
+            {
+                if (i % 40 == 0 && i != 0)
+                {
+                    @comment.Text.Substring(i - 40, 40);
+                    <br />
+                }
+            }
+        </p>
     }
 }
 @Html.Partial("_Comment", new ISMNewsPortal.Models.CommentModel() { PageId = Model.NewsPost.Id })
