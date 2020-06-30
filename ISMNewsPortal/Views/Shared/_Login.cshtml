@@ -3,15 +3,15 @@
 @if (Request.IsAuthenticated)
 {
     <li class="nav-item">
-        @Html.ActionLink($"Logout {User.Identity.Name}", "Logoff", "Account", null, new { @class = "nav-link" })
+        @Html.ActionLink($"Logout {User.Identity.Name}", "Logoff", "Account", null, new { @class = "btn btn-outline-secondary" })
     </li>
 }
 else
 {
     <li class="nav-item">
-        @Html.ActionLink("Login", "Login", "Account", null, new { @class = "nav-link" })
+        @Html.ActionLink("Login", "Login", "Account", null, new { @class = "btn btn-outline-secondary" })
     </li>
     <li class="nav-item">
-        @Html.ActionLink("Sign up", "Register", "Account", null, new { @class = "nav-link" })
+        @Html.ActionLink("Sign up", "Register", "Account", null, new { @class = "btn btn-outline-secondary" })
     </li>
 }

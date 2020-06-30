@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h1>News list</h1>
-@Html.ActionLink("Create news", "CreateNews", "Admin", new { }, null)
+@Html.ActionLink("Create news", "CreateNews", "Admin", new { }, new {@class = "btn btn-outline-success" })
 <hr />
 @if (Model.Any())
 {

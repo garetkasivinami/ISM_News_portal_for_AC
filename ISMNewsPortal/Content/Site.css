@@ -70,3 +70,7 @@ header .logout {
     text-decoration: none;
     color: black;
 }
+
+.dropdown-item:active {
+    background-color: whitesmoke;
+}
