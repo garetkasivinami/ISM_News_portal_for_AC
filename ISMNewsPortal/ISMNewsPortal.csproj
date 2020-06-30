@@ -329,6 +329,8 @@
     <Content Include="Views\Admin\Edit.cshtml" />
     <Content Include="Views\Admin\DeleteRequest.cshtml" />
     <Content Include="Views\Admin\CreateNews.cshtml" />
+    <Content Include="Views\Admin\AllUsers.cshtml" />
+    <Content Include="Views\Admin\Comments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

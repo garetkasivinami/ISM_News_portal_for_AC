@@ -1,0 +1,21 @@
+﻿@model ICollection<ISMNewsPortal.Models.CommentViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<h1>User list</h1>
+@if (Model.Any())
+{
+    foreach (ISMNewsPortal.Models.CommentViewModel comment in Model)
+    {
+        <hr />
+        <div class="news-item">
+            <h2>ID: @comment.Id</h2>
+        </div>
+
+    }
+}
+else
+{
+    <p>Comments </p>
+}

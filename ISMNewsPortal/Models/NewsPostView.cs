@@ -18,8 +18,13 @@ namespace ISMNewsPortal.Models
         }
         public NewsPost NewsPost { get; set; }
         public AuthorInfo Author { get; set; }
-        public ICollection <CommentViewModel> Comments { get; set; }
+        public ICollection<CommentViewModel> Comments { get; set; }
         public bool IsLiked { get; set; }
+    }
+    public class NewsPostAdminCollection
+    {
+        public ICollection<NewsPostAdminView> NewsPostAdminViews { get; set; }
+        public bool ViewActionLinks { get; set; }
     }
     public class NewsPostModelCreate
     {

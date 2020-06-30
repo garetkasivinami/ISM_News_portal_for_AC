@@ -1,24 +1,27 @@
-﻿@model ICollection<ISMNewsPortal.Models.NewsPostAdminView>
+﻿@model ISMNewsPortal.Models.NewsPostAdminCollection
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h1>News list</h1>
-@Html.ActionLink("Create news", "CreateNews", "Admin", new { }, new {@class = "btn btn-outline-success" })
+@Html.ActionLink("Create news", "CreateNews", "Admin", new { }, null)
 <hr />
-@if (Model.Any())
+@if (Model.NewsPostAdminViews.Any())
 {
-    foreach (ISMNewsPortal.Models.NewsPostAdminView newsPost in Model)
+    foreach (ISMNewsPortal.Models.NewsPostAdminView newsPost in Model.NewsPostAdminViews)
     {
         <hr />
         <div class="news-item">
             <h2>ID: @newsPost.Id</h2>
-            @Html.ActionLink("Edit", "Edit", "Admin", new { @id = newsPost.Id }, null)
-            <br />
-            @Html.ActionLink("Details", "Details", "News", new { @id = newsPost.Id }, null)
-            <br />
-            @Html.ActionLink("Delete", "DeleteRequest", "Admin")
-            <br />
+            @if (Model.ViewActionLinks)
+            {
+                @Html.ActionLink("Edit", "Edit", "Admin", new { @id = newsPost.Id }, null)
+                <br />
+                @Html.ActionLink("Details", "Details", "News", new { @id = newsPost.Id }, null)
+                <br />
+                @Html.ActionLink("Delete", "DeleteRequest", "Admin")
+                <br />
+            }
             <p>Author: @newsPost.AuthorName</p>
             <p>Author id: @newsPost.AuthorId</p>
             <p>Create date: @newsPost.CreatedDate</p>

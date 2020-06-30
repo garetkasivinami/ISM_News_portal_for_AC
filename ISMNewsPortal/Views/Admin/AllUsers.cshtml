@@ -1,0 +1,23 @@
+﻿@model ICollection<ISMNewsPortal.Models.UserSafeModel>
+
+@{
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+<h1>User list</h1>
+@if (Model.Any())
+{
+    foreach (ISMNewsPortal.Models.UserSafeModel userSafeModel in Model)
+    {
+        <hr />
+        <div class="news-item">
+            <h2>ID: @userSafeModel.Id</h2>
+            <p>Username: @userSafeModel.UserName</p>
+            <p>Login: @userSafeModel.Login</p>
+            <p>About: @userSafeModel.About</p>
+            <img src="@userSafeModel.AvatarPath" alt="No image" width="128" height="128" />
+            <p>Comments count: @userSafeModel.CommentsCount</p>
+            <p>Likes count: @userSafeModel.LikesCount</p>
+        </div>
+
+    }
+}
