@@ -163,6 +163,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\img\admin.png" />
+    <Content Include="App_Data\img\be.png" />
+    <Content Include="App_Data\img\facebook.png" />
+    <Content Include="App_Data\img\twitter.png" />
     <Content Include="App_Data\NewsDatabase.mdf" />
     <Content Include="App_Data\NewsDatabase_log.ldf">
       <DependentUpon>NewsDatabase.mdf</DependentUpon>

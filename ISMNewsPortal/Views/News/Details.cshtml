@@ -1,58 +1,77 @@
 ﻿@model ISMNewsPortal.Models.NewsPostViewModel
 
-@Html.ActionLink(Model.Author.UserName, "Details", "Account", new { @id = Model.Author.UserId }, null)
+@Html.ActionLink(Model.Author.UserName, "Details", "Account", new { @id = Model.Author.UserId }, new { @class = "user-link" })
 <br />
 
-<h1>@Model.NewsPost.Name</h1>
-<h2>@Model.NewsPost.CreatedDate</h2>
-<h3>Likes count: @Model.NewsPost.LikesCount</h3>
-@if (Model.IsLiked)
-{
-    @Html.ActionLink("Unlike!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
-}
-else
-{
-    @Html.ActionLink("Like!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-danger" });
-}
-@if (Model.NewsPost.EditDate != null)
-{
-    <h2>Post edited: @Model.NewsPost.EditDate</h2>
-}
-<br />
-<img src="@Model.NewsPost.ImagePath" width="30%" />
+<img src="@Model.NewsPost.ImagePath" class="post-img" alt="Post image">
 
-<!--Поки не трогать-->
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.NewsPost.Name</h5>
+        <p class="card-text">@Model.NewsPost.Descrition</p>
+        <p class="card-text">
+            <small class="text-muted">
+                @Model.NewsPost.CreatedDate
+                @if (Model.NewsPost.EditDate != null)
+                {
+                    <span>Post edited: @Model.NewsPost.EditDate</span>
+                }
+            </small>
+        </p>
+    </div>
+    <div class="card-footer">
+        @if (Model.IsLiked)
+        {
+            @Html.ActionLink("Unlike!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
+        }
+        else
+        {
+            @Html.ActionLink("Like!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-danger" });
+        }
+        @Model.NewsPost.LikesCount likes
+    </div>
+</div>
+
+<!--Поки не трогать
 @Model.NewsPost.Descrition
-<!---->
+-->
 
 <hr />
-<p>Commens count: @Model.NewsPost.CommentsCount</p>
+<p>Commens count: @Model.Comments.Count</p>
 @if (Model.Comments.Any())
 {
     foreach (ISMNewsPortal.Models.CommentViewModel comment in Model.Comments)
     {
-        <hr />
-        @Html.ActionLink(comment.Author.UserName, "Details", "Account", new { @id = comment.Author.UserId }, new { });
-        <h2>@comment.Date</h2>
-        if (comment.IsEdited)
-        {
-            <p>Edited</p>
-        }
-        if (comment.Editable)
-        {
-            @Html.ActionLink("Edit", "EditComment", "News", new { @id = comment.Id }, new { })
-            @Html.ActionLink("Delete", "DeleteComment", "News", new { @id = comment.Id, @postId = Model.NewsPost.Id }, new { })
-        }
-        <p>
-            @for (int i = 0; i < comment.Text.Length; i++)
-            {
-                if (i % 40 == 0 && i != 0)
+        <div class="card">
+            <div class="card-header">
+                @Html.ActionLink(comment.Author.UserName, "Details", "Account", new { @id = comment.Author.UserId }, new { @class = "user-link" })
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    @comment.Text
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">
+                        @comment.Date
+                        @if (comment.IsEdited)
+                        {
+                            <span>(edited)</span>
+                        }
+                    </small>
+                </p>
+            </div>
+            <div class="card-footer">
+                @if (comment.Editable)
                 {
-                    @comment.Text.Substring(i - 40, 40);
-                    <br />
+                    <span>
+                        @Html.ActionLink("Edit", "EditComment", "News", new { @id = comment.Id }, new { @class = "btn btn-outline-primary" })
+                    </span>
+                    <span>
+                        @Html.ActionLink("Delete", "DeleteComment", "News", new { @id = comment.Id, @postId = Model.NewsPost.Id }, new { @class = "btn btn-outline-danger" })
+                    </span>
                 }
-            }
-        </p>
+            </div>
+        </div>
     }
 }
 @Html.Partial("_Comment", new ISMNewsPortal.Models.CommentModel() { PageId = Model.NewsPost.Id })
