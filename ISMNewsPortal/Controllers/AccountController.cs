@@ -33,12 +33,12 @@ namespace ISMNewsPortal.Controllers
             if (ModelState.IsValid)
                 using (ISession session = NHibernateSession.OpenSession())
                 {
-                    Users user = session.Query<Users>().FirstOrDefault(u => u.Login == model.Email || u.UserName == model.UserName);
+                    Users user = session.Query<Users>().FirstOrDefault(u => u.Login == model.Login || u.UserName == model.UserName);
                     if (user == null)
                     {
                         Users createdUser = new Users();
                         createdUser.UserName = model.UserName;
-                        createdUser.Login = model.Email;
+                        createdUser.Login = model.Login;
                         Users.ChangePassword(createdUser, model.Password);
                         createdUser.Phone = model.Phone;
                         createdUser.PhoneCountry = 0;
@@ -65,7 +65,7 @@ namespace ISMNewsPortal.Controllers
                     {
                         if (user.UserName == model.UserName)
                             ModelState.AddModelError("", "There already exists a user with this username!");
-                        if (user.Login == model.Email)
+                        if (user.Login == model.Login)
                             ModelState.AddModelError("", "There already exists a user with this login!");
                     }
                     //using (NewsModel db = new NewsModel())

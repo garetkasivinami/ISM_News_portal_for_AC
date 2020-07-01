@@ -192,6 +192,11 @@ namespace ISMNewsPortal.Controllers
         }
         public ActionResult AllUsers()
         {
+            int adminAccessLevel = GetAdminAccessLevel();
+            if (adminAccessLevel == -1)
+                return RedirectToAction("LoginAdmin");
+            if (adminAccessLevel < 2)
+                return RedirectToAction("News");
             ICollection<UserSafeModel> userSafeModels = new List<UserSafeModel>();
             using (ISession session = NHibernateSession.OpenSession())
             {

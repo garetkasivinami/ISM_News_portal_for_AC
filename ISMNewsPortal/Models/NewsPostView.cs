@@ -33,40 +33,52 @@ namespace ISMNewsPortal.Models
         public string Name { get; set; }
         [Required]
         [MaxLength(10000)]
+        [DataType(DataType.MultilineText)]
         public string Desc { get; set; }
         [Required]
         [MaxLength(256)]
         public string ImagePath { get; set; }
         public bool ForRegistered { get; set; }
     }
-    public class NewsPostAdminView
+    public class NewsPostSimplifyView
+    {
+        public NewsPostSimplifyView()
+        {
+
+        }
+        public NewsPostSimplifyView(NewsPost newsPost)
+        {
+            Id = newsPost.Id;
+            Name = newsPost.Name;
+            ImagePath = newsPost.ImagePath;
+            Description = newsPost.Descrition;
+            LikesCount = newsPost.LikesCount;
+            CommentsCount = newsPost.CommentsCount;
+        }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ImagePath { get; set; }
+        public string Description { get; set; }
+        public int LikesCount { get; set; }
+        public int CommentsCount { get; set; }
+    }
+    public class NewsPostAdminView : NewsPostSimplifyView
     {
         public NewsPostAdminView()
         {
 
         }
-        public NewsPostAdminView(NewsPost newsPost)
+        public NewsPostAdminView(NewsPost newsPost) : base(newsPost)
         {
-            Id = newsPost.Id;
-            Name = newsPost.Name;
-            Descrition = newsPost.Descrition;
             CreatedDate = newsPost.CreatedDate;
-            CommentsCount = newsPost.CommentsCount;
-            LikesCount = newsPost.LikesCount;
             EditDate = newsPost.EditDate;
-            ImagePath = newsPost.ImagePath;
             ForRegistered = newsPost.ForRegistered;
             AuthorId = newsPost.Author.Id;
             AuthorName = newsPost.Author.UserName;
         }
-        public int Id { get; set; }
-        public string Name { get; set; }
         public string Descrition { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int CommentsCount { get; set; }
-        public int LikesCount { get; set; }
         public DateTime? EditDate { get; set; }
-        public string ImagePath { get; set; }
         public bool ForRegistered { get; set; }
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }

@@ -1,0 +1,22 @@
+﻿@model ISMNewsPortal.Models.NewsPostSimplifyView
+
+<div class="row no-gutters">
+    <div class="col-md-2">
+        <img src="@Model.ImagePath" alt="post-image" width="100%" />
+    </div>
+    <div class="col-md-10">
+        <div class="card-body">
+            <h5 class="card-title">
+                @Html.ActionLink(Model.Name, "Details", "News", new { id = Model.Id }, new { })
+            </h5>
+            <p class="card-text">
+                @Model.Description.Substring(0, (Model.Description.Length < 256) ? Model.Description.Length : 256)...
+            </p>
+            <p class="card-text">
+                <small class="text-muted">
+                    @Model.LikesCount Likes @Model.CommentsCount Comments
+                </small>
+            </p>
+        </div>
+    </div>
+</div>

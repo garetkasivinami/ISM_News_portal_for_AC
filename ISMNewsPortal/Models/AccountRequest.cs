@@ -36,7 +36,7 @@ namespace ISMNewsPortal.Models
         [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "The email you entered was not valid!")]
         [MaxLength(128)]
         [Display(Name = "Email adress")]
-        public string Email { get; set; }
+        public string Login { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(8)]
         [MaxLength(64)]
@@ -53,7 +53,7 @@ namespace ISMNewsPortal.Models
         [Range(1000000, 10000000, ErrorMessage = "The phone number you entered was not valid!")]
         [Display(Name = "Phone number (optional)")]
         public int? Phone { get; set; }
-        [Range(0,1)]
+        [Range(0, 1)]
         public short? PhoneCountry { get; set; }
         [DataType(DataType.MultilineText)]
         [Display(Name = "About me (optional)")]

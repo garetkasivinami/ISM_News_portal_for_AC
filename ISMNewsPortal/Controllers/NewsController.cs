@@ -24,15 +24,11 @@ namespace ISMNewsPortal.Controllers
                 if (newsPost == null || newsPost.ForRegistered && !Request.IsAuthenticated)
                     return RedirectToAction("Index", "Home");
                 Users currentUser = Users.GetUserByLogin(User.Identity.Name, session);
-                Admin admin = null;
-                if (currentUser != null)
-                    admin = session.Query<Admin>().FirstOrDefault(u => u.UserId == currentUser.Id);
-                bool adminRequest = admin != null && admin.AccessLevel > 0;
                 List<CommentViewModel> comments = new List<CommentViewModel>();
                 foreach (Comment comment in newsPost.Comments)
                 {
                     Users user = comment.User;
-                    comments.Add(new CommentViewModel(comment, new AuthorInfo() { UserId = user.Id, UserName = user.UserName }, adminRequest || (currentUser != null ? user.Id == currentUser.Id : false)));
+                    comments.Add(new CommentViewModel(comment, new AuthorInfo() { UserId = user.Id, UserName = user.UserName }, (currentUser != null ? user.Id == currentUser.Id : false)));
                 }
                 UserLike userLike = currentUser?.Likes.FirstOrDefault(u => u.NewsPost.Id == id);
                 Users authorOfPost = newsPost.Author;
@@ -55,12 +51,12 @@ namespace ISMNewsPortal.Controllers
                     comment.User = Users.GetUserByLogin(User.Identity.Name, session);
                     comment.NewsPost.CommentsCount++;
                     comment.User.CommentsCount++;
-                    using (ITransaction transaction = session.BeginTransaction())   //  Begin a transaction
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
-                        session.Save(comment); //  Save the book in session
+                        session.Save(comment);
                         session.Update(comment.NewsPost);
                         session.Update(comment.User);
-                        transaction.Commit();   //  Commit the changes to the database
+                        transaction.Commit();
                     }
                     return RedirectToAction("Details", "News", new { @id = model.PageId });
                 }
@@ -79,12 +75,12 @@ namespace ISMNewsPortal.Controllers
                     NewsPost newsPost = comment.NewsPost;
                     newsPost.CommentsCount--;
                     user.CommentsCount--;
-                    using (ITransaction transaction = session.BeginTransaction())   //  Begin a transaction
+                    using (ITransaction transaction = session.BeginTransaction())
                     {
-                        session.Delete(comment); //  Save the book in session
+                        session.Delete(comment);
                         session.Update(newsPost);
                         session.Update(user);
-                        transaction.Commit();   //  Commit the changes to the database
+                        transaction.Commit();
                     }
                     return RedirectToAction("Details", "News", new { @id = postId });
                 }

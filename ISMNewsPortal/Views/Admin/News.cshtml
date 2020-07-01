@@ -10,8 +10,7 @@
 {
     foreach (ISMNewsPortal.Models.NewsPostAdminView newsPost in Model.NewsPostAdminViews)
     {
-        <hr />
-        <div class="news-item">
+        <div class="card news-item">
             <h2>ID: @newsPost.Id</h2>
             @if (Model.ViewActionLinks)
             {
@@ -30,11 +29,7 @@
                 <p>Last edit date: @newsPost.EditDate</p>
             }
             <p>Is for registered: @newsPost.ForRegistered</p>
-            <img src="@newsPost.ImagePath" alt="new-image" width="100" height="100" />
-            @Html.ActionLink(newsPost.Name, "Details", "News", new { id = newsPost.Id }, new { })
-            <p>@newsPost.Descrition.Substring(0, (newsPost.Descrition.Length < 256) ? newsPost.Descrition.Length : 256)...</p>
-            <p>Likes count: @newsPost.LikesCount</p>
-            <p>Comments count: @newsPost.CommentsCount</p>
+            @Html.Partial("~/Views/News/_NewsSimplifyPartial.cshtml", newsPost)
         </div>
 
     }
