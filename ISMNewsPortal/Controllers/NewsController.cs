@@ -41,6 +41,12 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Details(CommentModel model)
         {
             if (ModelState.IsValid)
+            {
+                if (HelperActions.XSSAtackCheker(model.Text))
+                {
+                    ModelState.AddModelError("", HelperActions.XssIndectDetectedError);
+                    return View(model);
+                }
                 using (ISession session = NHibernateSession.OpenSession())
                 {
                     Comment comment = new Comment();
@@ -60,6 +66,7 @@ namespace ISMNewsPortal.Controllers
                     }
                     return RedirectToAction("Details", "News", new { @id = model.PageId });
                 }
+            }
             return RedirectToAction("Index", "Home");
         }
         [Authorize]

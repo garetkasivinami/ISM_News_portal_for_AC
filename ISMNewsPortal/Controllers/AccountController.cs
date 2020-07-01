@@ -43,6 +43,12 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
+            {
+                if (HelperActions.XSSAtackCheker(model.About, model.Password, model.UserName))
+                {
+                    ModelState.AddModelError("", HelperActions.XssIndectDetectedError);
+                    return View(model);
+                }
                 using (ISession session = NHibernateSession.OpenSession())
                 {
                     Users user = session.Query<Users>().FirstOrDefault(u => u.Login == model.Login || u.UserName == model.UserName);
@@ -83,6 +89,7 @@ namespace ISMNewsPortal.Controllers
                     //using (NewsModel db = new NewsModel())
                     //{
                 }
+            }
             return View(model);
         }
         public ActionResult Login()
