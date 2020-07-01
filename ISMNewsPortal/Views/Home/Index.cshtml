@@ -1,4 +1,4 @@
-﻿@model ICollection<ISMNewsPortal.Models.NewsPostSimplifyView>
+﻿@model ISMNewsPortal.Models.NewsPostSimplifyCollection
 
 @{
     ViewBag.Title = "Home Page";
@@ -17,10 +17,10 @@
                         Filter by...
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Today</a>
-                        <a class="dropdown-item" href="#">Yesterday</a>
-                        <a class="dropdown-item" href="#">This week</a>
-                        <a class="dropdown-item" href="#">All</a>
+                        @Html.ActionLink("Today", "Index", "Home", new { @filter = "today", @page = Model.currentPage, @sortType = Model.sortType }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Yesterday", "Index", "Home", new { @filter = "yesterday", @page = Model.currentPage, @sortType = Model.sortType }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("This week", "Index", "Home", new { @filter = "week", @page = Model.currentPage, @sortType = Model.sortType }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("All", "Index", "Home", new { @page = Model.currentPage, @sortType = Model.sortType }, new { @class = "dropdown-item" })
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -28,9 +28,9 @@
                         Sort by...
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Name</a>
-                        <a class="dropdown-item" href="#">Description</a>
-                        <a class="dropdown-item" href="#">Date</a>
+                        @Html.ActionLink("Name", "Index", "Home", new { sortType = "name", @page = Model.currentPage, @filter = Model.filter }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Description", "Index", "Home", new { sortType = "description", @page = Model.currentPage, @filter = Model.filter }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Date", "Index", "Home", new { }, new { @class = "dropdown-item", @page = Model.currentPage, @filter = Model.filter })
                     </div>
                 </li>
             </ul>
@@ -40,34 +40,25 @@
             </form>
         </div>
     </nav>
-    @if (Model.Any())
+    @if (Model.NewsPostSimplifyViews.Any())
     {
-        foreach (ISMNewsPortal.Models.NewsPostSimplifyView newsPost in Model)
+        foreach (ISMNewsPortal.Models.NewsPostSimplifyView newsPost in Model.NewsPostSimplifyViews)
         {
             <div class="card news-item">
                 @Html.Partial("~/Views/News/_NewsSimplifyPartial.cshtml", newsPost)
             </div>
         }
     }
-    @for (int i = 0; i </*Сюда количество новостей из базы*/ 5; i++)
+    @if (Model.currentPage > 0)
     {
-        <div class="card news-item">
-            <div class="row no-gutters">
-                <div class="col-md-2">
-                    <img src="https://lh3.googleusercontent.com/proxy/FlMq-NIbWqI4b-bREy8MfgzoeE4R-5oIN2ljGOL89A-urybyEDVNyyRI7QIw-zUmpo3tsD-7ee6o04EX73n7WNrghuWQ032vxMfLMVGGUpZU9HG6Dc4caBwTJYeIfoZnIyP40q2HGNwrn2hTXhFXPPcEz6I970F0wRJL8-gtV1wVzGE4lSlGbyaTkfSY01onRfgEX_yBrBNcP2AUefkqha1b2pT4MOQq2PXu6nw2BJI0N6mgWiyB" alt="new-image" width="100%" />
-                </div>
-                <div class="col-md-10">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="#">
-                                Here is name
-                            </a>
-                        </h5>
-                        <p class="card-text">And here is description bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla-bla</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.ActionLink("Last page", "Index", "Home", new { sortType = Model.sortType, @page = Model.currentPage - 1, @filter = Model.filter }, new { });
+    }
+    @if (Model.currentPage > 1 && Model.pages > 2)
+    {
+        @Html.ActionLink("First page", "Index", "Home", new { sortType = Model.sortType, @page = 0, @filter = Model.filter }, new { });
+    }
+    @if (Model.currentPage < Model.pages - 1)
+    {
+        @Html.ActionLink("Next page", "Index", "Home", new { sortType = Model.sortType, @page = Model.currentPage + 1, @filter = Model.filter }, new { });
     }
 </div>

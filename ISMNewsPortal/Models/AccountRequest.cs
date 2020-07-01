@@ -96,5 +96,12 @@ namespace ISMNewsPortal.Models
         public bool HidePhone { get; set; }
         public bool HideCommentsCount { get; set; }
         public bool HideRegistrationDate { get; set; }
+        public void OpenHidden()
+        {
+            HideCommentsCount = false;
+            HideLogin = false;
+            HidePhone = false;
+            HideRegistrationDate = false;
+        }
     }
 }

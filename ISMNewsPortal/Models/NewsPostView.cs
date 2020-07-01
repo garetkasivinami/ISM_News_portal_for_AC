@@ -26,6 +26,14 @@ namespace ISMNewsPortal.Models
         public ICollection<NewsPostAdminView> NewsPostAdminViews { get; set; }
         public bool ViewActionLinks { get; set; }
     }
+    public class NewsPostSimplifyCollection
+    {
+        public ICollection<NewsPostSimplifyView> NewsPostSimplifyViews { get; set; }
+        public int currentPage;
+        public int pages;
+        public string filter;
+        public string sortType;
+    }
     public class NewsPostModelCreate
     {
         [Required]

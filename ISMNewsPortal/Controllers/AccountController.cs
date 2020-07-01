@@ -19,6 +19,18 @@ namespace ISMNewsPortal.Controllers
                 return Request.IsAuthenticated;
             }
         }
+        [Authorize]
+        public ActionResult Account()
+        {
+            UserSafeModel user;
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                Users currentUser = Users.GetUserByLogin(User.Identity.Name, session);
+                user = new UserSafeModel(currentUser);
+                user.OpenHidden();
+            }
+            return View(user);
+        }
         // GET: Account
         public ActionResult Register()
         {

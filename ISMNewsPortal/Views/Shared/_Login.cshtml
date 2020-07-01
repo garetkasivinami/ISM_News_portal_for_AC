@@ -3,7 +3,7 @@
 @if (Request.IsAuthenticated)
 {
     <li class="nav-item">
-        @Html.ActionLink($"Logout {User.Identity.Name}", "Logoff", "Account", null, new { @class = "btn btn-outline-secondary" })
+        @Html.ActionLink($"My account", "Account", "Account", null, new { @class = "btn btn-outline-secondary" })
     </li>
 }
 else
