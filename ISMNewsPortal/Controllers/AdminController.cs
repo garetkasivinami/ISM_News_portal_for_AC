@@ -19,14 +19,10 @@ namespace ISMNewsPortal.Controllers
             {
                 Users currentUser = Users.GetUserByLogin(User.Identity.Name, session);
                 if (currentUser == null)
-                {
                     return RedirectToAction("Index", "Home");
-                }
                 Admin admin = session.Query<Admin>().FirstOrDefault(u => u.UserId == currentUser.Id);
                 if (admin == null)
-                {
                     return RedirectToAction("Index", "Home");
-                }
                 Session["AdminAccessLevel"] = admin.AccessLevel;
             }
             return RedirectToAction("Index");
@@ -34,18 +30,14 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Index()
         {
             if (GetAdminAccessLevel() == -1)
-            {
                 return RedirectToAction("LoginAdmin");
-            }
             return View();
         }
         public ActionResult News()
         {
             int adminAccessLevel = GetAdminAccessLevel();
             if (adminAccessLevel == -1)
-            {
                 return RedirectToAction("LoginAdmin");
-            }
             ICollection<NewsPostAdminView> newsPostsAdminView = new List<NewsPostAdminView>();
             using (ISession session = NHibernateSession.OpenSession())
             {
@@ -61,13 +53,9 @@ namespace ISMNewsPortal.Controllers
         {
             int adminAccessLevel = GetAdminAccessLevel();
             if (adminAccessLevel == -1)
-            {
                 return RedirectToAction("LoginAdmin");
-            }
             if (adminAccessLevel < 2)
-            {
                 return RedirectToAction("News");
-            }
             NewsPostAdminView newsPostAdminView;
             if (id != null)
             {
@@ -75,9 +63,7 @@ namespace ISMNewsPortal.Controllers
                 {
                     NewsPost newsPost = session.Get<NewsPost>(id);
                     if (newsPost == null)
-                    {
                         return RedirectToAction("Index");
-                    }
                     newsPostAdminView = new NewsPostAdminView(newsPost);
 
                 }
@@ -91,15 +77,10 @@ namespace ISMNewsPortal.Controllers
         {
             int adminAccessLevel = GetAdminAccessLevel();
             if (adminAccessLevel == -1)
-            {
                 return RedirectToAction("News");
-            }
             if (adminAccessLevel < 2)
-            {
                 return RedirectToAction("News");
-            }
             if (ModelState.IsValid)
-            {
                 using (ISession session = NHibernateSession.OpenSession())
                 {
                     NewsPost newsPost = new NewsPost();
@@ -119,7 +100,6 @@ namespace ISMNewsPortal.Controllers
                         transaction.Commit();
                     }
                 }
-            }
             return RedirectToAction("News");
         }
         [HttpGet]
@@ -128,25 +108,17 @@ namespace ISMNewsPortal.Controllers
         {
             int adminAccessLevel = GetAdminAccessLevel();
             if (adminAccessLevel == -1)
-            {
                 return RedirectToAction("News");
-            }
             if (adminAccessLevel < 2)
-            {
                 return RedirectToAction("News");
-            }
             NewsPostAdminView newsPostAdminView;
             if (id == null)
-            {
                 return RedirectToAction("Index");
-            }
             using (ISession session = NHibernateSession.OpenSession())
             {
                 NewsPost newsPost = session.Get<NewsPost>(id);
                 if (newsPost == null)
-                {
                     return RedirectToAction("Index");
-                }
                 newsPostAdminView = new NewsPostAdminView(newsPost);
             }
             return View(newsPostAdminView);
@@ -156,20 +128,14 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Delete(int? id)
         {
             if (GetAdminAccessLevel() == -1)
-            {
                 return RedirectToAction("News");
-            }
             if (id == null)
-            {
                 return RedirectToAction("Index");
-            }
             using (ISession session = NHibernateSession.OpenSession())
             {
                 NewsPost newsPost = session.Get<NewsPost>(id);
                 if (newsPost == null)
-                {
                     return RedirectToAction("Index");
-                }
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     session.Delete(newsPost);
@@ -183,13 +149,9 @@ namespace ISMNewsPortal.Controllers
         {
             int adminAccessLevel = GetAdminAccessLevel();
             if (adminAccessLevel == -1)
-            {
                 return RedirectToAction("News");
-            }
             if (adminAccessLevel < 2)
-            {
                 return RedirectToAction("News");
-            }
             return View();
         }
         [Authorize]
@@ -198,11 +160,8 @@ namespace ISMNewsPortal.Controllers
         public ActionResult CreateNews(NewsPostModelCreate model)
         {
             if (GetAdminAccessLevel() == -1)
-            {
                 return RedirectToAction("LoginAdmin");
-            }
             if (ModelState.IsValid)
-            {
                 using (ISession session = NHibernateSession.OpenSession())
                 {
                     Users currentUser = Users.GetUserByLogin(User.Identity.Name);
@@ -229,7 +188,6 @@ namespace ISMNewsPortal.Controllers
                     }
                     return RedirectToAction("Index");
                 }
-            }
             return View(model);
         }
         public ActionResult AllUsers()
@@ -249,9 +207,7 @@ namespace ISMNewsPortal.Controllers
         {
             object accessLevel = Session["AdminAccessLevel"];
             if (accessLevel == null)
-            {
                 return -1;
-            }
             return Convert.ToInt32(accessLevel);
         }
         public int GetAdminAccessLevel(out int result)

@@ -17,9 +17,7 @@ namespace ISMNewsPortal.Controllers
             {
                 newsPosts = session.Query<NewsPost>().ToList();
                 if (!User.Identity.IsAuthenticated)
-                {
                     newsPosts = newsPosts.Where(u => u.ForRegistered == false).ToList();
-                }
             }
             return View(newsPosts);
         }

@@ -23,9 +23,7 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Register()
         {
             if (IsAuthorized)
-            {
                 return RedirectToAction("Index", "Home");
-            }
             return View();
         }
         [HttpPost]
@@ -33,7 +31,6 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
-            {
                 using (ISession session = NHibernateSession.OpenSession())
                 {
                     Users user = session.Query<Users>().FirstOrDefault(u => u.Login == model.Email || u.UserName == model.UserName);
@@ -67,28 +64,19 @@ namespace ISMNewsPortal.Controllers
                     else
                     {
                         if (user.UserName == model.UserName)
-                        {
                             ModelState.AddModelError("", "There already exists a user with this username!");
-                        }
                         if (user.Login == model.Email)
-                        {
                             ModelState.AddModelError("", "There already exists a user with this login!");
-                        }
                     }
                     //using (NewsModel db = new NewsModel())
                     //{
                 }
-                //}
-            }
-
             return View(model);
         }
         public ActionResult Login()
         {
             if (IsAuthorized)
-            {
                 return RedirectToAction("Index", "Home");
-            }
             return View();
         }
         [HttpPost]
@@ -96,7 +84,6 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Login(LoginModel model)
         {
             if (ModelState.IsValid)
-            {
                 using (ISession session = NHibernateSession.OpenSession())
                 {
                     Users user = Users.GetUserByLogin(model.Login, session);
@@ -106,16 +93,13 @@ namespace ISMNewsPortal.Controllers
                         {
                             // а це точно потрібно?
                             if (IsAuthorized)
-                            {
                                 FormsAuthentication.SignOut();
-                            }
                             FormsAuthentication.SetAuthCookie(user.Login, true);
                             return RedirectToAction("Index", "Home");
                         }
                     }
                     ModelState.AddModelError("", "Invalid login and/or password!");
                 }
-            }
             return View();
         }
         [Authorize]
@@ -129,17 +113,13 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return RedirectToAction("Index", "Home");
-            }
             UserSafeModel userModel;
             using (ISession session = NHibernateSession.OpenSession())
             {
                 Users user = session.Get<Users>(id);
                 if (user == null)
-                {
                     return RedirectToAction("Index", "Home");
-                }
                 userModel = new UserSafeModel(user);
             }
             return View(userModel);
