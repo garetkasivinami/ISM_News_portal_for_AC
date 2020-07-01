@@ -1,12 +1,12 @@
-﻿@model ICollection<ISMNewsPortal.Models.UserSafeModel>
+﻿@model ISMNewsPortal.Models.UserSafeModelAdminCollection
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h1>User list</h1>
-@if (Model.Any())
+@if (Model.UserSafeModels.Any())
 {
-    foreach (ISMNewsPortal.Models.UserSafeModel userSafeModel in Model)
+    foreach (ISMNewsPortal.Models.UserSafeModel userSafeModel in Model.UserSafeModels)
     {
         <hr />
         <div class="news-item">
@@ -17,6 +17,10 @@
             <img src="@userSafeModel.AvatarPath" alt="No image" width="128" height="128" />
             <p>Comments count: @userSafeModel.CommentsCount</p>
             <p>Likes count: @userSafeModel.LikesCount</p>
+            @if (Model.AdminAccessLevel > 2)
+            {
+                @Html.ActionLink("Raise to administrator", "InjectAdmin", "Admin", new { @id = userSafeModel.Id}, new { });
+            }
         </div>
 
     }

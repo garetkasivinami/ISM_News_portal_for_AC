@@ -76,6 +76,18 @@ namespace ISMNewsPortal.Models
         [Display(Name = "About me (optional)")]
         public string About { get; set; }
     }
+    public class AdminView
+    {
+        public int AdminId { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public int AdminAccessLevel { get; set; }
+    }
+    public class AdminViewCollection
+    {
+        public ICollection<AdminView> AdminViews { get; set; }
+        public int AccessLevel { get; set; }
+    }
     public class UserSafeModel
     {
         public UserSafeModel(Users user)
@@ -120,5 +132,13 @@ namespace ISMNewsPortal.Models
             HidePhone = false;
             HideRegistrationDate = false;
         }
+    }
+    public class UserSafeModelCollection
+    {
+        public ICollection<UserSafeModel> UserSafeModels { get; set; }
+    }
+    public class UserSafeModelAdminCollection : UserSafeModelCollection
+    {
+        public int AdminAccessLevel;
     }
 }

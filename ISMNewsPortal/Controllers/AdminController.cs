@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Protocols;
+using System.Web.UI.WebControls.WebParts;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -154,13 +155,15 @@ namespace ISMNewsPortal.Controllers
                 return RedirectToAction("News");
             return View();
         }
-        [Authorize]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult CreateNews(NewsPostModelCreate model)
         {
-            if (GetAdminAccessLevel() == -1)
-                return RedirectToAction("LoginAdmin");
+            int adminAccessLevel = GetAdminAccessLevel();
+            if (adminAccessLevel == -1)
+                return RedirectToAction("News");
+            if (adminAccessLevel < 2)
+                return RedirectToAction("News");
             if (ModelState.IsValid)
                 using (ISession session = NHibernateSession.OpenSession())
                 {
@@ -190,6 +193,30 @@ namespace ISMNewsPortal.Controllers
                 }
             return View(model);
         }
+        public ActionResult AdminList()
+        {
+            int adminAccessLevel = GetAdminAccessLevel();
+            if (adminAccessLevel == -1)
+                return RedirectToAction("News");
+            if (adminAccessLevel < 2)
+                return RedirectToAction("News");
+            ICollection<AdminView> adminViews = new List<AdminView>();
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                IEnumerable<Admin> admins = session.Query<Admin>();
+                foreach (Admin admin in admins)
+                {
+                    adminViews.Add(new AdminView()
+                    {
+                        AdminAccessLevel = admin.AccessLevel,
+                        UserId = admin.UserId,
+                        AdminId = admin.Id,
+                        UserName = session.Get<Users>(admin.UserId).UserName
+                    });
+                }
+            }
+            return View(new AdminViewCollection() { AdminViews = adminViews, AccessLevel = adminAccessLevel });
+        }
         public ActionResult AllUsers()
         {
             int adminAccessLevel = GetAdminAccessLevel();
@@ -206,7 +233,75 @@ namespace ISMNewsPortal.Controllers
                     userSafeModels.Add(new UserSafeModel(user));
                 }
             }
-            return View(userSafeModels);
+            return View(new UserSafeModelAdminCollection() { AdminAccessLevel = adminAccessLevel, UserSafeModels = userSafeModels });
+        }
+        public ActionResult InjectAdmin(int? id)
+        {
+            int adminAccessLevel = GetAdminAccessLevel();
+            if (adminAccessLevel < 3 || id == null)
+                return RedirectToAction("AllUsers");
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                Users user = session.Get<Users>(id);
+                if (user != null)
+                {
+                    Admin createdAdmin = session.Query<Admin>().FirstOrDefault(u => u.UserId == user.Id);
+                    if (createdAdmin == null)
+                    {
+                        using (ITransaction transaction = session.BeginTransaction())
+                        {
+                            session.Save(new Admin() { AccessLevel = 0, UserId = user.Id });
+                            transaction.Commit();
+                        }
+                    }
+                }
+            }
+            return RedirectToAction("AdminList");
+        }
+        public ActionResult LevelUpAdmin(int? id)
+        {
+            int adminAccessLevel = GetAdminAccessLevel();
+            if (adminAccessLevel < 3 || id == null)
+                return RedirectToAction("AllUsers");
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                Admin admin = session.Get<Admin>(id);
+                if (admin != null)
+                {
+                    if (admin.AccessLevel < 2 || adminAccessLevel == 4 && admin.AccessLevel < 3)
+                    {
+                        admin.AccessLevel++;
+                    } else
+                    {
+                        return RedirectToAction("AdminList");
+                    }
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Update(admin);
+                        transaction.Commit();
+                    }
+                }
+            }
+            return RedirectToAction("AdminList");
+        }
+        public ActionResult DeleteAdmin(int? id)
+        {
+            int adminAccessLevel = GetAdminAccessLevel();
+            if (adminAccessLevel < 4 || id == null)
+                return RedirectToAction("AllUsers");
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                Admin admin = session.Get<Admin>(id);
+                if (admin != null)
+                {
+                    using (ITransaction transaction = session.BeginTransaction())
+                    {
+                        session.Delete(admin);
+                        transaction.Commit();
+                    }
+                }
+            }
+            return RedirectToAction("AdminList");
         }
         public int GetAdminAccessLevel()
         {
