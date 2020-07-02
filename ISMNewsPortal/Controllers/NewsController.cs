@@ -13,32 +13,26 @@ namespace ISMNewsPortal.Controllers
     public class NewsController : Controller
     {
         // GET: News
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            if (id == null)
-                return RedirectToAction("Index", "Home");
-            NewsPostViewModel newsPostViewModel;
             using (ISession session = NHibernateSession.OpenSession())
             {
                 NewsPost newsPost = session.Get<NewsPost>(id);
-                if (newsPost == null || newsPost.ForRegistered && !Request.IsAuthenticated)
+                if (newsPost == null)
                     return RedirectToAction("Index", "Home");
-                Users currentUser = Users.GetUserByLogin(User.Identity.Name, session);
-                List<CommentViewModel> comments = new List<CommentViewModel>();
-                foreach (Comment comment in newsPost.Comments)
+                List<CommentViewModel> commentsViewModel = new List<CommentViewModel>();
+                IQueryable<Comment> comments = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id);
+                foreach (Comment comment in comments)
                 {
-                    Users user = comment.User;
-                    comments.Add(new CommentViewModel(comment, new AuthorInfo() { UserId = user.Id, UserName = user.UserName }, (currentUser != null ? user.Id == currentUser.Id : false)));
+                    commentsViewModel.Add(new CommentViewModel(comment));
                 }
-                UserLike userLike = currentUser?.Likes.FirstOrDefault(u => u.NewsPost.Id == id);
-                Users authorOfPost = newsPost.Author;
-                newsPostViewModel = new NewsPostViewModel(newsPost, new AuthorInfo() { UserId = authorOfPost.Id, UserName = authorOfPost.UserName }, comments, userLike != null);
+                NewsPostViewModel newsPostViewModel = new NewsPostViewModel(newsPost, commentsViewModel);
+                return View(newsPostViewModel);
             }
-            return View(newsPostViewModel);
         }
         [Authorize]
         [HttpPost]
-        public ActionResult Details(CommentModel model)
+        public ActionResult CreateComment(CommentCreateModel model)
         {
             if (ModelState.IsValid)
             {
@@ -52,131 +46,18 @@ namespace ISMNewsPortal.Controllers
                     Comment comment = new Comment();
                     comment.Date = DateTime.Now;
                     comment.IsEdited = false;
-                    comment.NewsPost = session.Get<NewsPost>(model.PageId);
+                    comment.NewsPostId = model.PageId;
                     comment.Text = model.Text;
-                    comment.User = Users.GetUserByLogin(User.Identity.Name, session);
-                    comment.NewsPost.CommentsCount++;
-                    comment.User.CommentsCount++;
+                    comment.UserName = model.UserName;
                     using (ITransaction transaction = session.BeginTransaction())
                     {
                         session.Save(comment);
-                        session.Update(comment.NewsPost);
-                        session.Update(comment.User);
                         transaction.Commit();
                     }
                     return RedirectToAction("Details", "News", new { @id = model.PageId });
                 }
             }
             return RedirectToAction("Index", "Home");
-        }
-        [Authorize]
-        public ActionResult DeleteComment(int? id, int? postId)
-        {
-            if (id != null && postId != null)
-                using (ISession session = NHibernateSession.OpenSession())
-                {
-                    Comment comment = session.Get<Comment>(id);
-                    Users user = Users.GetUserByLogin(User.Identity.Name, session);
-                    if (user == null || comment.User.Id != user.Id)
-                        return RedirectToAction("Index", "Home");
-                    NewsPost newsPost = comment.NewsPost;
-                    newsPost.CommentsCount--;
-                    user.CommentsCount--;
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        session.Delete(comment);
-                        session.Update(newsPost);
-                        session.Update(user);
-                        transaction.Commit();
-                    }
-                    return RedirectToAction("Details", "News", new { @id = postId });
-                }
-            return RedirectToAction("Index", "Home");
-        }
-        [Authorize]
-        public ActionResult EditComment(int id)
-        {
-            Comment comment;
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                comment = session.Get<Comment>(id);
-                if (comment == null)
-                    return RedirectToAction("Index", "Home");
-                Users user = Users.GetUserByLogin(User.Identity.Name);
-                if (user.Id != comment.User.Id)
-                    return RedirectToAction("Index", "Home");
-            }
-            return View(new CommentEditModel() { Id = id, Text = comment.Text });
-        }
-        [Authorize]
-        [ValidateAntiForgeryToken]
-        [HttpPost]
-        public ActionResult EditComment(CommentEditModel model)
-        {
-            Comment comment;
-            if (ModelState.IsValid)
-                using (ISession session = NHibernateSession.OpenSession())
-                {
-                    Users user = Users.GetUserByLogin(User.Identity.Name, session);
-                    comment = session.Get<Comment>(model.Id);
-                    if (user == null || user.Id != comment.User.Id)
-                        return RedirectToAction("Index", "Home");
-                    comment.Text = model.Text;
-                    comment.IsEdited = true;
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        session.Update(comment);
-                        transaction.Commit();
-                    }
-                }
-            else
-                return View(model);
-            return RedirectToAction("Details", "News", new { @id = comment.NewsPost.Id });
-        }
-        [Authorize]
-        public ActionResult LikePost(int? id)
-        {
-            if (id == null)
-                return RedirectToAction("Index", "Home");
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                NewsPost newsPost = session.Get<NewsPost>(id);
-                Users user = Users.GetUserByLogin(User.Identity.Name, session);
-                if (user == null || newsPost == null)
-                    return RedirectToAction("Index", "Home");
-                UserLike userLike = null;
-                if (user.LikesCount > 0)
-                    userLike = user.Likes.FirstOrDefault(u => u.NewsPost.Id == id);
-                if (userLike == null)
-                {
-                    userLike = new UserLike();
-                    userLike.NewsPost = newsPost;
-                    userLike.User = user;
-
-                    newsPost.LikesCount++;
-                    user.LikesCount++;
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        session.Save(userLike);
-                        session.Update(user);
-                        session.Update(newsPost);
-                        transaction.Commit();
-                    }
-                }
-                else
-                {
-                    newsPost.LikesCount--;
-                    user.LikesCount--;
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        session.Delete(userLike);
-                        session.Update(user);
-                        session.Update(newsPost);
-                        transaction.Commit();
-                    }
-                }
-            }
-            return RedirectToAction("Details", "News", new { @id = id });
         }
     }
 }

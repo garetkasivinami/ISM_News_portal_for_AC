@@ -19,17 +19,6 @@
             </small>
         </p>
     </div>
-    <div class="card-footer">
-        @if (Model.IsLiked)
-        {
-            @Html.ActionLink("Unlike!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
-        }
-        else
-        {
-            @Html.ActionLink("Like!", "LikePost", "News", new { @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-danger" });
-        }
-        @Model.NewsPost.LikesCount likes
-    </div>
 </div>
 
 <!--Поки не трогать
@@ -74,4 +63,4 @@
         </div>
     }
 }
-@Html.Partial("_Comment", new ISMNewsPortal.Models.CommentModel() { PageId = Model.NewsPost.Id })
+@Html.Partial("_Comment", new ISMNewsPortal.Models.CommentCreateModel() { PageId = Model.NewsPost.Id })

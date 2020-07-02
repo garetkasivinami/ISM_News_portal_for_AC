@@ -154,11 +154,9 @@
     <Compile Include="Models\AccountRequest.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\UserLike.cs" />
     <Compile Include="Models\NewsPost.cs" />
     <Compile Include="Models\NewsPostView.cs" />
     <Compile Include="Models\Security.cs" />
-    <Compile Include="Models\Users.cs" />
     <Compile Include="NHibernateSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -190,9 +188,7 @@
     <Content Include="Models\NHibernate\Admin.hbm.xml" />
     <Content Include="Models\NHibernate\Comment.hbm.xml" />
     <Content Include="Models\NHibernate\hibernate.cfg.xml" />
-    <Content Include="Models\NHibernate\UserLike.hbm.xml" />
     <Content Include="Models\NHibernate\NewsPost.hbm.xml" />
-    <Content Include="Models\NHibernate\User.hbm.xml" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -305,17 +301,13 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Login.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_AdminHeader.cshtml" />
     <Content Include="Views\News\Details.cshtml" />
     <Content Include="Views\Shared\_Comment.cshtml" />
-    <Content Include="Views\News\EditComment.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -326,7 +318,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Admin\News.cshtml" />
@@ -336,9 +327,8 @@
     <Content Include="Views\Admin\AllUsers.cshtml" />
     <Content Include="Views\Admin\Comments.cshtml" />
     <Content Include="Views\News\_NewsSimplifyPartial.cshtml" />
-    <Content Include="Views\Account\Account.cshtml" />
-    <Content Include="Views\Account\_AccountPartial.cshtml" />
     <Content Include="Views\Admin\AdminList.cshtml" />
+    <Content Include="Views\Account\Logoff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

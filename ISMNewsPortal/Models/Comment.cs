@@ -9,10 +9,34 @@ namespace ISMNewsPortal.Models
     public partial class Comment
     {
         public virtual int Id { get; set; }
+        public virtual string UserName { get; set; }
         public virtual DateTime Date { get; set; }
-        public virtual bool IsEdited { get; set; }
         public virtual string Text { get; set; }
-        public virtual NewsPost NewsPost { get; set; }
-        public virtual Users User { get; set; }
+        public virtual int NewsPostId { get; set; }
+    }
+    public class CommentViewModel
+    {
+        public CommentViewModel(Comment comment)
+        {
+            Id = comment.Id;
+            Date = comment.Date;
+            Text = comment.Text;
+        }
+        public int Id { get; set; }
+        public DateTime Date { get; set; }
+        public string Text { get; set; }
+        public string Author { get; set; }
+    }
+    public class CommentCreateModel
+    {
+        [Required]
+        public int PageId { get; set; }
+        [Required]
+        [MaxLength(128)]
+        public string UserName { get; set; }
+        [DataType(DataType.MultilineText)]
+        [Required]
+        [MaxLength(1000)]
+        public string Text { get; set; }
     }
 }

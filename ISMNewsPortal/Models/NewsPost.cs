@@ -10,15 +10,10 @@ namespace ISMNewsPortal.Models
     {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
-        public virtual string Descrition { get; set; }
+        public virtual string Description { get; set; }
         public virtual DateTime CreatedDate { get; set; }
-        public virtual int CommentsCount { get; set; }
-        public virtual int LikesCount { get; set; }
         public virtual DateTime? EditDate { get; set; }
         public virtual string ImagePath { get; set; }
-        public virtual bool ForRegistered { get; set; }
-        public virtual IList<Comment> Comments { get; set; }
-        public virtual IList<UserLike> Likes { get; set; }
-        public virtual Users Author { get; set; }
+        public virtual int AuthorId { get; set; }
     }
 }

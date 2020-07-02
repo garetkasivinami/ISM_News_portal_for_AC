@@ -40,7 +40,7 @@ namespace ISMNewsPortal.Controllers
                     sortFunc = u => u.Name;
                     break;
                 case "description":
-                    sortFunc = u => u.Descrition;
+                    sortFunc = u => u.Description;
                     break;
                 default:
                     sortType = null;
@@ -52,30 +52,28 @@ namespace ISMNewsPortal.Controllers
                 IEnumerable<NewsPost> selectedNewsPost = session.Query<NewsPost>().Where(filterFunc).
                     OrderBy(sortFunc);
 
-                if (!User.Identity.IsAuthenticated)
-                    selectedNewsPost = selectedNewsPost.Where(u => u.ForRegistered == false);
                 int newsCount = selectedNewsPost.Count();
                 pages = newsCount / NewsInOnePage;
                 if (newsCount % NewsInOnePage != 0)
-                {
                     pages++;
-                }
                 selectedNewsPost = selectedNewsPost.Skip(NewsInOnePage * numberPage).Take(NewsInOnePage);
                 newsPosts = selectedNewsPost.ToList();
+                ICollection<NewsPostSimplifiedView> newsPostSimplifyViews = new List<NewsPostSimplifiedView>();
+                foreach (NewsPost newsPost in newsPosts)
+                {
+                    int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
+                    newsPostSimplifyViews.Add(new NewsPostSimplifiedView(newsPost, commentCount));
+                }
+                return View(new NewsPostSimplifiedCollection()
+                {
+                    NewsPostSimplifyViews = newsPostSimplifyViews,
+                    pages = pages,
+                    currentPage = numberPage,
+                    sortType = sortType,
+                    filter = filter
+                });
             }
-            ICollection<NewsPostSimplifyView> newsPostSimplifyViews = new List<NewsPostSimplifyView>();
-            foreach (NewsPost newsPost in newsPosts)
-            {
-                newsPostSimplifyViews.Add(new NewsPostSimplifyView(newsPost));
-            }
-            return View(new NewsPostSimplifyCollection()
-            {
-                NewsPostSimplifyViews = newsPostSimplifyViews,
-                pages = pages,
-                currentPage = numberPage,
-                sortType = sortType,
-                filter = filter
-            });
+            
         }
         private bool FilterToday(NewsPost newsPost)
         {
@@ -92,19 +90,6 @@ namespace ISMNewsPortal.Controllers
         private bool FilterAll(NewsPost newsPost)
         {
             return true;
-        }
-        public ActionResult About()
-        {
-            ViewBag.Message = "About ACME COSMETICS";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }

@@ -5,11 +5,20 @@
     <id name="Id" type="int">
       <generator class="identity" />
     </id>
-    <property name="AccessLevel"
-              type="byte"
+    <property name="Login"
+              type="string"
+              length ="128"
               not-null="true"/>
-    <property name="UserId"
-              type ="int"
+    <property name="Password"
+              type="string"
+              length ="128"
               not-null="true"/>
+    <property name="Salt"
+              type="string"
+              length ="128"
+              not-null="true"/>
+    <property name="AdminAccess"
+              type="string"
+              not-null="false"/>
   </class>
 </hibernate-mapping>

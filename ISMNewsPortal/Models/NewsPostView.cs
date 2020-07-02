@@ -9,26 +9,22 @@ namespace ISMNewsPortal.Models
 {
     public class NewsPostViewModel
     {
-        public NewsPostViewModel(NewsPost newsPost, AuthorInfo author, ICollection<CommentViewModel> comments, bool isLiked)
+        public NewsPostViewModel(NewsPost newsPost, ICollection<CommentViewModel> comments)
         {
             NewsPost = newsPost;
-            Author = author;
             Comments = comments;
-            IsLiked = isLiked;
         }
         public NewsPost NewsPost { get; set; }
-        public AuthorInfo Author { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
-        public bool IsLiked { get; set; }
     }
     public class NewsPostAdminCollection
     {
         public ICollection<NewsPostAdminView> NewsPostAdminViews { get; set; }
         public bool ViewActionLinks { get; set; }
     }
-    public class NewsPostSimplifyCollection
+    public class NewsPostSimplifiedCollection
     {
-        public ICollection<NewsPostSimplifyView> NewsPostSimplifyViews { get; set; }
+        public ICollection<NewsPostSimplifiedView> NewsPostSimplifyViews { get; set; }
         public int currentPage;
         public int pages;
         public string filter;
@@ -42,92 +38,47 @@ namespace ISMNewsPortal.Models
         [Required]
         [MaxLength(10000)]
         [DataType(DataType.MultilineText)]
-        public string Desc { get; set; }
+        public string Description { get; set; }
         [Required]
         [MaxLength(256)]
         public string ImagePath { get; set; }
-        public bool ForRegistered { get; set; }
     }
-    public class NewsPostSimplifyView
+    public class NewsPostSimplifiedView
     {
-        public NewsPostSimplifyView()
+        public NewsPostSimplifiedView()
         {
-
         }
-        public NewsPostSimplifyView(NewsPost newsPost)
+        public NewsPostSimplifiedView(NewsPost newsPost, int commentsCount)
         {
             Id = newsPost.Id;
             Name = newsPost.Name;
             ImagePath = newsPost.ImagePath;
-            Description = newsPost.Descrition;
-            LikesCount = newsPost.LikesCount;
-            CommentsCount = newsPost.CommentsCount;
+            Description = newsPost.Description;
+            CommentsCount = commentsCount;
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string ImagePath { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
-        public int LikesCount { get; set; }
         public int CommentsCount { get; set; }
     }
-    public class NewsPostAdminView : NewsPostSimplifyView
+    public class NewsPostAdminView : NewsPostSimplifiedView
     {
         public NewsPostAdminView()
         {
-
         }
-        public NewsPostAdminView(NewsPost newsPost) : base(newsPost)
+        public NewsPostAdminView(NewsPost newsPost, string authorName, int commentsCount) : base(newsPost, commentsCount)
         {
             CreatedDate = newsPost.CreatedDate;
             EditDate = newsPost.EditDate;
-            ForRegistered = newsPost.ForRegistered;
-            AuthorId = newsPost.Author.Id;
-            AuthorName = newsPost.Author.UserName;
+            AuthorId = newsPost.AuthorId;
+            AuthorName = authorName;
         }
-        public string Descrition { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? EditDate { get; set; }
         public bool ForRegistered { get; set; }
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }
-    }
-    public class AuthorInfo
-    {
-        public int UserId;
-        public string UserName;
-    }
-    public class CommentViewModel
-    {
-        public CommentViewModel(Comment comment, AuthorInfo author, bool editable)
-        {
-            Id = comment.Id;
-            Date = comment.Date;
-            IsEdited = comment.IsEdited;
-            Text = comment.Text;
-            Author = author;
-            Editable = editable;
-        }
-        public int Id { get; set; }
-        public DateTime Date { get; set; }
-        public bool IsEdited { get; set; }
-        public string Text { get; set; }
-        public AuthorInfo Author { get; set; }
-        public bool Editable { get; set; }
-    }
-    public class CommentModel
-    {
-        public int PageId { get; set; }
-        [DataType(DataType.MultilineText)]
-        [Required]
-        [MaxLength(1000)]
-        public string Text { get; set; }
-    }
-    public class CommentEditModel
-    {
-        public int Id { get; set; }
-        [DataType(DataType.MultilineText)]
-        [Required]
-        [MaxLength(1000)]
-        public string Text { get; set; }
     }
 }
