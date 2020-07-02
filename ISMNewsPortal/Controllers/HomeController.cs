@@ -27,7 +27,7 @@ namespace ISMNewsPortal.Controllers
                     filterFunc = FilterYesterday;
                     break;
                 case "week":
-                    filterFunc = FilterYesterday;
+                    filterFunc = FilterWeek;
                     break;
                 default:
                     filter = null;
