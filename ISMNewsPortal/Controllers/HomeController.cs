@@ -18,7 +18,7 @@ namespace ISMNewsPortal.Controllers
             List<NewsPost> newsPosts;
             Func<NewsPost, bool> filterFunc;
             Func<NewsPost, object> sortFunc;
-            switch(filter)
+            switch (filter)
             {
                 case "today":
                     filterFunc = FilterToday;
@@ -34,7 +34,7 @@ namespace ISMNewsPortal.Controllers
                     filterFunc = FilterAll;
                     break;
             }
-            switch(sortType)
+            switch (sortType)
             {
                 case "name":
                     sortFunc = u => u.Name;
@@ -64,16 +64,24 @@ namespace ISMNewsPortal.Controllers
                     int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
                     newsPostSimplifyViews.Add(new NewsPostSimplifiedView(newsPost, commentCount));
                 }
+                //using (ITransaction transaction = session.BeginTransaction())
+                //{
+                //    Admin admin = new Admin();
+                //    admin.Login = "Big man";
+                //    Admin.SetPassword(admin, "12345678");
+                //    session.Save(admin);
+                //    transaction.Commit();
+                //}
                 return View(new NewsPostSimplifiedCollection()
                 {
-                    NewsPostSimplifyViews = newsPostSimplifyViews,
+                    NewsPostSimpliedViews = newsPostSimplifyViews,
                     pages = pages,
                     currentPage = numberPage,
                     sortType = sortType,
                     filter = filter
                 });
             }
-            
+
         }
         private bool FilterToday(NewsPost newsPost)
         {

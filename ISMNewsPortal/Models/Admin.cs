@@ -15,6 +15,12 @@ namespace ISMNewsPortal.Models
         public virtual string Salt { get; set; }
         public virtual string AdminAccess { get; set; }
         //==================================================================
+        public static void SetPassword(Admin admin, string password)
+        {
+            string salt;
+            admin.Password = Security.SHA512(password, out salt);
+            admin.Salt = salt;
+        }
         public static Admin GetAdminByLogin(string login)
         {
             using (ISession session = NHibernateSession.OpenSession())

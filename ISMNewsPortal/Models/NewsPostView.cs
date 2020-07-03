@@ -24,7 +24,7 @@ namespace ISMNewsPortal.Models
     }
     public class NewsPostSimplifiedCollection
     {
-        public ICollection<NewsPostSimplifiedView> NewsPostSimplifyViews { get; set; }
+        public ICollection<NewsPostSimplifiedView> NewsPostSimpliedViews { get; set; }
         public int currentPage;
         public int pages;
         public string filter;
@@ -77,7 +77,6 @@ namespace ISMNewsPortal.Models
         }
         public DateTime CreatedDate { get; set; }
         public DateTime? EditDate { get; set; }
-        public bool ForRegistered { get; set; }
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }
     }

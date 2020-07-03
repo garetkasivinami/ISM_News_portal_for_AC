@@ -1,4 +1,4 @@
-﻿@model ISMNewsPortal.Models.NewsPostSimplifyCollection
+﻿@model ISMNewsPortal.Models.NewsPostSimplifiedCollection
 
 @{
     ViewBag.Title = "Home Page";
@@ -40,9 +40,9 @@
             </form>
         </div>
     </nav>
-    @if (Model.NewsPostSimplifyViews.Any())
+    @if (Model.NewsPostSimpliedViews.Any())
     {
-        foreach (ISMNewsPortal.Models.NewsPostSimplifyView newsPost in Model.NewsPostSimplifyViews)
+        foreach (ISMNewsPortal.Models.NewsPostSimplifiedView newsPost in Model.NewsPostSimpliedViews)
         {
             <div class="card news-item">
                 @Html.Partial("~/Views/News/_NewsSimplifyPartial.cshtml", newsPost)

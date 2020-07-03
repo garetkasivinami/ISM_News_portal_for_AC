@@ -32,7 +32,7 @@ namespace ISMNewsPortal.Controllers
         }
         [Authorize]
         [HttpPost]
-        public ActionResult CreateComment(CommentCreateModel model)
+        public ActionResult Details(CommentCreateModel model)
         {
             if (ModelState.IsValid)
             {
@@ -45,7 +45,6 @@ namespace ISMNewsPortal.Controllers
                 {
                     Comment comment = new Comment();
                     comment.Date = DateTime.Now;
-                    comment.IsEdited = false;
                     comment.NewsPostId = model.PageId;
                     comment.Text = model.Text;
                     comment.UserName = model.UserName;

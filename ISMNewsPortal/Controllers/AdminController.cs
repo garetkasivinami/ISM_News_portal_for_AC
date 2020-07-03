@@ -1,4 +1,5 @@
 ﻿using ISMNewsPortal.Models;
+using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json.Serialization;
 using NHibernate;
 using System;
@@ -151,6 +152,19 @@ namespace ISMNewsPortal.Controllers
         public ActionResult CreateAdmin()
         {
             return View();
+        }
+        public ActionResult Comments()
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                List<CommentViewModel> commentViewModels = new List<CommentViewModel>();
+                IQueryable<Comment> comments = session.Query<Comment>();
+                foreach(Comment comment in comments)
+                {
+                    commentViewModels.Add(new CommentViewModel(comment));
+                }
+                return View(new CommentViewModelCollection() { CommentViewModels = commentViewModels});
+            }
         }
     }
 }

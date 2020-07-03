@@ -1,4 +1,4 @@
-﻿@model ICollection<ISMNewsPortal.Models.CommentViewModel>
+﻿@model ISMNewsPortal.Models.CommentViewModelCollection
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
@@ -6,7 +6,7 @@
 <h1>User list</h1>
 @if (Model.Any())
 {
-    foreach (ISMNewsPortal.Models.CommentViewModel comment in Model)
+    foreach (ISMNewsPortal.Models.CommentViewModel comment in Model.CommentViewModels)
     {
         <hr />
         <div class="news-item">

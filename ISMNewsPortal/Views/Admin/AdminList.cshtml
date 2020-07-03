@@ -1,27 +1,19 @@
-﻿@model ISMNewsPortal.Models.AdminViewCollection
+﻿@model ISMNewsPortal.Models.AdminViewModelCollection
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h1>Admin list</h1>
-@if (Model.AdminViews.Any())
+@if (Model.AdminViewModels.Any())
 {
-    foreach (ISMNewsPortal.Models.AdminView adminView in Model.AdminViews)
+    foreach (ISMNewsPortal.Models.AdminViewModel adminView in Model.AdminViewModels)
     {
         <hr />
         <div class="news-item">
-            <h2>@adminView.UserName</h2>
-            <p>Admin Id: @adminView.AdminId</p>
-            <p>User Id: @adminView.UserId</p>
-            <p>Access level: @adminView.AdminAccessLevel</p>
-            @if (Model.AccessLevel > 2)
-            {
-                @Html.ActionLink("Level up access level", "LevelUpAdmin", "Admin", new { @id = adminView.AdminId }, new { });
-            }
-            @if (Model.AccessLevel == 4)
-            {
-                @Html.ActionLink("Delete admin", "DeleteAdmin", "Admin", new { @id = adminView.AdminId }, new { });
-            }
+            <h2>Login: @adminView.Login</h2>
+            <p>Admin Id: @adminView.Id</p>
+            <p>Email: @adminView.Email</p>
+            <p>Access: @adminView.AdminAccess</p>
         </div>
 
     }

@@ -30,7 +30,6 @@ namespace ISMNewsPortal.Models
     public class LoginModel
     {
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "The login you entered was not valid!")]
         [MaxLength(128)]
         [Display(Name = "Login")]
         public string Login { get; set; }

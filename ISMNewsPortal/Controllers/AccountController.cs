@@ -34,11 +34,18 @@ namespace ISMNewsPortal.Controllers
             }
             return View(model);
         }
+        [HttpGet]
         [Authorize]
         public ActionResult Logoff()
         {
-            FormsAuthentication.SignOut();
             return View();
+        }
+        [HttpGet]
+        [Authorize]
+        public ActionResult LogoffAction()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

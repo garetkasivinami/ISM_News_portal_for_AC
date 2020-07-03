@@ -1,14 +1,11 @@
 ﻿@model ISMNewsPortal.Models.NewsPostViewModel
 
-@Html.ActionLink(Model.Author.UserName, "Details", "Account", new { @id = Model.Author.UserId }, new { @class = "user-link" })
-<br />
-
 <img src="@Model.NewsPost.ImagePath" class="post-img" alt="Post image">
 
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">@Model.NewsPost.Name</h5>
-        <p class="card-text">@Model.NewsPost.Descrition</p>
+        <p class="card-text">@Model.NewsPost.Description</p>
         <p class="card-text">
             <small class="text-muted">
                 @Model.NewsPost.CreatedDate
@@ -22,7 +19,7 @@
 </div>
 
 <!--Поки не трогать
-@Model.NewsPost.Descrition
+@Model.NewsPost.Description
 -->
 
 <hr />
@@ -33,7 +30,8 @@
     {
         <div class="card">
             <div class="card-header">
-                @Html.ActionLink(comment.Author.UserName, "Details", "Account", new { @id = comment.Author.UserId }, new { @class = "user-link" })
+                <!--Стилізувати!-->
+                <p>@comment.Author</p>
             </div>
             <div class="card-body">
                 <p class="card-text">
@@ -42,23 +40,8 @@
                 <p class="card-text">
                     <small class="text-muted">
                         @comment.Date
-                        @if (comment.IsEdited)
-                        {
-                            <span>(edited)</span>
-                        }
                     </small>
                 </p>
-            </div>
-            <div class="card-footer">
-                @if (comment.Editable)
-                {
-                    <span>
-                        @Html.ActionLink("Edit", "EditComment", "News", new { @id = comment.Id }, new { @class = "btn btn-outline-primary" })
-                    </span>
-                    <span>
-                        @Html.ActionLink("Delete", "DeleteComment", "News", new { @id = comment.Id, @postId = Model.NewsPost.Id }, new { @class = "btn btn-outline-danger" })
-                    </span>
-                }
             </div>
         </div>
     }
