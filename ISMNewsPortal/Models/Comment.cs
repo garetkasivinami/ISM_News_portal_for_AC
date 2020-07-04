@@ -8,6 +8,7 @@ namespace ISMNewsPortal.Models
 
     public partial class Comment
     {
+        public const int CommentsInOnePage = 10;
         public virtual int Id { get; set; }
         public virtual string UserName { get; set; }
         public virtual DateTime Date { get; set; }
@@ -31,6 +32,8 @@ namespace ISMNewsPortal.Models
     public class CommentViewModelCollection
     {
         public ICollection<CommentViewModel> CommentViewModels { get; set; }
+        public int Pages { get; set; }
+        public int Page { get; set; }
     }
     public class CommentCreateModel
     {

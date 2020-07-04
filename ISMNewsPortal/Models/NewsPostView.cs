@@ -21,14 +21,18 @@ namespace ISMNewsPortal.Models
     {
         public ICollection<NewsPostAdminView> NewsPostAdminViews { get; set; }
         public bool ViewActionLinks { get; set; }
+        public int pages { get; set; }
+        public int Page { get; set; }
+        public string Filter { get; set; }
+        public string SortType { get; set; }
     }
     public class NewsPostSimplifiedCollection
     {
         public ICollection<NewsPostSimplifiedView> NewsPostSimpliedViews { get; set; }
-        public int currentPage;
-        public int pages;
-        public string filter;
-        public string sortType;
+        public int pages { get; set; }
+        public int Page { get; set; }
+        public string Filter { get; set; }
+        public string SortType { get; set; }
     }
     public class NewsPostModelCreate
     {
@@ -55,6 +59,7 @@ namespace ISMNewsPortal.Models
             ImagePath = newsPost.ImagePath;
             Description = newsPost.Description;
             CommentsCount = commentsCount;
+            CreatedDate = newsPost.CreatedDate;
         }
         public int Id { get; set; }
         public string Name { get; set; }
@@ -62,6 +67,7 @@ namespace ISMNewsPortal.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public int CommentsCount { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
     public class NewsPostAdminView : NewsPostSimplifiedView
     {
@@ -70,12 +76,10 @@ namespace ISMNewsPortal.Models
         }
         public NewsPostAdminView(NewsPost newsPost, string authorName, int commentsCount) : base(newsPost, commentsCount)
         {
-            CreatedDate = newsPost.CreatedDate;
             EditDate = newsPost.EditDate;
             AuthorId = newsPost.AuthorId;
             AuthorName = authorName;
         }
-        public DateTime CreatedDate { get; set; }
         public DateTime? EditDate { get; set; }
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }

@@ -10,7 +10,6 @@ namespace ISMNewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        public const int NewsInOnePage = 10;
         public ActionResult Index(int? page, string sortType, string filter)
         {
             int numberPage = page ?? 0;
@@ -21,17 +20,17 @@ namespace ISMNewsPortal.Controllers
             switch (filter)
             {
                 case "today":
-                    filterFunc = FilterToday;
+                    filterFunc = NewsPostHelperActions.FilterToday;
                     break;
                 case "yesterday":
-                    filterFunc = FilterYesterday;
+                    filterFunc = NewsPostHelperActions.FilterYesterday;
                     break;
                 case "week":
-                    filterFunc = FilterWeek;
+                    filterFunc = NewsPostHelperActions.FilterWeek;
                     break;
                 default:
                     filter = null;
-                    filterFunc = FilterAll;
+                    filterFunc = NewsPostHelperActions.FilterAll;
                     break;
             }
             switch (sortType)
@@ -53,10 +52,10 @@ namespace ISMNewsPortal.Controllers
                     OrderBy(sortFunc);
 
                 int newsCount = selectedNewsPost.Count();
-                pages = newsCount / NewsInOnePage;
-                if (newsCount % NewsInOnePage != 0)
+                pages = newsCount / NewsPost.NewsInOnePage;
+                if (newsCount % NewsPost.NewsInOnePage != 0)
                     pages++;
-                selectedNewsPost = selectedNewsPost.Skip(NewsInOnePage * numberPage).Take(NewsInOnePage);
+                selectedNewsPost = selectedNewsPost.Skip(NewsPost.NewsInOnePage * numberPage).Take(NewsPost.NewsInOnePage);
                 newsPosts = selectedNewsPost.ToList();
                 ICollection<NewsPostSimplifiedView> newsPostSimplifyViews = new List<NewsPostSimplifiedView>();
                 foreach (NewsPost newsPost in newsPosts)
@@ -76,28 +75,12 @@ namespace ISMNewsPortal.Controllers
                 {
                     NewsPostSimpliedViews = newsPostSimplifyViews,
                     pages = pages,
-                    currentPage = numberPage,
-                    sortType = sortType,
-                    filter = filter
+                    Page = numberPage,
+                    Filter = filter,
+                    SortType = sortType
                 });
             }
 
-        }
-        private bool FilterToday(NewsPost newsPost)
-        {
-            return newsPost.CreatedDate.Day == DateTime.Now.Day;
-        }
-        private bool FilterYesterday(NewsPost newsPost)
-        {
-            return newsPost.CreatedDate.Day == DateTime.Now.AddDays(-1).Day;
-        }
-        private bool FilterWeek(NewsPost newsPost)
-        {
-            return (DateTime.Now - newsPost.CreatedDate).Days < 7;
-        }
-        private bool FilterAll(NewsPost newsPost)
-        {
-            return true;
         }
     }
 }

@@ -15,20 +15,8 @@ namespace ISMNewsPortal.Controllers
         // GET: News
         public ActionResult Details(int id)
         {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                NewsPost newsPost = session.Get<NewsPost>(id);
-                if (newsPost == null)
-                    return RedirectToAction("Index", "Home");
-                List<CommentViewModel> commentsViewModel = new List<CommentViewModel>();
-                IQueryable<Comment> comments = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id);
-                foreach (Comment comment in comments)
-                {
-                    commentsViewModel.Add(new CommentViewModel(comment));
-                }
-                NewsPostViewModel newsPostViewModel = new NewsPostViewModel(newsPost, commentsViewModel);
-                return View(newsPostViewModel);
-            }
+            NewsPostViewModel newsPostViewModel = NewsPostHelperActions.GetNewsPostViewModelById(id);
+            return View(newsPostViewModel);
         }
         [Authorize]
         [HttpPost]

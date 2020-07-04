@@ -6,6 +6,41 @@
 <h1>News list</h1>
 @Html.ActionLink("Create news", "CreateNews", "Admin", new { }, null)
 <hr />
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown drop-flex">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter by...
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Today", "News", "Admin", new { @filter = "today", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Yesterday", "News", "Admin", new { @filter = "yesterday", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("This week", "News", "Admin", new { @filter = "week", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("All", "News", "Admin", new { @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort by...
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Name", "News", "Admin", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Description", "News", "Admin", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Date", "News", "Admin", new { @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Edit date", "News", "Admin", new { @sortType = "editDate", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Author", "News", "Admin", new { @sortType = "author", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
 @if (Model.NewsPostAdminViews.Any())
 {
     foreach (ISMNewsPortal.Models.NewsPostAdminView newsPost in Model.NewsPostAdminViews)
@@ -14,12 +49,10 @@
             <h2>ID: @newsPost.Id</h2>
             @if (Model.ViewActionLinks)
             {
+                <!--Стилізувати-->
                 @Html.ActionLink("Edit", "Edit", "Admin", new { @id = newsPost.Id }, null)
-                <br />
                 @Html.ActionLink("Details", "Details", "News", new { @id = newsPost.Id }, null)
-                <br />
                 @Html.ActionLink("Delete", "DeleteRequest", "Admin")
-                <br />
             }
             <p>Author: @newsPost.AuthorName</p>
             <p>Author id: @newsPost.AuthorId</p>
@@ -36,4 +69,17 @@
 else
 {
     <h2>No news</h2>
+}
+<!--Стилізувати-->
+@if (Model.Page > 0)
+{
+    @Html.ActionLink("Last page", "News", "Admin", new { sortType = Model.SortType, @page = Model.Page - 1, @filter = Model.Filter }, new { });
+}
+@if (Model.Page > 1 && Model.pages > 2)
+{
+    @Html.ActionLink("First page", "News", "Admin", new { sortType = Model.SortType, @page = 0, @filter = Model.Filter }, new { });
+}
+@if (Model.Page < Model.pages - 1)
+{
+    @Html.ActionLink("Next page", "News", "Admin", new { sortType = Model.SortType, @page = Model.Page + 1, @filter = Model.Filter }, new { });
 }

@@ -3,6 +3,9 @@
 @if (Request.IsAuthenticated)
 {
     <li class="nav-item">
+        @Html.ActionLink($"Admin page", "Index", "Admin", null, new { @class = "btn btn-outline-secondary" })
+    </li>
+    <li class="nav-item">
         @Html.ActionLink($"Logout", "Logoff", "Account", null, new { @class = "btn btn-outline-secondary" })
     </li>
 }

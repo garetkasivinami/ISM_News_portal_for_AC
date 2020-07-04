@@ -19,19 +19,74 @@ namespace ISMNewsPortal.Controllers
         {
             return View();
         }
-        public ActionResult News()
+        public ActionResult News(int? page, string sortType, string filter)
         {
+            int numberPage = page ?? 0;
+            int pages;
+            Func<NewsPost, bool> filterFunc;
+            Func<NewsPost, object> sortFunc;
+            switch (filter)
+            {
+                case "today":
+                    filterFunc = NewsPostHelperActions.FilterToday;
+                    break;
+                case "yesterday":
+                    filterFunc = NewsPostHelperActions.FilterYesterday;
+                    break;
+                case "week":
+                    filterFunc = NewsPostHelperActions.FilterWeek;
+                    break;
+                default:
+                    filter = null;
+                    filterFunc = NewsPostHelperActions.FilterAll;
+                    break;
+            }
+            switch (sortType)
+            {
+                case "name":
+                    sortFunc = u => u.Name;
+                    break;
+                case "description":
+                    sortFunc = u => u.Description;
+                    break;
+                case "editDate":
+                    sortFunc = u => -u.EditDate?.Ticks ?? 0;
+                    break;
+                case "Author":
+                    sortFunc = u => u.AuthorId;
+                    break;
+                default:
+                    sortType = null;
+                    sortFunc = u => -u.CreatedDate.Ticks;
+                    break;
+            }
             using (ISession session = NHibernateSession.OpenSession())
             {
                 IQueryable<NewsPost> newsPosts = session.Query<NewsPost>();
+                IEnumerable<NewsPost> selectedNewsPost = session.Query<NewsPost>().Where(filterFunc).
+                    OrderBy(sortFunc);
+
+                int newsCount = selectedNewsPost.Count();
+                pages = newsCount / NewsPost.NewsInOnePage;
+                if (newsCount % NewsPost.NewsInOnePage != 0)
+                    pages++;
+                selectedNewsPost = selectedNewsPost.Skip(NewsPost.NewsInOnePage * numberPage).Take(NewsPost.NewsInOnePage);
                 ICollection<NewsPostAdminView> newsPostsAdminView = new List<NewsPostAdminView>();
-                foreach (NewsPost newsPost in newsPosts)
+                foreach (NewsPost newsPost in selectedNewsPost)
                 {
                     string newsPostAuthorName = session.Get<Admin>(newsPost.AuthorId).Login;
                     int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
                     newsPostsAdminView.Add(new NewsPostAdminView(newsPost, newsPostAuthorName, commentCount));
                 }
-                return View(new NewsPostAdminCollection() { NewsPostAdminViews = newsPostsAdminView, ViewActionLinks = true });
+                return View(new NewsPostAdminCollection()
+                {
+                    NewsPostAdminViews = newsPostsAdminView,
+                    ViewActionLinks = true,
+                    pages = pages,
+                    Page = numberPage,
+                    Filter = filter,
+                    SortType = sortType
+                });
             }
         }
         public ActionResult Edit(int id)
@@ -126,7 +181,7 @@ namespace ISMNewsPortal.Controllers
                         session.Save(newsPost);
                         transaction.Commit();
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("News");
                 }
             }
             return View(model);
@@ -147,23 +202,35 @@ namespace ISMNewsPortal.Controllers
                     });
                 }
             }
-            return View(new AdminViewModelCollection() { AdminViewModels = adminViewModels});
+            return View(new AdminViewModelCollection() { AdminViewModels = adminViewModels });
         }
         public ActionResult CreateAdmin()
         {
             return View();
         }
-        public ActionResult Comments()
+        public ActionResult Comments(int? page)
         {
+            int numberPage = page ?? 0;
+            int pages;
             using (ISession session = NHibernateSession.OpenSession())
             {
                 List<CommentViewModel> commentViewModels = new List<CommentViewModel>();
                 IQueryable<Comment> comments = session.Query<Comment>();
-                foreach(Comment comment in comments)
+                int commentsCount = comments.Count();
+                pages = commentsCount / Comment.CommentsInOnePage;
+                if (commentsCount % Comment.CommentsInOnePage != 0)
+                    pages++;
+                comments = comments.Skip(Comment.CommentsInOnePage * numberPage).Take(Comment.CommentsInOnePage);
+                foreach (Comment comment in comments)
                 {
                     commentViewModels.Add(new CommentViewModel(comment));
                 }
-                return View(new CommentViewModelCollection() { CommentViewModels = commentViewModels});
+                return View(new CommentViewModelCollection() 
+                { 
+                    CommentViewModels = commentViewModels,
+                    Pages = pages,
+                    Page = numberPage
+                });
             }
         }
     }

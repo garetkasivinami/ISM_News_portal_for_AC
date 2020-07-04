@@ -9,6 +9,7 @@
 </div>
 
 <div class="wrapper">
+
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
@@ -17,10 +18,10 @@
                         Filter by...
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Today", "Index", "Home", new { @filter = "today", @page = Model.currentPage, @sortType = Model.sortType }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Yesterday", "Index", "Home", new { @filter = "yesterday", @page = Model.currentPage, @sortType = Model.sortType }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("This week", "Index", "Home", new { @filter = "week", @page = Model.currentPage, @sortType = Model.sortType }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("All", "Index", "Home", new { @page = Model.currentPage, @sortType = Model.sortType }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Today", "Index", "Home", new { @filter = "today", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Yesterday", "Index", "Home", new { @filter = "yesterday", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("This week", "Index", "Home", new { @filter = "week", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("All", "Index", "Home", new { @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -28,9 +29,9 @@
                         Sort by...
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Name", "Index", "Home", new { sortType = "name", @page = Model.currentPage, @filter = Model.filter }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Description", "Index", "Home", new { sortType = "description", @page = Model.currentPage, @filter = Model.filter }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Date", "Index", "Home", new { }, new { @class = "dropdown-item", @page = Model.currentPage, @filter = Model.filter })
+                        @Html.ActionLink("Name", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Description", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Date", "Index", "Home", new { @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
                     </div>
                 </li>
             </ul>
@@ -40,6 +41,7 @@
             </form>
         </div>
     </nav>
+
     @if (Model.NewsPostSimpliedViews.Any())
     {
         foreach (ISMNewsPortal.Models.NewsPostSimplifiedView newsPost in Model.NewsPostSimpliedViews)
@@ -49,16 +51,17 @@
             </div>
         }
     }
-    @if (Model.currentPage > 0)
+    <!--Стилізувати-->
+    @if (Model.Page > 0)
     {
-        @Html.ActionLink("Last page", "Index", "Home", new { sortType = Model.sortType, @page = Model.currentPage - 1, @filter = Model.filter }, new { });
+        @Html.ActionLink("Last page", "Index", "Home", new { sortType = Model.SortType, @page = Model.Page - 1, @filter = Model.Filter }, new { });
     }
-    @if (Model.currentPage > 1 && Model.pages > 2)
+    @if (Model.Page > 1 && Model.pages > 2)
     {
-        @Html.ActionLink("First page", "Index", "Home", new { sortType = Model.sortType, @page = 0, @filter = Model.filter }, new { });
+        @Html.ActionLink("First page", "Index", "Home", new { sortType = Model.SortType, @page = 0, @filter = Model.Filter }, new { });
     }
-    @if (Model.currentPage < Model.pages - 1)
+    @if (Model.Page < Model.pages - 1)
     {
-        @Html.ActionLink("Next page", "Index", "Home", new { sortType = Model.sortType, @page = Model.currentPage + 1, @filter = Model.filter }, new { });
+        @Html.ActionLink("Next page", "Index", "Home", new { sortType = Model.SortType, @page = Model.Page + 1, @filter = Model.Filter }, new { });
     }
 </div>

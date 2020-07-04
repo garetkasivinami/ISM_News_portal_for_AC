@@ -34,3 +34,16 @@ else
 {
     <p>No comments</p>
 }
+<!--Стилізувати-->
+@if (Model.Page > 0)
+{
+    @Html.ActionLink("Last page", "Comments", "Admin", new {@page = Model.Page - 1 }, new { });
+}
+@if (Model.Page > 1 && Model.Pages > 2)
+{
+    @Html.ActionLink("First page", "Comments", "Admin", new {@page = 0 }, new { });
+}
+@if (Model.Page < Model.Pages - 1)
+{
+    @Html.ActionLink("Next page", "Comments", "Admin", new {@page = Model.Page + 1 }, new { });
+}
