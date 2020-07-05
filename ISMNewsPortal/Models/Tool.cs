@@ -11,5 +11,6 @@ namespace ISMNewsPortal.Models
         public int Pages { get; set; }
         public string Filter { get; set; }
         public string SortType { get; set; }
+        public string Search { get; set; }
     }
 }

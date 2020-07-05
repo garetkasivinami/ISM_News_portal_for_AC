@@ -10,46 +10,45 @@ namespace ISMNewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(int? page, string sortType, string filter)
+        public ActionResult Index(int? page, string sortType, string filter, string search)
         {
             int numberPage = page ?? 0;
             int pages;
             List<NewsPost> newsPosts;
-            Func<NewsPost, bool> filterFunc;
-            Func<NewsPost, object> sortFunc;
+            string filterFunc;
+            string sortString;
             switch (filter)
             {
                 case "today":
-                    filterFunc = NewsPostHelperActions.FilterToday;
+                    filterFunc = NewsPostHelperActions.FilterToday();
                     break;
                 case "yesterday":
-                    filterFunc = NewsPostHelperActions.FilterYesterday;
+                    filterFunc = NewsPostHelperActions.FilterYesterday();
                     break;
                 case "week":
-                    filterFunc = NewsPostHelperActions.FilterWeek;
+                    filterFunc = NewsPostHelperActions.FilterWeek();
                     break;
                 default:
                     filter = null;
-                    filterFunc = NewsPostHelperActions.FilterAll;
+                    filterFunc = NewsPostHelperActions.FilterAll();
                     break;
             }
             switch (sortType)
             {
                 case "name":
-                    sortFunc = u => u.Name;
+                    sortString = "@Name";
                     break;
                 case "description":
-                    sortFunc = u => u.Description;
+                    sortString = "@Description";
                     break;
                 default:
                     sortType = null;
-                    sortFunc = u => long.MaxValue - u.CreatedDate.Ticks;
+                    sortString = "@CreatedDate DESC";
                     break;
             }
             using (ISession session = NHibernateSession.OpenSession())
             {
-                IEnumerable<NewsPost> selectedNewsPost = session.Query<NewsPost>().Where(filterFunc).
-                    OrderBy(sortFunc);
+                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerry(session, sortString, filterFunc, search).List<NewsPost>();
 
                 int newsCount = selectedNewsPost.Count();
                 pages = newsCount / NewsPost.NewsInOnePage;
@@ -77,7 +76,8 @@ namespace ISMNewsPortal.Controllers
                     Pages = pages,
                     Page = numberPage,
                     Filter = filter,
-                    SortType = sortType
+                    SortType = sortType,
+                    Search = search
                 });
             }
 
