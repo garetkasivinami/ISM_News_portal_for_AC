@@ -54,7 +54,7 @@
     <!--Стилізувати-->
     @if (Model.Page > 0)
     {
-        @Html.ActionLink("Last page", "Index", "Home", new { sortType = Model.SortType, @page = Model.Page - 1, @filter = Model.Filter }, new { });
+        @Html.ActionLink("Previous page", "Index", "Home", new { sortType = Model.SortType, @page = Model.Page - 1, @filter = Model.Filter }, new { });
     }
     @if (Model.Page > 1 && Model.Pages > 2)
     {
