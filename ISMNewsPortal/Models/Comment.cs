@@ -23,17 +23,18 @@ namespace ISMNewsPortal.Models
             Date = comment.Date;
             Text = comment.Text;
             Author = comment.UserName;
+            NewsPostId = comment.NewsPostId;
         }
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public string Text { get; set; }
         public string Author { get; set; }
+        public int NewsPostId { get; set; }
     }
-    public class CommentViewModelCollection
+    public class CommentViewModelCollection : ToolBarModel
     {
         public ICollection<CommentViewModel> CommentViewModels { get; set; }
-        public int Pages { get; set; }
-        public int Page { get; set; }
+        public int CommentsCount { get; set; }
     }
     public class CommentCreateModel
     {

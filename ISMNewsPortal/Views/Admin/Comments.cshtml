@@ -3,19 +3,28 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
+<!--Стилізувати-->
 <h1>Comments list</h1>
+<p>Comments count: @Model.CommentsCount</p>
+<p>Pages: @Model.Pages</p>
+@using (Html.BeginForm("Comments", "Admin", FormMethod.Get, new { }))
+{
+    <label for="page">Move to page</label>
+    <input type="number" id="page" name="page" value="@Model.Page" />
+    <button type="submit">Move!</button>
+}
 @if (Model.CommentViewModels.Any())
 {
     foreach (ISMNewsPortal.Models.CommentViewModel comment in Model.CommentViewModels)
     {
-        <hr />
-        <div class="news-item">
-            <h2>ID: @comment.Id</h2>
-        </div>
+        <!--Стилізувати!-->
+        <!--Варто зробити більш компактним-->
         <div class="card">
             <div class="card-header">
-                <!--Стилізувати!-->
                 <p>@comment.Author</p>
+                @Html.ActionLink("Details", "CommentDetails", "Admin", new { @id = comment.Id }, new { })
+                @Html.ActionLink("Move to post", "Details", "News", new { @id = comment.NewsPostId }, new { })
+                @Html.ActionLink("Details", "CommentDetails", "Admin", new { @id = comment.Id }, new { })
             </div>
             <div class="card-body">
                 <p class="card-text">
@@ -37,13 +46,13 @@ else
 <!--Стилізувати-->
 @if (Model.Page > 0)
 {
-    @Html.ActionLink("Last page", "Comments", "Admin", new {@page = Model.Page - 1 }, new { });
+    @Html.ActionLink("Last page", "Comments", "Admin", new { @page = Model.Page - 1 }, new { });
 }
 @if (Model.Page > 1 && Model.Pages > 2)
 {
-    @Html.ActionLink("First page", "Comments", "Admin", new {@page = 0 }, new { });
+    @Html.ActionLink("First page", "Comments", "Admin", new { @page = 0 }, new { });
 }
 @if (Model.Page < Model.Pages - 1)
 {
-    @Html.ActionLink("Next page", "Comments", "Admin", new {@page = Model.Page + 1 }, new { });
+    @Html.ActionLink("Next page", "Comments", "Admin", new { @page = Model.Page + 1 }, new { });
 }

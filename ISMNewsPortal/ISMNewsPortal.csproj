@@ -157,6 +157,7 @@
     <Compile Include="Models\NewsPost.cs" />
     <Compile Include="Models\NewsPostView.cs" />
     <Compile Include="Models\Security.cs" />
+    <Compile Include="Models\Tool.cs" />
     <Compile Include="NHibernateSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -201,6 +202,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\imageUpdater.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />

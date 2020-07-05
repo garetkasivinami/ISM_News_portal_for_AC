@@ -74,7 +74,7 @@ namespace ISMNewsPortal.Controllers
                 return View(new NewsPostSimplifiedCollection()
                 {
                     NewsPostSimpliedViews = newsPostSimplifyViews,
-                    pages = pages,
+                    Pages = pages,
                     Page = numberPage,
                     Filter = filter,
                     SortType = sortType

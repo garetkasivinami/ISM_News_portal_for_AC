@@ -82,7 +82,7 @@ namespace ISMNewsPortal.Controllers
                 {
                     NewsPostAdminViews = newsPostsAdminView,
                     ViewActionLinks = true,
-                    pages = pages,
+                    Pages = pages,
                     Page = numberPage,
                     Filter = filter,
                     SortType = sortType
@@ -211,13 +211,14 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Comments(int? page)
         {
             int numberPage = page ?? 0;
-            int pages;
+            if (numberPage < 0)
+                numberPage = 0;
             using (ISession session = NHibernateSession.OpenSession())
             {
                 List<CommentViewModel> commentViewModels = new List<CommentViewModel>();
                 IQueryable<Comment> comments = session.Query<Comment>();
                 int commentsCount = comments.Count();
-                pages = commentsCount / Comment.CommentsInOnePage;
+                int pages = commentsCount / Comment.CommentsInOnePage;
                 if (commentsCount % Comment.CommentsInOnePage != 0)
                     pages++;
                 comments = comments.Skip(Comment.CommentsInOnePage * numberPage).Take(Comment.CommentsInOnePage);
@@ -229,7 +230,8 @@ namespace ISMNewsPortal.Controllers
                 { 
                     CommentViewModels = commentViewModels,
                     Pages = pages,
-                    Page = numberPage
+                    Page = numberPage,
+                    CommentsCount = commentsCount
                 });
             }
         }

@@ -17,22 +17,14 @@ namespace ISMNewsPortal.Models
         public NewsPost NewsPost { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
     }
-    public class NewsPostAdminCollection
+    public class NewsPostAdminCollection : ToolBarModel
     {
         public ICollection<NewsPostAdminView> NewsPostAdminViews { get; set; }
         public bool ViewActionLinks { get; set; }
-        public int pages { get; set; }
-        public int Page { get; set; }
-        public string Filter { get; set; }
-        public string SortType { get; set; }
     }
-    public class NewsPostSimplifiedCollection
+    public class NewsPostSimplifiedCollection : ToolBarModel
     {
         public ICollection<NewsPostSimplifiedView> NewsPostSimpliedViews { get; set; }
-        public int pages { get; set; }
-        public int Page { get; set; }
-        public string Filter { get; set; }
-        public string SortType { get; set; }
     }
     public class NewsPostModelCreate
     {

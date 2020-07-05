@@ -56,11 +56,11 @@
     {
         @Html.ActionLink("Last page", "Index", "Home", new { sortType = Model.SortType, @page = Model.Page - 1, @filter = Model.Filter }, new { });
     }
-    @if (Model.Page > 1 && Model.pages > 2)
+    @if (Model.Page > 1 && Model.Pages > 2)
     {
         @Html.ActionLink("First page", "Index", "Home", new { sortType = Model.SortType, @page = 0, @filter = Model.Filter }, new { });
     }
-    @if (Model.Page < Model.pages - 1)
+    @if (Model.Page < Model.Pages - 1)
     {
         @Html.ActionLink("Next page", "Index", "Home", new { sortType = Model.SortType, @page = Model.Page + 1, @filter = Model.Filter }, new { });
     }

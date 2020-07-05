@@ -3,14 +3,13 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
-
+<h4>Edit news post!</h4>
+<img id="imageElement" class="post-img" alt="no image" />
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>NewsPostAdminView</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.EditDate)
@@ -18,27 +17,29 @@
         @Html.HiddenFor(model => model.AuthorId)
         @Html.HiddenFor(model => model.CreatedDate)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+
+        <div class="card">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="card-body">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = "News post name" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger card-title" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text", @placeholder = "News post description" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger card-text" })
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <img src="@Model.ImagePath" width="30%"/>
         <div class="form-group">
             @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control", @id = "imagePath" } })
                 @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -50,3 +51,4 @@
         </div>
     </div>
 }
+<script src="~/Scripts/imageUpdater.js"></script>
