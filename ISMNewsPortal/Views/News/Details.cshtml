@@ -42,4 +42,18 @@
         </div>
     }
 }
+<div class="btn-group" role="group">
+    @if (Model.Page > 0)
+    {
+        @Html.ActionLink("Last page", "Details", "News", new { @page = Model.Page - 1, @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
+    }
+    @if (Model.Page > 1 && Model.Pages > 2)
+    {
+        @Html.ActionLink("First page", "Details", "News", new { @page = 0, @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
+    }
+    @if (Model.Page < Model.Pages - 1)
+    {
+        @Html.ActionLink("Next page", "Details", "News", new { @page = Model.Page + 1, @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
+    }
+</div>
 @Html.Partial("_Comment", new ISMNewsPortal.Models.CommentCreateModel() { PageId = Model.NewsPost.Id })

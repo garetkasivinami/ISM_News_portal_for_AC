@@ -152,10 +152,21 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountRequest.cs" />
-    <Compile Include="Models\Admin.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\NewsPost.cs" />
-    <Compile Include="Models\NewsPostView.cs" />
+    <Compile Include="Models\Admin\Admin.cs" />
+    <Compile Include="Models\Admin\AdminViewModel.cs" />
+    <Compile Include="Models\Admin\AdminViewModelCollection.cs" />
+    <Compile Include="Models\Comment\Comment.cs" />
+    <Compile Include="Models\Comment\CommentCreateModel.cs" />
+    <Compile Include="Models\Comment\CommentViewModel.cs" />
+    <Compile Include="Models\Comment\CommentViewModelCollection.cs" />
+    <Compile Include="Models\NewsPost\NewsPost.cs" />
+    <Compile Include="Models\NewsPost\NewsPostAdminCollection.cs" />
+    <Compile Include="Models\NewsPost\NewsPostAdminView.cs" />
+    <Compile Include="Models\NewsPost\NewsPostHelperActions.cs" />
+    <Compile Include="Models\NewsPost\NewsPostModelCreate.cs" />
+    <Compile Include="Models\NewsPost\NewsPostSimplifiedCollection.cs" />
+    <Compile Include="Models\NewsPost\NewsPostSimplifiedView.cs" />
+    <Compile Include="Models\NewsPost\NewsPostViewModel.cs" />
     <Compile Include="Models\Security.cs" />
     <Compile Include="Models\Tool.cs" />
     <Compile Include="NHibernateSession.cs" />

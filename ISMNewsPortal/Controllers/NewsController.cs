@@ -13,9 +13,9 @@ namespace ISMNewsPortal.Controllers
     public class NewsController : Controller
     {
         // GET: News
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, int? page)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelperActions.GetNewsPostViewModelById(id);
+            NewsPostViewModel newsPostViewModel = NewsPostHelperActions.GetNewsPostViewModelById(id, page ?? 0);
             return View(newsPostViewModel);
         }
         [Authorize]

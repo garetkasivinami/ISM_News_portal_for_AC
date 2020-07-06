@@ -26,5 +26,11 @@
     <property name="AuthorId"
               type="int"
               not-null="true"/>
+    <property name="IsVisible"
+              type="boolean"
+              not-null="true" />
+    <property name="PublicationDate"
+              type="datetime"
+              not-null="true"/>
   </class>
 </hibernate-mapping>

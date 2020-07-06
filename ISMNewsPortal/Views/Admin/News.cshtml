@@ -26,11 +26,14 @@
                     Sort by...
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Id", "News", "Admin", new { @sortType = "id", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Name", "News", "Admin", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Description", "News", "Admin", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Date", "News", "Admin", new { @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Edit date", "News", "Admin", new { @sortType = "editDate", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Author", "News", "Admin", new { @sortType = "author", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Publication date", "News", "Admin", new { @sortType = "publishDate", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Visibility", "News", "Admin", new { @sortType = "visibility", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
                 </div>
             </li>
         </ul>
@@ -56,6 +59,8 @@
                     <li class="list-group-item">Author: @newsPost.AuthorName</li>
                     <li class="list-group-item">Author id: @newsPost.AuthorId</li>
                     <li class="list-group-item">Create date: @newsPost.CreatedDate</li>
+                    <li class="list-group-item">Publication date: @newsPost.PublicationDate</li>
+                    <li class="list-group-item">Is visible: @newsPost.IsVisible</li>
                 </ul>
             </div>
             <div class="card-body">
@@ -71,7 +76,7 @@
                     <div class="btn-group" role="group">
                         @Html.ActionLink("Edit", "Edit", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
                         @Html.ActionLink("Details", "Details", "News", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
-                        @Html.ActionLink("Delete", "DeleteRequest", "Admin", null, new { @class = "btn btn-outline-secondary btn-sm" })
+                        @Html.ActionLink("Delete", "DeleteRequest", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
                     </div>
                 }
             </div>

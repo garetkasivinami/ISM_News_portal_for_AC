@@ -15,13 +15,52 @@
             <label for="inlineFormInput">Move to page</label>
         </div>
         <div class="col-auto">
-            <input type="number" class="form-control mb-2" id="page" name="page" min="1" max="@Model.Pages" value="@Model.Page" />
+            <input type="number" class="form-control mb-2" id="page" name="page" min="0" max="@(Model.Pages - 1)" value="@Model.Page" />
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-dark mb-2">Submit</button>
+            <button type="submit" class="btn btn-dark mb-2">Move!</button>
         </div>
     </div>
 }
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown drop-flex">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter by...
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Today", "Comments", "Admin", new { @filter = "today", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Yesterday", "Comments", "Admin", new { @filter = "yesterday", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("This week", "Comments", "Admin", new { @filter = "week", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("All", "Comments", "Admin", new { @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Sort by...
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Username", "Comments", "Admin", new { @sortType = "username", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Commentary text", "Comments", "Admin", new { @sortType = "text", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("News post", "Comments", "Admin", new { @sortType = "news post", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Id", "Comments", "Admin", new { @sortType = "id", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Date", "Comments", "Admin", new { @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                </div>
+            </li>
+        </ul>
+        @using (Html.BeginForm("Comments", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
+        {
+            @Html.Hidden("sortType", Model.SortType);
+            @Html.Hidden("filter", Model.Filter);
+            @Html.Hidden("page", Model.Page);
+            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="@Model.Search">
+            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+        }
+    </div>
+</nav>
+
 @if (Model.CommentViewModels.Any())
 {
     foreach (ISMNewsPortal.Models.CommentViewModel comment in Model.CommentViewModels)
