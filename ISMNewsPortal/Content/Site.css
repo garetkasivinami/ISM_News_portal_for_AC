@@ -60,7 +60,7 @@ header .logout {
     margin-top: 20px;
 }
 
-.news-item a {
+.news-item .card-body a {
     color: red;
     font-size: 28px;
 }
@@ -70,7 +70,7 @@ header .logout {
     font-size: 20px;
 }
 
-.news-item a:hover {
+.news-item .card-body a:hover {
     text-decoration: none;
     color: black;
 }
@@ -110,4 +110,8 @@ header .logout {
 
 .edit-img, .post-img{
     padding:10px 0;
+}
+
+input[type="file"] {
+    display: none;
 }

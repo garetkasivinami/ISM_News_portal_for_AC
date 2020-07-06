@@ -4,8 +4,20 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
-<h4>Create news post!</h4>
-<img id="imageElement" class="post-img" alt="no image" />
+
+<h3>Create news post!</h3>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <label class="btn btn-outline-secondary">
+            Choose image file
+            <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" />
+        </label>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        <img id="imageElement" class="post-img" alt="no image" />
+    </div>
+</div>
+
 @using (Html.BeginForm("CreateNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -27,9 +39,6 @@
             </div>
         </div>
     </div>
-
-    <input type="file" name="uploadFiles" id="imagePath" />
-    @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h1>News list</h1>
-@Html.ActionLink("Create news", "CreateNews", "Admin", new { }, null)
+@Html.ActionLink("Create news", "CreateNews", "Admin", new { }, new { @class = "btn btn-outline-primary" })
 <hr />
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
@@ -50,22 +50,31 @@
     foreach (ISMNewsPortal.Models.NewsPostAdminView newsPost in Model.NewsPostAdminViews)
     {
         <div class="card news-item">
-            <h2>ID: @newsPost.Id</h2>
-            @if (Model.ViewActionLinks)
-            {
-                <!--Стилізувати-->
-                @Html.ActionLink("Edit", "Edit", "Admin", new { @id = newsPost.Id }, null)
-                @Html.ActionLink("Details", "Details", "News", new { @id = newsPost.Id }, null)
-                @Html.ActionLink("Delete", "DeleteRequest", "Admin")
-            }
-            <p>Author: @newsPost.AuthorName</p>
-            <p>Author id: @newsPost.AuthorId</p>
-            <p>Create date: @newsPost.CreatedDate</p>
-            @if (newsPost.EditDate != null)
-            {
-                <p>Last edit date: @newsPost.EditDate</p>
-            }
-            @Html.Partial("~/Views/News/_NewsSimplifyPartial.cshtml", newsPost)
+            <div class="card-header">
+                <ul class="list-group list-group-horizontal">
+                    <li class="list-group-item"><strong>ID: @newsPost.Id</strong></li>
+                    <li class="list-group-item">Author: @newsPost.AuthorName</li>
+                    <li class="list-group-item">Author id: @newsPost.AuthorId</li>
+                    <li class="list-group-item">Create date: @newsPost.CreatedDate</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                @if (newsPost.EditDate != null)
+                {
+                    <p>Last edit date: @newsPost.EditDate</p>
+                }
+                @Html.Partial("~/Views/News/_NewsSimplifyPartial.cshtml", newsPost)
+            </div>
+            <div class="card-footer">
+                @if (Model.ViewActionLinks)
+                {
+                    <div class="btn-group" role="group">
+                        @Html.ActionLink("Edit", "Edit", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
+                        @Html.ActionLink("Details", "Details", "News", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
+                        @Html.ActionLink("Delete", "DeleteRequest", "Admin", null, new { @class = "btn btn-outline-secondary btn-sm" })
+                    </div>
+                }
+            </div>
         </div>
 
     }
@@ -75,15 +84,18 @@ else
     <h2>No news</h2>
 }
 <!--Стилізувати-->
-@if (Model.Page > 0)
-{
-    @Html.ActionLink("Last page", "News", "Admin", new { sortType = Model.SortType, @page = Model.Page - 1, @filter = Model.Filter }, new { });
-}
-@if (Model.Page > 1 && Model.Pages > 2)
-{
-    @Html.ActionLink("First page", "News", "Admin", new { sortType = Model.SortType, @page = 0, @filter = Model.Filter }, new { });
-}
-@if (Model.Page < Model.Pages - 1)
-{
-    @Html.ActionLink("Next page", "News", "Admin", new { sortType = Model.SortType, @page = Model.Page + 1, @filter = Model.Filter }, new { });
-}
+<!--НАЧЕ НОРМ-->
+<div class="btn-group" role="group">
+    @if (Model.Page > 0)
+    {
+        @Html.ActionLink("Last page", "News", "Admin", new { sortType = Model.SortType, @page = Model.Page - 1, @filter = Model.Filter }, new { @class = "btn btn-outline-dark" });
+    }
+    @if (Model.Page > 1 && Model.Pages > 2)
+    {
+        @Html.ActionLink("First page", "News", "Admin", new { sortType = Model.SortType, @page = 0, @filter = Model.Filter }, new { @class = "btn btn-outline-dark" });
+    }
+    @if (Model.Page < Model.Pages - 1)
+    {
+        @Html.ActionLink("Next page", "News", "Admin", new { sortType = Model.SortType, @page = Model.Page + 1, @filter = Model.Filter }, new { @class = "btn btn-outline-dark" });
+    }
+</div>
