@@ -6,15 +6,23 @@
 <h1>Admin list</h1>
 @if (Model.AdminViewModels.Any())
 {
-    foreach (ISMNewsPortal.Models.AdminViewModel adminView in Model.AdminViewModels)
-    {
-        <hr />
-        <div class="news-item">
-            <h2>Login: @adminView.Login</h2>
-            <p>Admin Id: @adminView.Id</p>
-            <p>Email: @adminView.Email</p>
-            <p>Access: @adminView.AdminAccess</p>
-        </div>
-
-    }
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        @foreach (ISMNewsPortal.Models.AdminViewModel adminView in Model.AdminViewModels)
+        {
+            <div class="col mb-4">
+                <div class="card border-dark" style="max-width: 18rem;">
+                    <div class="card-header">Login: @adminView.Login</div>
+                    <div class="card-body text-dark">
+                        <p class="card-text">Admin Id: @adminView.Id</p>
+                        <p class="card-text">Email: @adminView.Email</p>
+                        <p class="card-text">Access: @adminView.AdminAccess</p>
+                    </div>
+                    <div class="card-footer">
+                            @Html.ActionLink("Edit", "AdminList", "Admin", new { }, new { @class = "btn btn-outline-dark btn-sm" })
+                            @Html.ActionLink("Delete", "AdminList", "Admin", new { }, new { @class = "btn btn-outline-danger btn-sm" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }
