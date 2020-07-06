@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.UI.HtmlControls;
 
 namespace ISMNewsPortal.Models
 {
@@ -36,8 +37,7 @@ namespace ISMNewsPortal.Models
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         [Required]
-        [MaxLength(256)]
-        public string ImagePath { get; set; }
+        public HttpPostedFileBase[] uploadFiles { get; set; }
     }
     public class NewsPostSimplifiedView
     {

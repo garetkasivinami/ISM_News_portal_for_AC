@@ -176,7 +176,11 @@ namespace ISMNewsPortal.Controllers
                     newsPost.CreatedDate = DateTime.Now;
                     newsPost.Description = model.Description;
                     newsPost.EditDate = null;
-                    newsPost.ImagePath = model.ImagePath;
+                    string fileName = System.IO.Path.GetFileName(model.uploadFiles[0].FileName);
+                    string path = Server.MapPath("~/Files/" + fileName);
+                    model.uploadFiles[0].SaveAs(path);
+                    newsPost.ImagePath = path;
+                    //newsPost.ImagePath = model.ImagePath;
                     newsPost.Name = model.Name;
 
                     using (ITransaction transaction = session.BeginTransaction())

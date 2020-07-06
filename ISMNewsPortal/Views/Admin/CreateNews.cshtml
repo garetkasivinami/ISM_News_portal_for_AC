@@ -6,7 +6,7 @@
 }
 <h4>Create news post!</h4>
 <img id="imageElement" class="post-img" alt="no image" />
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -15,7 +15,7 @@
         <div class="card-body">
             <div class="form-group">
                 <div class="col-md-12 input-create">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = "News post name"} })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = "News post name" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger card-title" })
                 </div>
             </div>
@@ -27,13 +27,9 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-12 input-create">
-            @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control", @id = "imagePath" } })
-            @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
-        </div>
-    </div>
+
+    <input type="file" name="uploadFiles" id="imagePath" />
+    @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
