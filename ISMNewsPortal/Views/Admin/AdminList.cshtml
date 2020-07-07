@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h1>Admin list</h1>
+@Html.ActionLink("Create new Admin!", "CreateAdmin", "Admin", new { }, new { })
 @if (Model.AdminViewModels.Any())
 {
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
@@ -16,12 +17,22 @@
                         <p class="card-text">Admin Id: @adminView.Id</p>
                         <p class="card-text">Email: @adminView.Email</p>
                     </div>
+                    @if(adminView.Roles.Any()){
+                        <p>Roles:</p>
+                        <ul>
+                            @foreach (string role in adminView.Roles)
+                            {
+                                <li>@role</li>
+                            }
+                        </ul>
+                    }
                     <div class="card-footer">
-                            @Html.ActionLink("Edit", "AdminList", "Admin", new { }, new { @class = "btn btn-outline-dark btn-sm" })
-                            @Html.ActionLink("Delete", "AdminList", "Admin", new { }, new { @class = "btn btn-outline-danger btn-sm" })
+                        @Html.ActionLink("Edit", "EditAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+                        @Html.ActionLink("Delete", "DeleteAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-danger btn-sm doubleClickLink" })
                     </div>
                 </div>
             </div>
         }
     </div>
 }
+<script src="~/Scripts/doubleClickLink.js"></script>

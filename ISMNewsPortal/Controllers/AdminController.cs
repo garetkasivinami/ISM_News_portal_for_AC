@@ -24,14 +24,14 @@ namespace ISMNewsPortal.Controllers
             NewsPostAdminCollection result = NewsPost.GenerateNewsPostAdminCollection(model);
             return View(result);
         }
-        public ActionResult Edit(int id)
+        public ActionResult EditNews(int id)
         {
             NewsPostAdminView newsPostAdminView = NewsPost.GetNewsPostAdminView(id);
             return View(newsPostAdminView);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(NewsPostAdminView newsPostAdminView)
+        public ActionResult EditNews(NewsPostAdminView newsPostAdminView)
         {
             if (ModelState.IsValid)
                 using (ISession session = NHibernateSession.OpenSession())
@@ -75,6 +75,30 @@ namespace ISMNewsPortal.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult CreateAdmin()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateAdmin(AdminCreateModel model)
+        {
+            if (ModelState.IsValid && Admin.AddAdmin(model))
+            {
+                return RedirectToAction("AdminList");
+            }
+            return View(model);
+        }
+        public ActionResult DeleteAdmin(int id)
+        {
+            Admin admin = Admin.GetAdminById(id);
+            return View(new AdminViewModel(admin));
+        }
+        public ActionResult DeleteAdminSured(int id)
+        {
+            Admin.RemoveAdmin(id);
+            return RedirectToAction("AdminList");
+        }
         [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult CreateNews(NewsPostModelCreate model)
@@ -94,7 +118,7 @@ namespace ISMNewsPortal.Controllers
                     string fileName = System.IO.Path.GetFileName(model.uploadFiles[0].FileName);
                     string path = Server.MapPath("~/App_Data/Files/" + fileName);
                     model.uploadFiles[0].SaveAs(path);
-                    newsPost.ImagePath = path;
+                    newsPost.ImagePath = "/App_Data/Files/" + fileName;
                     //newsPost.ImagePath = model.ImagePath;
                     newsPost.Name = model.Name;
 
@@ -113,10 +137,6 @@ namespace ISMNewsPortal.Controllers
             AdminViewModelCollection adminViewModelCollection = Admin.GenerateAdminViewModelCollection();
             return View(adminViewModelCollection);
         }
-        public ActionResult CreateAdmin()
-        {
-            return View();
-        }
         public ActionResult Comments(ToolBarModel model)
         {
             CommentViewModelCollection commentViewModelCollection = Comment.GenerateCommentViewModelCollection(model);
@@ -126,6 +146,17 @@ namespace ISMNewsPortal.Controllers
         {
             Comment.RemoveComment(id);
             return RedirectToAction("Comments");
+        }
+        public ActionResult EditAdmin (int id)
+        {
+            Admin admin = Admin.GetAdminById(id);
+            return View(new AdminEditModel(admin));
+        }
+        [HttpPost]
+        public ActionResult EditAdmin(AdminEditModel model)
+        {
+            Admin.UpdateAdmin(model);
+            return RedirectToAction("AdminList");
         }
     }
 }

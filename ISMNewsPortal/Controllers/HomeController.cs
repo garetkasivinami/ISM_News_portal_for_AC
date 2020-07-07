@@ -15,5 +15,9 @@ namespace ISMNewsPortal.Controllers
             NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPost.GenerateNewsPostSimplifiedCollection(page ?? 0, sortType, filter, search, typeSearch);
             return View(newsPostSimplifiedCollection);
         }
+        public ActionResult Error404()
+        {
+            return View();
+        }
     }
 }

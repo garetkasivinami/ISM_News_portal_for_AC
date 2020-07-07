@@ -147,14 +147,15 @@
             </div>
             <div class="card-footer">
                 <div class="btn-group" role="group">
-                    @Html.ActionLink("Edit", "Edit", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
+                    @Html.ActionLink("Edit", "EditNews", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
                     @Html.ActionLink("Details", "Details", "News", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
-                    @Html.ActionLink("Delete", "DeleteRequest", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
+                    @Html.ActionLink("Delete", "DeleteRequest", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-secondary btn-sm doubleClickLink" })
                 </div>
             </div>
         </div>
 
     }
+    <script src="~/Scripts/doubleClickLink.js"></script>
 }
 else
 {

@@ -18,13 +18,13 @@
         <div class="card-body">
             <div class="form-group">
                 <div class="col-md-12 input-create">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = "News post name" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title generateCharacterCount", @placeholder = "News post name" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger card-title" })
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-12 input-create">
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text", @placeholder = "News post description" } })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text generateCharacterCount", @placeholder = "News post description" } })
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger card-text" })
                 </div>
             </div>
@@ -62,3 +62,4 @@
     </div>
 }
 <script src="~/Scripts/imageUpdater.js"></script>
+<script src="~/Scripts/generator.js"></script>
