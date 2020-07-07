@@ -21,6 +21,7 @@ input,
 select,
 textarea {
     max-width: 280px;
+    min-height: 36px;
 }
 
 header .nav-item {
@@ -121,4 +122,8 @@ input[type="file"] {
 }
 .doubleClickLink {
     background-color: lightgray;
+}
+
+textarea.form-control {
+    min-height: 36px;
 }

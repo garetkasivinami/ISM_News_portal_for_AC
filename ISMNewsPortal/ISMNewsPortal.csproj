@@ -341,6 +341,7 @@
     <Content Include="Views\News\_NewsSimplifyPartial.cshtml" />
     <Content Include="Views\Admin\AdminList.cshtml" />
     <Content Include="Views\Account\Logoff.cshtml" />
+    <Content Include="Views\Home\Error404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
