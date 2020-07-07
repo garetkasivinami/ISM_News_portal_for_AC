@@ -21,18 +21,18 @@ namespace ISMNewsPortal.Models
         public virtual int AuthorId { get; set; }
         public virtual bool IsVisible { get; set; }
         public virtual DateTime PublicationDate { get; set; }
-        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(int page, string sortType, string filter, string search, string typeSearch)
+        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(ToolBarModel model)
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
-                string filterFunc = NewsPostHelperActions.GetFilterSqlString(ref filter);
-                string sortString = NewsPostHelperActions.GetAdminSortSqlString(ref sortType);
-                string searchString = NewsPostHelperActions.GetSearchSqlString(ref typeSearch);
-                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerryAdmin(session, sortString, filterFunc, search, searchString).List<NewsPost>();
+                string filterFunc = NewsPostHelperActions.GetFilterSqlString(model.Filter);
+                string sortString = NewsPostHelperActions.GetAdminSortSqlString(model.SortType);
+                string searchString = NewsPostHelperActions.GetSearchSqlString(model.TypeSearch);
+                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerryAdmin(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
 
                 int newsCount = selectedNewsPost.Count();
 
-                selectedNewsPost = NewsPostHelperActions.CutIEnumarable(page, NewsInOnePage, selectedNewsPost);
+                selectedNewsPost = NewsPostHelperActions.CutIEnumarable(model.Page, NewsInOnePage, selectedNewsPost);
                 ICollection<NewsPostAdminView> newsPostsAdminView = new List<NewsPostAdminView>();
                 foreach (NewsPost newsPost in selectedNewsPost)
                 {
@@ -40,24 +40,17 @@ namespace ISMNewsPortal.Models
                     int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
                     newsPostsAdminView.Add(new NewsPostAdminView(newsPost, newsPostAuthorName, commentCount));
                 }
-                return new NewsPostAdminCollection()
-                {
-                    Filter = filter,
-                    SortType = sortType,
-                    Page = page,
-                    Pages = NewsPostHelperActions.CalculatePages(newsCount, NewsInOnePage),
-                    NewsPostAdminViews = newsPostsAdminView,
-                    Search = search
-                };
+                model.Pages = NewsPostHelperActions.CalculatePages(newsCount, NewsInOnePage);
+                return new NewsPostAdminCollection(newsPostsAdminView, model);
             }
         }
         public static NewsPostSimplifiedCollection GenerateNewsPostSimplifiedCollection(int page, string sortType, string filter, string search, string typeSearch)
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
-                string filterFunc = NewsPostHelperActions.GetFilterSqlString(ref filter);
-                string sortString = NewsPostHelperActions.GetAdminSortSqlString(ref sortType);
-                string searchString = NewsPostHelperActions.GetSearchSqlString(ref typeSearch);
+                string filterFunc = NewsPostHelperActions.GetFilterSqlString(filter);
+                string sortString = NewsPostHelperActions.GetAdminSortSqlString(sortType);
+                string searchString = NewsPostHelperActions.GetSearchSqlString(typeSearch);
                 IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerryAdmin(session, sortString, filterFunc, search, searchString).List<NewsPost>();
 
                 int newsCount = selectedNewsPost.Count();

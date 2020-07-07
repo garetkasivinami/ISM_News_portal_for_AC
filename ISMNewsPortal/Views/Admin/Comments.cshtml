@@ -31,10 +31,33 @@
                     Filter by...
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Today", "Comments", "Admin", new { @filter = "today", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Yesterday", "Comments", "Admin", new { @filter = "yesterday", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("This week", "Comments", "Admin", new { @filter = "week", @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("All", "Comments", "Admin", new { @page = Model.Page, @sortType = Model.SortType }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Today", "Comments", "Admin", new
+                    {
+                        @Filter = "today",
+                        @SortType = Model.SortType,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Yesterday", "Comments", "Admin", new
+                    {
+                        @Filter = "yesterday",
+                        @SortType = Model.SortType,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("This week", "Comments", "Admin", new
+                    {
+                        @Filter = "week",
+                        @SortType = Model.SortType,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("All", "Comments", "Admin", new
+                    {
+                        @SortType = Model.SortType,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -42,25 +65,53 @@
                     Sort by...
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Username", "Comments", "Admin", new { @sortType = "username", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Commentary text", "Comments", "Admin", new { @sortType = "text", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("News post", "Comments", "Admin", new { @sortType = "news post", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Id", "Comments", "Admin", new { @sortType = "id", @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date", "Comments", "Admin", new { @page = Model.Page, @filter = Model.Filter }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Username", "Comments", "Admin", new
+                    {
+                        @SortType = "username",
+                        @Filter = Model.Filter,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Commentary text", "Comments", "Admin", new
+                    {
+                        @SortType = "text",
+                        @Filter = Model.Filter,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("News post", "Comments", "Admin", new
+                    {
+                        @SortType = "news post",
+                        @Filter = Model.Filter,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Id", "Comments", "Admin", new
+                    {
+                        @SortType = "id",
+                        @filter = Model.@Filter,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Date", "Comments", "Admin", new
+                    {
+                        @Filter = Model.Filter,
+                        @TypeSearch = Model.TypeSearch,
+                        @Search = Model.Search
+               }, new { @class = "dropdown-item" })
                 </div>
             </li>
         </ul>
         @using (Html.BeginForm("Comments", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {
-            @Html.Hidden("sortType", Model.SortType);
-            @Html.Hidden("filter", Model.Filter);
-            @Html.Hidden("page", Model.Page);
+            @Html.Hidden("SortType", Model.SortType);
+            @Html.Hidden("Filter", Model.Filter);
             <p>Search by....</p>
-            <select name="typeSearch">
+            <select name="TypeSearch">
                 <option selected value="name">Name</option>
                 <option value="text">Text</option>
             </select>
-            <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="@Model.Search">
+            <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
         }
     </div>
@@ -106,15 +157,36 @@ else
 <div class="btn-group" role="group">
     @if (Model.Page > 0)
     {
-        @Html.ActionLink("Last page", "Comments", "Admin", new { @page = Model.Page - 1 }, new { @class = "btn btn-outline-dark" });
+        @Html.ActionLink("Last page", "Comments", "Admin", new
+        {
+            @Page = Model.Page - 1,
+            @SortType = Model.SortType,
+            @Filter = Model.Filter,
+            @TypeSearch = Model.TypeSearch,
+            @Search = Model.Search
+   }, new { @class = "btn btn-outline-dark" });
     }
     @if (Model.Page > 1 && Model.Pages > 2)
     {
-        @Html.ActionLink("First page", "Comments", "Admin", new { @page = 0 }, new { @class = "btn btn-outline-dark" });
+        @Html.ActionLink("First page", "Comments", "Admin", new
+        {
+            @Page = 0,
+            @SortType = Model.SortType,
+            @Filter = Model.Filter,
+            @TypeSearch = Model.TypeSearch,
+            @Search = Model.Search
+   }, new { @class = "btn btn-outline-dark" });
     }
     @if (Model.Page < Model.Pages - 1)
     {
-        @Html.ActionLink("Next page", "Comments", "Admin", new { @page = Model.Page + 1 }, new { @class = "btn btn-outline-dark" });
+        @Html.ActionLink("Next page", "Comments", "Admin", new
+        {
+            @Page = Model.Page + 1,
+            @SortType = Model.SortType,
+            @Filter = Model.Filter,
+            @TypeSearch = Model.TypeSearch,
+            @Search = Model.Search
+   }, new { @class = "btn btn-outline-dark" });
     }
 </div>
 

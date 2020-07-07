@@ -40,7 +40,7 @@
         {
             return "1 = 1";
         }
-        public static string GetFilterSqlString(ref string filter)
+        public static string GetFilterSqlString(string filter)
         {
             string filterFunc;
             switch (filter)
@@ -55,13 +55,12 @@
                     filterFunc = NewsPostHelperActions.FilterWeek();
                     break;
                 default:
-                    filter = null;
                     filterFunc = NewsPostHelperActions.FilterAll();
                     break;
             }
             return filterFunc;
         }
-        public static string GetSortSqlString(ref string sortType)
+        public static string GetSortSqlString(string sortType)
         {
             string sortString;
             switch (sortType)
@@ -73,13 +72,12 @@
                     sortString = "@Description";
                     break;
                 default:
-                    sortType = null;
                     sortString = "@PublicationDate DESC";
                     break;
             }
             return sortString;
         }
-        public static string GetAdminSortSqlString(ref string sortType)
+        public static string GetAdminSortSqlString(string sortType)
         {
             string sortString;
             switch (sortType)
@@ -106,13 +104,12 @@
                     sortString = "@IsVisible";
                     break;
                 default:
-                    sortType = null;
                     sortString = "@CreatedDate DESC";
                     break;
             }
             return sortString;
         }
-        public static string GetSearchSqlString(ref string searchType)
+        public static string GetSearchSqlString(string searchType)
         {
             string searchString;
             switch (searchType)
@@ -121,7 +118,6 @@
                     searchString = "Description LIKE :searchName ";
                     break;
                 default:
-                    searchType = null;
                     searchString = "Name LIKE :searchName ";
                     break;
             }

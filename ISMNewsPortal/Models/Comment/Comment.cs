@@ -33,7 +33,7 @@ namespace ISMNewsPortal.Models
         {
             return "1 = 1";
         }
-        public static string GetFilterSqlString(ref string filter)
+        public static string GetFilterSqlString(string filter)
         {
             string filterFunc;
             switch (filter)
@@ -48,13 +48,12 @@ namespace ISMNewsPortal.Models
                     filterFunc = Comment.FilterWeek();
                     break;
                 default:
-                    filter = null;
                     filterFunc = Comment.FilterAll();
                     break;
             }
             return filterFunc;
         }
-        public static string GetSortSqlString(ref string sortType)
+        public static string GetSortSqlString(string sortType)
         {
             string sortString;
             switch (sortType)
@@ -72,13 +71,12 @@ namespace ISMNewsPortal.Models
                     sortString = "@NewsPostId";
                     break;
                 default:
-                    sortType = null;
                     sortString = "@Date DESC";
                     break;
             }
             return sortString;
         }
-        public static string GetSearchSqlString(ref string searchType)
+        public static string GetSearchSqlString(string searchType)
         {
             string searchString;
             switch (searchType)
@@ -87,7 +85,6 @@ namespace ISMNewsPortal.Models
                     searchString = "Text LIKE :searchName ";
                     break;
                 default:
-                    searchType = null;
                     searchString = "UserName LIKE :searchName ";
                     break;
             }
@@ -102,34 +99,26 @@ namespace ISMNewsPortal.Models
                    $"ORDER BY {sortType}").
                     SetParameter("searchName", $"%{search}%");
         }
-        public static CommentViewModelCollection GenerateCommentViewModelCollection(int page, string sortType, string filter, string search, string searchType)
+        public static CommentViewModelCollection GenerateCommentViewModelCollection(ToolBarModel model)
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
-                string filterFunc = Comment.GetFilterSqlString(ref filter);
-                string sortString = Comment.GetSortSqlString(ref sortType);
-                string searchString = Comment.GetSearchSqlString(ref searchType);
-                IEnumerable<Comment> comments = Comment.GetSqlQuerry(session, sortString, filterFunc, search, searchString).List<Comment>();
+                string filterFunc = Comment.GetFilterSqlString(model.Filter);
+                string sortString = Comment.GetSortSqlString(model.SortType);
+                string searchString = Comment.GetSearchSqlString(model.TypeSearch);
+                IEnumerable<Comment> comments = Comment.GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<Comment>();
 
                 int commentsCount = comments.Count();
 
-                comments = NewsPostHelperActions.CutIEnumarable(page, Comment.CommentsInOnePage, comments);
+                comments = NewsPostHelperActions.CutIEnumarable(model.Page, Comment.CommentsInOnePage, comments);
 
                 List<CommentViewModel> commentViewModels = new List<CommentViewModel>();
                 foreach (Comment comment in comments)
                 {
                     commentViewModels.Add(new CommentViewModel(comment));
                 }
-                return new CommentViewModelCollection()
-                {
-                    CommentViewModels = commentViewModels,
-                    Pages = NewsPostHelperActions.CalculatePages(commentsCount, Comment.CommentsInOnePage),
-                    Page = page,
-                    CommentsCount = commentsCount,
-                    Filter = filter,
-                    Search = search,
-                    SortType = sortType
-                };
+                model.Pages = NewsPostHelperActions.CalculatePages(commentsCount, Comment.CommentsInOnePage);
+                return new CommentViewModelCollection(commentViewModels, model, commentsCount);
             }
         }
         public static void AddNewComment(CommentCreateModel model)

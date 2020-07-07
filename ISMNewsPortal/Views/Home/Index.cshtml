@@ -64,15 +64,15 @@
     <div class="btn-group" role="group">
         @if (Model.Page > 0)
         {
-            @Html.ActionLink("Last page", "News", "Admin", new { sortType = Model.SortType, @page = Model.Page - 1, @filter = Model.Filter }, new { @class = "btn btn-outline-dark" });
+            @Html.ActionLink("Last page", "News", "Admin", new { @Page = Model.Page - 1, @SortType = Model.SortType, @Filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "btn btn-outline-dark" });
         }
         @if (Model.Page > 1 && Model.Pages > 2)
         {
-            @Html.ActionLink("First page", "News", "Admin", new { sortType = Model.SortType, @page = 0, @filter = Model.Filter }, new { @class = "btn btn-outline-dark" });
+            @Html.ActionLink("First page", "News", "Admin", new { @Page = 0, @SortType = Model.SortType, @Filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "btn btn-outline-dark" });
         }
         @if (Model.Page < Model.Pages - 1)
         {
-            @Html.ActionLink("Next page", "News", "Admin", new { sortType = Model.SortType, @page = Model.Page + 1, @filter = Model.Filter }, new { @class = "btn btn-outline-dark" });
+            @Html.ActionLink("Next page", "News", "Admin", new { @Page = Model.Page + 1, @SortType = Model.SortType, @Filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "btn btn-outline-dark" });
         }
     </div>
 </div>
