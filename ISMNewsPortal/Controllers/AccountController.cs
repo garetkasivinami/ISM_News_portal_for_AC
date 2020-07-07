@@ -28,7 +28,7 @@ namespace ISMNewsPortal.Controllers
                 if (admin != null)
                 {
                     FormsAuthentication.SetAuthCookie(admin.Login, true);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Admin");
                 }
                 ModelState.AddModelError("", "Invalid login and/or password!");
             }

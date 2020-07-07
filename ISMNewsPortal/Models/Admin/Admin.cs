@@ -13,7 +13,6 @@ namespace ISMNewsPortal.Models
         public virtual string Email { get; set; }
         public virtual string Password { get; set; }
         public virtual string Salt { get; set; }
-        public virtual string AdminAccess { get; set; }
         //==================================================================
         public static void SetPassword(Admin admin, string password)
         {
@@ -66,7 +65,6 @@ namespace ISMNewsPortal.Models
                     {
                         Id = admin.Id,
                         Login = admin.Login,
-                        AdminAccess = admin.AdminAccess
                     });
                 }
                 return new AdminViewModelCollection() { AdminViewModels = adminViewModels };
