@@ -92,7 +92,7 @@ namespace ISMNewsPortal.Controllers
                     newsPost.IsVisible = model.IsVisible;
 
                     string fileName = System.IO.Path.GetFileName(model.uploadFiles[0].FileName);
-                    string path = Server.MapPath("~/Files/" + fileName);
+                    string path = Server.MapPath("~/App_Data/Files/" + fileName);
                     model.uploadFiles[0].SaveAs(path);
                     newsPost.ImagePath = path;
                     //newsPost.ImagePath = model.ImagePath;
