@@ -112,6 +112,21 @@
             }
             return sortString;
         }
+        public static string GetSearchSqlString(ref string searchType)
+        {
+            string searchString;
+            switch (searchType)
+            {
+                case "description":
+                    searchString = "Description LIKE :searchName ";
+                    break;
+                default:
+                    searchType = null;
+                    searchString = "Name LIKE :searchName ";
+                    break;
+            }
+            return searchString;
+        }
         public static NewsPostViewModel GetNewsPostViewModelById(int id, int page)
         {
             using (ISession session = NHibernateSession.OpenSession())
@@ -133,24 +148,22 @@
                 return new NewsPostViewModel(newsPost, commentsViewModel, page, pages);
             }
         }
-        public static IQuery GetSqlQuerry(ISession session, string sortType, string filter, string search)
+        public static IQuery GetSqlQuerry(ISession session, string sortType, string filter, string search, string searchString)
         {
             search = search ?? "_";
             return session.CreateQuery("from NewsPost where " +
                    $"{filter} AND " +
-                    "(Name LIKE :searchName OR " +
-                    "Description LIKE :searchName) " +
+                    searchString +
                     "AND IsVisible = 1 AND PublicationDate <= GetDate() " +
                    $"ORDER BY {sortType}").
                     SetParameter("searchName", $"%{search}%");
         }
-        public static IQuery GetSqlQuerryAdmin(ISession session, string sortType, string filter, string search)
+        public static IQuery GetSqlQuerryAdmin(ISession session, string sortType, string filter, string search, string searchString)
         {
             search = search ?? "_";
             return session.CreateQuery("from NewsPost where " +
                    $"{filter} AND " +
-                    "(Name LIKE :searchName OR " +
-                    "Description LIKE :searchName) " +
+                    searchString +
                    $"ORDER BY {sortType}").
                     SetParameter("searchName", $"%{search}%");
         }

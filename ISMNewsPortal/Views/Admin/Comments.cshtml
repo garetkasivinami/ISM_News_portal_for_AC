@@ -55,6 +55,11 @@
             @Html.Hidden("sortType", Model.SortType);
             @Html.Hidden("filter", Model.Filter);
             @Html.Hidden("page", Model.Page);
+            <p>Search by....</p>
+            <select name="typeSearch">
+                <option selected value="name">Name</option>
+                <option value="text">Text</option>
+            </select>
             <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="@Model.Search">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
         }
@@ -84,9 +89,8 @@
             </div>
             <div class="card-footer">
                 <div class="btn-group" role="group">
-                    @Html.ActionLink("Details", "CommentDetails", "Admin", new { @id = comment.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
+                    @Html.ActionLink("Delete", "DeleteComment", "Admin", new { @id = comment.Id }, new { @class = "btn btn-outline-secondary btn-sm doubleClickLink" })
                     @Html.ActionLink("Move to post", "Details", "News", new { @id = comment.NewsPostId }, new { @class = "btn btn-outline-secondary btn-sm" })
-                    @Html.ActionLink("Details", "CommentDetails", "Admin", new { @id = comment.Id }, new { @class = "btn btn-outline-secondary btn-sm" })
                 </div>
             </div>
         </div>
@@ -96,6 +100,7 @@ else
 {
     <p>No comments</p>
 }
+<script src="~/Scripts/doubleClickLink.js"></script>
 <!--Стилізувати-->
 <!--ГОТОВО-->
 <div class="btn-group" role="group">

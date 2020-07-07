@@ -19,9 +19,9 @@ namespace ISMNewsPortal.Controllers
         {
             return View();
         }
-        public ActionResult News(int? page, string sortType, string filter, string search)
+        public ActionResult News(int? page, string sortType, string filter, string search, string typeSearch)
         {
-            NewsPostAdminCollection result = NewsPost.GenerateNewsPostAdminCollection(page ?? 0, sortType, filter, search);
+            NewsPostAdminCollection result = NewsPost.GenerateNewsPostAdminCollection(page ?? 0, sortType, filter, search, typeSearch);
             return View(result);
         }
         public ActionResult Edit(int id)
@@ -117,10 +117,15 @@ namespace ISMNewsPortal.Controllers
         {
             return View();
         }
-        public ActionResult Comments(int? page, string sortType, string filter, string search)
+        public ActionResult Comments(int? page, string sortType, string filter, string search, string typeSearch)
         {
-            CommentViewModelCollection commentViewModelCollection = Comment.GenerateCommentViewModelCollection(page ?? 0, sortType, filter, search);
+            CommentViewModelCollection commentViewModelCollection = Comment.GenerateCommentViewModelCollection(page ?? 0, sortType, filter, search, typeSearch);
             return View(commentViewModelCollection);
+        }
+        public ActionResult DeleteComment(int id)
+        {
+            Comment.RemoveComment(id);
+            return RedirectToAction("Comments");
         }
     }
 }

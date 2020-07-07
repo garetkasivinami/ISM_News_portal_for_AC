@@ -10,77 +10,10 @@ namespace ISMNewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(int? page, string sortType, string filter, string search)
+        public ActionResult Index(int? page, string sortType, string filter, string search, string typeSearch)
         {
-            int numberPage = page ?? 0;
-            int pages;
-            List<NewsPost> newsPosts;
-            string filterFunc;
-            string sortString;
-            switch (filter)
-            {
-                case "today":
-                    filterFunc = NewsPostHelperActions.FilterToday();
-                    break;
-                case "yesterday":
-                    filterFunc = NewsPostHelperActions.FilterYesterday();
-                    break;
-                case "week":
-                    filterFunc = NewsPostHelperActions.FilterWeek();
-                    break;
-                default:
-                    filter = null;
-                    filterFunc = NewsPostHelperActions.FilterAll();
-                    break;
-            }
-            switch (sortType)
-            {
-                case "name":
-                    sortString = "@Name";
-                    break;
-                case "description":
-                    sortString = "@Description";
-                    break;
-                default:
-                    sortType = null;
-                    sortString = "@PublicationDate DESC";
-                    break;
-            }
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerry(session, sortString, filterFunc, search).List<NewsPost>();
-
-                int newsCount = selectedNewsPost.Count();
-                pages = newsCount / NewsPost.NewsInOnePage;
-                if (newsCount % NewsPost.NewsInOnePage != 0)
-                    pages++;
-                selectedNewsPost = selectedNewsPost.Skip(NewsPost.NewsInOnePage * numberPage).Take(NewsPost.NewsInOnePage);
-                newsPosts = selectedNewsPost.ToList();
-                ICollection<NewsPostSimplifiedView> newsPostSimplifyViews = new List<NewsPostSimplifiedView>();
-                foreach (NewsPost newsPost in newsPosts)
-                {
-                    int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
-                    newsPostSimplifyViews.Add(new NewsPostSimplifiedView(newsPost, commentCount));
-                }
-                //using (ITransaction transaction = session.BeginTransaction())
-                //{
-                //    Admin admin = new Admin();
-                //    admin.Login = "Big man";
-                //    Admin.SetPassword(admin, "12345678");
-                //    session.Save(admin);
-                //    transaction.Commit();
-                //}
-                return View(new NewsPostSimplifiedCollection()
-                {
-                    NewsPostSimpliedViews = newsPostSimplifyViews,
-                    Pages = pages,
-                    Page = numberPage,
-                    Filter = filter,
-                    SortType = sortType,
-                    Search = search
-                });
-            }
-
+            NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPost.GenerateNewsPostSimplifiedCollection(page ?? 0, sortType, filter, search, typeSearch);
+            return View(newsPostSimplifiedCollection);
         }
     }
 }

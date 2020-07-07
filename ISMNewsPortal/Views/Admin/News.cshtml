@@ -42,6 +42,11 @@
             @Html.Hidden("sortType", Model.SortType);
             @Html.Hidden("filter", Model.Filter);
             @Html.Hidden("page", Model.Page);
+            <p>Search by....</p>
+            <select name="typeSearch">
+                <option selected value="name">Name</option>
+                <option value="description">Description</option>
+            </select>
             <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="@Model.Search">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
         }

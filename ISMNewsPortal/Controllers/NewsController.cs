@@ -29,22 +29,10 @@ namespace ISMNewsPortal.Controllers
                     ModelState.AddModelError("", HelperActions.XssIndectDetectedError);
                     return View(model);
                 }
-                using (ISession session = NHibernateSession.OpenSession())
-                {
-                    Comment comment = new Comment();
-                    comment.Date = DateTime.Now;
-                    comment.NewsPostId = model.PageId;
-                    comment.Text = model.Text;
-                    comment.UserName = model.UserName;
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        session.Save(comment);
-                        transaction.Commit();
-                    }
-                    return RedirectToAction("Details", "News", new { @id = model.PageId });
-                }
+                Comment.AddNewComment(model);
+                return RedirectToAction("Details", "News", new { @id = model.PageId });
             }
-            return RedirectToAction("Index", "Home");
+            return View(model);
         }
     }
 }

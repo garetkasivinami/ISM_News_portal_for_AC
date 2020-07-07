@@ -78,23 +78,38 @@ namespace ISMNewsPortal.Models
             }
             return sortString;
         }
-        public static IQuery GetSqlQuerry(ISession session, string sortType, string filter, string search)
+        public static string GetSearchSqlString(ref string searchType)
+        {
+            string searchString;
+            switch (searchType)
+            {
+                case "text":
+                    searchString = "Text LIKE :searchName ";
+                    break;
+                default:
+                    searchType = null;
+                    searchString = "UserName LIKE :searchName ";
+                    break;
+            }
+            return searchString;
+        }
+        public static IQuery GetSqlQuerry(ISession session, string sortType, string filter, string search, string searchString)
         {
             search = search ?? "_";
             return session.CreateQuery("from Comment where " +
                    $"{filter} AND " +
-                    "(UserName LIKE :searchName OR " +
-                    "Text LIKE :searchName) " +
+                    searchString +
                    $"ORDER BY {sortType}").
                     SetParameter("searchName", $"%{search}%");
         }
-        public static CommentViewModelCollection GenerateCommentViewModelCollection(int page, string sortType, string filter, string search)
+        public static CommentViewModelCollection GenerateCommentViewModelCollection(int page, string sortType, string filter, string search, string searchType)
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
                 string filterFunc = Comment.GetFilterSqlString(ref filter);
                 string sortString = Comment.GetSortSqlString(ref sortType);
-                IEnumerable<Comment> comments = Comment.GetSqlQuerry(session, sortString, filterFunc, search).List<Comment>();
+                string searchString = Comment.GetSearchSqlString(ref searchType);
+                IEnumerable<Comment> comments = Comment.GetSqlQuerry(session, sortString, filterFunc, search, searchString).List<Comment>();
 
                 int commentsCount = comments.Count();
 
@@ -115,6 +130,34 @@ namespace ISMNewsPortal.Models
                     Search = search,
                     SortType = sortType
                 };
+            }
+        }
+        public static void AddNewComment(CommentCreateModel model)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                Comment comment = new Comment();
+                comment.Date = DateTime.Now;
+                comment.NewsPostId = model.PageId;
+                comment.Text = model.Text;
+                comment.UserName = model.UserName;
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Save(comment);
+                    transaction.Commit();
+                }
+            }
+        }
+        public static void RemoveComment(int id)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                Comment comment = session.Get<Comment>(id);
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Delete(comment);
+                    transaction.Commit();
+                }
             }
         }
     }

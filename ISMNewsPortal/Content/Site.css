@@ -119,3 +119,6 @@ header .logout {
 input[type="file"] {
     display: none;
 }
+.doubleClickLink {
+    background-color: lightgray;
+}

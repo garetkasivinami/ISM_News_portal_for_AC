@@ -21,13 +21,14 @@ namespace ISMNewsPortal.Models
         public virtual int AuthorId { get; set; }
         public virtual bool IsVisible { get; set; }
         public virtual DateTime PublicationDate { get; set; }
-        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(int page, string sortType, string filter, string search)
+        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(int page, string sortType, string filter, string search, string typeSearch)
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
                 string filterFunc = NewsPostHelperActions.GetFilterSqlString(ref filter);
                 string sortString = NewsPostHelperActions.GetAdminSortSqlString(ref sortType);
-                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerryAdmin(session, sortString, filterFunc, search).List<NewsPost>();
+                string searchString = NewsPostHelperActions.GetSearchSqlString(ref typeSearch);
+                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerryAdmin(session, sortString, filterFunc, search, searchString).List<NewsPost>();
 
                 int newsCount = selectedNewsPost.Count();
 
@@ -46,6 +47,35 @@ namespace ISMNewsPortal.Models
                     Page = page,
                     Pages = NewsPostHelperActions.CalculatePages(newsCount, NewsInOnePage),
                     NewsPostAdminViews = newsPostsAdminView,
+                    Search = search
+                };
+            }
+        }
+        public static NewsPostSimplifiedCollection GenerateNewsPostSimplifiedCollection(int page, string sortType, string filter, string search, string typeSearch)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                string filterFunc = NewsPostHelperActions.GetFilterSqlString(ref filter);
+                string sortString = NewsPostHelperActions.GetAdminSortSqlString(ref sortType);
+                string searchString = NewsPostHelperActions.GetSearchSqlString(ref typeSearch);
+                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerryAdmin(session, sortString, filterFunc, search, searchString).List<NewsPost>();
+
+                int newsCount = selectedNewsPost.Count();
+
+                selectedNewsPost = NewsPostHelperActions.CutIEnumarable(page, NewsInOnePage, selectedNewsPost);
+                ICollection<NewsPostSimplifiedView> newsPostSimplifyViews = new List<NewsPostSimplifiedView>();
+                foreach (NewsPost newsPost in selectedNewsPost)
+                {
+                    int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
+                    newsPostSimplifyViews.Add(new NewsPostSimplifiedView(newsPost, commentCount));
+                }
+                return new NewsPostSimplifiedCollection()
+                {
+                    NewsPostSimpliedViews = newsPostSimplifyViews,
+                    Pages = NewsPostHelperActions.CalculatePages(newsCount, NewsInOnePage),
+                    Page = page,
+                    Filter = filter,
+                    SortType = sortType,
                     Search = search
                 };
             }
