@@ -134,6 +134,8 @@ namespace ISMNewsPortal.Models
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
+                if (session.Query<Admin>().Count() == 1)
+                    return;
                 Admin admin = session.Get<Admin>(id);
                 using (ITransaction transaction = session.BeginTransaction())
                 {
@@ -148,7 +150,7 @@ namespace ISMNewsPortal.Models
             {
                 Admin admin = session.Get<Admin>(model.Id);
                 admin.Email = model.Email;
-                admin.Roles = string.Join("*", model.Roles);
+                admin.Roles = string.Join("*", model.Roles ?? new string[0]);
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     session.Update(admin);

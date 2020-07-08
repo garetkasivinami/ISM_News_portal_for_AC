@@ -9,5 +9,8 @@
               type="string"
               length="256"
               not-null="true"/>
+    <property name="HashCode"
+              type="string"
+              not-null="true"/>
   </class>
 </hibernate-mapping>

@@ -58,7 +58,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int id)
+        public ActionResult DeleteNewsPost(int id)
         {
             NewsPost.RemoveNewsPost(id);
             return RedirectToAction("News");

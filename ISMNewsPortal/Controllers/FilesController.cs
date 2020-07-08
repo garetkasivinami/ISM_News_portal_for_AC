@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 
@@ -24,7 +25,16 @@ namespace ISMNewsPortal.Controllers
             string path = server.MapPath("~/App_Data/Files/" + fileName);
             file.SaveAs(path);
 
-            return FileModel.Save(fileName);
+            byte[] hashBytes;
+            using (MD5 md5 = MD5.Create())
+            {
+                using (Stream stream = file.InputStream)
+                {
+                    hashBytes = md5.ComputeHash(stream);
+                }
+            }
+
+            return FileModel.Save(fileName, System.Text.Encoding.Unicode.GetString(hashBytes));
         }
         public static void RemoveFile(int id, HttpServerUtilityBase server)
         {

@@ -10,4 +10,4 @@
     <p>@Model.Description.Substring(0, (Model.Description.Length < 256) ? Model.Description.Length : 256)...</p>
 </div>
 <hr />
-@Html.ActionLink("Delete", "Delete", "Admin", new { @id = Model.Id }, null)
+@Html.ActionLink("Delete", "DeleteNewsPost", "Admin", new { @id = Model.Id }, null)

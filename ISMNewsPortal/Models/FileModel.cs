@@ -10,20 +10,26 @@ namespace ISMNewsPortal.Models
     {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
+        public virtual string HashCode { get; set; }
         //=========================================================
         public FileModel()
         {
 
         }
-        public FileModel(string fileName)
+        public FileModel(string fileName, string fileHashCode)
         {
             Name = fileName;
+            HashCode = fileHashCode;
         }
-        public static int Save(string fileName)
+        public static int Save(string fileName, string fileHashCode)
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
-                FileModel fileModel = new FileModel(fileName);
+                FileModel createdFile = session.Query<FileModel>().SingleOrDefault(u => u.HashCode == fileHashCode);
+                if (createdFile != null)
+                    return createdFile.Id;
+
+                FileModel fileModel = new FileModel(fileName, fileHashCode);
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     session.Save(fileModel);

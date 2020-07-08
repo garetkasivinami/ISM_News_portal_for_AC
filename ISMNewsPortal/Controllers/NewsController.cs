@@ -19,7 +19,6 @@ namespace ISMNewsPortal.Controllers
             return View(newsPostViewModel);
         }
 
-        [Authorize]
         [HttpPost]
         public ActionResult Details(CommentCreateModel model)
         {

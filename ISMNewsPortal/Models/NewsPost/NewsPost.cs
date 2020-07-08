@@ -137,6 +137,7 @@ namespace ISMNewsPortal.Models
                     session.Delete(newsPost);
                     transaction.Commit();
                 }
+                FileModel.Delete(newsPost.ImageId);
             }
         }
         public static void AddNewsPost(NewsPostCreateModel model)
