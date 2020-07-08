@@ -23,10 +23,9 @@ namespace ISMNewsPortal.Controllers
             byte[] hashBytes;
             using (MD5 md5 = MD5.Create())
             {
-                using (Stream stream = file.InputStream)
-                {
-                    hashBytes = md5.ComputeHash(stream);
-                }
+                Stream stream = file.InputStream;
+                hashBytes = md5.ComputeHash(stream);
+                stream.Seek(0, SeekOrigin.Begin);
             }
             string hashCode = System.Text.Encoding.Unicode.GetString(hashBytes);
 
@@ -38,6 +37,8 @@ namespace ISMNewsPortal.Controllers
             fileName = DateTime.Now.Ticks + Path.GetExtension(fileName);
             string path = server.MapPath("~/App_Data/Files/" + fileName);
             file.SaveAs(path);
+
+            file.InputStream.Close();
 
             return FileModel.Save(fileName, hashCode);
         }

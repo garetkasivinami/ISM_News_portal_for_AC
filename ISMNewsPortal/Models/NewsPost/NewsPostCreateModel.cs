@@ -8,16 +8,22 @@ namespace ISMNewsPortal.Models
     {
         [Required]
         [MaxLength(128)]
+        [Display(Name = "Title")]
         public string Name { get; set; }
         [Required]
         [MaxLength(10000)]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Description")]
         public string Description { get; set; }
         public HttpPostedFileBase[] uploadFiles { get; set; }
         [DataType(DataType.DateTime)]
+        [Display(Name = "Publication date")]
         public DateTime? PublicationDate { get; set; }
+        [Display(Name = "Is visible")]
         public bool IsVisible { get; set; }
+        [Display(Name = "Author Id")]
         public int AuthorId { get; set; }
+        [Display(Name = "Image Id")]
         public int ImageId { get; set; }
 
         public NewsPostCreateModel()

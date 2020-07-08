@@ -123,11 +123,15 @@
             }
             return searchString;
         }
-        public static NewsPostViewModel GetNewsPostViewModelById(int id, int page)
+        public static NewsPostViewModel GetNewsPostViewModelById(int id, int page, bool checkVisibility = false)
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
                 NewsPost newsPost = session.Get<NewsPost>(id);
+                if (checkVisibility && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
+                {
+                    return null;
+                }
                 List<CommentViewModel> commentsViewModel = new List<CommentViewModel>();
 
                 IEnumerable<Comment> comments = session.CreateQuery("from Comment where NewsPostId = :id ORDER BY @Date DESC").SetParameter("id", id).List<Comment>();
@@ -147,20 +151,13 @@
         public static IQuery GetSqlQuerry(ISession session, string sortType, string filter, string search, string searchString)
         {
             search = search ?? "_";
-            return session.CreateQuery("from NewsPost where " +
-                   $"{filter} AND " +
-                    searchString +
-                    "AND IsVisible = 1 AND PublicationDate <= GetDate() " +
-                   $"ORDER BY {sortType}").
+            return session.CreateQuery($"from NewsPost where {filter} AND {searchString} AND IsVisible = 1 AND PublicationDate <= GetDate() ORDER BY {sortType}").
                     SetParameter("searchName", $"%{search}%");
         }
         public static IQuery GetSqlQuerryAdmin(ISession session, string sortType, string filter, string search, string searchString)
         {
             search = search ?? "_";
-            return session.CreateQuery("from NewsPost where " +
-                   $"{filter} AND " +
-                    searchString +
-                   $"ORDER BY {sortType}").
+            return session.CreateQuery($"from NewsPost where {filter} AND {searchString} ORDER BY {sortType}").
                     SetParameter("searchName", $"%{search}%");
         }
     }

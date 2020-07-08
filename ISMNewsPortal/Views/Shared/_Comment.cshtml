@@ -1,7 +1,7 @@
 ﻿@model ISMNewsPortal.Models.CommentCreateModel
 
 <h1>Comment.....</h1>
-@using (Html.BeginForm("Details", "News", FormMethod.Post, new {}))
+@using (Html.BeginForm("CreateComment", "News", FormMethod.Post, new {}))
 {
     @Html.AntiForgeryToken()
 

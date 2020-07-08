@@ -14,6 +14,12 @@ namespace ISMNewsPortal
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "AddComment",
+                url: "News/CreateComment",
+                defaults: new { controller = "News", action = "CreateComment", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "News",
                 url: "News/{id}",
                 defaults: new { controller = "News", action = "Details", id = UrlParameter.Optional }

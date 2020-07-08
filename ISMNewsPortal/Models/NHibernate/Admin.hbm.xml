@@ -19,5 +19,8 @@
               not-null="true"/>
     <property name="Roles"
               type="string"/>
+    <property name="Email"
+              length ="512"
+              type="string"/>
   </class>
 </hibernate-mapping>
