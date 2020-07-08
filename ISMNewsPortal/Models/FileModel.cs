@@ -25,10 +25,6 @@ namespace ISMNewsPortal.Models
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
-                FileModel createdFile = session.Query<FileModel>().SingleOrDefault(u => u.HashCode == fileHashCode);
-                if (createdFile != null)
-                    return createdFile.Id;
-
                 FileModel fileModel = new FileModel(fileName, fileHashCode);
                 using (ITransaction transaction = session.BeginTransaction())
                 {
@@ -53,6 +49,9 @@ namespace ISMNewsPortal.Models
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
+                if (session.Query<NewsPost>().Any(u => u.ImageId == id))
+                    return;
+
                 FileModel fileModel = session.Get<FileModel>(id);
                 using (ITransaction transaction = session.BeginTransaction())
                 {
@@ -66,11 +65,22 @@ namespace ISMNewsPortal.Models
             using (ISession session = NHibernateSession.OpenSession())
             {
                 FileModel fileModel = session.Query<FileModel>().SingleOrDefault(u => u.Name == fileName);
+
+                if (session.Query<NewsPost>().Any(u => u.ImageId == fileModel.Id))
+                    return;
+
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     session.Delete(fileModel);
                     transaction.Commit();
                 }
+            }
+        }
+        public static FileModel FindByHashCode(string hashCode)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                return session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
             }
         }
     }

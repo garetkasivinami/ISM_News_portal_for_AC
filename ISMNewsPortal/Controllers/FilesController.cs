@@ -20,11 +20,6 @@ namespace ISMNewsPortal.Controllers
         }
         public static int SaveFile(HttpPostedFileBase file, HttpServerUtilityBase server)
         {
-            string fileName = Path.GetFileName(file.FileName);
-            fileName = DateTime.Now.Ticks + Path.GetExtension(fileName);
-            string path = server.MapPath("~/App_Data/Files/" + fileName);
-            file.SaveAs(path);
-
             byte[] hashBytes;
             using (MD5 md5 = MD5.Create())
             {
@@ -33,8 +28,18 @@ namespace ISMNewsPortal.Controllers
                     hashBytes = md5.ComputeHash(stream);
                 }
             }
+            string hashCode = System.Text.Encoding.Unicode.GetString(hashBytes);
 
-            return FileModel.Save(fileName, System.Text.Encoding.Unicode.GetString(hashBytes));
+            FileModel equalFileModel = FileModel.FindByHashCode(hashCode);
+            if (equalFileModel != null)
+                return equalFileModel.Id;
+
+            string fileName = Path.GetFileName(file.FileName);
+            fileName = DateTime.Now.Ticks + Path.GetExtension(fileName);
+            string path = server.MapPath("~/App_Data/Files/" + fileName);
+            file.SaveAs(path);
+
+            return FileModel.Save(fileName, hashCode);
         }
         public static void RemoveFile(int id, HttpServerUtilityBase server)
         {
