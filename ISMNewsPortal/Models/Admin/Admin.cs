@@ -144,13 +144,25 @@ namespace ISMNewsPortal.Models
                 }
             }
         }
-        public static void UpdateAdmin(AdminEditModel model)
+        public static void UpdateAdmin(AdminEditModel model, bool updateRoles)
         {
             using (ISession session = NHibernateSession.OpenSession())
             {
                 Admin admin = session.Get<Admin>(model.Id);
                 admin.Email = model.Email;
-                admin.Roles = string.Join("*", model.Roles ?? new string[0]);
+                if(updateRoles)
+                    admin.Roles = string.Join("*", model.Roles ?? new string[0]);
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    session.Update(admin);
+                    transaction.Commit();
+                }
+            }
+        }
+        public static void UpdateAdmin(Admin admin)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     session.Update(admin);

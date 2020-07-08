@@ -4,7 +4,10 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h1>Admin list</h1>
-@Html.ActionLink("Create new Admin!", "CreateAdmin", "Admin", new { }, new { @class = "btn btn-outline-primary" })
+@if (User.IsInRole(ISMNewsPortal.Models.Roles.CanCreateAdmin.ToString()))
+{
+    @Html.ActionLink("Create new Admin!", "CreateAdmin", "Admin", new { }, new { @class = "btn btn-outline-primary" })
+}
 <hr />
 
 @if (Model.AdminViewModels.Any())
@@ -30,8 +33,15 @@
                         }
                     </div>
                     <div class="card-footer">
-                        @Html.ActionLink("Edit", "EditAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-dark btn-sm" })
-                        @Html.ActionLink("Delete", "DeleteAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-danger btn-sm doubleClickLink" })
+                        @if (User.IsInRole(ISMNewsPortal.Models.Roles.CanEditAdmin.ToString()))
+                        {
+                            @Html.ActionLink("Edit", "EditAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+                        }
+                        @if (User.IsInRole(ISMNewsPortal.Models.Roles.CanCreateAdmin.ToString()))
+                        {
+                            @Html.ActionLink("Delete", "DeleteAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-danger btn-sm doubleClickLink" })
+
+                        }
                     </div>
                 </div>
             </div>

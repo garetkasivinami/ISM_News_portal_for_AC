@@ -23,6 +23,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.Creator)]
         public ActionResult News(ToolBarModel model)
         {
             NewsPostAdminCollection result = NewsPost.GenerateNewsPostAdminCollection(model);
@@ -30,6 +31,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.Creator)]
         public ActionResult EditNews(int id)
         {
             NewsPostEditModel newsPostAdminView = NewsPost.GetNewsPostEditModel(id);
@@ -38,6 +40,7 @@ namespace ISMNewsPortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RoleAuthorize(Roles.Creator)]
         public ActionResult EditNews(NewsPostEditModel model)
         {
             if (model.uploadFiles[0] != null)
@@ -51,6 +54,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.Creator)]
         public ActionResult DeleteNewsPostRequest(int id)
         {
             NewsPostAdminView newsPostAdminView = NewsPost.GetNewsPostAdminView(id);
@@ -58,6 +62,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.Creator)]
         public ActionResult DeleteNewsPost(int id)
         {
             NewsPost.RemoveNewsPost(id);
@@ -66,18 +71,21 @@ namespace ISMNewsPortal.Controllers
 
         [HttpGet]
         [Authorize]
+        [RoleAuthorize(Roles.Creator)]
         public ActionResult CreateNews()
         {
             return View();
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult CreateAdmin()
         {
             return View();
         }
 
         [HttpPost]
+        [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult CreateAdmin(AdminCreateModel model)
         {
             if (ModelState.IsValid)
@@ -91,6 +99,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdmin(int id)
         {
             Admin admin = Admin.GetAdminById(id);
@@ -98,6 +107,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdminSured(int id)
         {
             Admin admin = Admin.GetAdminById(id);
@@ -111,6 +121,7 @@ namespace ISMNewsPortal.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [RoleAuthorize(Roles.Creator)]
         public ActionResult CreateNews(NewsPostCreateModel model)
         {
             if (ModelState.IsValid)
@@ -129,6 +140,7 @@ namespace ISMNewsPortal.Controllers
         }
         
         [HttpGet]
+        [RoleAuthorize(Roles.Administrator)]
         public ActionResult AdminList()
         {
             AdminViewModelCollection adminViewModelCollection = Admin.GenerateAdminViewModelCollection();
@@ -136,6 +148,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.Moderator,Roles.Administrator, Roles.Creator)]
         public ActionResult Comments(ToolBarModel model)
         {
             CommentViewModelCollection commentViewModelCollection = Comment.GenerateCommentViewModelCollection(model);
@@ -143,6 +156,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
         public ActionResult DeleteComment(int id)
         {
             Comment.RemoveComment(id);
@@ -150,6 +164,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [RoleAuthorize(Roles.CanEditAdmin)]
         public ActionResult EditAdmin(int id)
         {
             Admin admin = Admin.GetAdminById(id);
@@ -157,9 +172,10 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpPost]
+        [RoleAuthorize(Roles.CanEditAdmin)]
         public ActionResult EditAdmin(AdminEditModel model)
         {
-            Admin.UpdateAdmin(model);
+            Admin.UpdateAdmin(model, User.IsInRole(Roles.CanSetAdminRole.ToString()));
             return RedirectToAction("AdminList");
         }
     }

@@ -132,9 +132,14 @@ namespace ISMNewsPortal.Models
             using (ISession session = NHibernateSession.OpenSession())
             {
                 NewsPost newsPost = session.Get<NewsPost>(id);
+                IEnumerable<Comment> comments = session.Query<Comment>().Where(u => u.NewsPostId == id);
                 using (ITransaction transaction = session.BeginTransaction())
                 {
                     session.Delete(newsPost);
+                    foreach(Comment comment in comments)
+                    {
+                        session.Delete(comment);
+                    }
                     transaction.Commit();
                 }
                 FileModel.Delete(newsPost.ImageId);

@@ -59,6 +59,10 @@ namespace ISMNewsPortal.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Compare("Password")]
+        [MinLength(8)]
+        [MaxLength(128)]
+        [Display(Name = "Repeat password")]
+        [DataType(DataType.Password)]
         public string RepeatedPassword { get; set; }
     }
 }

@@ -51,5 +51,28 @@ namespace ISMNewsPortal.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }
+
+        [Authorize]
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ChangePassword(ChangePassword model)
+        {
+            Admin admin = Admin.GetAdminByLogin(User.Identity.Name);
+            string passportSalted = Security.SHA512(model.LastPassword, admin.Salt);
+            if (admin.Password != passportSalted)
+            {
+                ModelState.AddModelError("", "The old password is incorrect!");
+                return View(model);
+            }
+            Admin.SetPassword(admin, model.Password);
+            Admin.UpdateAdmin(admin);
+            return RedirectToAction("Index", "Admin");
+        }
     }
 }

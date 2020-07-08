@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
     string chekedText = "selected";
+    string disabled = "disabled";
 }
 
 @using (Html.BeginForm())
@@ -24,7 +25,12 @@
             </div>
             <div class="col-md-10">
                 <label for="inputState">Role</label>
-                <select id="inputState" class="form-control" multiple name="Roles">
+                <select id="inputState" class="form-control" multiple name="Roles"
+                        @if (!User.IsInRole(ISMNewsPortal.Models.Roles.CanSetAdminRole.ToString()))
+                        {
+                            @disabled
+                        }
+                        >
                     @foreach (@ISMNewsPortal.Models.Roles role in Enum.GetValues(typeof(ISMNewsPortal.Models.Roles)))
                     {
                         <option value="@role"
