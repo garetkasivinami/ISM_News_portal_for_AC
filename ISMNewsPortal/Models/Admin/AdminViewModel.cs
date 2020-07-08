@@ -9,7 +9,7 @@ namespace ISMNewsPortal.Models
             Id = admin.Id;
             Login = admin.Login;
             Email = admin.Email;
-            Roles = Admin.RoleCutter(admin.Roles);
+            Roles = AdminHelperActions.RoleCutter(admin.Roles);
         }
         public int Id { get; set; }
         public string Login { get; set; }

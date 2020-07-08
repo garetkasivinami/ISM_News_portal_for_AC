@@ -17,13 +17,14 @@ namespace ISMNewsPortal.Models
             Id = admin.Id;
             Login = admin.Login;
             Email = admin.Email;
-            Roles = Admin.RoleCutter(admin.Roles).ToArray();
+            Roles = AdminHelperActions.RoleCutter(admin.Roles).ToArray();
         }
         public int Id { get; set; }
         public string Login { get; set; }
         /*Регулярка*/
         [MaxLength(512)]
         [Display(Name = "Email")]
+        [RegularExpression(HelperActions.EmailRegex)]
         public string Email { get; set; }
         public string[] Roles { get; set; }
     }

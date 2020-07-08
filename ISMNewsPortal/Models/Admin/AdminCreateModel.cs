@@ -29,6 +29,7 @@ namespace ISMNewsPortal.Models
         /*Регулярка*/
         [MaxLength(512)]
         [Display(Name = "Email")]
+        [RegularExpression(HelperActions.EmailRegex)]
         public string Email { get; set; }
     }
 }

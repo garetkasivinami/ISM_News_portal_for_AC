@@ -22,7 +22,7 @@ namespace ISMNewsPortal.Models
         {
             Id = newsPost.Id;
             CreatedDate = newsPost.CreatedDate;
-            ImagePath = FileModel.GetNameByIdFormated(ImageId);
+            ImagePath = FileModelActions.GetNameByIdFormated(ImageId);
         }
     }
 }

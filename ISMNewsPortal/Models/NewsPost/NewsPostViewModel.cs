@@ -14,7 +14,7 @@ namespace ISMNewsPortal.Models
             Comments = comments;
             Page = page;
             Pages = pages;
-            ImagePath = FileModel.GetNameByIdFormated(newsPost.ImageId);
+            ImagePath = FileModelActions.GetNameByIdFormated(newsPost.ImageId);
         }
         public NewsPost NewsPost { get; set; }
         public string ImagePath { get; set; }

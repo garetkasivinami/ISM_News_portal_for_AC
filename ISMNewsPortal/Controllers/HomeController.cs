@@ -13,7 +13,7 @@ namespace ISMNewsPortal.Controllers
         [HttpGet]
         public ActionResult Index(ToolBarModel model)
         {
-            NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPost.GenerateNewsPostSimplifiedCollection(model);
+            NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPostHelperActions.GenerateNewsPostSimplifiedCollection(model);
             return View(newsPostSimplifiedCollection);
         }
 

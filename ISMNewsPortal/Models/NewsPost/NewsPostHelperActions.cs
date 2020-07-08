@@ -77,7 +77,7 @@
             }
             return sortString;
         }
-        public static string GetAdminSortSqlString(string sortType)
+        public static string GetAdminSortSqlString(string sortType, bool reversed)
         {
             string sortString;
             switch (sortType)
@@ -92,21 +92,25 @@
                     sortString = "@Description";
                     break;
                 case "editDate":
-                    sortString = "@EditDate DESC";
+                    sortString = "@EditDate";
                     break;
                 case "Author":
                     sortString = "@AuthorId";
                     break;
                 case "publishDate":
-                    sortString = "@PublicationDate DESC";
+                    reversed = !reversed;
+                    sortString = "@PublicationDate";
                     break;
                 case "visibility":
                     sortString = "@IsVisible";
                     break;
                 default:
-                    sortString = "@CreatedDate DESC";
+                    reversed = !reversed;
+                    sortString = "@CreatedDate";
                     break;
             }
+            if (reversed)
+                sortString += " DESC";
             return sortString;
         }
         public static string GetSearchSqlString(string searchType)
@@ -159,6 +163,71 @@
             search = search ?? "_";
             return session.CreateQuery($"from NewsPost where {filter} AND {searchString} ORDER BY {sortType}").
                     SetParameter("searchName", $"%{search}%");
+        }
+        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(ToolBarModel model)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                string filterFunc = GetFilterSqlString(model.Filter);
+                string sortString = GetAdminSortSqlString(model.SortType, model.Reversed ?? false);
+                string searchString = GetSearchSqlString(model.TypeSearch);
+                IEnumerable<NewsPost> selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+
+                int newsCount = selectedNewsPost.Count();
+
+                selectedNewsPost = CutIEnumarable(model.Page, NewsPost.NewsInOnePage, selectedNewsPost);
+                ICollection<NewsPostAdminView> newsPostsAdminView = new List<NewsPostAdminView>();
+                foreach (NewsPost newsPost in selectedNewsPost)
+                {
+                    string newsPostAuthorName = session.Get<Admin>(newsPost.AuthorId).Login;
+                    int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
+                    newsPostsAdminView.Add(new NewsPostAdminView(newsPost, newsPostAuthorName, commentCount));
+                }
+                model.Pages = CalculatePages(newsCount, NewsPost.NewsInOnePage);
+                return new NewsPostAdminCollection(newsPostsAdminView, model);
+            }
+        }
+        public static NewsPostSimplifiedCollection GenerateNewsPostSimplifiedCollection(ToolBarModel model)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                string filterFunc = GetFilterSqlString(model.Filter);
+                string sortString = GetAdminSortSqlString(model.SortType, model.Reversed ?? false);
+                string searchString = GetSearchSqlString(model.TypeSearch);
+                IEnumerable<NewsPost> selectedNewsPost = GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+
+                int newsCount = selectedNewsPost.Count();
+
+                selectedNewsPost = CutIEnumarable(model.Page, NewsPost.NewsInOnePage, selectedNewsPost);
+                ICollection<NewsPostSimplifiedView> newsPostSimplifiedViews = new List<NewsPostSimplifiedView>();
+                foreach (NewsPost newsPost in selectedNewsPost)
+                {
+                    int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
+                    newsPostSimplifiedViews.Add(new NewsPostSimplifiedView(newsPost, commentCount));
+                }
+                model.Pages = CalculatePages(newsCount, NewsPost.NewsInOnePage);
+                return new NewsPostSimplifiedCollection(newsPostSimplifiedViews, model);
+            }
+        }
+        public static NewsPostAdminView GetNewsPostAdminView(int id)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                NewsPost newsPost = session.Get<NewsPost>(id);
+                string newsPostAuthorName = session.Get<Admin>(newsPost.AuthorId).Login;
+                int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
+                NewsPostAdminView newsPostAdminView = new NewsPostAdminView(newsPost, newsPostAuthorName, commentCount);
+                return newsPostAdminView;
+            }
+        }
+        public static NewsPostEditModel GetNewsPostEditModel(int id)
+        {
+            using (ISession session = NHibernateSession.OpenSession())
+            {
+                NewsPost newsPost = session.Get<NewsPost>(id);
+                NewsPostEditModel newsPostAdminView = new NewsPostEditModel(newsPost);
+                return newsPostAdminView;
+            }
         }
     }
 }

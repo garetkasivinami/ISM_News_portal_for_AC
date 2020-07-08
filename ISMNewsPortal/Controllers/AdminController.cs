@@ -26,7 +26,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult News(ToolBarModel model)
         {
-            NewsPostAdminCollection result = NewsPost.GenerateNewsPostAdminCollection(model);
+            NewsPostAdminCollection result = NewsPostHelperActions.GenerateNewsPostAdminCollection(model);
             return View(result);
         }
 
@@ -34,7 +34,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult EditNews(int id)
         {
-            NewsPostEditModel newsPostAdminView = NewsPost.GetNewsPostEditModel(id);
+            NewsPostEditModel newsPostAdminView = NewsPostHelperActions.GetNewsPostEditModel(id);
             return View(newsPostAdminView);
         }
 
@@ -45,8 +45,8 @@ namespace ISMNewsPortal.Controllers
         {
             if (model.uploadFiles[0] != null)
             {
-                FilesController.RemoveFile(model.ImageId, Server);
-                model.ImageId = FilesController.SaveFile(model.uploadFiles[0], Server);
+                FileModelActions.RemoveFile(model.ImageId, Server);
+                model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
             }
             if (ModelState.IsValid)
                 NewsPost.Update(model);
@@ -57,7 +57,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult DeleteNewsPostRequest(int id)
         {
-            NewsPostAdminView newsPostAdminView = NewsPost.GetNewsPostAdminView(id);
+            NewsPostAdminView newsPostAdminView = NewsPostHelperActions.GetNewsPostAdminView(id);
             return View(newsPostAdminView);
         }
 
@@ -70,7 +70,6 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [RoleAuthorize(Roles.Creator)]
         public ActionResult CreateNews()
         {
@@ -102,7 +101,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdmin(int id)
         {
-            Admin admin = Admin.GetAdminById(id);
+            Admin admin = AdminHelperActions.GetAdminById(id);
             return View(new AdminViewModel(admin));
         }
 
@@ -110,7 +109,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdminSured(int id)
         {
-            Admin admin = Admin.GetAdminById(id);
+            Admin admin = AdminHelperActions.GetAdminById(id);
             if (admin.Login == User.Identity.Name)
             {
                 return RedirectToAction("AdminList");
@@ -131,8 +130,8 @@ namespace ISMNewsPortal.Controllers
                     ModelState.AddModelError("", "No file!");
                     return View(model);
                 }
-                model.ImageId = FilesController.SaveFile(model.uploadFiles[0], Server);
-                model.AuthorId = Admin.GetAdminIdByLogin(User.Identity.Name);
+                model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
+                model.AuthorId = AdminHelperActions.GetAdminIdByLogin(User.Identity.Name);
                 NewsPost.AddNewsPost(model);
                 return RedirectToAction("News");
             }
@@ -143,7 +142,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Administrator)]
         public ActionResult AdminList()
         {
-            AdminViewModelCollection adminViewModelCollection = Admin.GenerateAdminViewModelCollection();
+            AdminViewModelCollection adminViewModelCollection = AdminHelperActions.GenerateAdminViewModelCollection();
             return View(adminViewModelCollection);
         }
 
@@ -151,7 +150,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Moderator,Roles.Administrator, Roles.Creator)]
         public ActionResult Comments(ToolBarModel model)
         {
-            CommentViewModelCollection commentViewModelCollection = Comment.GenerateCommentViewModelCollection(model);
+            CommentViewModelCollection commentViewModelCollection = CommentHelperActions.GenerateCommentViewModelCollection(model);
             return View(commentViewModelCollection);
         }
 
@@ -167,7 +166,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.CanEditAdmin)]
         public ActionResult EditAdmin(int id)
         {
-            Admin admin = Admin.GetAdminById(id);
+            Admin admin = AdminHelperActions.GetAdminById(id);
             return View(new AdminEditModel(admin));
         }
 

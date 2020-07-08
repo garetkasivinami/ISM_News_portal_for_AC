@@ -1,8 +1,8 @@
 ﻿using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Web;
 
 namespace ISMNewsPortal.Models
 {
@@ -34,17 +34,6 @@ namespace ISMNewsPortal.Models
                 return session.Query<FileModel>().Max(u => u.Id);
             }
         }
-        public static string GetNameById(int id)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                return session.Get<FileModel>(id).Name;
-            }
-        }
-        public static string GetNameByIdFormated(int id)
-        {
-            return $"/Files/?name={FileModel.GetNameById(id)}";
-        }
         public static void Delete(int id)
         {
             using (ISession session = NHibernateSession.OpenSession())
@@ -74,13 +63,6 @@ namespace ISMNewsPortal.Models
                     session.Delete(fileModel);
                     transaction.Commit();
                 }
-            }
-        }
-        public static FileModel FindByHashCode(string hashCode)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                return session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
             }
         }
     }

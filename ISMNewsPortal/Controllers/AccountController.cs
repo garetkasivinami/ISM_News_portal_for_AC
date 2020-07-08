@@ -26,7 +26,7 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                Admin admin = Admin.GetAdminByLoginAndPassword(model);
+                Admin admin = AdminHelperActions.GetAdminByLoginAndPassword(model);
                 if (admin != null)
                 {
                     FormsAuthentication.SetAuthCookie(admin.Login, true);
@@ -63,14 +63,14 @@ namespace ISMNewsPortal.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePassword model)
         {
-            Admin admin = Admin.GetAdminByLogin(User.Identity.Name);
+            Admin admin = AdminHelperActions.GetAdminByLogin(User.Identity.Name);
             string passportSalted = Security.SHA512(model.LastPassword, admin.Salt);
             if (admin.Password != passportSalted)
             {
                 ModelState.AddModelError("", "The old password is incorrect!");
                 return View(model);
             }
-            Admin.SetPassword(admin, model.Password);
+            AdminHelperActions.SetPassword(admin, model.Password);
             Admin.UpdateAdmin(admin);
             return RedirectToAction("Index", "Admin");
         }

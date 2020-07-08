@@ -18,39 +18,5 @@ namespace ISMNewsPortal.Controllers
             string file_type = "image/png";
             return new FilePathResult(file_path, file_type);
         }
-        public static int SaveFile(HttpPostedFileBase file, HttpServerUtilityBase server)
-        {
-            byte[] hashBytes;
-            using (MD5 md5 = MD5.Create())
-            {
-                Stream stream = file.InputStream;
-                hashBytes = md5.ComputeHash(stream);
-                stream.Seek(0, SeekOrigin.Begin);
-            }
-            string hashCode = System.Text.Encoding.Unicode.GetString(hashBytes);
-
-            FileModel equalFileModel = FileModel.FindByHashCode(hashCode);
-            if (equalFileModel != null)
-                return equalFileModel.Id;
-
-            string fileName = Path.GetFileName(file.FileName);
-            fileName = DateTime.Now.Ticks + Path.GetExtension(fileName);
-            string path = server.MapPath("~/App_Data/Files/" + fileName);
-            file.SaveAs(path);
-
-            file.InputStream.Close();
-
-            return FileModel.Save(fileName, hashCode);
-        }
-        public static void RemoveFile(int id, HttpServerUtilityBase server)
-        {
-            string fileName = FileModel.GetNameById(id);
-            string path = server.MapPath("~/App_Data/Files/" + fileName);
-            if (System.IO.File.Exists(path))
-            {
-                System.IO.File.Delete(path);
-                FileModel.Delete(id);
-            }
-        }
     }
 }
