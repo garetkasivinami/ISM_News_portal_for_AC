@@ -1,21 +1,20 @@
-﻿@model ISMNewsPortal.Models.NewsPostAdminView
+﻿@model ISMNewsPortal.Models.NewsPostEditModel
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h4>Edit news post!</h4>
-<img id="imageElement" class="post-img edit-img" alt="no image" />
+<img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath"/>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.EditDate)
-        @Html.HiddenFor(model => model.AuthorName)
         @Html.HiddenFor(model => model.AuthorId)
         @Html.HiddenFor(model => model.CreatedDate)
+        @Html.HiddenFor(model => model.ImageId)
 
         @Html.AntiForgeryToken()
 
@@ -36,13 +35,6 @@
                 </div>
             </div>
         </div>
-        <div class="form-group input-edit">
-            @Html.LabelFor(model => model.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-12">
-                @Html.EditorFor(model => model.ImagePath, new { htmlAttributes = new { @class = "form-control", @id = "imagePath" } })
-                @Html.ValidationMessageFor(model => model.ImagePath, "", new { @class = "text-danger" })
-            </div>
-        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.PublicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-12">
@@ -55,6 +47,16 @@
             <div class="col-md-12">
                 @Html.EditorFor(model => model.IsVisible, new { htmlAttributes = new { @class = "card-text" } })
                 @Html.ValidationMessageFor(model => model.IsVisible, "", new { @class = "text-danger card-text" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <label class="btn btn-outline-secondary">
+                    Choose image file
+                    <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
+                </label>
+                @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
             </div>
         </div>
 

@@ -12,7 +12,7 @@ namespace ISMNewsPortal.Models
         {
             Id = newsPost.Id;
             Name = newsPost.Name;
-            ImagePath = newsPost.ImagePath;
+            ImagePath = FileModel.GetNameByIdFormated(newsPost.ImageId);
             Description = newsPost.Description;
             CommentsCount = commentsCount;
             CreatedDate = newsPost.CreatedDate;

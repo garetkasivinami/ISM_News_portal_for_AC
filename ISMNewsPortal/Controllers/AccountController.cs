@@ -12,12 +12,14 @@ namespace ISMNewsPortal.Controllers
 {
     public class AccountController : Controller
     {
+        [HttpGet]
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
                 return RedirectToAction("Index", "Home");
             return View();
         }
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model)
@@ -34,12 +36,14 @@ namespace ISMNewsPortal.Controllers
             }
             return View(model);
         }
+
         [HttpGet]
         [Authorize]
         public ActionResult Logoff()
         {
             return View();
         }
+
         [HttpGet]
         [Authorize]
         public ActionResult LogoffAction()

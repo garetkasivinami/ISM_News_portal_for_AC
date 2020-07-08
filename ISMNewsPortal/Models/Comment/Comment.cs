@@ -15,6 +15,7 @@ namespace ISMNewsPortal.Models
         public virtual DateTime Date { get; set; }
         public virtual string Text { get; set; }
         public virtual int NewsPostId { get; set; }
+        //================================================================
         public static string FilterToday()
         {
             return $"Date >= CONVERT(DATETIME, '{DateTime.Now.Year}.{DateTime.Now.Month}.{DateTime.Now.Day}')";

@@ -12,12 +12,13 @@ namespace ISMNewsPortal.Controllers
 {
     public class NewsController : Controller
     {
-        // GET: News
+        [HttpGet]
         public ActionResult Details(int id, int? page)
         {
             NewsPostViewModel newsPostViewModel = NewsPostHelperActions.GetNewsPostViewModelById(id, page ?? 0);
             return View(newsPostViewModel);
         }
+
         [Authorize]
         [HttpPost]
         public ActionResult Details(CommentCreateModel model)

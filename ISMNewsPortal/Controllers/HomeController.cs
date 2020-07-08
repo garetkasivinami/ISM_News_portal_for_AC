@@ -10,11 +10,14 @@ namespace ISMNewsPortal.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(int? page, string sortType, string filter, string search, string typeSearch)
+        [HttpGet]
+        public ActionResult Index(ToolBarModel model)
         {
-            NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPost.GenerateNewsPostSimplifiedCollection(page ?? 0, sortType, filter, search, typeSearch);
+            NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPost.GenerateNewsPostSimplifiedCollection(model);
             return View(newsPostSimplifiedCollection);
         }
+
+        [HttpGet]
         public ActionResult Error404()
         {
             return View();

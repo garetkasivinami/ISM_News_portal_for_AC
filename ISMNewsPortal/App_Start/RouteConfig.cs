@@ -24,7 +24,11 @@ namespace ISMNewsPortal
                 url: "Error404",
                 defaults: new { controller = "Home", action = "Error404", id = UrlParameter.Optional }
             );
-
+            routes.MapRoute(
+                name: "GetFile",
+                url: "Files/{name}",
+                defaults: new { controller = "Files", action = "GetFile", name = UrlParameter.Optional }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

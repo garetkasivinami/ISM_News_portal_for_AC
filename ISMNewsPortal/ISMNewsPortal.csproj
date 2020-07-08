@@ -146,6 +146,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -157,6 +158,7 @@
     <Compile Include="Models\Admin\AdminEditModel.cs" />
     <Compile Include="Models\Admin\AdminViewModel.cs" />
     <Compile Include="Models\Admin\AdminViewModelCollection.cs" />
+    <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\Comment\Comment.cs" />
     <Compile Include="Models\Comment\CommentCreateModel.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
@@ -165,8 +167,9 @@
     <Compile Include="Models\NewsPost\NewsPost.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminView.cs" />
+    <Compile Include="Models\NewsPost\NewsPostEditModel.cs" />
     <Compile Include="Models\NewsPost\NewsPostHelperActions.cs" />
-    <Compile Include="Models\NewsPost\NewsPostModelCreate.cs" />
+    <Compile Include="Models\NewsPost\NewsPostCreateModel.cs" />
     <Compile Include="Models\NewsPost\NewsPostSimplifiedCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostSimplifiedView.cs" />
     <Compile Include="Models\NewsPost\NewsPostViewModel.cs" />
@@ -203,6 +206,7 @@
     <None Include="Properties\PublishProfiles\ISMNewsPortal - Web Deploy.pubxml" />
     <Content Include="Models\NHibernate\Admin.hbm.xml" />
     <Content Include="Models\NHibernate\Comment.hbm.xml" />
+    <Content Include="Models\NHibernate\FileModel.hbm.xml" />
     <Content Include="Models\NHibernate\hibernate.cfg.xml" />
     <Content Include="Models\NHibernate\NewsPost.hbm.xml" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -340,7 +344,7 @@
     <Content Include="Views\Shared\_Admin.cshtml" />
     <Content Include="Views\Admin\News.cshtml" />
     <Content Include="Views\Admin\EditNews.cshtml" />
-    <Content Include="Views\Admin\DeleteRequest.cshtml" />
+    <Content Include="Views\Admin\DeleteNewsPostRequest.cshtml" />
     <Content Include="Views\Admin\CreateNews.cshtml" />
     <Content Include="Views\Admin\Comments.cshtml" />
     <Content Include="Views\News\_NewsSimplifyPartial.cshtml" />
@@ -363,6 +367,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\Files\" />
+    <Folder Include="Views\Files\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

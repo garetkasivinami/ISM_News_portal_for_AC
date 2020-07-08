@@ -4,6 +4,7 @@ using Newtonsoft.Json.Serialization;
 using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,143 +16,141 @@ namespace ISMNewsPortal.Controllers
     [Authorize]
     public class AdminController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
         }
+
+        [HttpGet]
         public ActionResult News(ToolBarModel model)
         {
             NewsPostAdminCollection result = NewsPost.GenerateNewsPostAdminCollection(model);
             return View(result);
         }
+
+        [HttpGet]
         public ActionResult EditNews(int id)
+        {
+            NewsPostEditModel newsPostAdminView = NewsPost.GetNewsPostEditModel(id);
+            return View(newsPostAdminView);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditNews(NewsPostEditModel model)
+        {
+            if (model.uploadFiles[0] != null)
+            {
+                FilesController.RemoveFile(model.ImageId, Server);
+                model.ImageId = FilesController.SaveFile(model.uploadFiles[0], Server);
+            }
+            if (ModelState.IsValid)
+                NewsPost.Update(model);
+            return RedirectToAction("News");
+        }
+
+        [HttpGet]
+        public ActionResult DeleteNewsPostRequest(int id)
         {
             NewsPostAdminView newsPostAdminView = NewsPost.GetNewsPostAdminView(id);
             return View(newsPostAdminView);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult EditNews(NewsPostAdminView newsPostAdminView)
-        {
-            if (ModelState.IsValid)
-                using (ISession session = NHibernateSession.OpenSession())
-                {
-                    NewsPost newsPost = new NewsPost();
-                    newsPost.Id = newsPostAdminView.Id;
-                    newsPost.ImagePath = newsPostAdminView.ImagePath;
-                    newsPost.CreatedDate = newsPostAdminView.CreatedDate;
-                    newsPost.AuthorId = newsPostAdminView.AuthorId;
-                    newsPost.Name = newsPostAdminView.Name;
-                    newsPost.Description = newsPostAdminView.Description;
-                    newsPost.EditDate = DateTime.Now;
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        session.Update(newsPost);
-                        transaction.Commit();
-                    }
-                }
-            return RedirectToAction("News");
-        }
-        [HttpGet]
-        public ActionResult DeleteRequest(int id)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                NewsPost newsPost = session.Get<NewsPost>(id);
-                string newsPostAuthorName = session.Get<Admin>(newsPost.AuthorId).Login;
-                int commentCount = session.Query<Comment>().Where(u => u.NewsPostId == newsPost.Id).Count();
-                NewsPostAdminView newsPostAdminView = new NewsPostAdminView(newsPost, newsPostAuthorName, commentCount);
-                return View(newsPostAdminView);
-            }
-        }
+
         [HttpGet]
         public ActionResult Delete(int id)
         {
             NewsPost.RemoveNewsPost(id);
             return RedirectToAction("News");
         }
+
+        [HttpGet]
         [Authorize]
         public ActionResult CreateNews()
         {
             return View();
         }
+
         [HttpGet]
         public ActionResult CreateAdmin()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult CreateAdmin(AdminCreateModel model)
         {
-            if (ModelState.IsValid && Admin.AddAdmin(model))
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("AdminList");
+                if (Admin.AddAdmin(model))
+                    return RedirectToAction("AdminList");
+                else
+                    ModelState.AddModelError("", "There already exists a user with this login!");
             }
             return View(model);
         }
+
+        [HttpGet]
         public ActionResult DeleteAdmin(int id)
         {
             Admin admin = Admin.GetAdminById(id);
             return View(new AdminViewModel(admin));
         }
+
+        [HttpGet]
         public ActionResult DeleteAdminSured(int id)
         {
             Admin.RemoveAdmin(id);
             return RedirectToAction("AdminList");
         }
+
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult CreateNews(NewsPostModelCreate model)
+        public ActionResult CreateNews(NewsPostCreateModel model)
         {
             if (ModelState.IsValid)
             {
-                using (ISession session = NHibernateSession.OpenSession())
+                if (model.uploadFiles[0] == null)
                 {
-                    NewsPost newsPost = new NewsPost();
-                    newsPost.AuthorId = Admin.GetAdminIdByLogin(User.Identity.Name);
-                    newsPost.CreatedDate = DateTime.Now;
-                    newsPost.Description = model.Description;
-                    newsPost.EditDate = null;
-                    newsPost.PublicationDate = model.PublicationDate ?? DateTime.Now;
-                    newsPost.IsVisible = model.IsVisible;
-
-                    string fileName = System.IO.Path.GetFileName(model.uploadFiles[0].FileName);
-                    string path = Server.MapPath("~/App_Data/Files/" + fileName);
-                    model.uploadFiles[0].SaveAs(path);
-                    newsPost.ImagePath = "/App_Data/Files/" + fileName;
-                    //newsPost.ImagePath = model.ImagePath;
-                    newsPost.Name = model.Name;
-
-                    using (ITransaction transaction = session.BeginTransaction())
-                    {
-                        session.Save(newsPost);
-                        transaction.Commit();
-                    }
-                    return RedirectToAction("News");
+                    ModelState.AddModelError("", "No file!");
+                    return View(model);
                 }
+                model.ImageId = FilesController.SaveFile(model.uploadFiles[0], Server);
+                model.AuthorId = Admin.GetAdminIdByLogin(User.Identity.Name);
+                NewsPost.AddNewsPost(model);
+                return RedirectToAction("News");
             }
             return View(model);
         }
+        
+        [HttpGet]
         public ActionResult AdminList()
         {
             AdminViewModelCollection adminViewModelCollection = Admin.GenerateAdminViewModelCollection();
             return View(adminViewModelCollection);
         }
+
+        [HttpGet]
         public ActionResult Comments(ToolBarModel model)
         {
             CommentViewModelCollection commentViewModelCollection = Comment.GenerateCommentViewModelCollection(model);
             return View(commentViewModelCollection);
         }
+
+        [HttpGet]
         public ActionResult DeleteComment(int id)
         {
             Comment.RemoveComment(id);
             return RedirectToAction("Comments");
         }
-        public ActionResult EditAdmin (int id)
+
+        [HttpGet]
+        public ActionResult EditAdmin(int id)
         {
             Admin admin = Admin.GetAdminById(id);
             return View(new AdminEditModel(admin));
         }
+
         [HttpPost]
         public ActionResult EditAdmin(AdminEditModel model)
         {

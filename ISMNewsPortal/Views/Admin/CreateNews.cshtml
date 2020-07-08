@@ -1,4 +1,4 @@
-﻿@model ISMNewsPortal.Models.NewsPostModelCreate
+﻿@model ISMNewsPortal.Models.NewsPostCreateModel
 
 
 @{
@@ -49,7 +49,7 @@
         <div class="col-md-offset-2 col-md-10">
             <label class="btn btn-outline-secondary">
                 Choose image file
-                <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" />
+                <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg"/>
             </label>
             @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
         </div>

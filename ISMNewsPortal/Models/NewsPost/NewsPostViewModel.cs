@@ -14,8 +14,10 @@ namespace ISMNewsPortal.Models
             Comments = comments;
             Page = page;
             Pages = pages;
+            ImagePath = FileModel.GetNameByIdFormated(newsPost.ImageId);
         }
         public NewsPost NewsPost { get; set; }
+        public string ImagePath { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
         public int Page { get; set; }
         public int Pages { get; set; }
