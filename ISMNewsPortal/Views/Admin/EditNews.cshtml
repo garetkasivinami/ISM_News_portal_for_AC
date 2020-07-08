@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h4>Edit news post!</h4>
-<img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath"/>
+<img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath" />
 
 @using (Html.BeginForm("EditNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
@@ -42,10 +42,10 @@
                 @Html.ValidationMessageFor(model => model.PublicationDate, "", new { @class = "text-danger card-text" })
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.IsVisible, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group form-check">
             <div class="col-md-12">
-                @Html.EditorFor(model => model.IsVisible, new { htmlAttributes = new { @class = "card-text" } })
+                @Html.EditorFor(model => model.IsVisible, new { htmlAttributes = new { @class = "form-check-input" } })
+                @Html.LabelFor(model => model.IsVisible, htmlAttributes: new { @class = "form-check-label col-md-2" })
                 @Html.ValidationMessageFor(model => model.IsVisible, "", new { @class = "text-danger card-text" })
             </div>
         </div>

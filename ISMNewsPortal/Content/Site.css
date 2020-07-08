@@ -127,3 +127,23 @@ input[type="file"] {
 textarea.form-control {
     min-height: 36px;
 }
+
+.card {
+    margin-bottom: 10px;
+}
+
+.news-item .list-group-item {
+    padding: 8px 15px;
+}
+
+.card.admin-list-item div {
+    padding:10px;
+}
+
+.card.admin-list-item .list-group-item {
+    padding: 5px;
+}
+
+.card.admin-list-item .card-text {
+    margin: 5px;
+}

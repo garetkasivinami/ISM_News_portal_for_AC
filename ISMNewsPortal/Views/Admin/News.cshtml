@@ -107,16 +107,20 @@
                 </div>
             </li>
         </ul>
+        <ul class="navbar-nav mr-12">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Search by...
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Sort Type", "News", "Admin", Model.SortType, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Filter", "News", "Admin", null, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Page", "News", "Admin", null, new { @class = "dropdown-item" })
+                </div>
+            </li>
+        </ul>
         @using (Html.BeginForm("News", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {
-            @Html.Hidden("SortType", Model.SortType);
-            @Html.Hidden("Filter", Model.Filter);
-            @Html.Hidden("Page", Model.Page);
-            <p>Search by....</p>
-            <select name="TypeSearch">
-                <option selected value="name">Name</option>
-                <option value="description">Description</option>
-            </select>
             <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
         }

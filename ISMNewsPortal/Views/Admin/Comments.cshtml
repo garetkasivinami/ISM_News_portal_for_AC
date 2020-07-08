@@ -102,15 +102,19 @@
                 </div>
             </li>
         </ul>
+        <ul class="navbar-nav mr-12">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Search by...
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @Html.ActionLink("Sort Type", "Comments", "Admin", Model.SortType, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Filter", "Comments", "Admin", Model.Filter, new { @class = "dropdown-item" })
+                </div>
+            </li>
+        </ul>
         @using (Html.BeginForm("Comments", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {
-            @Html.Hidden("SortType", Model.SortType);
-            @Html.Hidden("Filter", Model.Filter);
-            <p>Search by....</p>
-            <select name="TypeSearch">
-                <option selected value="name">Name</option>
-                <option value="text">Text</option>
-            </select>
             <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
         }
@@ -121,9 +125,6 @@
 {
     foreach (ISMNewsPortal.Models.CommentViewModel comment in Model.CommentViewModels)
     {
-        <!--Стилізувати!-->
-        <!--Варто зробити більш компактним-->
-        <!--ГОТОВО-->
         <div class="card">
             <div class="card-header">
                 @comment.Author
@@ -152,8 +153,7 @@ else
     <p>No comments</p>
 }
 <script src="~/Scripts/doubleClickLink.js"></script>
-<!--Стилізувати-->
-<!--ГОТОВО-->
+
 <div class="btn-group" role="group">
     @if (Model.Page > 0)
     {

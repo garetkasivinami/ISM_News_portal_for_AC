@@ -9,11 +9,11 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Admin edit model</h4>
+        <h3>Admin edit model</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-        <p>Admin login: @Model.Login</p>
+        <h4>Admin login: @Model.Login</h4>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -21,22 +21,23 @@
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
+            <div class="col-md-10">
+                <label for="inputState">Role</label>
+                <select id="inputState" class="form-control" multiple>
+                    @foreach (@ISMNewsPortal.Models.Roles role in Enum.GetValues(typeof(ISMNewsPortal.Models.Roles)))
+                    {
+                        <option value="@role">@role</option>
+                    }
+                </select>
+            </div>
         </div>
 
-        <select multiple name="Roles">
-            @foreach(@ISMNewsPortal.Models.Roles role in Enum.GetValues(typeof(ISMNewsPortal.Models.Roles)))
-            {
-                <option value="@role">@role</option>
-            }
-        </select>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Edit!" class="btn btn-default" />
+                <input type="submit" value="Edit!" class="btn btn-outline-success" />
+                @Html.ActionLink("Return", "AdminList", null, new { @class = "btn btn-outline-primary" })
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Return", "AdminList")
-</div>
