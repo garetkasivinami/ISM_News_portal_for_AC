@@ -43,8 +43,8 @@ namespace ISMNewsPortal.Models
             Id = model.Id;
             Name = model.Name;
             Description = model.Description;
-            CreatedDate = DateTime.Now;
-            EditDate = null;
+            CreatedDate = model.CreatedDate;
+            EditDate = DateTime.Now;
             ImageId = model.ImageId;
             AuthorId = model.AuthorId;
             IsVisible = model.IsVisible;

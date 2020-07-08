@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
     string selected = "selected";
+    ViewBag.Title = "News page";
 }
 <h1>News list</h1>
 @Html.ActionLink("Create news", "CreateNews", "Admin", new { }, new { @class = "btn btn-outline-primary" })
@@ -129,9 +130,9 @@
             <p class="nav-link" style="margin:0">Search by....</p>
             <select name="typeSearch" class="form-control">
                 <option value="name">Name</option>
-                <option value="description" @if (Model.TypeSearch == "description") { 
-                    @selected
-                }>Description</option>
+                <option value="description" @if (Model.TypeSearch == "description") { @selected  }>
+                    Description
+                </option>
             </select>
             <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>

@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
     string chekedText = "selected";
     string disabled = "disabled";
+    ViewBag.Title = "Edit admin";
 }
 
 @using (Html.BeginForm())
@@ -26,21 +27,14 @@
             <div class="col-md-10">
                 <label for="inputState">Role</label>
                 <select id="inputState" class="form-control" multiple name="Roles"
-                        @if (!User.IsInRole(ISMNewsPortal.Models.Roles.CanSetAdminRole.ToString()))
-                        {
-                            @disabled
-                        }
-                        >
+                        @if (!User.IsInRole(ISMNewsPortal.Models.Roles.CanSetAdminRole.ToString())) { @disabled  }>
                     @foreach (@ISMNewsPortal.Models.Roles role in Enum.GetValues(typeof(ISMNewsPortal.Models.Roles)))
                     {
                         <option value="@role"
-                                @if (Model.Roles.Contains(role.ToString()))
-                                {
-                                    @chekedText
-                                }>
+                                @if (Model.Roles.Contains(role.ToString())) { @chekedText  }>
                             @role
-                            </option>
-                        }
+                        </option>
+                    }
                 </select>
             </div>
         </div>

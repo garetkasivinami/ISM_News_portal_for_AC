@@ -17,7 +17,7 @@ namespace ISMNewsPortal.Models
         public string Description { get; set; }
         public HttpPostedFileBase[] uploadFiles { get; set; }
         [DataType(DataType.DateTime)]
-        [Display(Name = "Publication date")]
+        [Display(Name = "Publication date (UTC+0)")]
         public DateTime? PublicationDate { get; set; }
         [Display(Name = "Is visible")]
         public bool IsVisible { get; set; }

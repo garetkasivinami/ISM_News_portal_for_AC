@@ -2,6 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
+    ViewBag.Title = "Admin list";
 }
 <h1>Admin list</h1>
 @if (User.IsInRole(ISMNewsPortal.Models.Roles.CanCreateAdmin.ToString()))

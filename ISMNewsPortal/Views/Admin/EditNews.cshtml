@@ -2,6 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
+    ViewBag.Title = "Edit news";
 }
 <h4>Edit news post!</h4>
 <img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath" />
@@ -38,7 +39,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PublicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-12">
-                @Html.EditorFor(model => model.PublicationDate, new { htmlAttributes = new { @class = "card-text", @placeholder = "dd/mm/yyyy hh:mm:ss" } })
+                @Html.EditorFor(model => model.PublicationDate, new { htmlAttributes = new { @type = "datetime-local", @class = "card-text", @placeholder = "dd/mm/yyyy hh:mm:ss" } })
                 @Html.ValidationMessageFor(model => model.PublicationDate, "", new { @class = "text-danger card-text" })
             </div>
         </div>

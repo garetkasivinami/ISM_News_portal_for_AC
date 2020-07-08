@@ -1,5 +1,7 @@
 ﻿@model ISMNewsPortal.Models.AdminViewModel
-
+@{
+    ViewBag.Title = "Delete admin";
+}
 <div class="card-header">Login: @Model.Login</div>
 <div class="card-body text-dark">
     <p class="card-text">Admin Id: @Model.Id</p>
@@ -17,5 +19,5 @@
 }
 
 <h1>Are you sure?</h1>
-@Html.ActionLink("Yes", "DeleteAdminSured", "Admin", new { @id = Model.Id}, new { @class = "btn btn-outline-danger" })
+@Html.ActionLink("Yes", "DeleteAdminSured", "Admin", new { @id = Model.Id }, new { @class = "btn btn-outline-danger" })
 @Html.ActionLink("No", "AdminList", "Admin", new { }, new { @class = "btn btn-outline-primary" })

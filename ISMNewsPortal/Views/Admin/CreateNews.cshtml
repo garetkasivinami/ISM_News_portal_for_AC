@@ -3,6 +3,7 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
+    ViewBag.Title = "Create news post";
 }
 
 <h3>Create news post!</h3>
@@ -31,7 +32,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.PublicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-12">
-                    @Html.EditorFor(model => model.PublicationDate, new { htmlAttributes = new { @class = "card-text", @placeholder = "dd/mm/yyyy hh:mm:ss" } })
+                    @Html.EditorFor(model => model.PublicationDate, new { htmlAttributes = new { @type = "datetime-local", @class = "card-text", @placeholder = "dd/mm/yyyy hh:mm:ss" } })
                     @Html.ValidationMessageFor(model => model.PublicationDate, "", new { @class = "text-danger card-text" })
                 </div>
             </div>
@@ -49,7 +50,7 @@
         <div class="col-md-offset-2 col-md-10">
             <label class="btn btn-outline-secondary">
                 Choose image file
-                <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg"/>
+                <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
             </label>
             @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
         </div>

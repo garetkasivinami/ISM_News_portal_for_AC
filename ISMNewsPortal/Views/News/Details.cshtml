@@ -1,5 +1,7 @@
 ﻿@model ISMNewsPortal.Models.NewsPostViewModel
-
+@{
+    ViewBag.Title = Model.NewsPost.Name;
+}
 <img src="@Model.ImagePath" class="post-img" alt="Post image">
 
 <div class="card">
@@ -19,14 +21,13 @@
 </div>
 
 <hr />
-<p>Commens count: @Model.Comments.Count</p>
+<p>Comment count: @Model.Comments.Count</p>
 @if (Model.Comments.Any())
 {
     foreach (ISMNewsPortal.Models.CommentViewModel comment in Model.Comments)
     {
         <div class="card">
             <div class="card-header">
-                <!--Стилізувати!-->
                 <p>@comment.Author</p>
             </div>
             <div class="card-body">

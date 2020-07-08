@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
     string selected = "selected";
+    ViewBag.Title = "Comments";
 }
 <!--Стилізувати-->
 <!--ГОТОВО-->
@@ -115,9 +116,9 @@
             <p class="nav-link" style="margin:0">Search by....</p>
             <select name="TypeSearch" class="form-control">
                 <option value="name">Name</option>
-                <option value="text" @if (Model.TypeSearch == "text") { 
-                    @selected
-                }>Text</option>
+                <option value="text" @if (Model.TypeSearch == "text") { @selected  }>
+                    Text
+                </option>
             </select>
 
             <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
