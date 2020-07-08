@@ -100,6 +100,11 @@ namespace ISMNewsPortal.Controllers
         [HttpGet]
         public ActionResult DeleteAdminSured(int id)
         {
+            Admin admin = Admin.GetAdminById(id);
+            if (admin.Login == User.Identity.Name)
+            {
+                return RedirectToAction("AdminList");
+            }
             Admin.RemoveAdmin(id);
             return RedirectToAction("AdminList");
         }

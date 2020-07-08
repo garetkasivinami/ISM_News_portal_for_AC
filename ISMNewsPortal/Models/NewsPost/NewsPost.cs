@@ -92,7 +92,7 @@ namespace ISMNewsPortal.Models
                 string filterFunc = NewsPostHelperActions.GetFilterSqlString(model.Filter);
                 string sortString = NewsPostHelperActions.GetAdminSortSqlString(model.SortType);
                 string searchString = NewsPostHelperActions.GetSearchSqlString(model.TypeSearch);
-                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerryAdmin(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+                IEnumerable<NewsPost> selectedNewsPost = NewsPostHelperActions.GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
 
                 int newsCount = selectedNewsPost.Count();
 

@@ -13,17 +13,13 @@
                         @Html.ActionLink("News", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
-                        @Html.ActionLink("Coments", "Comments", "Admin", new { area = "" }, new { @class = "nav-link" })
+                        @Html.ActionLink("Comments", "Comments", "Admin", new { area = "" }, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Admin tools
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            @Html.ActionLink("Manage posts", "News", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Admin list", "AdminList", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                            @Html.ActionLink("Manage comments", "Comments", "Admin", new { area = "" }, new { @class = "dropdown-item" })
-                        </div>
+                    <li class="nav-item">
+                        @Html.ActionLink("Manage posts", "News", "Admin", new { area = "" }, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Admin list", "AdminList", "Admin", new { area = "" }, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
                         @Html.ActionLink("Logout", "Logoff", "Account", new { }, new { @class = "btn btn-outline-secondary" })

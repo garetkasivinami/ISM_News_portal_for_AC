@@ -142,7 +142,7 @@
             <div class="card-footer">
                 <div class="btn-group" role="group">
                     @Html.ActionLink("Delete", "DeleteComment", "Admin", new { @id = comment.Id }, new { @class = "btn btn-outline-secondary btn-sm doubleClickLink" })
-                    @Html.ActionLink("Move to post", "Details", "News", new { @id = comment.NewsPostId }, new { @class = "btn btn-outline-secondary btn-sm" })
+                    @Html.ActionLink("Go to post", "Details", "News", new { @id = comment.NewsPostId }, new { @class = "btn btn-outline-secondary btn-sm", @target = "_blank" })
                 </div>
             </div>
         </div>
