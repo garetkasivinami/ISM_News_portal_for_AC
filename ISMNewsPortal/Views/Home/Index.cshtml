@@ -30,25 +30,18 @@
                         Sort by...@Model.SortType
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Name", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Description", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Date", "Index", "Home", new { @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Name ASC", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = false}, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Name DESC", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Description ASC", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = false }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Description DESC", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Date ASC", "Index", "Home", new { @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "dropdown-item", @Reversed = false })
+                        @Html.ActionLink("Date DESC", "Index", "Home", new { @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "dropdown-item", @Reversed = true })
                     </div>
                 </li>
-                @Html.ActionLink("Reverse", "Index", "Home", new { @sortType = Model.SortType, @page = Model.Page, @filter = Model.Filter, @Reversed = !(Model.Reversed ?? false), @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "nav-link" })
+
             </ul>
             @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
             {
-                @Html.Hidden("sortType", Model.SortType);
-                @Html.Hidden("filter", Model.Filter);
-                @Html.Hidden("page", Model.Page);
-                <p class="nav-link" style="margin:0">Search by....</p>
-                <select name="typeSearch" class="form-control">
-                    <option value="name">Name</option>
-                    <option value="description" @if (Model.TypeSearch == "description") { 
-                    @selected
-                }>Description</option>
-                </select>
                 <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="@Model.Search">
                 <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
             }
@@ -67,8 +60,7 @@
     {
         <h2>No news</h2>
     }
-    <!--Стилізувати-->
-    <!--НАЧЕ НОРМ-->
+
     <div class="btn-group" role="group">
         @if (Model.Page > 0)
         {
