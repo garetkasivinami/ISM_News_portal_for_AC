@@ -1,15 +1,8 @@
 ﻿using ISMNewsPortal.Models;
-using Microsoft.Ajax.Utilities;
-using Newtonsoft.Json.Serialization;
-using NHibernate;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Services.Protocols;
-using System.Web.UI.WebControls.WebParts;
+using ISMNewsPortal.BLL.Services;
+using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.Mappers;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -26,7 +19,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult News(ToolBarModel model)
         {
-            NewsPostAdminCollection result = NewsPostHelperActions.GenerateNewsPostAdminCollection(model);
+            NewsPostAdminCollection result = NewsPostHelper.GenerateNewsPostAdminCollection(model);
             return View(result);
         }
 
@@ -34,7 +27,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult EditNews(int id)
         {
-            NewsPostEditModel newsPostAdminView = NewsPostHelperActions.GetNewsPostEditModel(id);
+            NewsPostEditModel newsPostAdminView = NewsPostHelper.GetNewsPostEditModel(id);
             return View(newsPostAdminView);
         }
 
@@ -49,7 +42,14 @@ namespace ISMNewsPortal.Controllers
                 model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
             }
             if (ModelState.IsValid)
-                NewsPost.Update(model);
+            {
+                using (NewsPostService newsPostService = new NewsPostService())
+                {
+                    var newsPost = new NewsPost(model);
+                    var newsPostDTO = DTOMapper.NewsPostMapperToDTO.Map<NewsPost, NewsPostDTO>(newsPost);
+                    newsPostService.UpdateNewsPost(newsPostDTO);
+                }
+            }
             return RedirectToAction("News");
         }
 
@@ -57,7 +57,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult DeleteNewsPostRequest(int id)
         {
-            NewsPostAdminView newsPostAdminView = NewsPostHelperActions.GetNewsPostAdminView(id);
+            NewsPostAdminView newsPostAdminView = NewsPostHelper.GetNewsPostAdminView(id);
             return View(newsPostAdminView);
         }
 
@@ -65,7 +65,10 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult DeleteNewsPost(int id)
         {
-            NewsPost.RemoveNewsPost(id);
+            using (NewsPostService newsPostService = new NewsPostService())
+            {
+                newsPostService.DeleteNewsPost(id);
+            }
             return RedirectToAction("News");
         }
 
@@ -89,33 +92,51 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Admin.AddAdmin(model))
-                    return RedirectToAction("AdminList");
-                else
-                    ModelState.AddModelError("", "There already exists a user with this login!");
+                using (AdminService adminService = new AdminService())
+                {
+                    try
+                    {
+                        var admin = new Admin() { Login = model.Login, Email = model.Email };
+                        AdminHelper.SetPassword(admin, model.Password);
+                        var adminDTO = DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
+                        adminService.CreateAdmin(adminDTO);
+                    }
+                    catch
+                    {
+                        ModelState.AddModelError("", "There already exists a user with this login!");
+                        return View(model);
+                    }
+                }
             }
-            return View(model);
+            return RedirectToAction("AdminList");
         }
 
         [HttpGet]
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdmin(int id)
         {
-            Admin admin = AdminHelperActions.GetAdminById(id);
-            return View(new AdminViewModel(admin));
+            using (AdminService adminService = new AdminService())
+            {
+                AdminDTO adminDTO = adminService.GetAdmin(id);
+                Admin admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+                return View(new AdminViewModel(admin));
+            }
         }
 
         [HttpGet]
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdminSured(int id)
         {
-            Admin admin = AdminHelperActions.GetAdminById(id);
-            if (admin.Login == User.Identity.Name)
+            using (AdminService adminService = new AdminService())
             {
+                AdminDTO adminDTO = adminService.GetAdmin(id);
+                if (adminDTO.Login == User.Identity.Name)
+                {
+                    return RedirectToAction("AdminList");
+                }
+                adminService.DeleteAdmin(id);
                 return RedirectToAction("AdminList");
             }
-            Admin.RemoveAdmin(id);
-            return RedirectToAction("AdminList");
         }
 
         [ValidateAntiForgeryToken]
@@ -130,27 +151,35 @@ namespace ISMNewsPortal.Controllers
                     ModelState.AddModelError("", "No file!");
                     return View(model);
                 }
-                model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
-                model.AuthorId = AdminHelperActions.GetAdminIdByLogin(User.Identity.Name);
-                NewsPost.AddNewsPost(model);
-                return RedirectToAction("News");
+                using (NewsPostService newsPostService = new NewsPostService())
+                {
+                    model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
+                    using (AdminService adminService = new AdminService(newsPostService))
+                    {
+                        model.AuthorId = adminService.FindAdminByLogin(User.Identity.Name).Id;
+                    }
+                    var newsPost = new NewsPost(model);
+                    var newsPostDTO = DTOMapper.NewsPostMapperToDTO.Map<NewsPost, NewsPostDTO>(newsPost);
+                    newsPostService.CreateNewsPost(newsPostDTO);
+                    return RedirectToAction("News");
+                }
             }
             return View(model);
         }
-        
+
         [HttpGet]
         [RoleAuthorize(Roles.Administrator)]
         public ActionResult AdminList()
         {
-            AdminViewModelCollection adminViewModelCollection = AdminHelperActions.GenerateAdminViewModelCollection();
+            AdminViewModelCollection adminViewModelCollection = AdminHelper.GenerateAdminViewModelCollection();
             return View(adminViewModelCollection);
         }
 
         [HttpGet]
-        [RoleAuthorize(Roles.Moderator,Roles.Administrator, Roles.Creator)]
+        [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
         public ActionResult Comments(ToolBarModel model)
         {
-            CommentViewModelCollection commentViewModelCollection = CommentHelperActions.GenerateCommentViewModelCollection(model);
+            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(model);
             return View(commentViewModelCollection);
         }
 
@@ -158,24 +187,34 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
         public ActionResult DeleteComment(int id)
         {
-            Comment.RemoveComment(id);
-            return RedirectToAction("Comments");
+            using (CommentService commentService = new CommentService())
+            {
+                commentService.DeleteComment(id);
+                return RedirectToAction("Comments");
+            }
         }
 
         [HttpGet]
         [RoleAuthorize(Roles.CanEditAdmin)]
         public ActionResult EditAdmin(int id)
         {
-            Admin admin = AdminHelperActions.GetAdminById(id);
-            return View(new AdminEditModel(admin));
+            using (AdminService adminService = new AdminService())
+            {
+                AdminDTO adminDTO = adminService.GetAdmin(id);
+                Admin admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+                return View(new AdminEditModel(admin));
+            }
         }
 
         [HttpPost]
         [RoleAuthorize(Roles.CanEditAdmin)]
         public ActionResult EditAdmin(AdminEditModel model)
         {
-            Admin.UpdateAdmin(model, User.IsInRole(Roles.CanSetAdminRole.ToString()));
-            return RedirectToAction("AdminList");
+            using (AdminService adminService = new AdminService())
+            {
+                adminService.UpdateAdminPartial(model.Id, model.Email, string.Join("*", model.Roles), User.IsInRole(Roles.CanSetAdminRole.ToString()));
+                return RedirectToAction("AdminList");
+            }
         }
     }
 }

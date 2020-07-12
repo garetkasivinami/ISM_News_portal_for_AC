@@ -17,7 +17,7 @@ namespace ISMNewsPortal.Models
             Id = admin.Id;
             Login = admin.Login;
             Email = admin.Email;
-            Roles = AdminHelperActions.RoleCutter(admin.Roles).ToArray();
+            Roles = AdminHelper.RoleCutter(admin.Roles).ToArray();
         }
         public int Id { get; set; }
         public string Login { get; set; }

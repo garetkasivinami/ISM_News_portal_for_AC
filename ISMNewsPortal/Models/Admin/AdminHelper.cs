@@ -1,4 +1,7 @@
-﻿using NHibernate;
+﻿using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Services;
+using ISMNewsPortal.Mappers;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,65 +9,50 @@ using System.Web;
 
 namespace ISMNewsPortal.Models
 {
-    public static class AdminHelperActions
+    public static class AdminHelper
     {
         public static void SetPassword(Admin admin, string password)
         {
-            string salt;
-            admin.Password = Security.SHA512(password, out salt);
+            admin.Password = Security.SHA512(password, out string salt);
             admin.Salt = salt;
         }
-        public static int GetAdminIdByLogin(string login)
+        public static bool CheckPassword(Admin admin, string password)
         {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                return session.Query<Admin>().SingleOrDefault(u => u.Login == login).Id;
-            }
-        }
-        public static Admin GetAdminById(int id)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                return session.Get<Admin>(id);
-            }
+            string sha512password = Security.SHA512(password, admin.Salt);
+            if (sha512password == admin.Password)
+                return true;
+            else
+                return false;
         }
         public static Admin GetAdminByLogin(string login)
         {
-            using (ISession session = NHibernateSession.OpenSession())
+            using (AdminService adminService = new AdminService())
             {
-                return session.Query<Admin>().SingleOrDefault(u => u.Login == login);
+                var adminDTO = adminService.GetAdminByLogin(login);
+                var admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+                return admin;
             }
-        }
-        public static Admin GetAdminByLoginAndPassword(LoginModel loginModel)
-        {
-            return GetAdminByLoginAndPassword(loginModel.Login, loginModel.Password);
         }
         public static Admin GetAdminByLoginAndPassword(string login, string password)
         {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                Admin admin = session.Query<Admin>().SingleOrDefault(u => u.Login == login);
-                if (admin == null)
-                    return null;
-
-                string Sha512password = Security.SHA512(password, admin.Salt);
-                if (Sha512password == admin.Password)
-                    return admin;
-                else
-                    return null;
-            }
+            Admin admin = GetAdminByLogin(login);
+            if (CheckPassword(admin, password))
+                return admin;
+            else
+                return null;
         }
         public static AdminViewModelCollection GenerateAdminViewModelCollection()
         {
-            using (ISession session = NHibernateSession.OpenSession())
+            using (AdminService adminService = new AdminService())
             {
-                IEnumerable<Admin> admins = session.Query<Admin>();
-                ICollection<AdminViewModel> adminViewModels = new List<AdminViewModel>();
-                foreach (Admin admin in admins)
+                var adminDTOs = adminService.GetAdmins();
+                var admins = DTOMapper.AdminMapper.Map<IEnumerable<AdminDTO>, List<Admin>>(adminDTOs);
+                var adminViewModels = new List<AdminViewModel>();
+                foreach(Admin admin in admins)
                 {
                     adminViewModels.Add(new AdminViewModel(admin));
                 }
-                return new AdminViewModelCollection() { AdminViewModels = adminViewModels };
+                return new AdminViewModelCollection() { AdminViewModels = adminViewModels};
             }
         }
         public static IEnumerable<string> GetRolesStringsByLogin(string login)

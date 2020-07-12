@@ -1,4 +1,7 @@
-﻿using NHibernate;
+﻿using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Services;
+using ISMNewsPortal.Mappers;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,46 +24,42 @@ namespace ISMNewsPortal.Models
             }
             string hashCode = System.Text.Encoding.Unicode.GetString(hashBytes);
 
-            FileModel equalFileModel = FindByHashCode(hashCode);
-            if (equalFileModel != null)
-                return equalFileModel.Id;
+            using (FileService fileService = new FileService())
+            {
+                var equalFileModelDTO = fileService.FindByHashCode(hashCode);
+                if (equalFileModelDTO != null)
+                    return equalFileModelDTO.Id;
 
-            string fileName = Path.GetFileName(file.FileName);
-            fileName = DateTime.Now.Ticks + Path.GetExtension(fileName);
-            string path = server.MapPath("~/App_Data/Files/" + fileName);
-            file.SaveAs(path);
+                string fileName = Path.GetFileName(file.FileName);
+                fileName = DateTime.Now.Ticks + Path.GetExtension(fileName);
+                string path = server.MapPath("~/App_Data/Files/" + fileName);
+                file.SaveAs(path);
 
-            file.InputStream.Close();
-
-            return FileModel.Save(fileName, hashCode);
+                file.InputStream.Close();
+                var fileModelDTO = new FileDTO() { HashCode = hashCode, Name = fileName };
+                fileService.CreateFile(fileModelDTO);
+                return fileService.GetMaxId();
+            }
         }
         public static void RemoveFile(int id, HttpServerUtilityBase server)
         {
-            string fileName = GetNameById(id);
-            string path = server.MapPath("~/App_Data/Files/" + fileName);
-            if (System.IO.File.Exists(path))
+            using (FileService fileService = new FileService())
             {
-                System.IO.File.Delete(path);
-                FileModel.Delete(id);
-            }
-        }
-        public static FileModel FindByHashCode(string hashCode)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                return session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
-            }
-        }
-        public static string GetNameById(int id)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                return session.Get<FileModel>(id).Name;
+                string fileName = fileService.GetNameById(id);
+                string path = server.MapPath("~/App_Data/Files/" + fileName);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                    fileService.DeleteFile(id);
+                }
             }
         }
         public static string GetNameByIdFormated(int id)
         {
-            return $"/Files/?name={GetNameById(id)}";
+            using (FileService fileService = new FileService())
+            {
+                return $"/Files/?name={fileService.GetNameById(id)}";
+            }
         }
     }
 }

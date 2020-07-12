@@ -51,6 +51,9 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -149,6 +152,7 @@
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
+    <Compile Include="Mappers\DTOMapper.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -156,11 +160,11 @@
     <Compile Include="Models\Admin\Admin.cs" />
     <Compile Include="Models\Admin\AdminCreateModel.cs" />
     <Compile Include="Models\Admin\AdminEditModel.cs" />
-    <Compile Include="Models\Admin\AdminHelperActions.cs" />
+    <Compile Include="Models\Admin\AdminHelper.cs" />
     <Compile Include="Models\Admin\AdminViewModel.cs" />
     <Compile Include="Models\Admin\AdminViewModelCollection.cs" />
     <Compile Include="Models\ChangePassword.cs" />
-    <Compile Include="Models\Comment\CommentHelperActions.cs" />
+    <Compile Include="Models\Comment\CommentHelper.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\Comment\Comment.cs" />
     <Compile Include="Models\Comment\CommentCreateModel.cs" />
@@ -172,7 +176,7 @@
     <Compile Include="Models\NewsPost\NewsPostAdminCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminView.cs" />
     <Compile Include="Models\NewsPost\NewsPostEditModel.cs" />
-    <Compile Include="Models\NewsPost\NewsPostHelperActions.cs" />
+    <Compile Include="Models\NewsPost\NewsPostHelper.cs" />
     <Compile Include="Models\NewsPost\NewsPostCreateModel.cs" />
     <Compile Include="Models\NewsPost\NewsPostSimplifiedCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostSimplifiedView.cs" />
@@ -180,7 +184,6 @@
     <Compile Include="Models\RoleAuthorizeAttribute.cs" />
     <Compile Include="Models\Security.cs" />
     <Compile Include="Models\Tool.cs" />
-    <Compile Include="NHibernateSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -208,11 +211,11 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\ISMNewsPortal - Web Deploy.pubxml" />
-    <Content Include="Models\NHibernate\Admin.hbm.xml" />
-    <Content Include="Models\NHibernate\Comment.hbm.xml" />
-    <Content Include="Models\NHibernate\FileModel.hbm.xml" />
-    <Content Include="Models\NHibernate\hibernate.cfg.xml" />
-    <Content Include="Models\NHibernate\NewsPost.hbm.xml" />
+    <Content Include="NHibernate\Admin.hbm.xml" />
+    <Content Include="NHibernate\Comment.hbm.xml" />
+    <Content Include="NHibernate\FileModel.hbm.xml" />
+    <Content Include="NHibernate\hibernate.cfg.xml" />
+    <Content Include="NHibernate\NewsPost.hbm.xml" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -373,6 +376,12 @@
   <ItemGroup>
     <Folder Include="App_Data\Files\" />
     <Folder Include="Views\Files\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ISMNewsPortal.BLL\ISMNewsPortal.BLL.csproj">
+      <Project>{efc8a452-cac6-4eb4-b1e8-d5269e18f37d}</Project>
+      <Name>ISMNewsPortal.BLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

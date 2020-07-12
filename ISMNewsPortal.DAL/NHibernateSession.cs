@@ -13,19 +13,19 @@ namespace ISMNewsPortal
         public static ISession OpenSession()
         {
             var configuration = new Configuration();
-            var configurationPath = HttpContext.Current.Server.MapPath(@"~\Models\NHibernate\hibernate.cfg.xml");
+            var configurationPath = HttpContext.Current.Server.MapPath(@"~\NHibernate\hibernate.cfg.xml");
             configuration.Configure(configurationPath);
 
-            string userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\Models\NHibernate\NewsPost.hbm.xml");
+            string userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\NHibernate\NewsPost.hbm.xml");
             configuration.AddFile(userConfigurationFile);
 
-            userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\Models\NHibernate\Comment.hbm.xml");
+            userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\NHibernate\Comment.hbm.xml");
             configuration.AddFile(userConfigurationFile);
 
-            userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\Models\NHibernate\Admin.hbm.xml");
+            userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\NHibernate\Admin.hbm.xml");
             configuration.AddFile(userConfigurationFile);
 
-            userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\Models\NHibernate\FileModel.hbm.xml");
+            userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\NHibernate\FileModel.hbm.xml");
             configuration.AddFile(userConfigurationFile);
 
             ISessionFactory sessionFactory = configuration.BuildSessionFactory();

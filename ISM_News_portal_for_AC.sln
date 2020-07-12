@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNewsPortal", "ISMNewsPortal\ISMNewsPortal.csproj", "{9EF1A27F-E29E-41EF-A99C-F1D2F5224A56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNewsPortal.DAL", "ISMNewsPortal.DAL\ISMNewsPortal.DAL.csproj", "{49DDDE19-FEBB-4869-BFDC-610D79316957}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNewsPortal.BLL", "ISMNewsPortal.BLL\ISMNewsPortal.BLL.csproj", "{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{9EF1A27F-E29E-41EF-A99C-F1D2F5224A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9EF1A27F-E29E-41EF-A99C-F1D2F5224A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9EF1A27F-E29E-41EF-A99C-F1D2F5224A56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49DDDE19-FEBB-4869-BFDC-610D79316957}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49DDDE19-FEBB-4869-BFDC-610D79316957}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49DDDE19-FEBB-4869-BFDC-610D79316957}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49DDDE19-FEBB-4869-BFDC-610D79316957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

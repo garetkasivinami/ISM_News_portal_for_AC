@@ -9,6 +9,7 @@ namespace ISMNewsPortal.Models
     public static class Security
     {
         public const int PasswordUserLength = 128;
+
         [ThreadStatic]
         private static Random random;
         public static Random Random
@@ -28,13 +29,10 @@ namespace ISMNewsPortal.Models
             var bytes = Encoding.UTF8.GetBytes(input);
             var saltBytes = Encoding.UTF8.GetBytes(salt);
             bytes = bytes.Concat(saltBytes).ToArray();
-            Array.Resize(ref bytes, 128);
+            Array.Resize(ref bytes, PasswordUserLength); // <<===
             using (var hash = System.Security.Cryptography.SHA512.Create())
             {
                 var hashedInputBytes = hash.ComputeHash(bytes);
-                //var hashedInputStringBuilder = new StringBuilder(128);
-                //foreach (var b in hashedInputBytes)
-                //    hashedInputStringBuilder.Append(b.ToString("X2"));
                 return Encoding.UTF8.GetString(hashedInputBytes);
             }
         }

@@ -50,47 +50,5 @@ namespace ISMNewsPortal.Models
             IsVisible = model.IsVisible;
             PublicationDate = model.PublicationDate ?? DateTime.Now;
         }
-        public static void Update(NewsPostEditModel model)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                NewsPost newsPost = new NewsPost(model);
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    session.Update(newsPost);
-                    transaction.Commit();
-                }
-            }
-        }
-        public static void RemoveNewsPost(int id)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                NewsPost newsPost = session.Get<NewsPost>(id);
-                IEnumerable<Comment> comments = session.Query<Comment>().Where(u => u.NewsPostId == id);
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    session.Delete(newsPost);
-                    foreach(Comment comment in comments)
-                    {
-                        session.Delete(comment);
-                    }
-                    transaction.Commit();
-                }
-                FileModel.Delete(newsPost.ImageId);
-            }
-        }
-        public static void AddNewsPost(NewsPostCreateModel model)
-        {
-            using (ISession session = NHibernateSession.OpenSession())
-            {
-                NewsPost newsPost = new NewsPost(model);
-                using (ITransaction transaction = session.BeginTransaction())
-                {
-                    session.Save(newsPost);
-                    transaction.Commit();
-                }
-            }
-        }
     }
 }

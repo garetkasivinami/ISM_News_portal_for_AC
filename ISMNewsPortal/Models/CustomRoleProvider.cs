@@ -12,13 +12,13 @@ namespace ISMNewsPortal.Models
 
 		public override bool IsUserInRole(string username, string roleName)
 		{
-			IEnumerable<string> roles = AdminHelperActions.GetRolesStringsByLogin(username);
+			IEnumerable<string> roles = AdminHelper.GetRolesStringsByLogin(username);
 			return roles.Count() != 0 && roles.Contains(roleName);
 		}
 
 		public override string[] GetRolesForUser(string username)
 		{
-			IEnumerable<string> roles = AdminHelperActions.GetRolesStringsByLogin(username);
+			IEnumerable<string> roles = AdminHelper.GetRolesStringsByLogin(username);
 			return roles.ToArray();
 		}
 
