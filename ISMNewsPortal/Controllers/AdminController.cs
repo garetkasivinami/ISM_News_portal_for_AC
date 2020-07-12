@@ -46,7 +46,7 @@ namespace ISMNewsPortal.Controllers
                 using (NewsPostService newsPostService = new NewsPostService())
                 {
                     var newsPost = new NewsPost(model);
-                    var newsPostDTO = DTOMapper.NewsPostMapperToDTO.Map<NewsPost, NewsPostDTO>(newsPost);
+                    var newsPostDTO = DTOMapper.MapNewsPostDTO(newsPost);
                     newsPostService.UpdateNewsPost(newsPostDTO);
                 }
             }
@@ -98,7 +98,7 @@ namespace ISMNewsPortal.Controllers
                     {
                         var admin = new Admin() { Login = model.Login, Email = model.Email };
                         AdminHelper.SetPassword(admin, model.Password);
-                        var adminDTO = DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
+                        var adminDTO = DTOMapper.MapAdminDTO(admin);
                         adminService.CreateAdmin(adminDTO);
                     }
                     catch
@@ -118,7 +118,7 @@ namespace ISMNewsPortal.Controllers
             using (AdminService adminService = new AdminService())
             {
                 AdminDTO adminDTO = adminService.GetAdmin(id);
-                Admin admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+                Admin admin = DTOMapper.MapAdmin(adminDTO);
                 return View(new AdminViewModel(admin));
             }
         }
@@ -159,7 +159,7 @@ namespace ISMNewsPortal.Controllers
                         model.AuthorId = adminService.FindAdminByLogin(User.Identity.Name).Id;
                     }
                     var newsPost = new NewsPost(model);
-                    var newsPostDTO = DTOMapper.NewsPostMapperToDTO.Map<NewsPost, NewsPostDTO>(newsPost);
+                    var newsPostDTO = DTOMapper.MapNewsPostDTO(newsPost);
                     newsPostService.CreateNewsPost(newsPostDTO);
                     return RedirectToAction("News");
                 }
@@ -201,7 +201,7 @@ namespace ISMNewsPortal.Controllers
             using (AdminService adminService = new AdminService())
             {
                 AdminDTO adminDTO = adminService.GetAdmin(id);
-                Admin admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+                Admin admin = DTOMapper.MapAdmin(adminDTO);
                 return View(new AdminEditModel(admin));
             }
         }

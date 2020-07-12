@@ -46,7 +46,7 @@ namespace ISMNewsPortal.Controllers
                 using (CommentService commentService = new CommentService())
                 {
                     Comment comment = new Comment(model);
-                    CommentDTO commentDTO = DTOMapper.CommentMapperToDTO.Map<Comment, CommentDTO>(comment);
+                    CommentDTO commentDTO = DTOMapper.MapCommentDTO(comment);
                     commentService.CreateComment(commentDTO);
                     return RedirectToAction("Details", "News", new { @id = model.PageId });
                 }

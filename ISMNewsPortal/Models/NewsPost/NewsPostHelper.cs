@@ -16,7 +16,7 @@ namespace ISMNewsPortal.Models
             using (NewsPostService newsPostService = new NewsPostService())
             {
                 var newsPostDTO = newsPostService.GetNewsPost(id);
-                var newsPost = DTOMapper.NewsPostMapper.Map<NewsPostDTO, NewsPost>(newsPostDTO);
+                var newsPost = DTOMapper.MapNewsPost(newsPostDTO);
                 if (checkVisibility && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
                     return null;
 
@@ -25,7 +25,7 @@ namespace ISMNewsPortal.Models
                 using (CommentService commentService = new CommentService(newsPostService))
                 {
                     commentDTOs = commentService.GetCommentsByPostId(newsPost.Id);
-                    comments = DTOMapper.CommentMapper.Map<IEnumerable<CommentDTO>, List<Comment>>(commentDTOs);
+                    comments = DTOMapper.MapComments(commentDTOs);
                 }
 
                 int commentsCount = comments.Count();
@@ -47,7 +47,7 @@ namespace ISMNewsPortal.Models
             {
                 var toolsDTO = DTOMapper.ToolsMapperToDTO.Map<ToolBarModel, ToolsDTO>(model);
                 var newsPostsDTO = newsPostService.GetNewsPostsWithAdminTools(toolsDTO);
-                var newsPosts = DTOMapper.NewsPostMapper.Map<IEnumerable<NewsPostDTO>, List<NewsPost>>(newsPostsDTO);
+                var newsPosts = DTOMapper.MapNewsPosts(newsPostsDTO);
 
                 int newsCount = newsPosts.Count();
 
@@ -76,7 +76,7 @@ namespace ISMNewsPortal.Models
             {
                 var modelDTO = DTOMapper.ToolsMapperToDTO.Map<ToolBarModel, ToolsDTO>(model);
                 var newsPostsDTO = newsPostService.GetNewsPostsWithTools(modelDTO);
-                var newsPosts = DTOMapper.NewsPostMapper.Map<IEnumerable<NewsPostDTO>, List<NewsPost>>(newsPostsDTO);
+                var newsPosts = DTOMapper.MapNewsPosts(newsPostsDTO);
 
                 var newsPostSimplifiedViews = new List<NewsPostSimplifiedView>();
                 using (CommentService commentService = new CommentService(newsPostService))
@@ -97,7 +97,7 @@ namespace ISMNewsPortal.Models
             using (NewsPostService newsPostService = new NewsPostService())
             {
                 var newsPostDTO = newsPostService.GetNewsPost(id);
-                var newsPost = DTOMapper.NewsPostMapper.Map<NewsPostDTO, NewsPost>(newsPostDTO);
+                var newsPost = DTOMapper.MapNewsPost(newsPostDTO);
                 string newsPostAuthorName;
                 using (AdminService adminService = new AdminService(newsPostService))
                 {
@@ -114,7 +114,7 @@ namespace ISMNewsPortal.Models
             using (NewsPostService newsPostService = new NewsPostService())
             {
                 var newsPostDTO = newsPostService.GetNewsPost(id);
-                var newsPost = DTOMapper.NewsPostMapper.Map<NewsPostDTO, NewsPost>(newsPostDTO);
+                var newsPost = DTOMapper.MapNewsPost(newsPostDTO);
                 var newsPostEditModel = new NewsPostEditModel(newsPost);
                 return newsPostEditModel;
             }

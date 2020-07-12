@@ -32,7 +32,7 @@ namespace ISMNewsPortal.Controllers
                 using (AdminService adminService = new AdminService())
                 {
                     var adminDTO = adminService.FindAdminByLogin(model.Login);
-                    var admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+                    var admin = DTOMapper.MapAdmin(adminDTO);
                     if (AdminHelper.CheckPassword(admin, model.Password))
                     {
                         FormsAuthentication.SetAuthCookie(admin.Login, true);
@@ -69,7 +69,7 @@ namespace ISMNewsPortal.Controllers
             using (AdminService adminService = new AdminService())
             {
                 var adminDTO = adminService.FindAdminByLogin(User.Identity.Name);
-                var admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+                var admin = DTOMapper.MapAdmin(adminDTO);
                 string passportSalted = Security.SHA512(model.LastPassword, admin.Salt);
                 if (admin.Password != passportSalted)
                 {

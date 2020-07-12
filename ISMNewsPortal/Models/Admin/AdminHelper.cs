@@ -29,7 +29,7 @@ namespace ISMNewsPortal.Models
             using (AdminService adminService = new AdminService())
             {
                 var adminDTO = adminService.GetAdminByLogin(login);
-                var admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+                var admin = DTOMapper.MapAdmin(adminDTO);
                 return admin;
             }
         }
@@ -46,7 +46,7 @@ namespace ISMNewsPortal.Models
             using (AdminService adminService = new AdminService())
             {
                 var adminDTOs = adminService.GetAdmins();
-                var admins = DTOMapper.AdminMapper.Map<IEnumerable<AdminDTO>, List<Admin>>(adminDTOs);
+                var admins = DTOMapper.MapAdmins(adminDTOs);
                 var adminViewModels = new List<AdminViewModel>();
                 foreach(Admin admin in admins)
                 {

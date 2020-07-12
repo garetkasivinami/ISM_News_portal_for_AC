@@ -12,30 +12,12 @@ namespace ISMNewsPortal.Models
 {
     public static class CommentHelper
     {
-        //public static CommentViewModelCollection GenerateCommentViewModelCollection(ToolBarModel model)
-        //{
-        //    using (CommentService commentService = new CommentService())
-        //    {
-        //        var toolBarDTO = DTOMapper.ToolsMapperToDTO.Map<ToolBarModel, ToolsDTO>(model);
-        //        var commentsDTO = commentService.GetCommentsWithTools(toolBarDTO);
-        //        var comments = DTOMapper.CommentMapper.Map<IEnumerable<CommentDTO>, List<Comment>>(commentsDTO);
-
-        //        int commentsCount = comments.Count();
-
-        //        var commentsViewModel = new List<CommentViewModel>();
-        //        foreach(Comment comment in comments)
-        //        {
-        //            commentsViewModel.Add(new CommentViewModel(comment));
-        //        }
-        //        return new CommentViewModelCollection(commentsViewModel, model, commentsCount);
-        //    }
-        //}
         public static CommentViewModelCollection GenerateCommentViewModelCollection(int postId)
         {
             using (CommentService commentService = new CommentService())
             {
                 var commentsDTO = commentService.GetCommentsByPostId(postId);
-                var comments = DTOMapper.CommentMapper.Map<IEnumerable<CommentDTO>, List<Comment>>(commentsDTO);
+                var comments = DTOMapper.MapComments(commentsDTO);
 
                 int commentsCount = comments.Count();
 
