@@ -40,6 +40,7 @@
                     </small>
                 </p>
             </div>
+            @Html.ActionLink("Delete", "DeleteComment", "News", new { @id = comment.Id, @newsPostId = Model.NewsPost.Id }, new { })
         </div>
     }
 }

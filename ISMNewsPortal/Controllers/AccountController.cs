@@ -51,13 +51,6 @@ namespace ISMNewsPortal.Controllers
         [Authorize]
         public ActionResult Logoff()
         {
-            return View();
-        }
-
-        [HttpGet]
-        [Authorize]
-        public ActionResult LogoffAction()
-        {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Home");
         }

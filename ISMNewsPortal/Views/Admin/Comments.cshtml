@@ -5,8 +5,13 @@
     string selected = "selected";
     ViewBag.Title = "Comments";
 }
-<!--Стилізувати-->
-<!--ГОТОВО-->
+
+<img src="@Model.ImagePath" class="post-img" alt="Post image">
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">@Model.NewsPost.Name</h5>
+    </div>
+</div>
 <h1>Comments list</h1>
 <p>Comments count: @Model.CommentsCount</p>
 <p>Pages: @Model.Pages</p>
@@ -116,7 +121,7 @@
             <p class="nav-link" style="margin:0">Search by....</p>
             <select name="TypeSearch" class="form-control">
                 <option value="name">Name</option>
-                <option value="text" @if (Model.TypeSearch == "text") { @selected  }>
+                <option value="text" @if (Model.TypeSearch == "text") { @selected }>
                     Text
                 </option>
             </select>

@@ -349,19 +349,17 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\_Admin.cshtml" />
-    <Content Include="Views\Admin\News.cshtml" />
     <Content Include="Views\Admin\EditNews.cshtml" />
     <Content Include="Views\Admin\DeleteNewsPostRequest.cshtml" />
     <Content Include="Views\Admin\CreateNews.cshtml" />
     <Content Include="Views\Admin\Comments.cshtml" />
     <Content Include="Views\News\_NewsSimplifyPartial.cshtml" />
-    <Content Include="Views\Admin\AdminList.cshtml" />
-    <Content Include="Views\Account\Logoff.cshtml" />
     <Content Include="Views\Home\Error404.cshtml" />
     <Content Include="Views\Admin\EditAdmin.cshtml" />
     <Content Include="Views\Admin\CreateAdmin.cshtml" />
     <Content Include="Views\Admin\DeleteAdmin.cshtml" />
     <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Admin\AdminsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

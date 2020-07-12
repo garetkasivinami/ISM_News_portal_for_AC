@@ -12,22 +12,46 @@ namespace ISMNewsPortal.Models
 {
     public static class CommentHelper
     {
-        public static CommentViewModelCollection GenerateCommentViewModelCollection(ToolBarModel model)
+        //public static CommentViewModelCollection GenerateCommentViewModelCollection(ToolBarModel model)
+        //{
+        //    using (CommentService commentService = new CommentService())
+        //    {
+        //        var toolBarDTO = DTOMapper.ToolsMapperToDTO.Map<ToolBarModel, ToolsDTO>(model);
+        //        var commentsDTO = commentService.GetCommentsWithTools(toolBarDTO);
+        //        var comments = DTOMapper.CommentMapper.Map<IEnumerable<CommentDTO>, List<Comment>>(commentsDTO);
+
+        //        int commentsCount = comments.Count();
+
+        //        var commentsViewModel = new List<CommentViewModel>();
+        //        foreach(Comment comment in comments)
+        //        {
+        //            commentsViewModel.Add(new CommentViewModel(comment));
+        //        }
+        //        return new CommentViewModelCollection(commentsViewModel, model, commentsCount);
+        //    }
+        //}
+        public static CommentViewModelCollection GenerateCommentViewModelCollection(int postId)
         {
             using (CommentService commentService = new CommentService())
             {
-                var toolBarDTO = DTOMapper.ToolsMapperToDTO.Map<ToolBarModel, ToolsDTO>(model);
-                var commentsDTO = commentService.GetCommentsWithTools(toolBarDTO);
+                var commentsDTO = commentService.GetCommentsByPostId(postId);
                 var comments = DTOMapper.CommentMapper.Map<IEnumerable<CommentDTO>, List<Comment>>(commentsDTO);
 
                 int commentsCount = comments.Count();
 
                 var commentsViewModel = new List<CommentViewModel>();
-                foreach(Comment comment in comments)
+                foreach (Comment comment in comments)
                 {
                     commentsViewModel.Add(new CommentViewModel(comment));
                 }
-                return new CommentViewModelCollection(commentsViewModel, model, commentsCount);
+                NewsPost newsPost;
+                using (NewsPostService newsPostService = new NewsPostService(commentService))
+                {
+                    var newsPostDTO = newsPostService.GetNewsPost(postId);
+                    newsPost = DTOMapper.NewsPostMapper.Map<NewsPostDTO, NewsPost>(newsPostDTO);
+                }
+                string imagePath = FileModelActions.GetNameByIdFormated(newsPost.ImageId);
+                return new CommentViewModelCollection(newsPost, imagePath, commentsViewModel, new ToolBarModel(), commentsCount);
             }
         }
     }

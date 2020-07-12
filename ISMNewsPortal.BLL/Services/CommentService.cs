@@ -63,7 +63,6 @@ namespace ISMNewsPortal.BLL.Services
             return DTOMapper.CommentMapperToDTO.Map<IEnumerable<Comment>, List<CommentDTO>>(comments);
         }
 
-
         public void DeleteComment(int id)
         {
             database.Comments.Delete(id);

@@ -10,11 +10,10 @@
               not-null="true"/>
     <property name="UserName"
               type="string"
-              length="128"
+              length="100"
               not-null="true"/>
     <property name="Text"  
               type="string"
-              length="1000"
               not-null="true"/>
     <property name="NewsPostId"
               type="int"

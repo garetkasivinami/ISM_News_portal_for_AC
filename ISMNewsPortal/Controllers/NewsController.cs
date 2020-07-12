@@ -19,15 +19,16 @@ namespace ISMNewsPortal.Controllers
         [HttpGet]
         public ActionResult Details(int id, int? page)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 0, true);
+            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 0, User.IsInRole(Roles.Moderator.ToString()), true);
             return View(newsPostViewModel);
         }
 
+        [HttpGet]
         [Authorize]
         [RoleAuthorize(Roles.Creator)]
         public ActionResult Preview(int id)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 0);
+            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 0, User.IsInRole(Roles.Moderator.ToString()));
             return View("Details", newsPostViewModel);
         }
 
@@ -51,6 +52,19 @@ namespace ISMNewsPortal.Controllers
                 }
             }
             return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [RoleAuthorize(Roles.Moderator)]
+        public ActionResult DeleteComment(int id, int newsPostId, bool detailsMode = true)
+        {
+            using (CommentService commentService = new CommentService())
+            {
+                commentService.DeleteComment(id);
+            }
+            string action = detailsMode ? "Details" : "Preview";
+            return RedirectToAction(action, new { id = newsPostId });
         }
     }
 }

@@ -3,6 +3,8 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
     ViewBag.Title = "Edit news";
+    DateTime publishDate = Model.PublicationDate ?? DateTime.Now;
+    string publicationDate = publishDate.ToString("s");
 }
 <h4>Edit news post!</h4>
 <img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath" />
@@ -39,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PublicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-12">
-                @Html.EditorFor(model => model.PublicationDate, new { htmlAttributes = new { @type = "datetime-local", @class = "card-text", @placeholder = "dd/mm/yyyy hh:mm:ss" } })
+                <input type="datetime-local" value = @publicationDate class = "card-text", placeholder = "dd/mm/yyyy hh:mm:ss" name="PublicationDate"/>
                 @Html.ValidationMessageFor(model => model.PublicationDate, "", new { @class = "text-danger card-text" })
             </div>
         </div>

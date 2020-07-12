@@ -10,17 +10,17 @@ namespace ISMNewsPortal.Controllers
     public class AdminController : Controller
     {
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(ToolBarModel model)
         {
-            return View();
+            NewsPostAdminCollection result = NewsPostHelper.GenerateNewsPostAdminCollection(model);
+            return View(result);
         }
 
         [HttpGet]
         [RoleAuthorize(Roles.Creator)]
         public ActionResult News(ToolBarModel model)
         {
-            NewsPostAdminCollection result = NewsPostHelper.GenerateNewsPostAdminCollection(model);
-            return View(result);
+            return null;
         }
 
         [HttpGet]
@@ -169,7 +169,7 @@ namespace ISMNewsPortal.Controllers
 
         [HttpGet]
         [RoleAuthorize(Roles.Administrator)]
-        public ActionResult AdminList()
+        public ActionResult AdminsList()
         {
             AdminViewModelCollection adminViewModelCollection = AdminHelper.GenerateAdminViewModelCollection();
             return View(adminViewModelCollection);
@@ -177,20 +177,20 @@ namespace ISMNewsPortal.Controllers
 
         [HttpGet]
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
-        public ActionResult Comments(ToolBarModel model)
+        public ActionResult Comments(int postId)
         {
-            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(model);
+            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(postId);
             return View(commentViewModelCollection);
         }
 
         [HttpGet]
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
-        public ActionResult DeleteComment(int id)
+        public ActionResult DeleteComment(int id, int postId)
         {
             using (CommentService commentService = new CommentService())
             {
                 commentService.DeleteComment(id);
-                return RedirectToAction("Comments");
+                return RedirectToAction("Comments", new { postId });
             }
         }
 

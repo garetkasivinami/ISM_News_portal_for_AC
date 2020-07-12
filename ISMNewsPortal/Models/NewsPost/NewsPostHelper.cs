@@ -11,7 +11,7 @@ namespace ISMNewsPortal.Models
 {
     public static class NewsPostHelper
     {
-        public static NewsPostViewModel GetNewsPostViewModelById(int id, int page, bool checkVisibility = false)
+        public static NewsPostViewModel GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)
         {
             using (NewsPostService newsPostService = new NewsPostService())
             {
@@ -38,7 +38,7 @@ namespace ISMNewsPortal.Models
                 {
                     commentsViewModel.Add(new CommentViewModel(comment));
                 }
-                return new NewsPostViewModel(newsPost, commentsViewModel, page, pages);
+                return new NewsPostViewModel(newsPost, commentsViewModel, page, pages, moderActions);
             }
         }
         public static NewsPostAdminCollection GenerateNewsPostAdminCollection(ToolBarModel model)

@@ -15,7 +15,7 @@ namespace ISMNewsPortal.Models
         public virtual DateTime Date { get; set; }
         public virtual string Text { get; set; }
         public virtual int NewsPostId { get; set; }
-        //================================================
+
         public Comment()
         {
 
