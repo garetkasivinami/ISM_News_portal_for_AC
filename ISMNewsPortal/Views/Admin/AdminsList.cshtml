@@ -7,7 +7,7 @@
 <h1>Admin list</h1>
 @if (User.IsInRole(ISMNewsPortal.Models.Roles.CanCreateAdmin.ToString()))
 {
-    @Html.ActionLink("Create new Admin!", "CreateAdmin", "Admin", new { }, new { @class = "btn btn-outline-primary" })
+    @Html.ActionLink("Create new Admin", "CreateAdmin", "Admin", new { }, new { @class = "btn btn-outline-dark" })
 }
 <hr />
 

@@ -1,7 +1,7 @@
 ﻿@model ISMNewsPortal.Models.CommentCreateModel
 
 <h1>Comment</h1>
-@using (Html.BeginForm("CreateComment", "News", FormMethod.Post, new {}))
+@using (Html.BeginForm("CreateComment", "News", FormMethod.Post, new {@id="comment-form"}))
 {
     @Html.AntiForgeryToken()
 
@@ -29,7 +29,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Comment" class="btn btn-outline-success" />
+                <input type="submit" value="Comment" class="btn btn-outline-dark" />
             </div>
         </div>
     </div>

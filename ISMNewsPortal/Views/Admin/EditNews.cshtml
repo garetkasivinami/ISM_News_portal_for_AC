@@ -46,9 +46,9 @@
             </div>
         </div>
         <div class="form-group form-check">
-            <div class="col-md-12">
-                @Html.EditorFor(model => model.IsVisible, new { htmlAttributes = new { @class = "form-check-input" } })
-                @Html.LabelFor(model => model.IsVisible, htmlAttributes: new { @class = "form-check-label col-md-2" })
+            <div class="col-md-12 custom-control custom-checkbox">
+                @Html.EditorFor(model => model.IsVisible, new { htmlAttributes = new { @class = "custom-control-input" } })
+                @Html.LabelFor(model => model.IsVisible, htmlAttributes: new { @class = "custom-control-label" })
                 @Html.ValidationMessageFor(model => model.IsVisible, "", new { @class = "text-danger card-text" })
             </div>
         </div>
@@ -57,7 +57,7 @@
             <div class="col-md-offset-2 col-md-10">
                 <label class="btn btn-outline-secondary">
                     Choose image file
-                    <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
+                    <input type="file" class="btn btn-outline-dark" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
                 </label>
                 @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
             </div>

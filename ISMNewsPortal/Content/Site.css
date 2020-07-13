@@ -147,3 +147,17 @@ textarea.form-control {
 .card.admin-list-item .card-text {
     margin: 5px;
 }
+
+#comment-form>.form-horizontal>div>* {
+    padding-left: 0;
+}
+
+.post-img {
+    padding:0;
+    float:left;
+    margin-right:15px;
+}
+
+.card-text {
+    display:inline-block;
+}
