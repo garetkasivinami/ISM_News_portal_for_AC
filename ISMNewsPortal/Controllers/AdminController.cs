@@ -3,6 +3,8 @@ using System.Web.Mvc;
 using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.BLL.DTO;
 using ISMNewsPortal.Mappers;
+using System;
+using ISMNewsPortal.BLL.Infrastructure;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -172,8 +174,16 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
         public ActionResult Comments(int postId)
         {
-            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(postId);
-            return View(commentViewModelCollection);
+            try
+            {
+                CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(postId);
+                return View(commentViewModelCollection);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex.Message);
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
         }
 
         [HttpGet]

@@ -33,7 +33,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var admin = database.Admins.Get(id);
             if (admin == null)
-                throw new ValidationException("Admin is null", "");
+                throw ExceptionGenerator.GenerateException("Admin is null", "GetAdmin(int id)", $"id: {id}");
             return DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
         }
 
@@ -41,7 +41,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var admin = database.Admins.FindSingle(u => u.Login == login);
             if (admin == null)
-                throw new ValidationException("Admin is null", "");
+                throw ExceptionGenerator.GenerateException("Admin is null", "GetAdminByLogin(string login)", $"login: {login}");
             return DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
         }
 
@@ -49,7 +49,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var admin = database.Admins.FindSingle(u => u.Login == login);
             if (admin == null)
-                throw new ValidationException("Admin is null", "");
+                throw ExceptionGenerator.GenerateException("Admin is null", "FindAdminByLogin(string login)", $"login: {login}");
             return DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
         }
 

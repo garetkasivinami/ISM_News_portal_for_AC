@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using ISMNewsPortal.BLL.Infrastructure;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -19,8 +20,16 @@ namespace ISMNewsPortal.Controllers
         [HttpGet]
         public ActionResult Details(int id, int? page)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 0, User.IsInRole(Roles.Moderator.ToString()), true);
-            return View(newsPostViewModel);
+            try
+            {
+                NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 0, User.IsInRole(Roles.Moderator.ToString()), true);
+                return View(newsPostViewModel);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex.Message);
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
         }
 
         [HttpGet]
@@ -28,8 +37,16 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult Preview(int id)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 0, User.IsInRole(Roles.Moderator.ToString()));
-            return View("Details", newsPostViewModel);
+            try
+            {
+                NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 0, User.IsInRole(Roles.Moderator.ToString()));
+                return View("Details", newsPostViewModel);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.LogError(ex.Message);
+                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+            }
         }
 
         [ValidateAntiForgeryToken]
