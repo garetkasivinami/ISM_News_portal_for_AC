@@ -16,5 +16,15 @@ namespace ISMNewsPortal.DAL
         {
             return CutIEnumarable(target, page * multiplier, multiplier);
         }
+
+        public static int CalculatePages(int count, int countInOnePage)
+        {
+            int pages = count / countInOnePage;
+            if (count % countInOnePage != 0)
+            {
+                pages++;
+            }
+            return pages;
+        }
     }
 }

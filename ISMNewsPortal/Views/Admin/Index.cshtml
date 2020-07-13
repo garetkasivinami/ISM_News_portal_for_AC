@@ -233,36 +233,24 @@ else
     <h2>No news</h2>
 }
 
+@for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
+{
+    @Html.ActionLink(page.ToString(), "Index", "Admin", new
+    {
+        @page = page,
+        @SortType = Model.SortType,
+        @Filter = Model.Filter,
+        @TypeSearch = Model.TypeSearch,
+        @Search = Model.Search,
+        @Reversed = Model.Reversed
+    }, new { @class = ((page == Model.Page) ? "activePage" : "nonActivePage") });
+}
+
 <div class="btn-group" role="group">
-    @if (Model.Page > 0)
+    @if (Model.Page > 5)
     {
-        @Html.ActionLink("Last page", "News", "Admin", new
+        @Html.ActionLink("First page", "Index", "Admin", new
         {
-            @page = Model.Page - 1,
-            @SortType = Model.SortType,
-            @Filter = Model.Filter,
-            @TypeSearch = Model.TypeSearch,
-            @Search = Model.Search,
-            @Reversed = Model.Reversed
-        }, new { @class = "btn btn-outline-dark" });
-    }
-    @if (Model.Page > 1 && Model.Pages > 2)
-    {
-        @Html.ActionLink("First page", "News", "Admin", new
-        {
-            @page = 0,
-            @SortType = Model.SortType,
-            @Filter = Model.Filter,
-            @TypeSearch = Model.TypeSearch,
-            @Search = Model.Search,
-            @Reversed = Model.Reversed
-   }, new { @class = "btn btn-outline-dark" });
-    }
-    @if (Model.Page < Model.Pages - 1)
-    {
-        @Html.ActionLink("Next page", "News", "Admin", new
-        {
-            @page = Model.Page + 1,
             @SortType = Model.SortType,
             @Filter = Model.Filter,
             @TypeSearch = Model.TypeSearch,

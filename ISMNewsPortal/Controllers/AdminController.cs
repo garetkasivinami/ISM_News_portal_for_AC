@@ -18,13 +18,6 @@ namespace ISMNewsPortal.Controllers
 
         [HttpGet]
         [RoleAuthorize(Roles.Creator)]
-        public ActionResult News(ToolBarModel model)
-        {
-            return null;
-        }
-
-        [HttpGet]
-        [RoleAuthorize(Roles.Creator)]
         public ActionResult EditNews(int id)
         {
             NewsPostEditModel newsPostAdminView = NewsPostHelper.GetNewsPostEditModel(id);

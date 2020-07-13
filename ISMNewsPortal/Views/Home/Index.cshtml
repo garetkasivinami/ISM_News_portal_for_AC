@@ -30,7 +30,7 @@
                         Sort by...@Model.SortType
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Name ASC", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = false}, new { @class = "dropdown-item" })
+                        @Html.ActionLink("Name ASC", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = false }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Name DESC", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Description ASC", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = false }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Description DESC", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
@@ -61,18 +61,30 @@
         <h2>No news</h2>
     }
 
+    @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
+    {
+        @Html.ActionLink(page.ToString(), "Index", "Admin", new
+        {
+            @page = page,
+            @SortType = Model.SortType,
+            @Filter = Model.Filter,
+            @TypeSearch = Model.TypeSearch,
+            @Search = Model.Search,
+            @Reversed = Model.Reversed
+        }, new { @class = ((page == Model.Page) ? "activePage" : "nonActivePage") });
+    }
+
     <div class="btn-group" role="group">
-        @if (Model.Page > 0)
+        @if (Model.Page > 5)
         {
-            @Html.ActionLink("Last page", "News", "Admin", new { @Page = Model.Page - 1, @SortType = Model.SortType, @Filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = Model.Reversed }, new { @class = "btn btn-outline-dark" });
-        }
-        @if (Model.Page > 1 && Model.Pages > 2)
-        {
-            @Html.ActionLink("First page", "News", "Admin", new { @Page = 0, @SortType = Model.SortType, @Filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = Model.Reversed }, new { @class = "btn btn-outline-dark" });
-        }
-        @if (Model.Page < Model.Pages - 1)
-        {
-            @Html.ActionLink("Next page", "News", "Admin", new { @Page = Model.Page + 1, @SortType = Model.SortType, @Filter = Model.Filter, @TypeSearch = Model.TypeSearch, @Search = Model.Search, @Reversed = Model.Reversed }, new { @class = "btn btn-outline-dark" });
+            @Html.ActionLink("First page", "Index", "Admin", new
+            {
+                @SortType = Model.SortType,
+                @Filter = Model.Filter,
+                @TypeSearch = Model.TypeSearch,
+                @Search = Model.Search,
+                @Reversed = Model.Reversed
+            }, new { @class = "btn btn-outline-dark" });
         }
     </div>
 </div>

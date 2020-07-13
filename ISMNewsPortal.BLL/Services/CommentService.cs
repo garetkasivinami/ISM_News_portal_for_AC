@@ -60,6 +60,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
             var comments = database.Comments.GetAllWithTools(toolsModel);
+            toolsDTO.Pages = toolsModel.Pages;
             return DTOMapper.CommentMapperToDTO.Map<IEnumerable<Comment>, List<CommentDTO>>(comments);
         }
 

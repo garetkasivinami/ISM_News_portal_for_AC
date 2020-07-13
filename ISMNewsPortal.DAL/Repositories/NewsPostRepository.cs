@@ -80,7 +80,9 @@ namespace ISMNewsPortal.DAL.Repositories
             string filterFunc = GetFilterSqlString(model.Filter);
             string sortString = GetAdminSortSqlString(model.SortType, model.Reversed ?? false);
             string searchString = GetSearchSqlString(model.TypeSearch);
-            IEnumerable<NewsPost> selectedNewsPost = GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+            IList<NewsPost> selectedNewsPost = GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+
+            model.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
 
             return Helper.CutIEnumarable(model.Page, NewsPost.NewsInOnePage, selectedNewsPost);
         }
@@ -90,7 +92,9 @@ namespace ISMNewsPortal.DAL.Repositories
             string filterFunc = GetFilterSqlString(model.Filter);
             string sortString = GetAdminSortSqlString(model.SortType, model.Reversed ?? false);
             string searchString = GetSearchSqlString(model.TypeSearch);
-            IEnumerable<NewsPost> selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+            IList<NewsPost> selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+
+            model.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
 
             return Helper.CutIEnumarable(model.Page, NewsPost.NewsInOnePage, selectedNewsPost);
         }

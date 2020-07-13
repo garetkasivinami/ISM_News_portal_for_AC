@@ -49,7 +49,6 @@ namespace ISMNewsPortal.Models
                 var newsPostsDTO = newsPostService.GetNewsPostsWithAdminTools(toolsDTO);
                 var newsPosts = DTOMapper.MapNewsPosts(newsPostsDTO);
 
-                int newsCount = newsPosts.Count();
 
                 var newsPostAdminViews = new List<NewsPostAdminView>();
                 using (AdminService adminService = new AdminService(newsPostService))
@@ -65,7 +64,7 @@ namespace ISMNewsPortal.Models
                         newsPostAdminViews.Add(new NewsPostAdminView(newsPost, newsPostAuthorName, commentCount));
                     }
                 }
-                model.Pages = 1;
+                model.Pages = toolsDTO.Pages;
                 return new NewsPostAdminCollection(newsPostAdminViews, model);
             }
         }
@@ -87,7 +86,7 @@ namespace ISMNewsPortal.Models
                         newsPostSimplifiedViews.Add(new NewsPostSimplifiedView(newsPost, commentCount));
                     }
                 }
-                model.Pages = 1;
+                model.Pages = modelDTO.Pages;
                 return new NewsPostSimplifiedCollection(newsPostSimplifiedViews, model);
             }
         }

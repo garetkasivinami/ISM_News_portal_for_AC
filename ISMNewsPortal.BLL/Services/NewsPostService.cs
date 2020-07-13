@@ -33,6 +33,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
             var newsPosts = database.NewsPosts.GetAllWithTools(toolsModel);
+            toolsDTO.Pages = toolsModel.Pages;
             return DTOMapper.NewsPostMapperToDTO.Map<IEnumerable<NewsPost>, List<NewsPostDTO>>(newsPosts);
         }
 
@@ -40,6 +41,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
             var newsPosts = database.NewsPosts.GetAllWithAdminTools(toolsModel);
+            toolsDTO.Pages = toolsModel.Pages;
             return DTOMapper.NewsPostMapperToDTO.Map<IEnumerable<NewsPost>, List<NewsPostDTO>>(newsPosts);
         }
 
