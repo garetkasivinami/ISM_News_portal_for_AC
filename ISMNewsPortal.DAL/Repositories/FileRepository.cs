@@ -17,18 +17,21 @@ namespace ISMNewsPortal.DAL.Repositories
             this.session = session;
         }
 
-        public void Create(FileModel item)
+        public int Create(FileModel item)
         {
             using (ITransaction transaction = session.BeginTransaction())
             {
                 session.Save(item);
                 transaction.Commit();
+                return item.Id;
             }
         }
 
         public void Delete(int id)
         {
             var item = session.Get<FileModel>(id);
+            if (item == null)
+                return;
             using (ITransaction transaction = session.BeginTransaction())
             {
                 session.Delete(item);

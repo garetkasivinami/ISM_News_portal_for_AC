@@ -40,7 +40,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<CommentDTO> GetCommentsByPostId(int id)
         {
-            var comments = database.Comments.Find(u => u.NewsPostId == id);
+            var comments = database.Comments.Find(u => u.NewsPostId == id).Reverse();
             return DTOMapper.CommentMapperToDTO.Map<IEnumerable<Comment>, List<CommentDTO>>(comments);
         }
 
@@ -50,10 +50,10 @@ namespace ISMNewsPortal.BLL.Services
             database.Comments.Update(comment);
         }
 
-        public void CreateComment(CommentDTO commentDTO)
+        public int CreateComment(CommentDTO commentDTO)
         {
             var comment = DTOMapper.CommentMapper.Map<CommentDTO, Comment>(commentDTO);
-            database.Comments.Create(comment);
+            return database.Comments.Create(comment);
         }
 
         public IEnumerable<CommentDTO> GetCommentsWithTools(ToolsDTO toolsDTO)

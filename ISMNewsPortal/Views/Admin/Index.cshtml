@@ -213,6 +213,10 @@
                 {
                     <p>Last edit date: @newsPost.EditDate</p>
                 }
+                @if(newsPost.PublicationDate > DateTime.Now)
+                {
+                    <h1>Not published!</h1>
+                }
                 @Html.Partial("~/Views/News/_NewsSimplifyPartial.cshtml", newsPost)
             </div>
             <div class="card-footer">

@@ -43,7 +43,7 @@ namespace ISMNewsPortal.Controllers
                     newsPostService.UpdateNewsPost(newsPostDTO);
                 }
             }
-            return RedirectToAction("News");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -62,7 +62,7 @@ namespace ISMNewsPortal.Controllers
             {
                 newsPostService.DeleteNewsPost(id);
             }
-            return RedirectToAction("News");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -101,7 +101,7 @@ namespace ISMNewsPortal.Controllers
                     }
                 }
             }
-            return RedirectToAction("AdminList");
+            return RedirectToAction("AdminsList");
         }
 
         [HttpGet]
@@ -125,10 +125,10 @@ namespace ISMNewsPortal.Controllers
                 AdminDTO adminDTO = adminService.GetAdmin(id);
                 if (adminDTO.Login == User.Identity.Name)
                 {
-                    return RedirectToAction("AdminList");
+                    return RedirectToAction("AdminsList");
                 }
                 adminService.DeleteAdmin(id);
-                return RedirectToAction("AdminList");
+                return RedirectToAction("AdminsList");
             }
         }
 
@@ -154,7 +154,7 @@ namespace ISMNewsPortal.Controllers
                     var newsPost = new NewsPost(model);
                     var newsPostDTO = DTOMapper.MapNewsPostDTO(newsPost);
                     newsPostService.CreateNewsPost(newsPostDTO);
-                    return RedirectToAction("News");
+                    return RedirectToAction("Index");
                 }
             }
             return View(model);
@@ -206,7 +206,7 @@ namespace ISMNewsPortal.Controllers
             using (AdminService adminService = new AdminService())
             {
                 adminService.UpdateAdminPartial(model.Id, model.Email, string.Join("*", model.Roles), User.IsInRole(Roles.CanSetAdminRole.ToString()));
-                return RedirectToAction("AdminList");
+                return RedirectToAction("AdminsList");
             }
         }
     }

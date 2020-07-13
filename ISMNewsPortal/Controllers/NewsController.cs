@@ -34,24 +34,25 @@ namespace ISMNewsPortal.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult CreateComment(CommentCreateModel model)
+        public PartialViewResult CreateComment(CommentCreateModel model)
         {
             if (ModelState.IsValid)
             {
                 if (HelperActions.XSSAtackCheker(model.Text))
                 {
                     ModelState.AddModelError("", HelperActions.XssIndectDetectedError);
-                    return View(model);
+                    return null;
                 }
                 using (CommentService commentService = new CommentService())
                 {
                     Comment comment = new Comment(model);
                     CommentDTO commentDTO = DTOMapper.MapCommentDTO(comment);
-                    commentService.CreateComment(commentDTO);
-                    return RedirectToAction("Details", "News", new { @id = model.PageId });
+                    int id = commentService.CreateComment(commentDTO);
+                    comment.Id = id;
+                    return PartialView("_Comment", new CommentViewModel(comment));
                 }
             }
-            return View(model);
+            return null;
         }
 
         [HttpGet]
