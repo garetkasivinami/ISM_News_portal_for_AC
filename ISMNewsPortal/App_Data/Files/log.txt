@@ -1,0 +1,43 @@
+
+14.07.2020 14:53:47 - Error!
+Выдано исключение типа "System.Exception".
+============================================================================================
+14.07.2020 14:59:37 - Error!
+News post is null
+NewsPostService.GetNewsPost(int id)
+id: 184445
+
+============================================================================================
+14.07.2020 15:09:02 - Error!
+Post isn`t visivle!
+NewsPostHelper.GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)
+id: 20
+
+============================================================================================
+14.07.2020 15:12:10 - Error!
+Post isn`t visivle!
+NewsPostHelper.GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)
+id: 20
+page: 0
+moderActions: False
+checkVisibility: True
+
+============================================================================================
+14.07.2020 15:16:25 - Error!
+Post isn`t visivle!
+NewsPostHelper.GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)
+id: 20
+page: 0
+moderActions: False
+checkVisibility: True
+
+============================================================================================
+14.07.2020 19:14:36 - Error!
+Post isn`t visivle!
+NewsPostHelper.GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)
+id: 20
+page: 0
+moderActions: True
+checkVisibility: True
+
+============================================================================================

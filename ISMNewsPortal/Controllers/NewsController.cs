@@ -28,7 +28,7 @@ namespace ISMNewsPortal.Controllers
             catch (Exception ex)
             {
                 ErrorLogger.LogError(ex.Message);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                return new HttpNotFoundResult();
             }
         }
 
@@ -45,7 +45,7 @@ namespace ISMNewsPortal.Controllers
             catch (Exception ex)
             {
                 ErrorLogger.LogError(ex.Message);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
+                return new HttpNotFoundResult();
             }
         }
 
@@ -60,14 +60,9 @@ namespace ISMNewsPortal.Controllers
                     ModelState.AddModelError("", HelperActions.XssIndectDetectedError);
                     return null;
                 }
-                using (CommentService commentService = new CommentService())
-                {
-                    Comment comment = new Comment(model);
-                    CommentDTO commentDTO = DTOMapper.MapCommentDTO(comment);
-                    int id = commentService.CreateComment(commentDTO);
-                    comment.Id = id;
-                    return PartialView("_Comment", new CommentViewModel(comment));
-                }
+                var comment = new Comment(model);
+                comment.Id = CommentHelper.CreateComment(comment);
+                return PartialView("_Comment", new CommentViewModel(comment));
             }
             return null;
         }
@@ -77,10 +72,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Moderator)]
         public ActionResult DeleteComment(int id, int newsPostId, bool detailsMode = true)
         {
-            using (CommentService commentService = new CommentService())
-            {
-                commentService.DeleteComment(id);
-            }
+            CommentHelper.DeleteComment(id);
             string action = detailsMode ? "Details" : "Preview";
             return RedirectToAction(action, new { id = newsPostId });
         }

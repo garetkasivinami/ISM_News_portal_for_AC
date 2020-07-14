@@ -34,7 +34,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var comment = database.Comments.Get(id);
             if (comment == null)
-                throw new ValidationException("Comment is null", "");
+                throw ExceptionGenerator.GenerateException("Comment is null", "CommentService.GetComment(int id)", $"id: {id}");
             return DTOMapper.CommentMapperToDTO.Map<Comment, CommentDTO>(comment);
         }
 

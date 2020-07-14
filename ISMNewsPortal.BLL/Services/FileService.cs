@@ -32,7 +32,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var file = database.Files.Get(id);
             if (file == null)
-                throw ExceptionGenerator.GenerateException("File is null", "GetFile(int id)", $"id: {id}");
+                throw ExceptionGenerator.GenerateException("File is null", "FileService.GetFile(int id)", $"id: {id}");
             return DTOMapper.FileMapperToDTO.Map<FileModel, FileDTO>(file);
         }
 
@@ -75,7 +75,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var file = database.Files.Get(id);
             if (file == null)
-                throw ExceptionGenerator.GenerateException("File is null", "GetNameById(int id)", $"id: {id}");
+                throw ExceptionGenerator.GenerateException("File is null", "FileService.GetNameById(int id)", $"id: {id}");
             return file.Name;
         }
     }

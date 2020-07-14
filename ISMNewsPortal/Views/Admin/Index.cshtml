@@ -21,7 +21,6 @@
                     {
                         @Filter = "today",
                         @SortType = Model.SortType,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
@@ -29,7 +28,6 @@
                     {
                         @Filter = "yesterday",
                         @SortType = Model.SortType,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
@@ -37,14 +35,12 @@
                     {
                         @Filter = "week",
                         @SortType = Model.SortType,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
                     @Html.ActionLink("All", "News", "Admin", new
                     {
                         @SortType = Model.SortType,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
@@ -59,7 +55,6 @@
                     {
                         @SortType = "id",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
@@ -67,7 +62,6 @@
                     {
                         @SortType = "id",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = true
                }, new { @class = "dropdown-item" })
@@ -75,7 +69,6 @@
                     {
                         @SortType = "name",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
@@ -83,7 +76,6 @@
                     {
                         @SortType = "name",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
@@ -91,7 +83,6 @@
                     {
                         @SortType = "description",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
@@ -99,21 +90,18 @@
                 {
                         @SortType = "description",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Date ASC", "News", "Admin", new
                     {
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Date DESC", "News", "Admin", new
                 {
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
@@ -121,7 +109,6 @@
                     {
                         @SortType = "editDate",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
@@ -129,7 +116,6 @@
                 {
                         @SortType = "editDate",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
@@ -137,7 +123,6 @@
                     {
                         @SortType = "author",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
@@ -145,7 +130,6 @@
                     {
                         @SortType = "author",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
@@ -153,7 +137,6 @@
                     {
                         @SortType = "publishDate",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
@@ -161,7 +144,6 @@
                 {
                         @SortType = "publishDate",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                        @Reversed = true
                 }, new { @class = "dropdown-item" })
@@ -169,7 +151,6 @@
                     {
                         @SortType = "visibility",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
@@ -177,7 +158,6 @@
                     {
                         @SortType = "visibility",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
@@ -245,7 +225,6 @@ else
             @page = page,
             @SortType = Model.SortType,
             @Filter = Model.Filter,
-            @TypeSearch = Model.TypeSearch,
             @Search = Model.Search,
             @Reversed = Model.Reversed
         }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm activePage" : "btn btn-primary btn-sm nonActivePage") });
@@ -259,7 +238,6 @@ else
         {
             @SortType = Model.SortType,
             @Filter = Model.Filter,
-            @TypeSearch = Model.TypeSearch,
             @Search = Model.Search,
             @Reversed = Model.Reversed
         }, new { @class = "btn btn-outline-dark" });

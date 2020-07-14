@@ -18,7 +18,7 @@ namespace ISMNewsPortal.BLL.Infrastructure
             {
                 exceptionMessageBuilder.AppendLine(parameter);
             }
-            return new Exception();
+            return new Exception(exceptionMessageBuilder.ToString());
         }
     }
 }

@@ -16,7 +16,6 @@ namespace ISMNewsPortal.DAL.Models
             Page = toolBar.Page;
             Search = toolBar.Search;
             SortType = toolBar.SortType;
-            TypeSearch = toolBar.TypeSearch;
             Filter = toolBar.Filter;
             Reversed = toolBar.Reversed;
         }
@@ -25,7 +24,6 @@ namespace ISMNewsPortal.DAL.Models
         public string Filter { get; set; }
         public string SortType { get; set; }
         public string Search { get; set; }
-        public string TypeSearch { get; set; }
         public bool? Reversed { get; set; }
     }
 }

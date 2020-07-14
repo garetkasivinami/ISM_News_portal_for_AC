@@ -12,6 +12,31 @@ namespace ISMNewsPortal.Models
 {
     public static class CommentHelper
     {
+        public static int CreateComment(Comment comment)
+        {
+            using(CommentService commentService = new CommentService()) {
+                var commentDTO = DTOMapper.MapCommentDTO(comment);
+                return commentService.CreateComment(commentDTO);
+            }
+        }
+
+        public static void UdpateComment(Comment comment)
+        {
+            using (CommentService commentService = new CommentService())
+            {
+                var commentDTO = DTOMapper.MapCommentDTO(comment);
+                commentService.UpdateComment(commentDTO);
+            }
+        }
+
+        public static void DeleteComment(int id)
+        {
+            using (CommentService commentService = new CommentService())
+            {
+                commentService.DeleteComment(id);
+            }
+        }
+
         public static CommentViewModelCollection GenerateCommentViewModelCollection(int postId)
         {
             using (CommentService commentService = new CommentService())

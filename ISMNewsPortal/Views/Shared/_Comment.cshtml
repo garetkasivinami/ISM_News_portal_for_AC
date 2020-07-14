@@ -9,8 +9,8 @@
             @Model.Text
         </p>
         <p class="card-text">
-            <small class="text-muted">
-                @Model.Date
+            <small class="text-muted date_field js_date">
+                @Model.Date.ToString("u").Replace('-', '/')
             </small>
         </p>
     </div>
@@ -21,7 +21,6 @@
    }, new { @class = "btn btn-outline-danger" })
     </div>
 </div>
-
 <script>
     function SuccessRemoveComment(id) {
         let textareaField = document.querySelector("#" + id);

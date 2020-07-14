@@ -49,7 +49,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var newsPost = database.NewsPosts.Get(id);
             if (newsPost == null)
-                throw ExceptionGenerator.GenerateException("News post is null", "GetNewsPost(int id)", $"id: {id}");
+                throw ExceptionGenerator.GenerateException("News post is null", "NewsPostService.GetNewsPost(int id)", $"id: {id}");
             return DTOMapper.NewsPostMapperToDTO.Map<NewsPost, NewsPostDTO>(newsPost);
         }
 

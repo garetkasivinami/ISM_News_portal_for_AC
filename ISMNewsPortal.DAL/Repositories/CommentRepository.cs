@@ -79,7 +79,7 @@ namespace ISMNewsPortal.DAL.Repositories
         {
             string filterFunc = GetFilterSqlString(model.Filter);
             string sortString = GetSortSqlString(model.SortType, model.Reversed ?? false);
-            string searchString = GetSearchSqlString(model.TypeSearch);
+            string searchString = GetSearchSqlString();
             IList<Comment> comments = GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<Comment>();
 
             model.Pages = Helper.CalculatePages(comments.Count, Comment.CommentsInOnePage);

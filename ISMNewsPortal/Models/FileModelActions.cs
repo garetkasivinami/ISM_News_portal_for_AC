@@ -41,6 +41,7 @@ namespace ISMNewsPortal.Models
                 return fileService.GetMaxId();
             }
         }
+
         public static void RemoveFile(int id, HttpServerUtilityBase server)
         {
             using (FileService fileService = new FileService())
@@ -54,6 +55,7 @@ namespace ISMNewsPortal.Models
                 }
             }
         }
+
         public static string GetNameByIdFormated(int id)
         {
             using (FileService fileService = new FileService())

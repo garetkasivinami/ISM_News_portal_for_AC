@@ -33,7 +33,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var admin = database.Admins.Get(id);
             if (admin == null)
-                throw ExceptionGenerator.GenerateException("Admin is null", "GetAdmin(int id)", $"id: {id}");
+                throw ExceptionGenerator.GenerateException("Admin is null", "AdminService.GetAdmin(int id)", $"id: {id}");
             return DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
         }
 
@@ -41,7 +41,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var admin = database.Admins.FindSingle(u => u.Login == login);
             if (admin == null)
-                throw ExceptionGenerator.GenerateException("Admin is null", "GetAdminByLogin(string login)", $"login: {login}");
+                throw ExceptionGenerator.GenerateException("Admin is null", "AdminService.GetAdminByLogin(string login)", $"login: {login}");
             return DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
         }
 
@@ -49,7 +49,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var admin = database.Admins.FindSingle(u => u.Login == login);
             if (admin == null)
-                throw ExceptionGenerator.GenerateException("Admin is null", "FindAdminByLogin(string login)", $"login: {login}");
+                throw ExceptionGenerator.GenerateException("Admin is null", "AdminService.FindAdminByLogin(string login)", $"login: {login}");
             return DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
         }
 
@@ -71,6 +71,10 @@ namespace ISMNewsPortal.BLL.Services
         public void CreateAdmin(AdminDTO adminDTO)
         {
             var admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);
+            var createdAdmin = database.Admins.FindSingle(u => u.Login == admin.Login);
+            if (createdAdmin != null)
+                throw ExceptionGenerator.GenerateException("An administrator with this login already exists", "AdminService.CreateAdmin(AdminDTO adminDTO)",
+                    $"adminDTO.Login: {adminDTO.Login}");
             database.Admins.Create(admin);
         }
 

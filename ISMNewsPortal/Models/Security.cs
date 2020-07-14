@@ -10,20 +10,12 @@ namespace ISMNewsPortal.Models
     {
         public const int PasswordUserLength = 128;
 
-        [ThreadStatic]
-        private static Random random;
-        public static Random Random
-        {
-            get
-            {
-                return random ?? (random = new Random((int)DateTime.Now.Ticks));
-            }
-        }
         public static string SHA512(string input, out string salt)
         {
             salt = RandomString(PasswordUserLength);
             return SHA512(input, salt);
         }
+
         public static string SHA512(string input, string salt)
         {
             var bytes = Encoding.UTF8.GetBytes(input);
@@ -36,11 +28,13 @@ namespace ISMNewsPortal.Models
                 return Encoding.UTF8.GetString(hashedInputBytes);
             }
         }
+
         public static string RandomString(int length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
             return new string(Enumerable.Repeat(chars, length)
-              .Select(s => s[Random.Next(s.Length)]).ToArray());
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

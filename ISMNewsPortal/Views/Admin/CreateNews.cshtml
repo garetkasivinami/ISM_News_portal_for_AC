@@ -50,7 +50,7 @@
         <div class="col-md-offset-2 col-md-10">
             <label class="btn btn-outline-dark">
                 Choose image file
-                <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
+                <input type="file" class="btn btn-outline-secondary submit_date" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
             </label>
             @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
         </div>
@@ -63,6 +63,7 @@
         </div>
     </div>
 }
+<script src="~/Scripts/dateTimeUpdater.js"></script>
 <script src="~/Scripts/imageUpdater.js"></script>
 <script src="~/Scripts/generator.js"></script>
 <script src="~/Scripts/wysiwyg/nicEdit.js"></script>

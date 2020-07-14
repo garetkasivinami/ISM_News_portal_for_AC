@@ -107,19 +107,9 @@ namespace ISMNewsPortal.DAL.ToolsLogic
             return sortString;
         }
 
-        public static string GetSearchSqlString(string searchType)
+        public static string GetSearchSqlString()
         {
-            string searchString;
-            switch (searchType)
-            {
-                case "description":
-                    searchString = "Description LIKE :searchName ";
-                    break;
-                default:
-                    searchString = "Name LIKE :searchName ";
-                    break;
-            }
-            return searchString;
+            return "Name LIKE :searchName AND Description LIKE :searchName ";
         }
 
         public static IQuery GetSqlQuerry(ISession session, string sortType, string filter, string search, string searchString)

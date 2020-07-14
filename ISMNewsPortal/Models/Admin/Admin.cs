@@ -14,6 +14,5 @@ namespace ISMNewsPortal.Models
         public virtual string Password { get; set; }
         public virtual string Salt { get; set; }
         public virtual string Roles { get; set; }
-
     }
 }

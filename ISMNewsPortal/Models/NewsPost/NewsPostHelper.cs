@@ -6,11 +6,38 @@ using System.Linq;
 using ISMNewsPortal.Mappers;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Infrastructure;
 
 namespace ISMNewsPortal.Models
 {
     public static class NewsPostHelper
     {
+        public static void CreateNewsPost(NewsPost newsPost)
+        {
+            using (NewsPostService newsPostService = new NewsPostService())
+            {
+                var newsPostDTO = DTOMapper.MapNewsPostDTO(newsPost);
+                newsPostService.CreateNewsPost(newsPostDTO);
+            }
+        }
+
+        public static void UpdateNewsPost(NewsPost newsPost)
+        {
+            using (NewsPostService newsPostService = new NewsPostService())
+            {
+                var newsPostDTO = DTOMapper.MapNewsPostDTO(newsPost);
+                newsPostService.UpdateNewsPost(newsPostDTO);
+            }
+        }
+
+        public static void DeleteNewsPost(int id)
+        {
+            using (NewsPostService newsPostService = new NewsPostService())
+            {
+                newsPostService.DeleteNewsPost(id);
+            }
+        }
+
         public static NewsPostViewModel GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)
         {
             using (NewsPostService newsPostService = new NewsPostService())
@@ -18,7 +45,8 @@ namespace ISMNewsPortal.Models
                 var newsPostDTO = newsPostService.GetNewsPost(id);
                 var newsPost = DTOMapper.MapNewsPost(newsPostDTO);
                 if (checkVisibility && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
-                    return null;
+                    throw ExceptionGenerator.GenerateException("Post isn`t visivle!", "NewsPostHelper.GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)", 
+                        $"id: {id}", $"page: {page}", $"moderActions: {moderActions}", $"checkVisibility: {checkVisibility}");
 
                 IEnumerable<CommentDTO> commentDTOs;
                 List<Comment> comments;
@@ -41,6 +69,7 @@ namespace ISMNewsPortal.Models
                 return new NewsPostViewModel(newsPost, commentsViewModel, page, pages, moderActions);
             }
         }
+
         public static NewsPostAdminCollection GenerateNewsPostAdminCollection(ToolBarModel model)
         {
             using (NewsPostService newsPostService = new NewsPostService())

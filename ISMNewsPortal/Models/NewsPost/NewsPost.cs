@@ -22,11 +22,12 @@ namespace ISMNewsPortal.Models
         public virtual bool IsVisible { get; set; }
         public virtual DateTime PublicationDate { get; set; }
         public virtual int ImageId { get; set; }
-        //===============================================================================
+
         public NewsPost()
         {
 
         }
+
         public NewsPost(NewsPostCreateModel model)
         {
             Name = model.Name;
@@ -38,6 +39,7 @@ namespace ISMNewsPortal.Models
             IsVisible = model.IsVisible;
             PublicationDate = model.PublicationDate ?? DateTime.Now;
         }
+
         public NewsPost(NewsPostEditModel model)
         {
             Id = model.Id;

@@ -42,7 +42,6 @@
                     {
                         @Filter = "today",
                         @SortType = Model.SortType,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
@@ -50,7 +49,6 @@
                     {
                         @Filter = "yesterday",
                         @SortType = Model.SortType,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
@@ -58,14 +56,12 @@
                     {
                         @Filter = "week",
                         @SortType = Model.SortType,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
                     @Html.ActionLink("All", "Comments", "Admin", new
                     {
                         @SortType = Model.SortType,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
@@ -80,51 +76,40 @@
                     {
                         @SortType = "username",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search
                     }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Commentary text", "Comments", "Admin", new
                     {
                         @SortType = "text",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search
                     }, new { @class = "dropdown-item" })
                     @Html.ActionLink("News post", "Comments", "Admin", new
                     {
                         @SortType = "news post",
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search
                     }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Id", "Comments", "Admin", new
                     {
                         @SortType = "id",
                         @filter = Model.@Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search
                     }, new { @class = "dropdown-item" })
                     @Html.ActionLink("Date", "Comments", "Admin", new
                     {
                         @Filter = Model.Filter,
-                        @TypeSearch = Model.TypeSearch,
                         @Search = Model.Search
                     }, new { @class = "dropdown-item" })
                 </div>
             </li>
-            @Html.ActionLink("Reverse", "Comments", "Admin", new { @sortType = Model.SortType, @page = Model.Page, @filter = Model.Filter, @Reversed = !(Model.Reversed ?? false), @TypeSearch = Model.TypeSearch, @Search = Model.Search }, new { @class = "nav-link" })
+            @Html.ActionLink("Reverse", "Comments", "Admin", new { @sortType = Model.SortType, @page = Model.Page, @filter = Model.Filter, @Reversed = !(Model.Reversed ?? false), @Search = Model.Search }, new { @class = "nav-link" })
         </ul>
         @using (Html.BeginForm("Comments", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {
             @Html.Hidden("sortType", Model.SortType);
             @Html.Hidden("filter", Model.Filter);
             <p class="nav-link" style="margin:0">Search by....</p>
-            <select name="TypeSearch" class="form-control">
-                <option value="name">Name</option>
-                <option value="text" @if (Model.TypeSearch == "text") { @selected }>
-                    Text
-                </option>
-            </select>
 
             <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
@@ -173,7 +158,6 @@ else
             @Page = Model.Page - 1,
             @SortType = Model.SortType,
             @Filter = Model.Filter,
-            @TypeSearch = Model.TypeSearch,
             @Search = Model.Search,
             @Reversed = Model.Reversed
         }, new { @class = "btn btn-outline-dark" });
@@ -185,7 +169,6 @@ else
             @Page = 0,
             @SortType = Model.SortType,
             @Filter = Model.Filter,
-            @TypeSearch = Model.TypeSearch,
             @Search = Model.Search,
             @Reversed = Model.Reversed
         }, new { @class = "btn btn-outline-dark" });
@@ -197,7 +180,6 @@ else
             @Page = Model.Page + 1,
             @SortType = Model.SortType,
             @Filter = Model.Filter,
-            @TypeSearch = Model.TypeSearch,
             @Search = Model.Search,
             @Reversed = Model.Reversed
         }, new { @class = "btn btn-outline-dark" });

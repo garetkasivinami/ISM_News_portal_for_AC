@@ -10,7 +10,7 @@
 @Html.ActionLink("Manage comments", "Comments", "Admin", new { @postId = Model.Id }, new { @class = "btn btn-outline-dark btn-sm" })
 <img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath" />
 
-@using (Html.BeginForm("EditNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "main_form" }))
 {
 
     <div class="form-horizontal">
@@ -42,7 +42,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PublicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-12">
-                <input type="datetime-local" value=@publicationDate class="card-text" , placeholder="dd/mm/yyyy hh:mm:ss" name="PublicationDate" />
+                <input type="datetime-local" value=@publicationDate class="card-text submit_date" , placeholder="dd/mm/yyyy hh:mm:ss" name="PublicationDate" />
                 @Html.ValidationMessageFor(model => model.PublicationDate, "", new { @class = "text-danger card-text" })
             </div>
         </div>
@@ -72,5 +72,6 @@
         </div>
     </div>
 }
+<script src="~/Scripts/dateTimeUpdater.js"></script>
 <script src="~/Scripts/imageUpdater.js"></script>
 <script src="~/Scripts/generator.js"></script>

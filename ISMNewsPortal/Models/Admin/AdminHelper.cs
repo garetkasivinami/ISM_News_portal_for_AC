@@ -11,11 +11,46 @@ namespace ISMNewsPortal.Models
 {
     public static class AdminHelper
     {
+        public static void CreateAdmin(Admin admin)
+        {
+            using (AdminService adminService = new AdminService())
+            {
+                var adminDTO = DTOMapper.MapAdminDTO(admin);
+                adminService.CreateAdmin(adminDTO);
+            }
+        }
+
+        public static void UpdateAdmin(Admin admin)
+        {
+            using (AdminService adminService = new AdminService())
+            {
+                var adminDTO = DTOMapper.MapAdminDTO(admin);
+                adminService.UpdateAdmin(adminDTO);
+            }
+        }
+
+        public static void UpdateAdminPartial(int id, string email, string roles = null, bool updateRoles = false)
+        {
+            using (AdminService adminService = new AdminService())
+            {
+                adminService.UpdateAdminPartial(id, email, roles, updateRoles);
+            }
+        }
+
+        public static void DeleteAdmin(int id)
+        {
+            using (AdminService adminService = new AdminService())
+            {
+                adminService.DeleteAdmin(id);
+            }
+        }
+
         public static void SetPassword(Admin admin, string password)
         {
             admin.Password = Security.SHA512(password, out string salt);
             admin.Salt = salt;
         }
+
         public static bool CheckPassword(Admin admin, string password)
         {
             string sha512password = Security.SHA512(password, admin.Salt);
@@ -24,7 +59,17 @@ namespace ISMNewsPortal.Models
             else
                 return false;
         }
-        public static Admin GetAdminByLogin(string login)
+
+        public static Admin GetAdmin(int id)
+        {
+            using (AdminService adminService = new AdminService())
+            {
+                var adminDTO = adminService.GetAdmin(id);
+                return DTOMapper.MapAdmin(adminDTO);
+            }
+        }
+
+        public static Admin GetAdmin(string login)
         {
             using (AdminService adminService = new AdminService())
             {
@@ -33,14 +78,16 @@ namespace ISMNewsPortal.Models
                 return admin;
             }
         }
+
         public static Admin GetAdminByLoginAndPassword(string login, string password)
         {
-            Admin admin = GetAdminByLogin(login);
+            Admin admin = GetAdmin(login);
             if (CheckPassword(admin, password))
                 return admin;
             else
                 return null;
         }
+
         public static AdminViewModelCollection GenerateAdminViewModelCollection()
         {
             using (AdminService adminService = new AdminService())
@@ -55,30 +102,36 @@ namespace ISMNewsPortal.Models
                 return new AdminViewModelCollection() { AdminViewModels = adminViewModels};
             }
         }
+
         public static IEnumerable<string> GetRolesStringsByLogin(string login)
         {
-            return RoleCutter(GetAdminByLogin(login).Roles);
+            return RoleCutter(GetAdmin(login).Roles);
         }
+
         public static IEnumerable<Roles> GetRoles(Admin admin)
         {
             return ConvertStringToRoles(admin.Roles);
         }
+
         public static void SetRoles(Admin admin, IEnumerable<Roles> roles)
         {
             admin.Roles = ConvertRolesToString(roles.ToArray());
         }
+
         public static IEnumerable<string> RoleCutter(string roleString)
         {
             if (roleString == null)
             {
                 return new string[0];
             }
-            return roleString.Split('*');
+            return roleString.Split(',');
         }
+
         public static IEnumerable<Roles> ConvertStringToRoles(string roleString)
         {
             return ConvertStringToRoles(RoleCutter(roleString));
         }
+
         public static IEnumerable<Roles> ConvertStringToRoles(IEnumerable<string> roleStrings)
         {
             List<Roles> roles = new List<Roles>();
@@ -90,10 +143,11 @@ namespace ISMNewsPortal.Models
             }
             return roles;
         }
+
         public static string ConvertRolesToString(params Roles[] roles)
         {
             IEnumerable<string> temp = roles.Select(r => Enum.GetName(r.GetType(), r));
-            return string.Join("*", temp);
+            return string.Join(",", temp);
         }
     }
 }
