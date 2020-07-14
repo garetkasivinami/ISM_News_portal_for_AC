@@ -86,5 +86,20 @@ namespace ISMNewsPortal.DAL.Repositories
 
             return Helper.CutIEnumarable(model.Page, Comment.CommentsInOnePage, comments);
         }
+
+        public Comment FindSingle(Func<Comment, bool> predicate)
+        {
+            return session.Query<Comment>().SingleOrDefault(predicate);
+        }
+
+        public U Max <U>(Func<Comment, U> predicate)
+        {
+            return session.Query<Comment>().Max(predicate);
+        }
+
+        public bool Any(Func<Comment, bool> predicate)
+        {
+            return session.Query<Comment>().Any(predicate);
+        }
     }
 }

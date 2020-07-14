@@ -77,5 +77,20 @@ namespace ISMNewsPortal.DAL.Repositories
                 transaction.Commit();
             }
         }
+
+        public U Max<U>(Func<Admin, U> predicate)
+        {
+            return session.Query<Admin>().Max(predicate);
+        }
+
+        public bool Any(Func<Admin, bool> predicate)
+        {
+            return session.Query<Admin>().Any(predicate);
+        }
+
+        public IEnumerable<Admin> GetAllWithTools(ToolBarModel toolBar)
+        {
+            return GetAll();
+        }
     }
 }

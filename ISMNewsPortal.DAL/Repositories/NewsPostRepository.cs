@@ -73,12 +73,21 @@ namespace ISMNewsPortal.DAL.Repositories
                 transaction.Commit();
             }
         }
+
         public bool Any(Func<NewsPost, bool> predicate)
         {
             return session.Query<NewsPost>().Any(predicate);
         }
 
         public IEnumerable<NewsPost> GetAllWithTools(ToolBarModel model)
+        {
+            if (model.Admin)
+                return GetAllWithAdminTools(model);
+            else
+                return GetAllWithoutAdminTools(model);
+        }
+
+        private IEnumerable<NewsPost> GetAllWithoutAdminTools(ToolBarModel model)
         {
             string filterFunc = GetFilterSqlString(model.Filter);
             string sortString = GetAdminSortSqlString(model.SortType, model.Reversed ?? false);
@@ -90,7 +99,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return Helper.CutIEnumarable(model.Page, NewsPost.NewsInOnePage, selectedNewsPost);
         }
 
-        public IEnumerable<NewsPost> GetAllWithAdminTools(ToolBarModel model)
+        private IEnumerable<NewsPost> GetAllWithAdminTools(ToolBarModel model)
         {
             string filterFunc = GetFilterSqlString(model.Filter);
             string sortString = GetAdminSortSqlString(model.SortType, model.Reversed ?? false);
@@ -100,6 +109,16 @@ namespace ISMNewsPortal.DAL.Repositories
             model.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
 
             return Helper.CutIEnumarable(model.Page, NewsPost.NewsInOnePage, selectedNewsPost);
+        }
+
+        public NewsPost FindSingle(Func<NewsPost, bool> predicate)
+        {
+            return session.Query<NewsPost>().SingleOrDefault(predicate);
+        }
+
+        public U Max<U>(Func<NewsPost, U> predicate)
+        {
+            return session.Query<NewsPost>().Max(predicate);
         }
     }
 }

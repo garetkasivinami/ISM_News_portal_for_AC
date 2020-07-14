@@ -87,5 +87,10 @@ namespace ISMNewsPortal.DAL.Repositories
                 transaction.Commit();
             }
         }
+
+        public IEnumerable<FileModel> GetAllWithTools(ToolBarModel toolBar)
+        {
+            return GetAll();
+        }
     }
 }

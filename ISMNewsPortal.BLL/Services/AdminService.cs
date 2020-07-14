@@ -45,14 +45,6 @@ namespace ISMNewsPortal.BLL.Services
             return DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
         }
 
-        public AdminDTO FindAdminByLogin(string login)
-        {
-            var admin = database.Admins.FindSingle(u => u.Login == login);
-            if (admin == null)
-                throw ExceptionGenerator.GenerateException("Admin is null", "AdminService.FindAdminByLogin(string login)", $"login: {login}");
-            return DTOMapper.AdminMapperToDTO.Map<Admin, AdminDTO>(admin);
-        }
-
         public void UpdateAdmin(AdminDTO adminDTO)
         {
             var admin = DTOMapper.AdminMapper.Map<AdminDTO, Admin>(adminDTO);

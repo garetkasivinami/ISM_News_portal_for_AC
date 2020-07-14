@@ -32,19 +32,19 @@ namespace ISMNewsPortal.DAL.Repositories
             newsPostRepository = new Lazy<NewsPostRepository>(() => new NewsPostRepository(session));
             fileRepository = new Lazy<FileRepository>(() => new FileRepository(session));
         }
-        public AdminRepository Admins
+        public IRepository<Admin> Admins
         {
             get => adminRepository.Value;
         }
-        public CommentRepository Comments
+        public IRepository<Comment> Comments
         {
             get => commentRepository.Value;
         }
-        public NewsPostRepository NewsPosts
+        public IRepository<NewsPost> NewsPosts
         {
             get => newsPostRepository.Value;
         }
-        public FileRepository Files
+        public IRepository<FileModel> Files
         {
             get => fileRepository.Value;
         }

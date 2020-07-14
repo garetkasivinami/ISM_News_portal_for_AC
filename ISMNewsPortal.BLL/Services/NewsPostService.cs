@@ -40,7 +40,8 @@ namespace ISMNewsPortal.BLL.Services
         public IEnumerable<NewsPostDTO> GetNewsPostsWithAdminTools(ToolsDTO toolsDTO)
         {
             var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
-            var newsPosts = database.NewsPosts.GetAllWithAdminTools(toolsModel);
+            toolsModel.Admin = true;
+            var newsPosts = database.NewsPosts.GetAllWithTools(toolsModel);
             toolsDTO.Pages = toolsModel.Pages;
             return DTOMapper.NewsPostMapperToDTO.Map<IEnumerable<NewsPost>, List<NewsPostDTO>>(newsPosts);
         }

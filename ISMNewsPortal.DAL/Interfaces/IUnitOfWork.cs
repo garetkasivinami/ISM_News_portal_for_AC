@@ -10,9 +10,9 @@ namespace ISMNewsPortal.DAL.Interfaces
 {
     public interface IUnitOfWork
     {
-        AdminRepository Admins { get; }
-        CommentRepository Comments { get; }
-        NewsPostRepository NewsPosts { get; }
-        FileRepository Files { get; }
+        IRepository<Admin> Admins { get; }
+        IRepository<Comment> Comments { get; }
+        IRepository<NewsPost> NewsPosts { get; }
+        IRepository<FileModel> Files { get; }
     }
 }
