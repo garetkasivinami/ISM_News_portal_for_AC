@@ -10,7 +10,7 @@
 <div class="col-md-offset-2 col-md-10">
     <img id="imageElement" class="post-img" alt="no image" />
 </div>
-@using (Html.BeginForm("CreateNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+@using (Html.BeginForm("CreateNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "main_form" }))
 {
     @Html.AntiForgeryToken()
 

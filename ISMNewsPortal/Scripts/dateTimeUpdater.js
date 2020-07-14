@@ -20,14 +20,16 @@ for (let i = 0; i < startUpdateCommection.length; i++) {
 }
 
 let mainForm = document.querySelector("#main_form");
-mainForm.addEventListener('submit', function () {
-    let submitDateCollection = document.querySelectorAll(".submit_date");
-    for (let i = 0; i < submitDateCollection.length; i++) {
-        let dateParse = Date.parse(submitDateCollection[i].value);
-        if (dateParse == NaN) {
-            continue;
+if (mainForm != null) {
+    mainForm.addEventListener('submit', function () {
+        let submitDateCollection = document.querySelectorAll(".submit_date");
+        for (let i = 0; i < submitDateCollection.length; i++) {
+            let dateParse = Date.parse(submitDateCollection[i].value);
+            if (dateParse == NaN) {
+                continue;
+            }
+            let date = new Date(dateParse);
+            submitDateCollection[i].value = date.toISOString().slice(0, 16);
         }
-        let date = new Date(dateParse);
-        submitDateCollection[i].value = date.toISOString().slice(0, 16);
-    }
-});
+    });
+}

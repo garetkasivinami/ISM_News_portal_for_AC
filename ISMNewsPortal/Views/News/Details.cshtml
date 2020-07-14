@@ -9,13 +9,15 @@
         <img src="@Model.ImagePath" class="post-img" alt="Post image">
         <p class="card-text">@Html.Raw(Html.Encode(Model.NewsPost.Description).Replace("\n", "<br />"))</p>
         <p class="card-text">
-            <small class="text-muted">
-                @Model.NewsPost.CreatedDate
-                @if (Model.NewsPost.EditDate != null)
-                {
-                    <span>Post edited: @Model.NewsPost.EditDate</span>
-                }
+            <small class="text-muted  js_date">
+                @Model.NewsPost.CreatedDate.ToString("u").Replace('-', '/')
             </small>
+            @if (Model.NewsPost.EditDate != null)
+            {
+                <small class="text-muted">Post edited: 
+                    <span class="js_date">@(Model.NewsPost.EditDate?.ToString(" u").Replace('-', '/' ))</span>
+                </small>
+            }
         </p>
     </div>
 </div>
