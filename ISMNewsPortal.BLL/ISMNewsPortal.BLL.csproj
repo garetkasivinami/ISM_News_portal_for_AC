@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,6 +50,8 @@
     <Compile Include="DTO\CommentDTO.cs" />
     <Compile Include="DTO\FileDTO.cs" />
     <Compile Include="DTO\NewsPostDTO.cs" />
+    <Compile Include="Infrastructure\ErrorLogger.cs" />
+    <Compile Include="Infrastructure\ExceptionGenerator.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
     <Compile Include="Mappers\DTOMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
