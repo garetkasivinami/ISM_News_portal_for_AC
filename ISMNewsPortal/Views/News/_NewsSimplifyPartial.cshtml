@@ -17,8 +17,8 @@
                 <small class="text-muted">
                     @Model.CommentsCount Comments
                 </small>
-                <small class="text-muted">
-                    @Model.CreatedDate
+                <small class="text-muted js_date">
+                    @Model.CreatedDate.ToString("u").Replace('-', '/')
                 </small>
             </p>
         </div>

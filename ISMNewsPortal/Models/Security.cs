@@ -18,10 +18,8 @@ namespace ISMNewsPortal.Models
 
         public static string SHA512(string input, string salt)
         {
-            var bytes = Encoding.UTF8.GetBytes(input);
-            var saltBytes = Encoding.UTF8.GetBytes(salt);
-            bytes = bytes.Concat(saltBytes).ToArray();
-            Array.Resize(ref bytes, PasswordUserLength); // <<===
+            var saltedPassword = input + salt;
+            var bytes = Encoding.UTF8.GetBytes(saltedPassword);
             using (var hash = System.Security.Cryptography.SHA512.Create())
             {
                 var hashedInputBytes = hash.ComputeHash(bytes);
