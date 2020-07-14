@@ -47,6 +47,7 @@
             }
         </div>
     </nav>
+
     @if (Model.NewsPostSimpliedViews.Any())
     {
         foreach (ISMNewsPortal.Models.NewsPostSimplifiedView newsPost in Model.NewsPostSimpliedViews)
@@ -61,23 +62,25 @@
         <h2>No news</h2>
     }
 
-    @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
-    {
-        @Html.ActionLink(page.ToString(), "Index", "Admin", new
+    <div class="btn-group" role="group">
+        @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
         {
-            @page = page,
-            @SortType = Model.SortType,
-            @Filter = Model.Filter,
-            @TypeSearch = Model.TypeSearch,
-            @Search = Model.Search,
-            @Reversed = Model.Reversed
-        }, new { @class = ((page == Model.Page) ? "activePage" : "nonActivePage") });
-    }
+            @Html.ActionLink(page.ToString(), "Index", "Home", new
+            {
+                @page = page,
+                @SortType = Model.SortType,
+                @Filter = Model.Filter,
+                @TypeSearch = Model.TypeSearch,
+                @Search = Model.Search,
+                @Reversed = Model.Reversed
+            }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm activePage" : "btn btn-primary btn-sm nonActivePage") });
+        }
+    </div>
 
     <div class="btn-group" role="group">
         @if (Model.Page > 5)
         {
-            @Html.ActionLink("First page", "Index", "Admin", new
+            @Html.ActionLink("First page", "Index", "Home", new
             {
                 @SortType = Model.SortType,
                 @Filter = Model.Filter,

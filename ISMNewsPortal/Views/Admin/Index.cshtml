@@ -213,7 +213,7 @@
                 {
                     <p>Last edit date: @newsPost.EditDate</p>
                 }
-                @if(newsPost.PublicationDate > DateTime.Now)
+                @if (newsPost.PublicationDate > DateTime.Now)
                 {
                     <h1>Not published!</h1>
                 }
@@ -237,18 +237,20 @@ else
     <h2>No news</h2>
 }
 
-@for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
-{
-    @Html.ActionLink(page.ToString(), "Index", "Admin", new
+<div class="btn-group" role="group">
+    @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
     {
-        @page = page,
-        @SortType = Model.SortType,
-        @Filter = Model.Filter,
-        @TypeSearch = Model.TypeSearch,
-        @Search = Model.Search,
-        @Reversed = Model.Reversed
-    }, new { @class = ((page == Model.Page) ? "activePage" : "nonActivePage") });
-}
+        @Html.ActionLink(page.ToString(), "Index", "Admin", new
+        {
+            @page = page,
+            @SortType = Model.SortType,
+            @Filter = Model.Filter,
+            @TypeSearch = Model.TypeSearch,
+            @Search = Model.Search,
+            @Reversed = Model.Reversed
+        }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm activePage" : "btn btn-primary btn-sm nonActivePage") });
+    }
+</div>
 
 <div class="btn-group" role="group">
     @if (Model.Page > 5)
