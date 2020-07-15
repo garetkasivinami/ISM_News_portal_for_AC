@@ -31,6 +31,38 @@ namespace ISMNewsPortal.DAL.ToolsLogic
             return "1 = 1";
         }
 
+        public static DateTime GetMinFilterDate(string filter)
+        {
+            var currentDate = DateTime.Now;
+            switch (filter)
+            {
+                case "today":
+                    return currentDate.Date;
+                case "yesterday":
+                    return currentDate.Date.AddDays(-1);
+                case "week":
+                    return currentDate.Date.AddDays(-7);
+                default:
+                    return new DateTime(0);
+            }
+        }
+
+        public static DateTime GetMaxFilterDate(string filter)
+        {
+            var currentDate = DateTime.Now;
+            switch (filter)
+            {
+                case "today":
+                    return currentDate;
+                case "yesterday":
+                    return currentDate.Date.AddSeconds(-1);
+                case "week":
+                    return currentDate;
+                default:
+                    return currentDate;
+            }
+        }
+
         public static string GetFilterSqlString(string filter)
         {
             string filterFunc;
@@ -52,7 +84,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
             return filterFunc;
         }
 
-        public static string GetSortSqlString(string sortType)
+        public static string GetSortSqlString(string sortType, bool reversed)
         {
             string sortString;
             switch (sortType)
@@ -67,7 +99,22 @@ namespace ISMNewsPortal.DAL.ToolsLogic
                     sortString = "@PublicationDate DESC";
                     break;
             }
+            if (reversed)
+                sortString += " DESC";
             return sortString;
+        }
+
+        public static string GetSortFieldName(string sortType)
+        {
+            switch (sortType)
+            {
+                case "name":
+                    return "Name";
+                case "description":
+                    return "Description";
+                default:
+                    return "PublicationDate";
+            }
         }
 
         public static string GetAdminSortSqlString(string sortType, bool reversed)
@@ -109,7 +156,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
 
         public static string GetSearchSqlString()
         {
-            return "Name LIKE :searchName AND Description LIKE :searchName ";
+            return "(Name LIKE :searchName OR Description LIKE :searchName) ";
         }
 
         public static IQuery GetSqlQuerry(ISession session, string sortType, string filter, string search, string searchString)

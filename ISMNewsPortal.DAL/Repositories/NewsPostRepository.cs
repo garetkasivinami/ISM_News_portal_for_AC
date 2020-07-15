@@ -1,5 +1,6 @@
 ﻿using ISMNewsPortal.DAL.Interfaces;
 using ISMNewsPortal.DAL.Models;
+using ISMNewsPortal.DAL.Lucene;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public int Create(NewsPost item)
         {
+            LuceneSearch.AddUpdateLuceneIndex(item);
             using (ITransaction transaction = session.BeginTransaction())
             {
                 session.Save(item);
@@ -89,14 +91,25 @@ namespace ISMNewsPortal.DAL.Repositories
 
         private IEnumerable<NewsPost> GetAllWithoutAdminTools(ToolBarModel model)
         {
+            IEnumerable<NewsPost> newsPosts;
+            //if (string.IsNullOrEmpty(model.Search))
+            //{
             string filterFunc = GetFilterSqlString(model.Filter);
-            string sortString = GetAdminSortSqlString(model.SortType, model.Reversed ?? false);
+            string sortString = GetSortSqlString(model.SortType, model.Reversed ?? false);
             string searchString = GetSearchSqlString();
-            IList<NewsPost> selectedNewsPost = GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+            newsPosts = GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
+            //}
+            //else
+            //{
+            //    LuceneSearch.AddUpdateLuceneIndex(GetAll());
+            //    newsPosts = LuceneSearch.Search
+            //        (model.Search, GetSortFieldName(model.SortType), GetMinFilterDate(model.Filter), GetMaxFilterDate(model.Filter), model.Reversed ?? false);
+            //    newsPosts = newsPosts.Where(u => u.IsVisible);
+            //}
 
-            model.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
+            model.Pages = Helper.CalculatePages(newsPosts.Count(), NewsPost.NewsInOnePage);
 
-            return Helper.CutIEnumarable(model.Page, NewsPost.NewsInOnePage, selectedNewsPost);
+            return Helper.CutIEnumarable(model.Page, NewsPost.NewsInOnePage, newsPosts);
         }
 
         private IEnumerable<NewsPost> GetAllWithAdminTools(ToolBarModel model)
