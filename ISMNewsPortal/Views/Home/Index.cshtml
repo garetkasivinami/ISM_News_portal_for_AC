@@ -79,6 +79,33 @@
     }
 
     <div class="btn-group" role="group">
+        @if (Model.Page > 5)
+        {
+            @Html.ActionLink("<<", "Index", "Home", new
+            {
+                @SortType = Model.SortType,
+                @Filter = Model.Filter,
+                @Search = Model.Search,
+                @Reversed = Model.Reversed
+            }, new { @class = "btn btn-outline-dark" });
+        }
+    </div>
+
+    <div class="btn-group" role="group">
+        @if (Model.Page > 0)
+        {
+            @Html.ActionLink("<", "Index", "Home", new
+            {
+                @Page = Model.Page - 1,
+                @SortType = Model.SortType,
+                @Filter = Model.Filter,
+                @Search = Model.Search,
+                @Reversed = Model.Reversed
+            }, new { @class = "btn btn-outline-dark" }); ;
+        }
+    </div>
+
+    <div class="btn-group" role="group">
         @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
         {
             @Html.ActionLink((page + 1).ToString(), "Index", "Home", new
@@ -93,15 +120,16 @@
     </div>
 
     <div class="btn-group" role="group">
-        @if (Model.Page > 5)
+        @if (Model.Page < Model.Pages - 1)
         {
-            @Html.ActionLink("First page", "Index", "Home", new
+            @Html.ActionLink(">", "Index", "Home", new
             {
+                @Page = Model.Page + 1,
                 @SortType = Model.SortType,
                 @Filter = Model.Filter,
                 @Search = Model.Search,
                 @Reversed = Model.Reversed
-            }, new { @class = "btn btn-outline-dark" });
+            }, new { @class = "btn btn-outline-dark" }); ;
         }
     </div>
 </div>

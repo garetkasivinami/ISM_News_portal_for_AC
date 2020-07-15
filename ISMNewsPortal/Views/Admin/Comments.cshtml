@@ -15,20 +15,48 @@
 <h1>Comments list</h1>
 <p>Comments count: @Model.CommentsCount</p>
 <p>Pages: @Model.Pages</p>
-@using (Html.BeginForm("Comments", "Admin", FormMethod.Get, new { }))
-{
-    <div class="form-row align-items-center">
-        <div class="col-auto">
-            <label for="inlineFormInput">Move to page</label>
-        </div>
-        <div class="col-auto">
-            <input type="number" class="form-control mb-2" id="page" name="page" min="0" max="@(Model.Pages - 1)" value="@Model.Page" />
-        </div>
-        <div class="col-auto">
-            <button type="submit" class="btn btn-dark mb-2">Move!</button>
-        </div>
-    </div>
-}
+<div class="btn-group" role="group">
+    @if (Model.Page > 5)
+    {
+        @Html.ActionLink("<<", "Index", "Home", new
+        {
+            @postId = Model.NewsPost.Id
+        }, new { @class = "btn btn-outline-dark" });
+    }
+</div>
+
+<div class="btn-group" role="group">
+    @if (Model.Page > 0)
+    {
+        @Html.ActionLink("<", "Comments", "Admin", new
+        {
+            @Page = Model.Page - 1,
+            @postId = Model.NewsPost.Id
+        }, new { @class = "btn btn-outline-dark" }); ;
+    }
+</div>
+
+<div class="btn-group" role="group">
+    @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
+    {
+        @Html.ActionLink((page + 1).ToString(), "Comments", "Admin", new
+        {
+            @page = page,
+            @postId = Model.NewsPost.Id
+        }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-primary btn-sm") });
+    }
+</div>
+
+<div class="btn-group" role="group">
+    @if (Model.Page < Model.Pages - 1)
+    {
+        @Html.ActionLink(">", "Comments", "Admin", new
+        {
+            @Page = Model.Page + 1,
+            @postId = Model.NewsPost.Id
+        }, new { @class = "btn btn-outline-dark" }); ;
+    }
+</div>
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -130,8 +158,8 @@
                     @comment.Text
                 </p>
                 <p class="card-text">
-                    <small class="text-muted">
-                        @comment.Date
+                    <small class="text-muted js_date">
+                        @comment.Date.ToString("u").Replace('-', '/')
                     </small>
                 </p>
             </div>
@@ -143,46 +171,10 @@
             </div>
         </div>
     }
+    <script src="~/Scripts/dateTimeUpdater.js"></script>
 }
 else
 {
     <p>No comments</p>
 }
 <script src="~/Scripts/doubleClickLink.js"></script>
-
-<div class="btn-group" role="group">
-    @if (Model.Page > 0)
-    {
-        @Html.ActionLink("Last page", "Comments", "Admin", new
-        {
-            @Page = Model.Page - 1,
-            @SortType = Model.SortType,
-            @Filter = Model.Filter,
-            @Search = Model.Search,
-            @Reversed = Model.Reversed
-        }, new { @class = "btn btn-outline-dark" });
-    }
-    @if (Model.Page > 1 && Model.Pages > 2)
-    {
-        @Html.ActionLink("First page", "Comments", "Admin", new
-        {
-            @Page = 0,
-            @SortType = Model.SortType,
-            @Filter = Model.Filter,
-            @Search = Model.Search,
-            @Reversed = Model.Reversed
-        }, new { @class = "btn btn-outline-dark" });
-    }
-    @if (Model.Page < Model.Pages - 1)
-    {
-        @Html.ActionLink("Next page", "Comments", "Admin", new
-        {
-            @Page = Model.Page + 1,
-            @SortType = Model.SortType,
-            @Filter = Model.Filter,
-            @Search = Model.Search,
-            @Reversed = Model.Reversed
-        }, new { @class = "btn btn-outline-dark" });
-    }
-</div>
-

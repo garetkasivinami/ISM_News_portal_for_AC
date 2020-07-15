@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-12 input-create">
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text generateCharacterCount", @placeholder = "News post description" } })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text", @placeholder = "News post description" } })
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger card-text" })
                 </div>
             </div>
