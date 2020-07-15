@@ -1,4 +1,10 @@
-﻿@model ISMNewsPortal.Models.NewsPostSimplifiedView
+﻿@using System.Text.RegularExpressions
+@model ISMNewsPortal.Models.NewsPostSimplifiedView
+
+@{ 
+    IHtmlString htmlText = Html.Raw(Model.Description);
+    string htmlString = Regex.Replace(htmlText.ToString(), "<.*?>", String.Empty);
+}
 
 <div class="row no-gutters">
     <div class="col-md-2">
@@ -10,7 +16,7 @@
                 @Html.ActionLink(Model.Name, "Details", "News", new { id = Model.Id }, new { })
             </h5>
             <p class="card-text">
-                @Model.Description.Substring(0, (Model.Description.Length < 256) ? Model.Description.Length : 256)...
+                @htmlString.Substring(0, (htmlString.Length < 256) ? htmlString.Length : 256)...
             </p>
             <!--Стилізувати!-->
             <p class="card-text">

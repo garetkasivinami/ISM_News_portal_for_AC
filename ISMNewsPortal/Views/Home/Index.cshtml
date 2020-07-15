@@ -21,7 +21,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @Html.ActionLink("Today", "Index", "Home", new { @filter = "today", @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Yesterday", "Index", "Home", new { @filter = "yesterday", @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("This week", "Index", "Home", new { @filter = "week", @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
+                        @Html.ActionLink("7 Days", "Index", "Home", new { @filter = "week", @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
                         @Html.ActionLink("All", "Index", "Home", new { @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
                     </div>
                 </li>

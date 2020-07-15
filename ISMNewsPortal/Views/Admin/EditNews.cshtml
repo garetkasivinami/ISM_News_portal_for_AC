@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
     ViewBag.Title = "Edit news";
     DateTime publishDate = Model.PublicationDate ?? DateTime.Now;
-    string publicationDate = publishDate.ToString("s");
+    string publicationDate = publishDate.ToString("s").Remove(16);
 }
 <h4>Edit news post!</h4>
 @Html.ActionLink("Manage comments", "Comments", "Admin", new { @postId = Model.Id }, new { @class = "btn btn-outline-dark btn-sm" })
