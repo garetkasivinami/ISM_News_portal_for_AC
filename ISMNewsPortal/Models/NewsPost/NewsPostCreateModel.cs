@@ -8,7 +8,6 @@ namespace ISMNewsPortal.Models
     public class NewsPostCreateModel
     {
         [Required]
-        [MaxLength(128)]
         [Display(Name = "Title")]
         public string Name { get; set; }
         [Required]
@@ -18,7 +17,7 @@ namespace ISMNewsPortal.Models
         public string Description { get; set; }
         public HttpPostedFileBase[] uploadFiles { get; set; }
         [DataType(DataType.DateTime)]
-        [Display(Name = "Publication date (UTC+0)")]
+        [Display(Name = "Publication date")]
         public DateTime? PublicationDate { get; set; }
         [Display(Name = "Is visible")]
         public bool IsVisible { get; set; }

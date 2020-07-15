@@ -27,7 +27,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <div class="col-md-12 input-edit">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title generateCharacterCount", @placeholder = "News post name" } })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = "News post name" } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger card-title" })
                     </div>
                 </div>
