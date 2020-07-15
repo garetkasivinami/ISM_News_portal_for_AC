@@ -27,18 +27,30 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort by...@Model.SortType
+                        Sort by...
+                        @if (Model.SortType != null)
+                        {
+                            @Model.SortType
+                            if (Model.Reversed == true)
+                            {
+                                <span> DESC</span>
+                            }
+                            else
+                            {
+                                <span> ASC</span>
+                            }
+                        }
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @Html.ActionLink("Name ASC", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = false }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Name DESC", "Index", "Home", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Description ASC", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = false }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Description DESC", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Date ASC", "Index", "Home", new { @page = Model.Page, @filter = Model.Filter, @Search = Model.Search }, new { @class = "dropdown-item", @Reversed = false })
-                        @Html.ActionLink("Date DESC", "Index", "Home", new { @page = Model.Page, @filter = Model.Filter, @Search = Model.Search }, new { @class = "dropdown-item", @Reversed = true })
+                        @Html.ActionLink("Date ASC", "Index", "Home", new { @sortType = "date", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search }, new { @class = "dropdown-item", @Reversed = false })
+                        @Html.ActionLink("Date DESC", "Index", "Home", new { @sortType = "date", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true}, new { @class = "dropdown-item", @Reversed = true })
                     </div>
                 </li>
-
+                @Html.ActionLink("Reset", "Index", "Home", new { }, new { })
             </ul>
             @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
             {

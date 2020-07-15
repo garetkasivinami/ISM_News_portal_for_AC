@@ -15,10 +15,13 @@
         </p>
     </div>
     <div class="card-footer">
-        @Ajax.ActionLink("Delete", "DeleteComment", "News", new { @id = Model.Id, @newsPostId = Model.NewsPostId }, new AjaxOptions()
+        @if (User.IsInRole(ISMNewsPortal.Models.Roles.Moderator.ToString()))
+        {
+            @Ajax.ActionLink("Delete", "DeleteComment", "News", new { @id = Model.Id, @newsPostId = Model.NewsPostId }, new AjaxOptions()
    {
        OnSuccess = $"SuccessRemoveComment('comment_{@Model.Id}')"
    }, new { @class = "btn btn-outline-danger" })
+        }
     </div>
 </div>
 <script>
