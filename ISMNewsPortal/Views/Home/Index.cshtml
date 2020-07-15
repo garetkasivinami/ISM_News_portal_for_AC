@@ -66,14 +66,14 @@
     <div class="btn-group" role="group">
         @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
         {
-            @Html.ActionLink(page.ToString(), "Index", "Home", new
+            @Html.ActionLink((page + 1).ToString(), "Index", "Home", new
             {
                 @page = page,
                 @SortType = Model.SortType,
                 @Filter = Model.Filter,
                 @Search = Model.Search,
                 @Reversed = Model.Reversed
-            }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm activePage" : "btn btn-primary btn-sm nonActivePage") });
+            }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-primary btn-sm") });
         }
     </div>
 
