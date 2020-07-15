@@ -17,28 +17,28 @@
                     Filter by...@Model.Filter
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Today", "News", "Admin", new
+                    @Html.ActionLink("Today", "Index", "Admin", new
                     {
                         @Filter = "today",
                         @SortType = Model.SortType,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Yesterday", "News", "Admin", new
+                    @Html.ActionLink("Yesterday", "Index", "Admin", new
                     {
                         @Filter = "yesterday",
                         @SortType = Model.SortType,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("This week", "News", "Admin", new
+                    @Html.ActionLink("This week", "Index", "Admin", new
                     {
                         @Filter = "week",
                         @SortType = Model.SortType,
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("All", "News", "Admin", new
+                    @Html.ActionLink("All", "Index", "Admin", new
                     {
                         @SortType = Model.SortType,
                         @Search = Model.Search,
@@ -51,110 +51,110 @@
                     Sort by...@Model.SortType
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Id ASC", "News", "Admin", new
+                    @Html.ActionLink("Id ASC", "Index", "Admin", new
                     {
                         @SortType = "id",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Id DESC", "News", "Admin", new
+                    @Html.ActionLink("Id DESC", "Index", "Admin", new
                     {
                         @SortType = "id",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = true
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Name ASC", "News", "Admin", new
+                    @Html.ActionLink("Name ASC", "Index", "Admin", new
                     {
                         @SortType = "name",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Name DESC", "News", "Admin", new
+                    @Html.ActionLink("Name DESC", "Index", "Admin", new
                     {
                         @SortType = "name",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Description ASC", "News", "Admin", new
+                    @Html.ActionLink("Description ASC", "Index", "Admin", new
                     {
                         @SortType = "description",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Description DESC", "News", "Admin", new
+                    @Html.ActionLink("Description DESC", "Index", "Admin", new
                 {
                         @SortType = "description",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date ASC", "News", "Admin", new
+                    @Html.ActionLink("Date ASC", "Index", "Admin", new
                     {
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date DESC", "News", "Admin", new
+                    @Html.ActionLink("Date DESC", "Index", "Admin", new
                 {
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Edit date ASC", "News", "Admin", new
+                    @Html.ActionLink("Edit date ASC", "Index", "Admin", new
                     {
                         @SortType = "editDate",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Edit date DESC", "News", "Admin", new
+                    @Html.ActionLink("Edit date DESC", "Index", "Admin", new
                 {
                         @SortType = "editDate",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Author ASC", "News", "Admin", new
+                    @Html.ActionLink("Author ASC", "Index", "Admin", new
                     {
                         @SortType = "author",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Author DESC", "News", "Admin", new
+                    @Html.ActionLink("Author DESC", "Index", "Admin", new
                     {
                         @SortType = "author",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = true
                 }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Publication date ASC", "News", "Admin", new
+                    @Html.ActionLink("Publication date ASC", "Index", "Admin", new
                     {
                         @SortType = "publishDate",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Publication date DESC", "News", "Admin", new
+                    @Html.ActionLink("Publication date DESC", "Index", "Admin", new
                 {
                         @SortType = "publishDate",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                        @Reversed = true
                 }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Visibility ASC", "News", "Admin", new
+                    @Html.ActionLink("Visibility ASC", "Index", "Admin", new
                     {
                         @SortType = "visibility",
                         @Filter = Model.Filter,
                         @Search = Model.Search,
                         @Reversed = false
                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Visibility DESC", "News", "Admin", new
+                    @Html.ActionLink("Visibility DESC", "Index", "Admin", new
                     {
                         @SortType = "visibility",
                         @Filter = Model.Filter,
@@ -163,9 +163,12 @@
                 }, new { @class = "dropdown-item" })
                 </div>
             </li>
-
+            @if (Model.Filter != null || Model.SortType != null)
+            {
+                @Html.ActionLink("Reset", "Index", "Home", new { }, new { @class = "nav-link" })
+            }
         </ul>
-        @using (Html.BeginForm("News", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
+        @using (Html.BeginForm("Index", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {
             <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
             <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>

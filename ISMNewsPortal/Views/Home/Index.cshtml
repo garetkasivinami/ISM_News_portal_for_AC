@@ -47,10 +47,13 @@
                         @Html.ActionLink("Description ASC", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = false }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Description DESC", "Index", "Home", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
                         @Html.ActionLink("Date ASC", "Index", "Home", new { @sortType = "date", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search }, new { @class = "dropdown-item", @Reversed = false })
-                        @Html.ActionLink("Date DESC", "Index", "Home", new { @sortType = "date", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true}, new { @class = "dropdown-item", @Reversed = true })
+                        @Html.ActionLink("Date DESC", "Index", "Home", new { @sortType = "date", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item", @Reversed = true })
                     </div>
                 </li>
-                @Html.ActionLink("Reset", "Index", "Home", new { }, new { })
+                @if (Model.Filter != null || Model.SortType != null)
+                {
+                    @Html.ActionLink("Reset", "Index", "Home", new { }, new { @class = "nav-link" })
+                }
             </ul>
             @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
             {

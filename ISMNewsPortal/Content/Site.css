@@ -92,21 +92,21 @@ header .logout {
 }
 
 .input-edit > textarea, .input-create > textarea {
-    max-width: none;
+    max-width: 100%;
     width: 100%;
     height: 300px;
-    border-radius:5px;
-    border:2px solid rgba(0, 0, 0, 0.15);
-    max-height:200px;
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    max-height: 200px;
 }
 .input-edit > div > input {
-    max-width: none;
+    max-width: 100%;
     width: 100%;
     border-radius: 5px;
     border: 2px solid rgba(0, 0, 0, 0.15);
 }
 .input-edit > input, .input-create > input {
-    max-width: none;
+    max-width: 100%;
     width: 100%;
     border-radius: 5px;
     font-weight: bold;
@@ -157,8 +157,7 @@ textarea.form-control {
     float:left;
     margin-right:15px;
 }
-/*    
-.card-text {
-    display:inline-block;
+
+.btn:focus {
+    box-shadow: none;
 }
- */
