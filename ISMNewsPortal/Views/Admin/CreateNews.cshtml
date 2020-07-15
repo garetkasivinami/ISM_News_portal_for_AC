@@ -19,7 +19,7 @@
         <div class="card-body">
             <div class="form-group">
                 <div class="col-md-12 input-create">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title generateCharacterCount", @placeholder = "News post name" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = "News post name" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger card-title" })
                 </div>
             </div>
@@ -65,5 +65,4 @@
 }
 <script src="~/Scripts/dateTimeUpdater.js"></script>
 <script src="~/Scripts/imageUpdater.js"></script>
-<script src="~/Scripts/generator.js"></script>
 <script src="~/Scripts/wysiwyg/nicEdit.js"></script>

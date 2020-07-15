@@ -190,6 +190,7 @@
     <Content Include="App_Data\Files\admin.png" />
     <Content Include="App_Data\Files\be.png" />
     <Content Include="App_Data\Files\facebook.png" />
+    <Content Include="App_Data\Files\nicEditorIcons.gif" />
     <Content Include="App_Data\Files\twitter.png" />
     <Content Include="App_Data\NewsDatabase.mdf" />
     <Content Include="App_Data\NewsDatabase_log.ldf">

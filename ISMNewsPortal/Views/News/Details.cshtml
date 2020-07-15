@@ -7,7 +7,7 @@
     <div class="card-body">
         <h5 class="card-title">@Model.NewsPost.Name</h5>
         <img src="@Model.ImagePath" class="post-img" alt="Post image">
-        <p class="card-text">@Html.Raw(Html.Encode(Model.NewsPost.Description).Replace("\n", "<br />"))</p>
+        <p class="card-text">@Html.Raw(Model.NewsPost.Description)</p>
         <p class="card-text">
             <small class="text-muted  js_date">
                 @Model.NewsPost.PublicationDate.ToString("u").Replace('-', '/')

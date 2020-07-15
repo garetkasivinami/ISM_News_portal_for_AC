@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ISMNewsPortal.Models
 {
@@ -11,7 +12,7 @@ namespace ISMNewsPortal.Models
         [Display(Name = "Title")]
         public string Name { get; set; }
         [Required]
-        [MaxLength(10000)]
+        [AllowHtml]
         [DataType(DataType.MultilineText)]
         [Display(Name = "Description")]
         public string Description { get; set; }
