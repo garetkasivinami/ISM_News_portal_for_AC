@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ISMNewsPortal.DAL.Interfaces;
+using ISMNewsPortal.BLL.Interfaces;
 using ISMNewsPortal.DAL.Models;
 using NHibernate;
 
@@ -32,19 +32,19 @@ namespace ISMNewsPortal.DAL.Repositories
             newsPostRepository = new Lazy<NewsPostRepository>(() => new NewsPostRepository(session));
             fileRepository = new Lazy<FileRepository>(() => new FileRepository(session));
         }
-        public IRepository<Admin> Admins
+        public IAdminRepository Admins
         {
             get => adminRepository.Value;
         }
-        public IRepository<Comment> Comments
+        public ICommentRepository Comments
         {
             get => commentRepository.Value;
         }
-        public IRepository<NewsPost> NewsPosts
+        public INewsPostRepository NewsPosts
         {
             get => newsPostRepository.Value;
         }
-        public IRepository<FileModel> Files
+        public IFileRepository Files
         {
             get => fileRepository.Value;
         }

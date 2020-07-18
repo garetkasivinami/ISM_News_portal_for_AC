@@ -4,97 +4,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ISMNewsPortal.BLL.DTO;
-using ISMNewsPortal.DAL.Repositories;
-using ISMNewsPortal.DAL.Models;
 using ISMNewsPortal.BLL.Mappers;
 using ISMNewsPortal.BLL.Infrastructure;
 using ISMNewsPortal.BLL.BusinessModels;
 
 namespace ISMNewsPortal.BLL.Services
 {
-    public class NewsPostService : Service
+    public class NewsPostService
     {
-        public NewsPostService() : base()
-        {
-
-        }
-
-        public NewsPostService(Service service) : base(service)
-        {
-
-        }
 
         public IEnumerable<NewsPostDTO> GetNewsPosts()
         {
-            return DTOMapper.NewsPostMapperToDTO.Map<IEnumerable<NewsPost>, List<NewsPostDTO>>(database.NewsPosts.GetAll());
+            return Unity.UnitOfWork.NewsPosts.GetAll();
         }
 
         public IEnumerable<NewsPostDTO> GetNewsPostsWithTools(ToolsDTO toolsDTO)
         {
-            var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
-            var newsPosts = database.NewsPosts.GetAllWithTools(toolsModel);
-            toolsDTO.Pages = toolsModel.Pages;
-            return DTOMapper.NewsPostMapperToDTO.Map<IEnumerable<NewsPost>, List<NewsPostDTO>>(newsPosts);
+            var newsPosts = Unity.UnitOfWork.NewsPosts.GetAllWithTools(toolsDTO);
+            toolsDTO.Pages = toolsDTO.Pages;
+            return newsPosts;
         }
 
         public IEnumerable<NewsPostDTO> GetNewsPostsWithAdminTools(ToolsDTO toolsDTO)
         {
-            var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
-            toolsModel.Admin = true;
-            var newsPosts = database.NewsPosts.GetAllWithTools(toolsModel);
-            toolsDTO.Pages = toolsModel.Pages;
-            return DTOMapper.NewsPostMapperToDTO.Map<IEnumerable<NewsPost>, List<NewsPostDTO>>(newsPosts);
+            toolsDTO.Admin = true;
+            var newsPosts = Unity.UnitOfWork.NewsPosts.GetAllWithTools(toolsDTO);
+            toolsDTO.Pages = toolsDTO.Pages;
+            return newsPosts;
         }
 
         public NewsPostDTO GetNewsPost(int id)
         {
-            var newsPost = database.NewsPosts.Get(id);
+            var newsPost = Unity.UnitOfWork.NewsPosts.Get(id);
             if (newsPost == null)
-                throw ExceptionGenerator.GenerateException("News post is null", "NewsPostService.GetNewsPost(int id)", $"id: {id}");
-            return DTOMapper.NewsPostMapperToDTO.Map<NewsPost, NewsPostDTO>(newsPost);
-        }
-
-        public IEnumerable<NewsPostDTO> FindNewsPosts(Func<NewsPost, bool> predicate)
-        {
-            var newsPosts = database.NewsPosts.Find(predicate);
-            return DTOMapper.NewsPostMapperToDTO.Map<IEnumerable<NewsPost>, List<NewsPostDTO>>(newsPosts);
+                throw new Exception("News post is null");
+            return newsPost;
         }
 
         public void UpdateNewsPost(NewsPostDTO newsPostDTO)
         {
-            var newsPost = DTOMapper.NewsPostMapper.Map<NewsPostDTO, NewsPost>(newsPostDTO);
-            database.NewsPosts.Update(newsPost);
+            Unity.UnitOfWork.NewsPosts.Update(newsPostDTO);
         }
 
         public void CreateNewsPost(NewsPostDTO newsPostDTO)
         {
-            var newsPost = DTOMapper.NewsPostMapper.Map<NewsPostDTO, NewsPost>(newsPostDTO);
-            database.NewsPosts.Create(newsPost);
+            Unity.UnitOfWork.NewsPosts.Create(newsPostDTO);
         }
 
         public void DeleteNewsPost(int id)
         {
-            database.NewsPosts.Delete(id);
-            var comments = database.Comments.Find(u => u.NewsPostId == id);
-            foreach(Comment comment in comments)
-            {
-                database.Comments.Delete(comment.Id);
-            }
+            Unity.UnitOfWork.NewsPosts.Delete(id);
+            Unity.UnitOfWork.Comments.DeleteCommentsByPostId(id);
         }
 
         public int Count()
         {
-            return database.NewsPosts.Count();
-        }
-
-        public int Count(Func<NewsPost, bool> predicate)
-        {
-            return database.NewsPosts.Count(predicate);
+            return Unity.UnitOfWork.NewsPosts.Count();
         }
 
         public int CommentsCount(int id)
         {
-            return database.Comments.Count(u => u.NewsPostId == id);
+            return Unity.UnitOfWork.Comments.CountByPostId(id);
         }
     }
 }

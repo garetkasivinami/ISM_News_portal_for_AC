@@ -18,6 +18,19 @@ namespace ISMNewsPortal.Controllers
     public class NewsController : Controller
     {
         [HttpGet]
+        public ActionResult Index(ToolBarModel model)
+        {
+            NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPostHelper.GenerateNewsPostSimplifiedCollection(model);
+            return View(newsPostSimplifiedCollection);
+        }
+
+        [HttpGet]
+        public ActionResult Error404()
+        {
+            return View();
+        }
+
+        [HttpGet]
         public ActionResult Details(int id, int? page)
         {
             try
@@ -27,7 +40,7 @@ namespace ISMNewsPortal.Controllers
             }
             catch (Exception ex)
             {
-                ErrorLogger.LogError(ex.Message);
+                ErrorLogger.LogError(ex.Message + ex.StackTrace);
                 return new HttpNotFoundResult();
             }
         }
@@ -55,11 +68,6 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (HelperActions.XSSAtackCheker(model.Text))
-                {
-                    ModelState.AddModelError("", HelperActions.XssIndectDetectedError);
-                    return null;
-                }
                 var comment = new Comment(model);
                 comment.Id = CommentHelper.CreateComment(comment);
                 return PartialView("_Comment", new CommentViewModel(comment));

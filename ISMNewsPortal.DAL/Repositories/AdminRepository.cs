@@ -1,15 +1,18 @@
-﻿using ISMNewsPortal.DAL.Interfaces;
-using ISMNewsPortal.DAL.Models;
+﻿using ISMNewsPortal.DAL.Models;
 using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISMNewsPortal.BLL.Interfaces;
+using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.BusinessModels;
+using static ISMNewsPortal.BLL.Mappers.Automapper;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
-    public class AdminRepository : IRepository<Admin>
+    public class AdminRepository : IAdminRepository
     {
         private ISession session;
         public AdminRepository(ISession session)
@@ -17,80 +20,75 @@ namespace ISMNewsPortal.DAL.Repositories
             this.session = session;
         }
 
-        public int Create(Admin item)
-        {
-            using (ITransaction transaction = session.BeginTransaction())
-            {
-                session.Save(item);
-                transaction.Commit();
-                return item.Id;
-            }
-        }
-
-        public void Delete(int id)
-        {
-            var item = session.Get<Admin>(id);
-            if (item == null)
-                return;
-            using (ITransaction transaction = session.BeginTransaction())
-            {
-                session.Delete(item);
-                transaction.Commit();
-            }
-        }
-
-        public IEnumerable<Admin> Find(Func<Admin, bool> predicate)
-        {
-            return session.Query<Admin>().Where(predicate);
-        }
-
-        public Admin FindSingle(Func<Admin, bool> predicate)
-        {
-            return session.Query<Admin>().SingleOrDefault(predicate);
-        }
-
-        public Admin Get(int id)
-        {
-            return session.Get<Admin>(id);
-        }
-
-        public IEnumerable<Admin> GetAll()
-        {
-            return session.Query<Admin>();
-        }
-
         public int Count()
         {
             return session.Query<Admin>().Count();
         }
 
-        public int Count(Func<Admin, bool> predicate)
+        public int Create(AdminDTO item)
         {
-            return session.Query<Admin>().Count(predicate);
-        }
-
-        public void Update(Admin item)
-        {
+            var admin = MapFromAdminDTO<Admin>(item);
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Update(item);
+                session.Save(admin);
+                transaction.Commit();
+                return admin.Id;
+            }
+        }
+
+        public void Delete(int id)
+        {
+            var admin = session.Get<Admin>(id);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.Delete(admin);
                 transaction.Commit();
             }
         }
 
-        public U Max<U>(Func<Admin, U> predicate)
+        public AdminDTO Get(int id)
         {
-            return session.Query<Admin>().Max(predicate);
+            var admin = session.Get<Admin>(id);
+            return MapToAdminDTO(admin);
         }
 
-        public bool Any(Func<Admin, bool> predicate)
+        public IEnumerable<AdminDTO> GetAll()
         {
-            return session.Query<Admin>().Any(predicate);
+            var admins = session.Query<Admin>();
+            return MapToAdminDTOList(admins);
         }
 
-        public IEnumerable<Admin> GetAllWithTools(ToolBarModel toolBar)
+        public IEnumerable<AdminDTO> GetAllWithTools(ToolsDTO toolBar)
         {
             return GetAll();
+        }
+
+        public AdminDTO GetByEmail(string email)
+        {
+            var admin = session.Query<Admin>().Where(u => u.Email == email);
+            return MapToAdminDTO(admin);
+        }
+
+        public AdminDTO GetByLogin(string login)
+        {
+            var admin = session.Query<Admin>().Where(u => u.Email == login);
+            return MapToAdminDTO(admin);
+        }
+
+        public IEnumerable<AdminDTO> GetByRole(string role)
+        {
+            var admins = session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
+            return MapToAdminDTOList(admins);
+        }
+
+        public void Update(AdminDTO item)
+        {
+            var admin = MapFromAdminDTO<Admin>(item);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.Update(admin);
+                transaction.Commit();
+            }
         }
     }
 }

@@ -160,13 +160,6 @@ namespace ISMNewsPortal.DAL.Lucene
 
                     results = _mapLuceneToDataList(hits, searcher);
                     List<NewsPost> newsPosts = new List<NewsPost>();
-                    using (EFUnitOfWork database = new EFUnitOfWork())
-                    {
-                        foreach(int id in results)
-                        {
-                            newsPosts.Add(database.NewsPosts.Get(id));
-                        }
-                    }
                     return newsPosts;
                 }
             }

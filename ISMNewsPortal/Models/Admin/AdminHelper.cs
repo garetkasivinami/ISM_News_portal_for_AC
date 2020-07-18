@@ -13,36 +13,28 @@ namespace ISMNewsPortal.Models
     {
         public static void CreateAdmin(Admin admin)
         {
-            using (AdminService adminService = new AdminService())
-            {
-                var adminDTO = DTOMapper.MapAdminDTO(admin);
-                adminService.CreateAdmin(adminDTO);
-            }
+            AdminService adminService = new AdminService();
+            var adminDTO = DTOMapper.MapAdminDTO(admin);
+            adminService.CreateAdmin(adminDTO);
         }
 
         public static void UpdateAdmin(Admin admin)
         {
-            using (AdminService adminService = new AdminService())
-            {
-                var adminDTO = DTOMapper.MapAdminDTO(admin);
-                adminService.UpdateAdmin(adminDTO);
-            }
+            AdminService adminService = new AdminService();
+            var adminDTO = DTOMapper.MapAdminDTO(admin);
+            adminService.UpdateAdmin(adminDTO);
         }
 
         public static void UpdateAdminPartial(int id, string email, string roles = null, bool updateRoles = false)
         {
-            using (AdminService adminService = new AdminService())
-            {
-                adminService.UpdateAdminPartial(id, email, roles, updateRoles);
-            }
+            AdminService adminService = new AdminService();
+            adminService.UpdateAdminPartial(id, email, roles, updateRoles);
         }
 
         public static void DeleteAdmin(int id)
         {
-            using (AdminService adminService = new AdminService())
-            {
-                adminService.DeleteAdmin(id);
-            }
+            AdminService adminService = new AdminService();
+            adminService.DeleteAdmin(id);
         }
 
         public static void SetPassword(Admin admin, string password)
@@ -62,21 +54,17 @@ namespace ISMNewsPortal.Models
 
         public static Admin GetAdmin(int id)
         {
-            using (AdminService adminService = new AdminService())
-            {
-                var adminDTO = adminService.GetAdmin(id);
-                return DTOMapper.MapAdmin(adminDTO);
-            }
+            AdminService adminService = new AdminService();
+            var adminDTO = adminService.GetAdmin(id);
+            return DTOMapper.MapAdmin(adminDTO);
         }
 
         public static Admin GetAdmin(string login)
         {
-            using (AdminService adminService = new AdminService())
-            {
-                var adminDTO = adminService.GetAdminByLogin(login);
-                var admin = DTOMapper.MapAdmin(adminDTO);
-                return admin;
-            }
+            AdminService adminService = new AdminService();
+            var adminDTO = adminService.GetAdminByLogin(login);
+            var admin = DTOMapper.MapAdmin(adminDTO);
+            return admin;
         }
 
         public static Admin GetAdminByLoginAndPassword(string login, string password)
@@ -90,17 +78,15 @@ namespace ISMNewsPortal.Models
 
         public static AdminViewModelCollection GenerateAdminViewModelCollection()
         {
-            using (AdminService adminService = new AdminService())
+            AdminService adminService = new AdminService();
+            var adminDTOs = adminService.GetAdmins();
+            var admins = DTOMapper.MapAdmins(adminDTOs);
+            var adminViewModels = new List<AdminViewModel>();
+            foreach (Admin admin in admins)
             {
-                var adminDTOs = adminService.GetAdmins();
-                var admins = DTOMapper.MapAdmins(adminDTOs);
-                var adminViewModels = new List<AdminViewModel>();
-                foreach(Admin admin in admins)
-                {
-                    adminViewModels.Add(new AdminViewModel(admin));
-                }
-                return new AdminViewModelCollection() { AdminViewModels = adminViewModels};
+                adminViewModels.Add(new AdminViewModel(admin));
             }
+            return new AdminViewModelCollection() { AdminViewModels = adminViewModels };
         }
 
         public static IEnumerable<string> GetRolesStringsByLogin(string login)

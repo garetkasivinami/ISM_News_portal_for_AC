@@ -8,7 +8,7 @@ using ISMNewsPortal.BLL.Infrastructure;
 
 namespace ISMNewsPortal.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class AdminController : Controller
     {
         [HttpGet]

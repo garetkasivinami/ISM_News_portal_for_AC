@@ -1,4 +1,4 @@
-﻿using ISMNewsPortal.DAL.Interfaces;
+﻿using ISMNewsPortal.BLL.Interfaces;
 using ISMNewsPortal.DAL.Models;
 using ISMNewsPortal.DAL.Lucene;
 using NHibernate;
@@ -7,11 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ISMNewsPortal.BLL.Mappers.Automapper;
 using static ISMNewsPortal.DAL.ToolsLogic.NewsPostToolsLogic;
+using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.BusinessModels;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
-    public class NewsPostRepository : IRepository<NewsPost>
+    public class NewsPostRepository : INewsPostRepository
     {
         private ISession session;
         public NewsPostRepository(ISession session)
@@ -19,42 +22,9 @@ namespace ISMNewsPortal.DAL.Repositories
             this.session = session;
         }
 
-        public int Create(NewsPost item)
+        public int CommentsCount(int postId)
         {
-            LuceneSearch.AddUpdateLuceneIndex(item);
-            using (ITransaction transaction = session.BeginTransaction())
-            {
-                session.Save(item);
-                transaction.Commit();
-                return item.Id;
-            }
-        }
-
-        public void Delete(int id)
-        {
-            var item = session.Get<NewsPost>(id);
-            if (item == null)
-                return;
-            using (ITransaction transaction = session.BeginTransaction())
-            {
-                session.Delete(item);
-                transaction.Commit();
-            }
-        }
-
-        public IEnumerable<NewsPost> Find(Func<NewsPost, bool> predicate)
-        {
-            return session.Query<NewsPost>().Where(predicate);
-        }
-
-        public NewsPost Get(int id)
-        {
-            return session.Get<NewsPost>(id);
-        }
-
-        public IEnumerable<NewsPost> GetAll()
-        {
-            return session.Query<NewsPost>();
+            return session.Query<Comment>().Count(u => u.NewsPostId == postId);
         }
 
         public int Count()
@@ -62,76 +32,85 @@ namespace ISMNewsPortal.DAL.Repositories
             return session.Query<NewsPost>().Count();
         }
 
-        public int Count(Func<NewsPost, bool> predicate)
+        public int Create(NewsPostDTO item)
         {
-            return session.Query<NewsPost>().Count(predicate);
-        }
-
-        public void Update(NewsPost item)
-        {
+            var newsPost = MapFromNewsPostDTO<NewsPost>(item);
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Update(item);
+                session.Save(newsPost);
+                transaction.Commit();
+                return newsPost.Id;
+            }
+        }
+
+        public void Delete(int id)
+        {
+            var newsPost = session.Get<NewsPost>(id);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.Save(newsPost);
                 transaction.Commit();
             }
         }
 
-        public bool Any(Func<NewsPost, bool> predicate)
+        public NewsPostDTO Get(int id)
         {
-            return session.Query<NewsPost>().Any(predicate);
+            var newsPost = session.Get<NewsPost>(id);
+            return MapToNewsPostDTO(newsPost);
         }
 
-        public IEnumerable<NewsPost> GetAllWithTools(ToolBarModel model)
+        public IEnumerable<NewsPostDTO> GetAll()
         {
-            if (model.Admin)
-                return GetAllWithAdminTools(model);
-            else
-                return GetAllWithoutAdminTools(model);
+            var newsPosts = session.Query<NewsPost>();
+            return MapToNewsPostDTOList(newsPosts);
         }
 
-        private IEnumerable<NewsPost> GetAllWithoutAdminTools(ToolBarModel model)
+        public IEnumerable<NewsPostDTO> GetAllWithTools(ToolsDTO toolBar)
         {
-            IEnumerable<NewsPost> newsPosts;
-            //if (string.IsNullOrEmpty(model.Search))
-            //{
-            string filterFunc = GetFilterSqlString(model.Filter);
-            string sortString = GetSortSqlString(model.SortType, model.Reversed ?? false);
+            string filterFunc = GetFilterSqlString(toolBar.Filter);
+            string sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? false);
             string searchString = GetSearchSqlString();
-            newsPosts = GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
-            //}
-            //else
-            //{
-            //    LuceneSearch.AddUpdateLuceneIndex(GetAll());
-            //    newsPosts = LuceneSearch.Search
-            //        (model.Search, GetSortFieldName(model.SortType), GetMinFilterDate(model.Filter), GetMaxFilterDate(model.Filter), model.Reversed ?? false);
-            //    newsPosts = newsPosts.Where(u => u.IsVisible);
-            //}
+            IList<NewsPost> selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
 
-            model.Pages = Helper.CalculatePages(newsPosts.Count(), NewsPost.NewsInOnePage);
+            toolBar.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
 
-            return Helper.CutIEnumarable(model.Page, NewsPost.NewsInOnePage, newsPosts);
+            IEnumerable<NewsPost> result = Helper.CutIEnumarable(toolBar.Page, NewsPost.NewsInOnePage, selectedNewsPost);
+
+            return MapToNewsPostDTOList(result);
         }
 
-        private IEnumerable<NewsPost> GetAllWithAdminTools(ToolBarModel model)
+        public IEnumerable<NewsPostDTO> GetByAuthorId(int id)
         {
-            string filterFunc = GetFilterSqlString(model.Filter);
-            string sortString = GetAdminSortSqlString(model.SortType, model.Reversed ?? false);
-            string searchString = GetSearchSqlString();
-            IList<NewsPost> selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, model.Search, searchString).List<NewsPost>();
-
-            model.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
-
-            return Helper.CutIEnumarable(model.Page, NewsPost.NewsInOnePage, selectedNewsPost);
+            var newsPosts = session.Query<NewsPost>().Where(u => u.AuthorId == id);
+            return MapToNewsPostDTOList(newsPosts);
         }
 
-        public NewsPost FindSingle(Func<NewsPost, bool> predicate)
+        public IEnumerable<NewsPostDTO> GetByImageId(int id)
         {
-            return session.Query<NewsPost>().SingleOrDefault(predicate);
+            var newsPosts = session.Query<NewsPost>().Where(u => u.ImageId == id);
+            return MapToNewsPostDTOList(newsPosts);
         }
 
-        public U Max<U>(Func<NewsPost, U> predicate)
+        public IEnumerable<NewsPostDTO> GetByName(string name)
         {
-            return session.Query<NewsPost>().Max(predicate);
+            var newsPosts = session.Query<NewsPost>().Where(u => u.Name == name);
+            return MapToNewsPostDTOList(newsPosts);
+        }
+
+        public IEnumerable<NewsPostDTO> GetByVisibility(bool visible)
+        {
+            var newsPosts = session.Query<NewsPost>().Where(u => u.IsVisible == visible);
+            return MapToNewsPostDTOList(newsPosts);
+        }
+
+        public void Update(NewsPostDTO item)
+        {
+            var newsPost = MapFromNewsPostDTO<NewsPost>(item);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.Update(newsPost);
+                transaction.Commit();
+            }
         }
     }
 }

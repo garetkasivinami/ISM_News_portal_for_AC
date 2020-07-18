@@ -3,8 +3,6 @@ using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.DTO;
 using ISMNewsPortal.BLL.Infrastructure;
 using ISMNewsPortal.BLL.Mappers;
-using ISMNewsPortal.DAL.Models;
-using ISMNewsPortal.DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,70 +11,59 @@ using System.Threading.Tasks;
 
 namespace ISMNewsPortal.BLL.Services
 {
-    public class CommentService : Service
+    public class CommentService
     {
-        public CommentService() : base()
-        {
-
-        }
-
-        public CommentService(Service service) : base(service)
-        {
-
-        }
 
         public IEnumerable<CommentDTO> GetComments()
         {
-            return DTOMapper.CommentMapperToDTO.Map<IEnumerable<Comment>, List<CommentDTO>>(database.Comments.GetAll());
+            return Unity.UnitOfWork.Comments.GetAll();
         }
 
         public CommentDTO GetComment(int id)
         {
-            var comment = database.Comments.Get(id);
+            var comment = Unity.UnitOfWork.Comments.Get(id);
             if (comment == null)
-                throw ExceptionGenerator.GenerateException("Comment is null", "CommentService.GetComment(int id)", $"id: {id}");
-            return DTOMapper.CommentMapperToDTO.Map<Comment, CommentDTO>(comment);
+                throw new Exception("Comment is null");
+            return comment;
         }
 
         public IEnumerable<CommentDTO> GetCommentsByPostId(int id)
         {
-            var comments = database.Comments.Find(u => u.NewsPostId == id).Reverse();
-            return DTOMapper.CommentMapperToDTO.Map<IEnumerable<Comment>, List<CommentDTO>>(comments);
+            var comments = Unity.UnitOfWork.Comments.GetByPostId(id).Reverse();
+            return comments;
         }
 
         public void UpdateComment(CommentDTO commentDTO)
         {
-            var comment = DTOMapper.CommentMapper.Map<CommentDTO, Comment>(commentDTO);
-            database.Comments.Update(comment);
+            Unity.UnitOfWork.Comments.Update(commentDTO);
         }
 
         public int CreateComment(CommentDTO commentDTO)
         {
-            var comment = DTOMapper.CommentMapper.Map<CommentDTO, Comment>(commentDTO);
-            return database.Comments.Create(comment);
+            return Unity.UnitOfWork.Comments.Create(commentDTO);
         }
 
-        public IEnumerable<CommentDTO> GetCommentsWithTools(ToolsDTO toolsDTO)
-        {
-            var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
-            var comments = database.Comments.GetAllWithTools(toolsModel);
-            toolsDTO.Pages = toolsModel.Pages;
-            return DTOMapper.CommentMapperToDTO.Map<IEnumerable<Comment>, List<CommentDTO>>(comments);
-        }
+        //public IEnumerable<CommentDTO> GetCommentsWithTools(ToolsDTO toolsDTO)
+        //{
+        //    var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
+        //    var comments = database.Comments.GetAllWithTools(toolsModel);
+        //    toolsDTO.Pages = toolsModel.Pages;
+        //    return comments;
+        //}
 
         public void DeleteComment(int id)
         {
-            database.Comments.Delete(id);
+            Unity.UnitOfWork.Comments.Delete(id);
         }
 
         public int Count()
         {
-            return database.Comments.Count();
+            return Unity.UnitOfWork.Comments.Count();
         }
 
         public int GetCommentCountByPostId(int id)
         {
-            return database.Comments.Count(u => u.NewsPostId == id);
+            return Unity.UnitOfWork.Comments.CountByPostId(id);
         }
     }
 }

@@ -337,7 +337,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_AdminHeader.cshtml" />
@@ -360,7 +360,7 @@
     <Content Include="Views\Admin\CreateNews.cshtml" />
     <Content Include="Views\Admin\Comments.cshtml" />
     <Content Include="Views\News\_NewsSimplifyPartial.cshtml" />
-    <Content Include="Views\Home\Error404.cshtml" />
+    <Content Include="Views\News\Error404.cshtml" />
     <Content Include="Views\Admin\EditAdmin.cshtml" />
     <Content Include="Views\Admin\CreateAdmin.cshtml" />
     <Content Include="Views\Admin\DeleteAdmin.cshtml" />
@@ -381,11 +381,16 @@
   <ItemGroup>
     <Folder Include="App_Data\img\" />
     <Folder Include="Views\Files\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ISMNewsPortal.BLL\ISMNewsPortal.BLL.csproj">
       <Project>{efc8a452-cac6-4eb4-b1e8-d5269e18f37d}</Project>
       <Name>ISMNewsPortal.BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ISMNewsPortal.DAL\ISMNewsPortal.DAL.csproj">
+      <Project>{49ddde19-febb-4869-bfdc-610d79316957}</Project>
+      <Name>ISMNewsPortal.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

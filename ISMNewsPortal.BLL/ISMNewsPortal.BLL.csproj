@@ -53,19 +53,19 @@
     <Compile Include="Infrastructure\ErrorLogger.cs" />
     <Compile Include="Infrastructure\ExceptionGenerator.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />
-    <Compile Include="Mappers\DTOMapper.cs" />
+    <Compile Include="Interfaces\IAdminRepository.cs" />
+    <Compile Include="Interfaces\ICommentRepository.cs" />
+    <Compile Include="Interfaces\IFileRepository.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Interfaces\INewsPostRepository.cs" />
+    <Compile Include="Mappers\Automapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AdminService.cs" />
     <Compile Include="Services\CommentService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\NewsPostService.cs" />
-    <Compile Include="Services\Service.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ISMNewsPortal.DAL\ISMNewsPortal.DAL.csproj">
-      <Project>{49ddde19-febb-4869-bfdc-610d79316957}</Project>
-      <Name>ISMNewsPortal.DAL</Name>
-    </ProjectReference>
+    <Compile Include="Unity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

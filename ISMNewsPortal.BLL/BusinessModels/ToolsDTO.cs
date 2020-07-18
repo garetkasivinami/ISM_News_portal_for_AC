@@ -14,5 +14,6 @@ namespace ISMNewsPortal.BLL.BusinessModels
         public string SortType { get; set; }
         public string Search { get; set; }
         public bool? Reversed { get; set; }
+        public bool Admin { get; set; }
     }
 }

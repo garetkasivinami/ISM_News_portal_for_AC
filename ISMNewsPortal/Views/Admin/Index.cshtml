@@ -38,6 +38,20 @@
                         @Search = Model.Search,
                         @Reversed = Model.Reversed
                     }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Only published", "Index", "Admin", new
+                    {
+                        @Filter = "only published",
+                        @SortType = Model.SortType,
+                        @Search = Model.Search,
+                        @Reversed = Model.Reversed
+                    }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Not published", "Index", "Admin", new
+                    {
+                        @Filter = "not published",
+                        @SortType = Model.SortType,
+                        @Search = Model.Search,
+                        @Reversed = Model.Reversed
+                    }, new { @class = "dropdown-item" })
                     @Html.ActionLink("All", "Index", "Admin", new
                     {
                         @SortType = Model.SortType,
@@ -198,8 +212,8 @@
                     <li class="list-group-item"><strong>ID: @newsPost.Id</strong></li>
                     <li class="list-group-item">Author: @newsPost.AuthorName</li>
                     <li class="list-group-item">Author id: @newsPost.AuthorId</li>
-                    <li class="list-group-item js_date">Create date: @newsPost.CreatedDate.ToString("u").Replace('-', '/')</li>
-                    <li class="list-group-item js_date">Publication date: @newsPost.PublicationDate.ToString("u").Replace('-', '/')</li>
+                    <li class="list-group-item">Create date: <span class="js_date">@newsPost.CreatedDate.ToString("u").Replace('-', '/')</span></li>
+                    <li class="list-group-item">Publication date: <span class="js_date">@newsPost.PublicationDate.ToString("u").Replace('-', '/')</span></li>
                     <li class="list-group-item">Is visible: @newsPost.IsVisible</li>
                 </ul>
             </div>
@@ -208,7 +222,7 @@
                 {
                     <p>Last edit date: @newsPost.EditDate</p>
                 }
-                @if (newsPost.PublicationDate > DateTime.Now)
+                @if (newsPost.PublicationDate > DateTime.Now || !newsPost.IsVisible)
                 {
                     <h1>Not published!</h1>
                 }
@@ -259,19 +273,22 @@ else
     }
 </div>
 
-<div class="btn-group" role="group">
-    @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
-    {
-        @Html.ActionLink((page + 1).ToString(), "Index", "Admin", new
+@if (Model.Pages > 1)
+{
+    <div class="btn-group" role="group">
+        @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
         {
-            @page = page,
-            @SortType = Model.SortType,
-            @Filter = Model.Filter,
-            @Search = Model.Search,
-            @Reversed = Model.Reversed
-        }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-primary btn-sm") });
-    }
-</div>
+            @Html.ActionLink((page + 1).ToString(), "Index", "Admin", new
+            {
+                @page = page,
+                @SortType = Model.SortType,
+                @Filter = Model.Filter,
+                @Search = Model.Search,
+                @Reversed = Model.Reversed
+            }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-primary btn-sm") });
+        }
+    </div>
+}
 
 <div class="btn-group" role="group">
     @if (Model.Page < Model.Pages - 1)

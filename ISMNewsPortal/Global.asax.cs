@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using ISMNewsPortal.DAL.Repositories;
+using ISMNewsPortal.BLL;
 
 namespace ISMNewsPortal
 {
@@ -12,6 +14,9 @@ namespace ISMNewsPortal
     {
         protected void Application_Start()
         {
+            EFUnitOfWork unit = new EFUnitOfWork();
+            Unity.SetUnitOfWork(unit);
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

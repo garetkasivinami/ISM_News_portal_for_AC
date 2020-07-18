@@ -26,6 +26,17 @@ namespace ISMNewsPortal.DAL.ToolsLogic
             return $"PublicationDate >= CONVERT(DATETIME, '{week.Year}.{week.Month}.{week.Day}')";
         }
 
+        public static string FilterDontPublished()
+        {
+            DateTime week = DateTime.Now.AddDays(-7);
+            return $"PublicationDate > GETDATE() OR IsVisible = false";
+        }
+        public static string FilterPublished()
+        {
+            DateTime week = DateTime.Now.AddDays(-7);
+            return $"PublicationDate <= GETDATE() AND IsVisible = true";
+        }
+
         public static string FilterAll()
         {
             return "1 = 1";
@@ -76,6 +87,12 @@ namespace ISMNewsPortal.DAL.ToolsLogic
                     break;
                 case "week":
                     filterFunc = FilterWeek();
+                    break;
+                case "only published":
+                    filterFunc = FilterPublished();
+                    break;
+                case "not published":
+                    filterFunc = FilterDontPublished();
                     break;
                 default:
                     filterFunc = FilterAll();

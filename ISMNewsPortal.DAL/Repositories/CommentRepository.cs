@@ -1,4 +1,6 @@
-﻿using ISMNewsPortal.DAL.Interfaces;
+﻿using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Interfaces;
 using ISMNewsPortal.DAL.Models;
 using NHibernate;
 using System;
@@ -6,11 +8,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ISMNewsPortal.DAL.ToolsLogic.CommentToolsLogic;
+using static ISMNewsPortal.BLL.Mappers.Automapper;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
-    public class CommentRepository : IRepository<Comment>
+    public class CommentRepository : ICommentRepository
     {
         private ISession session;
 
@@ -19,87 +21,91 @@ namespace ISMNewsPortal.DAL.Repositories
             this.session = session;
         }
 
-        public int Create(Comment item)
-        {
-            using (ITransaction transaction = session.BeginTransaction())
-            {
-                session.Save(item);
-                transaction.Commit();
-                return item.Id;
-            }
-        }
-
-        public void Delete(int id)
-        {
-            var item = session.Get<Comment>(id);
-            if (item == null)
-                return;
-            using (ITransaction transaction = session.BeginTransaction())
-            {
-                session.Delete(item);
-                transaction.Commit();
-            }
-        }
-
-        public IEnumerable<Comment> Find(Func<Comment, bool> predicate)
-        {
-            return session.Query<Comment>().Where(predicate);
-        }
-
-        public Comment Get(int id)
-        {
-            return session.Get<Comment>(id);
-        }
-
-        public IEnumerable<Comment> GetAll()
-        {
-            return session.Query<Comment>();
-        }
-
         public int Count()
         {
             return session.Query<Comment>().Count();
         }
 
-        public int Count(Func<Comment, bool> predicate)
+        public int CountByPostId(int id)
         {
-            return session.Query<Comment>().Count(predicate);
+            return session.Query<Comment>().Count(u => u.NewsPostId == id);
         }
 
-        public void Update(Comment item)
+        public int Create(CommentDTO item)
         {
+            var comment = MapFromCommentDTO<Comment>(item);
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Update(item);
+                session.Save(comment);
+                transaction.Commit();
+                return comment.Id;
+            }
+        }
+
+        public void Delete(int id)
+        {
+            var comment = session.Get<Comment>(id);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.Delete(comment);
                 transaction.Commit();
             }
         }
 
-        public IEnumerable<Comment> GetAllWithTools(ToolBarModel model)
+        public void DeleteCommentsByPostId(int postId)
         {
-            string filterFunc = GetFilterSqlString(model.Filter);
-            string sortString = GetSortSqlString(model.SortType, model.Reversed ?? false);
-            string searchString = GetSearchSqlString();
-            IList<Comment> comments = GetSqlQuerry(session, sortString, filterFunc, model.Search, searchString).List<Comment>();
-
-            model.Pages = Helper.CalculatePages(comments.Count, Comment.CommentsInOnePage);
-
-            return Helper.CutIEnumarable(model.Page, Comment.CommentsInOnePage, comments);
+            var comments = session.Query<Comment>().Where(u => u.NewsPostId == postId);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                foreach (Comment comment in comments)
+                    session.Delete(comment);
+                transaction.Commit();
+            }
         }
 
-        public Comment FindSingle(Func<Comment, bool> predicate)
+        public CommentDTO Get(int id)
         {
-            return session.Query<Comment>().SingleOrDefault(predicate);
+            var comment = session.Get<Comment>(id);
+            return MapToCommentDTO(comment);
         }
 
-        public U Max <U>(Func<Comment, U> predicate)
+        public IEnumerable<CommentDTO> GetAll()
         {
-            return session.Query<Comment>().Max(predicate);
+            var comments = session.Query<Comment>();
+            return MapToCommentDTOList(comments);
         }
 
-        public bool Any(Func<Comment, bool> predicate)
+        public IEnumerable<CommentDTO> GetAllWithTools(ToolsDTO toolBar)
         {
-            return session.Query<Comment>().Any(predicate);
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<CommentDTO> GetByPostId(int id)
+        {
+            var comments = session.Query<Comment>().Where(u => u.NewsPostId == id);
+            return MapToCommentDTOList(comments);
+        }
+
+        public IEnumerable<CommentDTO> GetByUserName(string userName)
+        {
+            var comments = session.Query<Comment>().Where(u => u.UserName == userName);
+            return MapToCommentDTOList(comments);
+        }
+
+        public IEnumerable<CommentDTO> GetByUserNameAndPostId(string userName, int postId)
+        {
+            var comments = session.Query<Comment>().Where(u => u.NewsPostId == postId && u.UserName == userName);
+            return MapToCommentDTOList(comments);
+        }
+
+        public void Update(CommentDTO item)
+        {
+            var comment = MapFromCommentDTO<Comment>(item);
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                session.Update(comment);
+                transaction.Commit();
+            }
         }
     }
 }

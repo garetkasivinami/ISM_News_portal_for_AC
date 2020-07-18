@@ -67,8 +67,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Lucene\LuceneSearch.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -94,6 +92,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ISMNewsPortal.BLL\ISMNewsPortal.BLL.csproj">
+      <Project>{efc8a452-cac6-4eb4-b1e8-d5269e18f37d}</Project>
+      <Name>ISMNewsPortal.BLL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

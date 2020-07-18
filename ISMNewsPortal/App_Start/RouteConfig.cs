@@ -20,12 +20,6 @@ namespace ISMNewsPortal
             );
 
             routes.MapRoute(
-                name: "News",
-                url: "News/{id}",
-                defaults: new { controller = "News", action = "Details", id = UrlParameter.Optional }
-                );
-
-            routes.MapRoute(
                 name: "Error404",
                 url: "Error404",
                 defaults: new { controller = "Home", action = "Error404", id = UrlParameter.Optional }
@@ -38,7 +32,7 @@ namespace ISMNewsPortal
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "News", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

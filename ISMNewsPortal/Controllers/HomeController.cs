@@ -11,16 +11,9 @@ namespace ISMNewsPortal.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        public ActionResult Index(ToolBarModel model)
+        public ActionResult Index()
         {
-            NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPostHelper.GenerateNewsPostSimplifiedCollection(model);
-            return View(newsPostSimplifiedCollection);
-        }
-
-        [HttpGet]
-        public ActionResult Error404()
-        {
-            return View();
+            return RedirectToAction("Index", "News");
         }
     }
 }
