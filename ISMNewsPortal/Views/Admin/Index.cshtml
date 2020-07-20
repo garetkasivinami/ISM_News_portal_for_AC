@@ -2,11 +2,10 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
-    string selected = "selected";
-    ViewBag.Title = "News page";
+    ViewBag.Title = Language.Language.NewsPage;
 }
-<h1>News list</h1>
-@Html.ActionLink("Create news", "CreateNews", "Admin", new { }, new { @class = "btn btn-outline-dark" })
+<h1>@Language.Language.NewsList</h1>
+@Html.ActionLink(Language.Language.CreateNews, "CreateNews", "Admin", new { }, new { @class = "btn btn-outline-dark" })
 <hr />
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
@@ -210,30 +209,29 @@
             <div class="card-header">
                 <ul class="list-group list-group-horizontal">
                     <li class="list-group-item"><strong>ID: @newsPost.Id</strong></li>
-                    <li class="list-group-item">Author: @newsPost.AuthorName</li>
-                    <li class="list-group-item">Author id: @newsPost.AuthorId</li>
-                    <li class="list-group-item">Create date: <span class="js_date">@newsPost.CreatedDate.ToString("u").Replace('-', '/')</span></li>
-                    <li class="list-group-item">Publication date: <span class="js_date">@newsPost.PublicationDate.ToString("u").Replace('-', '/')</span></li>
-                    <li class="list-group-item">Is visible: @newsPost.IsVisible</li>
+                    <li class="list-group-item">@Language.Language.Author: @newsPost.AuthorName</li>
+                    <li class="list-group-item">@Language.Language.CreatedDate: <span class="js_date">@newsPost.CreatedDate.ToString("u").Replace('-', '/')</span></li>
+                    <li class="list-group-item">@Language.Language.PublicationDate: <span class="js_date">@newsPost.PublicationDate.ToString("u").Replace('-', '/')</span></li>
+                    <li class="list-group-item">@Language.Language.Visibility: @newsPost.IsVisible</li>
                 </ul>
             </div>
             <div class="card-body">
                 @if (newsPost.EditDate != null)
                 {
-                    <p>Last edit date: @newsPost.EditDate</p>
+                    <p>@Language.Language.LastEditDate: @newsPost.EditDate</p>
                 }
                 @if (newsPost.PublicationDate > DateTime.Now || !newsPost.IsVisible)
                 {
-                    <h1>Not published!</h1>
+                    <h1>@Language.Language.NotPublished</h1>
                 }
                 @Html.Partial("~/Views/News/_NewsSimplifyPartial.cshtml", newsPost)
             </div>
             <div class="card-footer">
                 <div class="btn-group" role="group">
-                    @Html.ActionLink("Edit", "EditNews", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
-                    @Html.ActionLink("Preview", "Preview", "News", new { @id = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
-                    @Html.ActionLink("Manage comments", "Comments", "Admin", new { @postId = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
-                    @Html.ActionLink("Delete", "DeleteNewsPostRequest", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-danger btn-sm" })
+                    @Html.ActionLink(Language.Language.Edit, "EditNews", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+                    @Html.ActionLink(Language.Language.Preview, "Preview", "News", new { @id = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+                    @Html.ActionLink(Language.Language.ManageComments, "Comments", "Admin", new { @postId = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+                    @Html.ActionLink(Language.Language.Delete, "DeleteNewsPostRequest", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-danger btn-sm" })
                 </div>
             </div>
         </div>
@@ -243,7 +241,7 @@
 }
 else
 {
-    <h2>No news</h2>
+    <h2>@Language.Language.NoNews</h2>
 }
 
 <div class="btn-group" role="group">

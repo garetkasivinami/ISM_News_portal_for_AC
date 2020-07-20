@@ -1,11 +1,11 @@
 ﻿using ISMNewsPortal.BLL.DTO;
 using ISMNewsPortal.BLL.Services;
-using ISMNewsPortal.Mappers;
 using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using static ISMNewsPortal.BLL.Mappers.Automapper;
 
 namespace ISMNewsPortal.Models
 {
@@ -14,14 +14,14 @@ namespace ISMNewsPortal.Models
         public static void CreateAdmin(Admin admin)
         {
             AdminService adminService = new AdminService();
-            var adminDTO = DTOMapper.MapAdminDTO(admin);
+            var adminDTO = MapToAdminDTO(admin);
             adminService.CreateAdmin(adminDTO);
         }
 
         public static void UpdateAdmin(Admin admin)
         {
             AdminService adminService = new AdminService();
-            var adminDTO = DTOMapper.MapAdminDTO(admin);
+            var adminDTO = MapToAdminDTO(admin);
             adminService.UpdateAdmin(adminDTO);
         }
 
@@ -56,15 +56,14 @@ namespace ISMNewsPortal.Models
         {
             AdminService adminService = new AdminService();
             var adminDTO = adminService.GetAdmin(id);
-            return DTOMapper.MapAdmin(adminDTO);
+            return MapFromAdminDTO<Admin>(adminDTO);
         }
 
         public static Admin GetAdmin(string login)
         {
             AdminService adminService = new AdminService();
             var adminDTO = adminService.GetAdminByLogin(login);
-            var admin = DTOMapper.MapAdmin(adminDTO);
-            return admin;
+            return MapFromAdminDTO<Admin>(adminDTO);
         }
 
         public static Admin GetAdminByLoginAndPassword(string login, string password)
@@ -80,7 +79,7 @@ namespace ISMNewsPortal.Models
         {
             AdminService adminService = new AdminService();
             var adminDTOs = adminService.GetAdmins();
-            var admins = DTOMapper.MapAdmins(adminDTOs);
+            var admins = MapFromAdminDTOList<Admin>(adminDTOs);
             var adminViewModels = new List<AdminViewModel>();
             foreach (Admin admin in admins)
             {

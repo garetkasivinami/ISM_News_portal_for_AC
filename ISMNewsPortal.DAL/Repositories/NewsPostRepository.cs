@@ -106,9 +106,11 @@ namespace ISMNewsPortal.DAL.Repositories
         public void Update(NewsPostDTO item)
         {
             var newsPost = MapFromNewsPostDTO<NewsPost>(item);
+            var createdNewsPost = session.Get<NewsPost>(item.Id);
+            Map(newsPost, createdNewsPost);
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Update(newsPost);
+                session.Update(createdNewsPost);
                 transaction.Commit();
             }
         }

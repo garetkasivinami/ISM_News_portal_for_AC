@@ -1,6 +1,5 @@
 ﻿using ISMNewsPortal.BLL.DTO;
 using ISMNewsPortal.BLL.Services;
-using ISMNewsPortal.Mappers;
 using NHibernate;
 using System;
 using System.Collections.Generic;

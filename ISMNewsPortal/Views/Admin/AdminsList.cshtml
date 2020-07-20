@@ -2,12 +2,12 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
-    ViewBag.Title = "Admins list";
+    ViewBag.Title = Language.Language.AdminsList;
 }
 <h1>Admin list</h1>
 @if (User.IsInRole(ISMNewsPortal.Models.Roles.CanCreateAdmin.ToString()))
 {
-    @Html.ActionLink("Create new Admin", "CreateAdmin", "Admin", new { }, new { @class = "btn btn-outline-dark" })
+    @Html.ActionLink(Language.Language.CreateNAdmin, "CreateAdmin", "Admin", new { }, new { @class = "btn btn-outline-dark" })
 }
 <hr />
 
@@ -18,10 +18,10 @@
         {
             <div class="col mb-4">
                 <div class="card border-dark admin-list-item" style="max-width: 18rem;">
-                    <div class="card-header">Login: @adminView.Login</div>
+                    <div class="card-header">@Language.Language.Login: @adminView.Login</div>
                     <div class="card-body text-dark">
-                        <p class="card-text">Admin Id: @adminView.Id</p>
-                        <p class="card-text">Email: @adminView.Email</p>
+                        <p class="card-text">@Language.Language.AdminId: @adminView.Id</p>
+                        <p class="card-text">@Language.Language.Email: @adminView.Email</p>
                         @if (adminView.Roles.Any())
                         {
                             <p class="card-text">Roles:</p>
@@ -36,11 +36,11 @@
                     <div class="card-footer">
                         @if (User.IsInRole(ISMNewsPortal.Models.Roles.CanEditAdmin.ToString()))
                         {
-                            @Html.ActionLink("Edit", "EditAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+                            @Html.ActionLink(Language.Language.Edit, "EditAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-dark btn-sm" })
                         }
                         @if (User.IsInRole(ISMNewsPortal.Models.Roles.CanCreateAdmin.ToString()))
                         {
-                            @Html.ActionLink("Delete", "DeleteAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-danger btn-sm doubleClickLink" })
+                            @Html.ActionLink(Language.Language.Delete, "DeleteAdmin", "Admin", new { @id = adminView.Id }, new { @class = "btn btn-outline-danger btn-sm doubleClickLink" })
 
                         }
                     </div>

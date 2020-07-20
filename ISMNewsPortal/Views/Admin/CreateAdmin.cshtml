@@ -2,14 +2,14 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
-    ViewBag.Title = "Create admin";
+    ViewBag.Title = Language.Language.CreateAdmin;
 }
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>AdminCreateModel</h4>
+        <h4>@Language.Language.CreateAdmin</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -47,7 +47,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-outline-success" />
-                @Html.ActionLink("Return", "AdminsList", null, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink(Language.Language.Return, "AdminsList", null, new { @class = "btn btn-outline-primary" })
             </div>
         </div>
     </div>

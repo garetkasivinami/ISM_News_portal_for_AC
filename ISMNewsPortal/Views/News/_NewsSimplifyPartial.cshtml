@@ -21,7 +21,7 @@
             <!--Стилізувати!-->
             <p class="card-text">
                 <small class="text-muted">
-                    @Model.CommentsCount Comments
+                    @Model.CommentsCount @Language.Language.CommentsC
                 </small>
                 <small class="text-muted js_date">
                     @Model.PublicationDate.ToString("u").Replace('-', '/')

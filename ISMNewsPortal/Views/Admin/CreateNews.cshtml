@@ -3,10 +3,10 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
-    ViewBag.Title = "Create news post";
+    ViewBag.Title = Language.Language.CreateNewsPost;
 }
 
-<h3>Create news post!</h3>
+<h3>@Language.Language.CreateNewsPost!</h3>
 <div class="col-md-offset-2 col-md-10">
     <img id="imageElement" class="post-img" alt="no image" />
 </div>
@@ -19,13 +19,13 @@
         <div class="card-body">
             <div class="form-group">
                 <div class="col-md-12 input-create">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = "News post name" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = Language.Language.NewsPostName } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger card-title" })
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-md-12 input-create">
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text", @placeholder = "News post description" } })
+                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text", @placeholder = Language.Language.Description} })
                     @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger card-text" })
                 </div>
             </div>
@@ -59,7 +59,7 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" value="Create" class="btn btn-outline-dark" />
-            @Html.ActionLink("Return", "Index", null, new { @class = "btn btn-outline-primary" })
+            @Html.ActionLink(Language.Language.Return, "Index", null, new { @class = "btn btn-outline-primary" })
         </div>
     </div>
 }

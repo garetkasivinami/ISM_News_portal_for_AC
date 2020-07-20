@@ -17,7 +17,7 @@
     <div class="card-footer">
         @if (User.IsInRole(ISMNewsPortal.Models.Roles.Moderator.ToString()))
         {
-            @Ajax.ActionLink("Delete", "DeleteComment", "News", new { @id = Model.Id, @newsPostId = Model.NewsPostId }, new AjaxOptions()
+            @Ajax.ActionLink(Language.Language.Delete, "DeleteComment", "News", new { @id = Model.Id, @newsPostId = Model.NewsPostId }, new AjaxOptions()
    {
        OnSuccess = $"SuccessRemoveComment('comment_{@Model.Id}')"
    }, new { @class = "btn btn-outline-danger" })

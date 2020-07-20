@@ -83,9 +83,11 @@ namespace ISMNewsPortal.DAL.Repositories
         public void Update(FileDTO item)
         {
             var fileModel = MapFromFileDTO<FileModel>(item);
+            var createdFileModel = session.Get<FileModel>(item.Id);
+            Map(fileModel, createdFileModel);
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Update(fileModel);
+                session.Update(createdFileModel);
                 transaction.Commit();
             }
         }

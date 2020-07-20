@@ -1,15 +1,15 @@
 ﻿@model ISMNewsPortal.Models.AdminViewModel
 @{
-    ViewBag.Title = "Delete admin";
+    ViewBag.Title = Language.Language.DeleteAdmin;
 }
-<div class="card-header">Login: @Model.Login</div>
+<div class="card-header">@Language.Language.Login: @Model.Login</div>
 <div class="card-body text-dark">
-    <p class="card-text">Admin Id: @Model.Id</p>
-    <p class="card-text">Email: @Model.Email</p>
+    <p class="card-text">@Language.Language.AdminId: @Model.Id</p>
+    <p class="card-text">@Language.Language.Email: @Model.Email</p>
 </div>
 @if (Model.Roles.Any())
 {
-    <p>Roles:</p>
+    <p>@Language.Language.Roles:</p>
     <ul>
         @foreach (string role in Model.Roles)
         {
@@ -18,6 +18,6 @@
     </ul>
 }
 
-<h1>Are you sure?</h1>
-@Html.ActionLink("Yes", "DeleteAdminSured", "Admin", new { @id = Model.Id }, new { @class = "btn btn-outline-danger" })
-@Html.ActionLink("No", "AdminsList", "Admin", new { }, new { @class = "btn btn-outline-primary" })
+<h1>@Language.Language.SureQ</h1>
+@Html.ActionLink(Language.Language.Yes, "DeleteAdminSured", "Admin", new { @id = Model.Id }, new { @class = "btn btn-outline-danger" })
+@Html.ActionLink(Language.Language.No, "AdminsList", "Admin", new { }, new { @class = "btn btn-outline-primary" })

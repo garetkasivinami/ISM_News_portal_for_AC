@@ -11,6 +11,10 @@ namespace ISMNewsPortal.BLL.Mappers
 {
     public static class Automapper
     {
+        public static T Map<T>(T original, T target)
+        {
+            return new MapperConfiguration(cfg => cfg.CreateMap<T, T>()).CreateMapper().Map(original, target);
+        }
         #region Map
         public static AdminDTO MapToAdminDTO<T>(T target)
         {
@@ -59,18 +63,48 @@ namespace ISMNewsPortal.BLL.Mappers
             IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileDTO, T>()).CreateMapper();
             return mapper.Map<T>(target);
         }
+
+        public static ToolsDTO MapToToolsDTO<T>(T target)
+        {
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, ToolsDTO>()).CreateMapper();
+            return mapper.Map<ToolsDTO>(target);
+        }
+
+        public static T MapFromToolsDTO<T>(ToolsDTO target)
+        {
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToolsDTO, T>()).CreateMapper();
+            return mapper.Map<T>(target);
+        }
+
+        public static U MapToUDTO<T, U>(T target)
+        {
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, U>()).CreateMapper();
+            return mapper.Map<U>(target);
+        }
+
+        public static T MapFromUDTO<T, U>(U target)
+        {
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<U, T>()).CreateMapper();
+            return mapper.Map<T>(target);
+        }
         #endregion
         #region MapList 
         public static List<AdminDTO> MapToAdminDTOList<T>(IEnumerable<T> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<IEnumerable<T>, List<AdminDTO>>()).CreateMapper();
-            return mapper.Map<List<AdminDTO>>(target);
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, AdminDTO>()).CreateMapper();
+            var result = new List<AdminDTO>();
+            foreach (T item in target)
+                result.Add(mapper.Map<AdminDTO>(item));
+            return result;
         }
 
         public static List<T> MapFromAdminDTOList<T>(IEnumerable<AdminDTO> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<IEnumerable<AdminDTO>, List<T>>()).CreateMapper();
-            return mapper.Map<List<T>>(target);
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<AdminDTO, T>()).CreateMapper();
+            var result = new List<T>();
+            foreach (AdminDTO item in target)
+                result.Add(mapper.Map<T>(item));
+            return result;
         }
 
         public static List<NewsPostDTO> MapToNewsPostDTOList<T>(IEnumerable<T> target)
@@ -123,6 +157,24 @@ namespace ISMNewsPortal.BLL.Mappers
             IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<CommentDTO, T>()).CreateMapper();
             var result = new List<T>();
             foreach (FileDTO item in target)
+                result.Add(mapper.Map<T>(item));
+            return result;
+        }
+
+        public static List<U> MapToUDTOList<T, U>(IEnumerable<T> target)
+        {
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, U>()).CreateMapper();
+            var result = new List<U>();
+            foreach (T item in target)
+                result.Add(mapper.Map<U>(item));
+            return result;
+        }
+
+        public static List<T> MapFromUDTOList<T, U>(IEnumerable<U> target)
+        {
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<U, T>()).CreateMapper();
+            var result = new List<T>();
+            foreach (U item in target)
                 result.Add(mapper.Map<T>(item));
             return result;
         }

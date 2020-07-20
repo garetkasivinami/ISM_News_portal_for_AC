@@ -9,7 +9,7 @@ namespace ISMNewsPortal.Models
     public class NewsPostEditModel : NewsPostCreateModel
     {
         public int Id { get; set; }
-        [Display(Name = "Created date")]
+        [Display(Name = "CreatedDate", ResourceType = typeof(Language.Language))]
         public DateTime CreatedDate { get; set; }
         [Display(Name = "Image path")]
         public string ImagePath { get; set; }

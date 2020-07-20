@@ -2,8 +2,7 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
-    string selected = "selected";
-    ViewBag.Title = "Comments";
+    ViewBag.Title = Language.Language.Comments;
 }
 
 <img src="@Model.ImagePath" class="post-img" alt="Post image">
@@ -12,9 +11,9 @@
         <h5 class="card-title">@Model.NewsPost.Name</h5>
     </div>
 </div>
-<h1>Comments list</h1>
-<p>Comments count: @Model.CommentsCount</p>
-<p>Pages: @Model.Pages</p>
+<h1>@Language.Language.CommentsList</h1>
+<p>@Language.Language.CommentsCount: @Model.CommentsCount</p>
+<p>@Language.Language.Pages: @Model.Pages</p>
 <div class="btn-group" role="group">
     @if (Model.Page > 5)
     {
@@ -165,8 +164,8 @@
             </div>
             <div class="card-footer">
                 <div class="btn-group" role="group">
-                    @Html.ActionLink("Delete", "DeleteComment", "Admin", new { @id = comment.Id }, new { @class = "btn btn-outline-secondary btn-sm doubleClickLink" })
-                    @Html.ActionLink("Go to post", "Details", "News", new { @id = comment.NewsPostId }, new { @class = "btn btn-outline-secondary btn-sm", @target = "_blank" })
+                    @Html.ActionLink(Language.Language.Delete, "DeleteComment", "Admin", new { @id = comment.Id }, new { @class = "btn btn-outline-secondary btn-sm doubleClickLink" })
+                    @Html.ActionLink(Language.Language.GoToPost, "Details", "News", new { @id = comment.NewsPostId }, new { @class = "btn btn-outline-secondary btn-sm", @target = "_blank" })
                 </div>
             </div>
         </div>
@@ -175,6 +174,6 @@
 }
 else
 {
-    <p>No comments</p>
+    <p>@Language.Language.NoComments</p>
 }
 <script src="~/Scripts/doubleClickLink.js"></script>

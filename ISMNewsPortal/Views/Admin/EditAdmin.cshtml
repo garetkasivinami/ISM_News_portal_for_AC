@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
     string chekedText = "selected";
     string disabled = "disabled";
-    ViewBag.Title = "Edit admin";
+    ViewBag.Title = Language.Language.EditAdmin;
 }
 
 @using (Html.BeginForm())
@@ -12,11 +12,11 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h3>Admin edit model</h3>
+        <h3>@Language.Language.EditAdmin</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-        <h4>Admin login: @Model.Login</h4>
+        <h4>@Language.Language.Login: @Model.Login</h4>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -25,7 +25,7 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-10">
-                <label for="inputState">Role</label>
+                <label for="inputState">@Language.Language.Roles</label>
                 <select id="inputState" class="form-control" multiple name="Roles"
                         @if (!User.IsInRole(ISMNewsPortal.Models.Roles.CanSetAdminRole.ToString())) { @disabled  }>
                     @foreach (@ISMNewsPortal.Models.Roles role in Enum.GetValues(typeof(ISMNewsPortal.Models.Roles)))
@@ -42,7 +42,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Edit!" class="btn btn-outline-success" />
-                @Html.ActionLink("Return", "AdminsList", null, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink(Language.Language.Return, "AdminsList", null, new { @class = "btn btn-outline-primary" })
             </div>
         </div>
     </div>

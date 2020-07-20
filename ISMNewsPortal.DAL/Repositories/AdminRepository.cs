@@ -71,7 +71,7 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public AdminDTO GetByLogin(string login)
         {
-            var admin = session.Query<Admin>().Where(u => u.Email == login);
+            var admin = session.Query<Admin>().SingleOrDefault(u => u.Login == login);
             return MapToAdminDTO(admin);
         }
 
@@ -84,9 +84,11 @@ namespace ISMNewsPortal.DAL.Repositories
         public void Update(AdminDTO item)
         {
             var admin = MapFromAdminDTO<Admin>(item);
+            var createdAdmin = session.Get<Admin>(item.Id);
+            Map(admin, createdAdmin);
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Update(admin);
+                session.Update(createdAdmin);
                 transaction.Commit();
             }
         }

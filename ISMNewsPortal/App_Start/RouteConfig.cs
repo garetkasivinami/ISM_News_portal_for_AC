@@ -29,10 +29,18 @@ namespace ISMNewsPortal
                 url: "Files/{name}",
                 defaults: new { controller = "Files", action = "GetFile", name = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Language",
+                url: "{lang}/{controller}/{action}/{id}",
+                defaults: new { controller = "News", action = "Index", id = UrlParameter.Optional },
+                constraints: new { lang = @"ru|en" }
+            );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "News", action = "Index", id = UrlParameter.Optional }
+                defaults: new { lang = "en", controller = "News", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

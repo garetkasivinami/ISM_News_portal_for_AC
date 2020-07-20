@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.Models;
-using ISMNewsPortal.Mappers;
 using ISMNewsPortal.BLL.Infrastructure;
 using NHibernate;
 using ISMNewsPortal.BLL.DTO;

@@ -2,13 +2,13 @@
 using System.Web.Mvc;
 using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.BLL.DTO;
-using ISMNewsPortal.Mappers;
 using System;
 using ISMNewsPortal.BLL.Infrastructure;
 
 namespace ISMNewsPortal.Controllers
 {
-    //[Authorize]
+    [Authorize]
+    [Culture]
     public class AdminController : Controller
     {
         [HttpGet]

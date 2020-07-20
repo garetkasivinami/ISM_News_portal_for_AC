@@ -1,7 +1,6 @@
 ﻿using ISMNewsPortal.BLL.DTO;
 using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.Models;
-using ISMNewsPortal.Mappers;
 using Microsoft.Ajax.Utilities;
 using NHibernate;
 using NHibernate.Event;

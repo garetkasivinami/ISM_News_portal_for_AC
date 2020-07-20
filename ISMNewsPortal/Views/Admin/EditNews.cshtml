@@ -2,12 +2,12 @@
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
-    ViewBag.Title = "Edit news";
+    ViewBag.Title = Language.Language.EditNews;
     DateTime publishDate = Model.PublicationDate ?? DateTime.Now;
     string publicationDate = publishDate.ToString("s").Remove(16);
 }
 <h4>Edit news post!</h4>
-@Html.ActionLink("Manage comments", "Comments", "Admin", new { @postId = Model.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+@Html.ActionLink(Language.Language.ManageComments, "Comments", "Admin", new { @postId = Model.Id }, new { @class = "btn btn-outline-dark btn-sm" })
 <img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath" />
 
 @using (Html.BeginForm("EditNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "main_form" }))
@@ -27,13 +27,13 @@
             <div class="card-body">
                 <div class="form-group">
                     <div class="col-md-12 input-edit">
-                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = "News post name" } })
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "card-title", @placeholder = Language.Language.NewsPostName } })
                         @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger card-title" })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-12 input-edit">
-                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text generateCharacterCount", @placeholder = "News post description" } })
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "card-text generateCharacterCount", @placeholder = Language.Language.Description } })
                         @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger card-text" })
                     </div>
                 </div>
@@ -67,7 +67,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-outline-dark" />
-                @Html.ActionLink("Return", "Index", null, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink(Language.Language.Return, "Index", null, new { @class = "btn btn-outline-primary" })
             </div>
         </div>
     </div>

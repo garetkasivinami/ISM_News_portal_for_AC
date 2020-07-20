@@ -23,7 +23,7 @@
 </div>
 
 <hr id="commentsLine"/>
-<p>Comment count: <span id="commentsCount">@Model.Comments.Count</span></p>
+<p>@Language.Language.CommentsCount: <span id="commentsCount">@Model.Comments.Count</span></p>
 @if (User.IsInRole(ISMNewsPortal.Models.Roles.Moderator.ToString()))
 {
     @Html.ActionLink("Manage comments", "Comments", "Admin", new { @postId = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
