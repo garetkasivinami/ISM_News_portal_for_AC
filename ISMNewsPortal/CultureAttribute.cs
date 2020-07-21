@@ -15,7 +15,7 @@ namespace ISMNewsPortal
             string cultureName = filterContext.RouteData.Values["lang"] as string;
 
             // Список культур
-            List<string> cultures = new List<string>() { "ua", "en", "ru" };
+            List<string> cultures = new List<string>() { "uk", "en", "ru" };
             if (!cultures.Contains(cultureName))
             {
                 cultureName = "en";

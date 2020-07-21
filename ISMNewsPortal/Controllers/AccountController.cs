@@ -31,17 +31,11 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
+                var admin = AdminHelper.GetAdmin(model.Login);
+                if (AdminHelper.CheckPassword(admin, model.Password))
                 {
-                    var admin = AdminHelper.GetAdmin(model.Login);
-                    if (AdminHelper.CheckPassword(admin, model.Password))
-                    {
-                        FormsAuthentication.SetAuthCookie(admin.Login, true);
-                        return RedirectToAction("Index", "Admin");
-                    }
-                } catch (Exception ex)
-                {
-                    ErrorLogger.LogError(ex.Message);
+                    FormsAuthentication.SetAuthCookie(admin.Login, true);
+                    return RedirectToAction("Index", "Admin");
                 }
                 ModelState.AddModelError("", "Invalid login and/or password!");
             }
@@ -78,7 +72,8 @@ namespace ISMNewsPortal.Controllers
                 }
                 AdminHelper.SetPassword(admin, model.Password);
                 AdminHelper.UpdateAdmin(admin);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 ErrorLogger.LogError(ex.Message);
             }

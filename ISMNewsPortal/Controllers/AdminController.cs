@@ -81,17 +81,9 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-                    var admin = new Admin() { Login = model.Login.Trim(), Email = model.Email };
-                    AdminHelper.SetPassword(admin, model.Password);
-                    AdminHelper.CreateAdmin(admin);
-                }
-                catch
-                {
-                    ModelState.AddModelError("", "There already exists a user with this login!");
-                    return View(model);
-                }
+                var admin = new Admin() { Login = model.Login.Trim(), Email = model.Email };
+                AdminHelper.SetPassword(admin, model.Password);
+                AdminHelper.CreateAdmin(admin);
             }
             return RedirectToAction("AdminsList");
         }
@@ -100,37 +92,21 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdmin(int id)
         {
-            try
-            {
-                Admin admin = AdminHelper.GetAdmin(id);
-                return View(new AdminViewModel(admin));
-            }
-            catch (Exception ex)
-            {
-                ErrorLogger.LogError(ex.Message);
-                return new HttpNotFoundResult();
-            }
+            Admin admin = AdminHelper.GetAdmin(id);
+            return View(new AdminViewModel(admin));
         }
 
         [HttpGet]
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdminSured(int id)
         {
-            try
+            var admin = AdminHelper.GetAdmin(id);
+            if (admin.Login == User.Identity.Name)
             {
-                var admin = AdminHelper.GetAdmin(id);
-                if (admin.Login == User.Identity.Name)
-                {
-                    return RedirectToAction("AdminsList");
-                }
-                AdminHelper.DeleteAdmin(id);
                 return RedirectToAction("AdminsList");
             }
-            catch (Exception ex)
-            {
-                ErrorLogger.LogError(ex.Message);
-                return new HttpNotFoundResult();
-            }
+            AdminHelper.DeleteAdmin(id);
+            return RedirectToAction("AdminsList");
         }
 
         [ValidateAntiForgeryToken]
@@ -145,19 +121,11 @@ namespace ISMNewsPortal.Controllers
                     ModelState.AddModelError("", "No file!");
                     return View(model);
                 }
-                try
-                {
-                    model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
-                    model.AuthorId = AdminHelper.GetAdmin(User.Identity.Name).Id;
-                    var newsPost = new NewsPost(model);
-                    NewsPostHelper.CreateNewsPost(newsPost);
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
-                {
-                    ErrorLogger.LogError(ex.Message);
-                    return new HttpNotFoundResult();
-                }
+                model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
+                model.AuthorId = AdminHelper.GetAdmin(User.Identity.Name).Id;
+                var newsPost = new NewsPost(model);
+                NewsPostHelper.CreateNewsPost(newsPost);
+                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -174,16 +142,8 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
         public ActionResult Comments(int postId)
         {
-            try
-            {
-                CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(postId);
-                return View(commentViewModelCollection);
-            }
-            catch (Exception ex)
-            {
-                ErrorLogger.LogError(ex.Message);
-                return new HttpStatusCodeResult(System.Net.HttpStatusCode.BadRequest);
-            }
+            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(postId);
+            return View(commentViewModelCollection);
         }
 
         [HttpGet]
@@ -198,16 +158,8 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.CanEditAdmin)]
         public ActionResult EditAdmin(int id)
         {
-            try
-            {
-                var admin = AdminHelper.GetAdmin(id);
-                return View(new AdminEditModel(admin));
-            }
-            catch (Exception ex)
-            {
-                ErrorLogger.LogError(ex.Message);
-                return new HttpNotFoundResult();
-            }
+            var admin = AdminHelper.GetAdmin(id);
+            return View(new AdminEditModel(admin));
         }
 
         [HttpPost]

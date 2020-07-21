@@ -16,6 +16,7 @@ namespace ISMNewsPortal
         {
             EFUnitOfWork unit = new EFUnitOfWork();
             Unity.SetUnitOfWork(unit);
+            GlobalFilters.Filters.Add(new ElmahExceptionLogger());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

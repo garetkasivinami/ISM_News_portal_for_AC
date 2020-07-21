@@ -156,6 +156,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="CultureAttribute.cs" />
+    <Compile Include="ElmahExceptionLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -405,7 +406,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Language.ua.resx">
+    <EmbeddedResource Include="Resources\Language.uk.resx">
       <CustomToolNamespace>Language</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Language.resx">

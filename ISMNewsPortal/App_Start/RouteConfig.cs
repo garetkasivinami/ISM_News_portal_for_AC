@@ -34,7 +34,7 @@ namespace ISMNewsPortal
                 name: "Language",
                 url: "{lang}/{controller}/{action}/{id}",
                 defaults: new { lang = "en", controller = "News", action = "Index", id = UrlParameter.Optional },
-                constraints: new { lang = @"ru|en|ua" }
+                constraints: new { lang = @"ru|en|uk" }
             );
 
             routes.MapRoute(

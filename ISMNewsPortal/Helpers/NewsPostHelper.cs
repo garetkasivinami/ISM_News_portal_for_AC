@@ -33,15 +33,14 @@ namespace ISMNewsPortal.Helpers
             newsPostService.DeleteNewsPost(id);
         }
 
-        public static NewsPostViewModel GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)
+        public static NewsPostViewModel GetNewsPostViewModelById(int id, int page, bool moderActions, bool onlyVisible = false)
         {
             NewsPostService newsPostService = new NewsPostService();
             CommentService commentService = new CommentService();
             var newsPostDTO = newsPostService.GetNewsPost(id);
             var newsPost = MapFromNewsPostDTO<NewsPost>(newsPostDTO);
-            if (checkVisibility && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
-                throw ExceptionGenerator.GenerateException("Post isn`t visivle!", "NewsPostHelper.GetNewsPostViewModelById(int id, int page, bool moderActions, bool checkVisibility = false)",
-                    $"id: {id}", $"page: {page}", $"moderActions: {moderActions}", $"checkVisibility: {checkVisibility}");
+            if (onlyVisible && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
+                throw new Exception("Post isn`t visible!");
 
             IEnumerable<CommentDTO> commentDTOs;
             List<Comment> comments;

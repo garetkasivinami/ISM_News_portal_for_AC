@@ -34,16 +34,9 @@ namespace ISMNewsPortal.Controllers
         [HttpGet]
         public ActionResult Details(int id, int? page)
         {
-            try
-            {
-                NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 0, User.IsInRole(Roles.Moderator.ToString()), true);
-                return View(newsPostViewModel);
-            }
-            catch (Exception ex)
-            {
-                ErrorLogger.LogError(ex.Message + ex.StackTrace);
-                return new HttpNotFoundResult();
-            }
+            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 0, User.IsInRole(Roles.Moderator.ToString()), true);
+            return View(newsPostViewModel);
+
         }
 
         [HttpGet]
@@ -51,16 +44,8 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult Preview(int id)
         {
-            try
-            {
-                NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 0, User.IsInRole(Roles.Moderator.ToString()));
-                return View("Details", newsPostViewModel);
-            }
-            catch (Exception ex)
-            {
-                ErrorLogger.LogError(ex.Message);
-                return new HttpNotFoundResult();
-            }
+            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 0, User.IsInRole(Roles.Moderator.ToString()));
+            return View("Details", newsPostViewModel);
         }
 
         [ValidateAntiForgeryToken]
