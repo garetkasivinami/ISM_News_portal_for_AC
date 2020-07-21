@@ -243,6 +243,9 @@
   <data name="NotPublished" xml:space="preserve">
     <value>Not published!</value>
   </data>
+  <data name="onlyPublished" xml:space="preserve">
+    <value>Only published</value>
+  </data>
   <data name="OpenFront" xml:space="preserve">
     <value>Open frontend</value>
   </data>

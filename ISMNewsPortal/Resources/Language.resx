@@ -195,6 +195,9 @@
   <data name="EditAdmin" xml:space="preserve">
     <value>Edit admin</value>
   </data>
+  <data name="editDate" xml:space="preserve">
+    <value>Edit date</value>
+  </data>
   <data name="EditNews" xml:space="preserve">
     <value>Edit news</value>
   </data>
@@ -206,6 +209,9 @@
   </data>
   <data name="GoToPost" xml:space="preserve">
     <value>Go to post</value>
+  </data>
+  <data name="id" xml:space="preserve">
+    <value>Id</value>
   </data>
   <data name="LastEditDate" xml:space="preserve">
     <value>Last edit date</value>
@@ -241,7 +247,10 @@
     <value>No news</value>
   </data>
   <data name="NotPublished" xml:space="preserve">
-    <value>Not published!</value>
+    <value>Not published</value>
+  </data>
+  <data name="onlyPublished" xml:space="preserve">
+    <value>Only published</value>
   </data>
   <data name="OpenFront" xml:space="preserve">
     <value>Open frontend</value>

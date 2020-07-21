@@ -295,6 +295,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Edit date.
+        /// </summary>
+        public static string editDate {
+            get {
+                return ResourceManager.GetString("editDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Edit news.
         /// </summary>
         public static string EditNews {
@@ -327,6 +336,15 @@ namespace Language {
         public static string GoToPost {
             get {
                 return ResourceManager.GetString("GoToPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Id.
+        /// </summary>
+        public static string id {
+            get {
+                return ResourceManager.GetString("id", resourceCulture);
             }
         }
         
@@ -430,11 +448,20 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Not published!.
+        ///   Ищет локализованную строку, похожую на Not published.
         /// </summary>
         public static string NotPublished {
             get {
                 return ResourceManager.GetString("NotPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Only published.
+        /// </summary>
+        public static string onlyPublished {
+            get {
+                return ResourceManager.GetString("onlyPublished", resourceCulture);
             }
         }
         

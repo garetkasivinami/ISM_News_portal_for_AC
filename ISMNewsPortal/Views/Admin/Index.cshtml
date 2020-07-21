@@ -1,4 +1,5 @@
 ﻿@model ISMNewsPortal.Models.NewsPostAdminCollection
+@using ISMNewsPortal.Helpers
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
@@ -13,184 +14,55 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown drop-flex">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filter by...@Model.Filter
+                    @Language.Language.FilterBy...@LinkHelper.GetLocalizedByName(Model.Filter)
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Today", "Index", "Admin", new
-                    {
-                        @Filter = "today",
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Yesterday", "Index", "Admin", new
-                    {
-                        @Filter = "yesterday",
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("7 Days", "Index", "Admin", new
-                    {
-                        @Filter = "week",
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Only published", "Index", "Admin", new
-                    {
-                        @Filter = "only published",
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Not published", "Index", "Admin", new
-                    {
-                        @Filter = "not published",
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("All", "Index", "Admin", new
-                    {
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.today, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "today"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.yesterday, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "yesterday"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.week, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "week"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.onlyPublished, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "onlyPublished"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.NotPublished, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "NotPublished"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.all, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, null), new { @class = "dropdown-item" })
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort by...
+                    @Language.Language.SortBy...
                     @if (Model.SortType != null)
                     {
-                        @Model.SortType
+                        @LinkHelper.GetLocalizedByName(Model.SortType)
                         if (Model.Reversed == true)
                         {
-                            <span> DESC</span>
+                            <span> @Language.Language.DESC</span>
                         }
                         else
                         {
-                            <span> ASC</span>
+                            <span> @Language.Language.ASC</span>
                         }
                     }
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Id ASC", "Index", "Admin", new
-                    {
-                        @SortType = "id",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = false
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Id DESC", "Index", "Admin", new
-                    {
-                        @SortType = "id",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = true
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Name ASC", "Index", "Admin", new
-                    {
-                        @SortType = "name",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = false
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Name DESC", "Index", "Admin", new
-                    {
-                        @SortType = "name",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = true
-                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Description ASC", "Index", "Admin", new
-                    {
-                        @SortType = "description",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = false
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Description DESC", "Index", "Admin", new
-                {
-                        @SortType = "description",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = true
-                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date ASC", "Index", "Admin", new
-                    {
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = false
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date DESC", "Index", "Admin", new
-                {
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = true
-                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Edit date ASC", "Index", "Admin", new
-                    {
-                        @SortType = "editDate",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = false
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Edit date DESC", "Index", "Admin", new
-                {
-                        @SortType = "editDate",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = true
-                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Author ASC", "Index", "Admin", new
-                    {
-                        @SortType = "author",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = false
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Author DESC", "Index", "Admin", new
-                    {
-                        @SortType = "author",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = true
-                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Publication date ASC", "Index", "Admin", new
-                    {
-                        @SortType = "publishDate",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = false
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Publication date DESC", "Index", "Admin", new
-                {
-                        @SortType = "publishDate",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                       @Reversed = true
-                }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Visibility ASC", "Index", "Admin", new
-                    {
-                        @SortType = "visibility",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = false
-               }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Visibility DESC", "Index", "Admin", new
-                    {
-                        @SortType = "visibility",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search,
-                        @Reversed = true
-                }, new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.id + " " + Language.Language.ASC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "id", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.id + " " + Language.Language.DESC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "id", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.name + " " + Language.Language.ASC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "name", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.name + " " + Language.Language.DESC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "name", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Description + " " + Language.Language.ASC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "description", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Description + " " + Language.Language.DESC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "description", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "date", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "date", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.editDate + " " + Language.Language.ASC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "editDate", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.editDate + " " + Language.Language.DESC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "editDate", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Author + " " + Language.Language.ASC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "author", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Author + " " + Language.Language.DESC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "author", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.PublicationDate + " " + Language.Language.ASC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "PublicationDate", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.PublicationDate + " " + Language.Language.DESC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "PublicationDate", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Visibility + " " + Language.Language.ASC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "visibility", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Visibility + " " + Language.Language.DESC, "Index", "Admin", LinkHelper.CreateSortLinks(Model, "visibility", true), new { @class = "dropdown-item" })
                 </div>
             </li>
             @if (Model.Filter != null || Model.SortType != null)
             {
-                @Html.ActionLink("Reset", "Index", "Home", new { }, new { @class = "nav-link" })
+                @Html.ActionLink(Language.Language.Reset, "Index", "Home", new { }, new { @class = "nav-link" })
             }
         </ul>
         @using (Html.BeginForm("Index", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
