@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISMNewsPortal.Helpers;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ISMNewsPortal.Models

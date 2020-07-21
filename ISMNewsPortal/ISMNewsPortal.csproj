@@ -54,6 +54,9 @@
     <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -161,11 +164,11 @@
     <Compile Include="Models\Admin\Admin.cs" />
     <Compile Include="Models\Admin\AdminCreateModel.cs" />
     <Compile Include="Models\Admin\AdminEditModel.cs" />
-    <Compile Include="Models\Admin\AdminHelper.cs" />
+    <Compile Include="Helpers\AdminHelper.cs" />
     <Compile Include="Models\Admin\AdminViewModel.cs" />
     <Compile Include="Models\Admin\AdminViewModelCollection.cs" />
     <Compile Include="Models\ChangePassword.cs" />
-    <Compile Include="Models\Comment\CommentHelper.cs" />
+    <Compile Include="Helpers\CommentHelper.cs" />
     <Compile Include="Models\CultureAttribute.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\Comment\Comment.cs" />
@@ -173,12 +176,12 @@
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CommentViewModelCollection.cs" />
     <Compile Include="Models\CustomRoleProvider.cs" />
-    <Compile Include="Models\FileModelActions.cs" />
+    <Compile Include="Helpers\FileModelActions.cs" />
     <Compile Include="Models\NewsPost\NewsPost.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminView.cs" />
     <Compile Include="Models\NewsPost\NewsPostEditModel.cs" />
-    <Compile Include="Models\NewsPost\NewsPostHelper.cs" />
+    <Compile Include="Helpers\NewsPostHelper.cs" />
     <Compile Include="Models\NewsPost\NewsPostCreateModel.cs" />
     <Compile Include="Models\NewsPost\NewsPostSimplifiedCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostSimplifiedView.cs" />
@@ -203,6 +206,7 @@
     <Content Include="App_Data\NewsDatabase_log.ldf">
       <DependentUpon>NewsDatabase.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />

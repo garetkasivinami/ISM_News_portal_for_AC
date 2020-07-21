@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ISMNewsPortal.Helpers;
+using System.Collections.Generic;
 
 namespace ISMNewsPortal.Models
 {
