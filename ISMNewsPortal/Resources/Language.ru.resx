@@ -189,6 +189,9 @@
   <data name="Email" xml:space="preserve">
     <value>Почта</value>
   </data>
+  <data name="FilterBy" xml:space="preserve">
+    <value>Фильтровать за</value>
+  </data>
   <data name="GoToPost" xml:space="preserve">
     <value>Перейти к посту</value>
   </data>
@@ -251,6 +254,15 @@
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Обязаности</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>Искать</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Сортировать за</value>
   </data>
   <data name="SureQ" xml:space="preserve">
     <value>Вы согласны?</value>

@@ -14,6 +14,7 @@ using ISMNewsPortal.BLL.Infrastructure;
 
 namespace ISMNewsPortal.Controllers
 {
+    [Culture]
     public class NewsController : Controller
     {
         [HttpGet]

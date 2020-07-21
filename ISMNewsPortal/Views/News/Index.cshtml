@@ -15,7 +15,7 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown drop-flex">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Filter by...@Model.Filter
+                        @Language.Language.FilterBy...@Model.Filter
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         @Html.ActionLink("Today", "Index", "News", new { @filter = "today", @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sort by...
+                        @Language.Language.SortBy...
                         @if (Model.SortType != null)
                         {
                             @Model.SortType
@@ -56,8 +56,8 @@
             </ul>
             @using (Html.BeginForm("Index", "News", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
             {
-                <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search" value="@Model.Search">
-                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+                <input class="form-control mr-sm-2" type="search" name="search" placeholder="@Language.Language.Search" aria-label="Search" value="@Model.Search">
+                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">@Language.Language.SearchButton</button>
             }
         </div>
     </nav>

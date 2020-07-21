@@ -195,8 +195,8 @@
         </ul>
         @using (Html.BeginForm("Index", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {
-            <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
-            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" name="Search" placeholder="@Language.Language.Search" aria-label="Search" value="@Model.Search">
+            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">@Language.Language.SearchButton</button>
         }
     </div>
 </nav>

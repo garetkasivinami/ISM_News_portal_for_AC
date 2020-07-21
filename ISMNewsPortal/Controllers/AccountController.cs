@@ -13,6 +13,7 @@ using ISMNewsPortal.BLL.DTO;
 
 namespace ISMNewsPortal.Controllers
 {
+    [Culture]
     public class AccountController : Controller
     {
         [HttpGet]
