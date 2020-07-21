@@ -126,6 +126,12 @@
   <data name="AdminsList" xml:space="preserve">
     <value>Admins list</value>
   </data>
+  <data name="all" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ASC" xml:space="preserve">
+    <value>ASC</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Author</value>
   </data>
@@ -165,6 +171,9 @@
   <data name="CreateNewsPost" xml:space="preserve">
     <value>Create news post</value>
   </data>
+  <data name="date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="DeleteNewsPost" xml:space="preserve">
     <value>Delete news post</value>
+  </data>
+  <data name="DESC" xml:space="preserve">
+    <value>DESC</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -206,6 +218,9 @@
   </data>
   <data name="ManageComments" xml:space="preserve">
     <value>Manage comments</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="NewsList" xml:space="preserve">
     <value>News list</value>
@@ -249,6 +264,9 @@
   <data name="RepPassword" xml:space="preserve">
     <value>Repeat password</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
   <data name="Return" xml:space="preserve">
     <value>Return</value>
   </data>
@@ -267,13 +285,22 @@
   <data name="SureQ" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
+  <data name="today" xml:space="preserve">
+    <value>Today</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Is visible</value>
   </data>
+  <data name="week" xml:space="preserve">
+    <value>7 days</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="yesterday" xml:space="preserve">
+    <value>Yesterday</value>
   </data>
 </root>

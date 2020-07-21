@@ -88,6 +88,24 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на All.
+        /// </summary>
+        public static string all {
+            get {
+                return ResourceManager.GetString("all", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ASC.
+        /// </summary>
+        public static string ASC {
+            get {
+                return ResourceManager.GetString("ASC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Author.
         /// </summary>
         public static string Author {
@@ -205,6 +223,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Date.
+        /// </summary>
+        public static string date {
+            get {
+                return ResourceManager.GetString("date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Delete.
         /// </summary>
         public static string Delete {
@@ -228,6 +255,15 @@ namespace Language {
         public static string DeleteNewsPost {
             get {
                 return ResourceManager.GetString("DeleteNewsPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на DESC.
+        /// </summary>
+        public static string DESC {
+            get {
+                return ResourceManager.GetString("DESC", resourceCulture);
             }
         }
         
@@ -327,6 +363,15 @@ namespace Language {
         public static string ManageComments {
             get {
                 return ResourceManager.GetString("ManageComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Name.
+        /// </summary>
+        public static string name {
+            get {
+                return ResourceManager.GetString("name", resourceCulture);
             }
         }
         
@@ -457,6 +502,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Return.
         /// </summary>
         public static string Return {
@@ -511,6 +565,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Today.
+        /// </summary>
+        public static string today {
+            get {
+                return ResourceManager.GetString("today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Username.
         /// </summary>
         public static string Username {
@@ -529,11 +592,29 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на 7 days.
+        /// </summary>
+        public static string week {
+            get {
+                return ResourceManager.GetString("week", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Yes.
         /// </summary>
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Yesterday.
+        /// </summary>
+        public static string yesterday {
+            get {
+                return ResourceManager.GetString("yesterday", resourceCulture);
             }
         }
     }

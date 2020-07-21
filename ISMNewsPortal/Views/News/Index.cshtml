@@ -1,4 +1,5 @@
 ﻿@model ISMNewsPortal.Models.NewsPostSimplifiedCollection
+@using ISMNewsPortal.Helpers
 
 @{
     ViewBag.Title = "Home Page";
@@ -15,13 +16,13 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown drop-flex">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @Language.Language.FilterBy...@Model.Filter
+                        @Language.Language.FilterBy...@LinkHelper.GetLocalizedByName(Model.Filter)
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Today", "Index", "News", new { @filter = "today", @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Yesterday", "Index", "News", new { @filter = "yesterday", @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("7 Days", "Index", "News", new { @filter = "week", @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("All", "Index", "News", new { @page = Model.Page, @sortType = Model.SortType, @Reversed = Model.Reversed, @Search = Model.Search }, new { @class = "dropdown-item" })
+                        @Html.ActionLink(Language.Language.today, "Index", "News", LinkHelper.CreateFilterLinks(Model, "today"), new { @class = "dropdown-item" })
+                        @Html.ActionLink(Language.Language.yesterday, "Index", "News", LinkHelper.CreateFilterLinks(Model, "yesterday"), new { @class = "dropdown-item" })
+                        @Html.ActionLink(Language.Language.week, "Index", "News", LinkHelper.CreateFilterLinks(Model, "week"), new { @class = "dropdown-item" })
+                        @Html.ActionLink(Language.Language.all, "Index", "News", LinkHelper.CreateFilterLinks(Model, null), new { @class = "dropdown-item" })
                     </div>
                 </li>
                 <li class="nav-item dropdown">
@@ -29,29 +30,29 @@
                         @Language.Language.SortBy...
                         @if (Model.SortType != null)
                         {
-                            @Model.SortType
+                            @LinkHelper.GetLocalizedByName(Model.SortType)
                             if (Model.Reversed == true)
                             {
-                                <span> DESC</span>
+                                <span> @Language.Language.DESC</span>
                             }
                             else
                             {
-                                <span> ASC</span>
+                                <span> @Language.Language.ASC</span>
                             }
                         }
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @Html.ActionLink("Name ASC", "Index", "News", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = false }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Name DESC", "Index", "News", new { @sortType = "name", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Description ASC", "Index", "News", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = false }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Description DESC", "Index", "News", new { @sortType = "description", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item" })
-                        @Html.ActionLink("Date ASC", "Index", "News", new { @sortType = "date", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search }, new { @class = "dropdown-item", @Reversed = false })
-                        @Html.ActionLink("Date DESC", "Index", "News", new { @sortType = "date", @page = Model.Page, @filter = Model.Filter, @Search = Model.Search, @Reversed = true }, new { @class = "dropdown-item", @Reversed = true })
+                        @Html.ActionLink(Language.Language.name + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "name", false), new { @class = "dropdown-item" })
+                        @Html.ActionLink(Language.Language.name + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "name", true), new { @class = "dropdown-item" })
+                        @Html.ActionLink(Language.Language.Description + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "Description", false), new { @class = "dropdown-item" })
+                        @Html.ActionLink(Language.Language.Description + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "Description", true), new { @class = "dropdown-item" })
+                        @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", false), new { @class = "dropdown-item", @Reversed = false })
+                        @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", true), new { @class = "dropdown-item", @Reversed = true })
                     </div>
                 </li>
                 @if (Model.Filter != null || Model.SortType != null)
                 {
-                    @Html.ActionLink("Reset", "Index", "News", new { }, new { @class = "nav-link" })
+                    @Html.ActionLink(Language.Language.Reset, "Index", "News", new { }, new { @class = "nav-link" })
                 }
             </ul>
             @using (Html.BeginForm("Index", "News", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
@@ -80,27 +81,14 @@
     <div class="btn-group" role="group">
         @if (Model.Page > 5)
         {
-            @Html.ActionLink("<<", "Index", "News", new
-            {
-                @SortType = Model.SortType,
-                @Filter = Model.Filter,
-                @Search = Model.Search,
-                @Reversed = Model.Reversed
-            }, new { @class = "btn btn-outline-dark" });
+            @Html.ActionLink("<<", "Index", "News", LinkHelper.CreatePageLinks(Model, -Model.Page), new { @class = "btn btn-outline-dark" });
         }
     </div>
 
     <div class="btn-group" role="group">
         @if (Model.Page > 0)
         {
-            @Html.ActionLink("<", "Index", "News", new
-            {
-                @Page = Model.Page - 1,
-                @SortType = Model.SortType,
-                @Filter = Model.Filter,
-                @Search = Model.Search,
-                @Reversed = Model.Reversed
-            }, new { @class = "btn btn-outline-dark" }); ;
+            @Html.ActionLink("<", "Index", "News", LinkHelper.CreatePageLinks(Model, -1), new { @class = "btn btn-outline-dark" }); ;
         }
     </div>
 
@@ -109,14 +97,7 @@
         <div class="btn-group" role="group">
             @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
             {
-                @Html.ActionLink((page + 1).ToString(), "Index", "News", new
-                {
-                    @page = page,
-                    @SortType = Model.SortType,
-                    @Filter = Model.Filter,
-                    @Search = Model.Search,
-                    @Reversed = Model.Reversed
-                }, new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-primary btn-sm") });
+                @Html.ActionLink((page + 1).ToString(), "Index", "News", LinkHelper.CreatePageLinks(Model, page - Model.Page), new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-primary btn-sm") });
             }
         </div>
     }
@@ -124,14 +105,7 @@
     <div class="btn-group" role="group">
         @if (Model.Page < Model.Pages - 1)
         {
-            @Html.ActionLink(">", "Index", "News", new
-            {
-                @Page = Model.Page + 1,
-                @SortType = Model.SortType,
-                @Filter = Model.Filter,
-                @Search = Model.Search,
-                @Reversed = Model.Reversed
-            }, new { @class = "btn btn-outline-dark" }); ;
+            @Html.ActionLink(">", "Index", "News", LinkHelper.CreatePageLinks(Model, 1), new { @class = "btn btn-outline-dark" }); ;
         }
     </div>
 </div>

@@ -156,6 +156,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Models\AccountRequest.cs" />
     <Compile Include="Models\Admin\Admin.cs" />
     <Compile Include="Models\Admin\AdminCreateModel.cs" />
@@ -400,6 +401,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Language.ua.resx">
+      <CustomToolNamespace>Language</CustomToolNamespace>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Language.resx">
       <CustomToolNamespace>Language</CustomToolNamespace>
       <SubType>Designer</SubType>

@@ -104,6 +104,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
         public static string GetSortSqlString(string sortType, bool reversed)
         {
             string sortString;
+            sortType = sortType?.ToLower();
             switch (sortType)
             {
                 case "name":
@@ -123,6 +124,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
 
         public static string GetSortFieldName(string sortType)
         {
+            sortType = sortType?.ToLower();
             switch (sortType)
             {
                 case "name":
@@ -137,6 +139,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
         public static string GetAdminSortSqlString(string sortType, bool reversed)
         {
             string sortString;
+            sortType = sortType?.ToLower();
             switch (sortType)
             {
                 case "id":

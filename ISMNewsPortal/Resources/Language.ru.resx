@@ -126,6 +126,12 @@
   <data name="AdminsList" xml:space="preserve">
     <value>Список администраторов</value>
   </data>
+  <data name="all" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="ASC" xml:space="preserve">
+    <value>спаданием</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Автор</value>
   </data>
@@ -165,6 +171,9 @@
   <data name="CreateNewsPost" xml:space="preserve">
     <value>Создать новость</value>
   </data>
+  <data name="date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -173,6 +182,9 @@
   </data>
   <data name="DeleteNewsPost" xml:space="preserve">
     <value>Удалить новость</value>
+  </data>
+  <data name="DESC" xml:space="preserve">
+    <value>возростанием</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
@@ -206,6 +218,9 @@
   </data>
   <data name="ManageComments" xml:space="preserve">
     <value>Изменить комментарии</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Им'я</value>
   </data>
   <data name="NewsList" xml:space="preserve">
     <value>Список новостей</value>
@@ -249,6 +264,9 @@
   <data name="RepPassword" xml:space="preserve">
     <value>Повторите пароль</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
   <data name="Return" xml:space="preserve">
     <value>Вернуться</value>
   </data>
@@ -267,13 +285,22 @@
   <data name="SureQ" xml:space="preserve">
     <value>Вы согласны?</value>
   </data>
+  <data name="today" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
   <data name="Username" xml:space="preserve">
     <value>Имя пользователя</value>
   </data>
   <data name="Visibility" xml:space="preserve">
     <value>Видимость</value>
   </data>
+  <data name="week" xml:space="preserve">
+    <value>7 дней</value>
+  </data>
   <data name="Yes" xml:space="preserve">
     <value>Да</value>
+  </data>
+  <data name="yesterday" xml:space="preserve">
+    <value>Вчера</value>
   </data>
 </root>
