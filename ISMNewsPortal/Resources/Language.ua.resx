@@ -118,189 +118,189 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AdminId" xml:space="preserve">
-    <value>Admin Id</value>
+    <value>Id Адміністратора</value>
   </data>
   <data name="AdminPage" xml:space="preserve">
-    <value>Admin page</value>
+    <value>Сторінка адміністратора</value>
   </data>
   <data name="AdminsList" xml:space="preserve">
-    <value>Admins list</value>
+    <value>Список адміністраторів</value>
   </data>
   <data name="all" xml:space="preserve">
-    <value>All</value>
+    <value>Всі</value>
   </data>
   <data name="ASC" xml:space="preserve">
-    <value>ASC</value>
+    <value>за спаданням</value>
   </data>
   <data name="Author" xml:space="preserve">
-    <value>Author</value>
+    <value>Автор</value>
   </data>
   <data name="ChangPassword" xml:space="preserve">
-    <value>Change password</value>
+    <value>Змінити пароль</value>
   </data>
   <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
+    <value>Коментувати</value>
   </data>
   <data name="Comments" xml:space="preserve">
-    <value>Comments</value>
+    <value>Коментарі</value>
   </data>
   <data name="CommentsC" xml:space="preserve">
-    <value>Comments</value>
+    <value>Коментарів</value>
   </data>
   <data name="CommentsCount" xml:space="preserve">
-    <value>Comments count</value>
+    <value>Кількість коментарів</value>
   </data>
   <data name="CommentsList" xml:space="preserve">
-    <value>Comments list</value>
+    <value>Список коментарів</value>
   </data>
   <data name="CommentText" xml:space="preserve">
-    <value>Text</value>
+    <value>Коментувати</value>
   </data>
   <data name="CreateAdmin" xml:space="preserve">
-    <value>Create admin</value>
+    <value>Створити адміністратора</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
-    <value>Created date</value>
+    <value>Дата створення</value>
   </data>
   <data name="CreateNAdmin" xml:space="preserve">
-    <value>Create new admin</value>
+    <value>Створити нового адміністратора</value>
   </data>
   <data name="CreateNews" xml:space="preserve">
-    <value>Create news</value>
+    <value>Створити новину</value>
   </data>
   <data name="CreateNewsPost" xml:space="preserve">
-    <value>Create news post</value>
+    <value>Створити пост новини</value>
   </data>
   <data name="date" xml:space="preserve">
-    <value>Date</value>
+    <value>Дата</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Видалити</value>
   </data>
   <data name="DeleteAdmin" xml:space="preserve">
-    <value>Delete admin</value>
+    <value>Видалити адміністратора</value>
   </data>
   <data name="DeleteNewsPost" xml:space="preserve">
-    <value>Delete news post</value>
+    <value>Видалити пост новини</value>
   </data>
   <data name="DESC" xml:space="preserve">
-    <value>DESC</value>
+    <value>за зростанням</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description</value>
+    <value>Опис</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>Редагувати</value>
   </data>
   <data name="EditAdmin" xml:space="preserve">
-    <value>Edit admin</value>
+    <value>Редагувати адміністратора</value>
   </data>
   <data name="EditNews" xml:space="preserve">
-    <value>Edit news</value>
+    <value>Редагувати новину</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>Пошта</value>
   </data>
   <data name="FilterBy" xml:space="preserve">
-    <value>Filter by</value>
+    <value>Фільтрувати за</value>
   </data>
   <data name="GoToPost" xml:space="preserve">
-    <value>Go to post</value>
+    <value>Перейти до посту</value>
   </data>
   <data name="LastEditDate" xml:space="preserve">
-    <value>Last edit date</value>
+    <value>Дата останнього редагування</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Логін</value>
   </data>
   <data name="Logoff" xml:space="preserve">
-    <value>Logoff</value>
+    <value>Вийти</value>
   </data>
   <data name="ManageComments" xml:space="preserve">
-    <value>Manage comments</value>
+    <value>Керувати коментарями</value>
   </data>
   <data name="name" xml:space="preserve">
-    <value>Name</value>
+    <value>Ім'я</value>
   </data>
   <data name="NewsList" xml:space="preserve">
-    <value>News list</value>
+    <value>Список новин</value>
   </data>
   <data name="NewsPage" xml:space="preserve">
-    <value>News page</value>
+    <value>Сторінка новин</value>
   </data>
   <data name="NewsPostName" xml:space="preserve">
-    <value>Title</value>
+    <value>Назва посту новини</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>No</value>
+    <value>Ні</value>
   </data>
   <data name="NoComments" xml:space="preserve">
-    <value>No comments</value>
+    <value>Коментарі відсутні</value>
   </data>
   <data name="NoNews" xml:space="preserve">
-    <value>No news</value>
+    <value>Новини відсутні</value>
   </data>
   <data name="NotPublished" xml:space="preserve">
-    <value>Not published!</value>
+    <value>Не опубліковано!</value>
   </data>
   <data name="OpenFront" xml:space="preserve">
-    <value>Open frontend</value>
+    <value>Відкрити frontend</value>
   </data>
   <data name="Pages" xml:space="preserve">
-    <value>Pages</value>
+    <value>Сторінок</value>
   </data>
   <data name="Password" xml:space="preserve">
-    <value>Password</value>
+    <value>Пароль</value>
   </data>
   <data name="PostEdited" xml:space="preserve">
-    <value>Post edited</value>
+    <value>Пост відредагований</value>
   </data>
   <data name="Preview" xml:space="preserve">
-    <value>Preview</value>
+    <value>Попередній огляд</value>
   </data>
   <data name="PublicationDate" xml:space="preserve">
-    <value>Publication date</value>
+    <value>Дата публікації</value>
   </data>
   <data name="RepPassword" xml:space="preserve">
-    <value>Repeat password</value>
+    <value>Повторіть пароль</value>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Очистити</value>
   </data>
   <data name="Return" xml:space="preserve">
-    <value>Return</value>
+    <value>Повернутися</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Roles</value>
+    <value>Ролі</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Search</value>
+    <value>Пошук</value>
   </data>
   <data name="SearchButton" xml:space="preserve">
-    <value>Search</value>
+    <value>Шукати</value>
   </data>
   <data name="SortBy" xml:space="preserve">
-    <value>Sort by</value>
+    <value>Сортувати за</value>
   </data>
   <data name="SureQ" xml:space="preserve">
-    <value>Are you sure?</value>
+    <value>Ви впевнені?</value>
   </data>
   <data name="today" xml:space="preserve">
-    <value>Today</value>
+    <value>Сьогодні</value>
   </data>
   <data name="Username" xml:space="preserve">
-    <value>Username</value>
+    <value>Ім'я користувача</value>
   </data>
   <data name="Visibility" xml:space="preserve">
-    <value>Is visible</value>
+    <value>Видимість</value>
   </data>
   <data name="week" xml:space="preserve">
-    <value>7 days</value>
+    <value>7 днів</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Так</value>
   </data>
   <data name="yesterday" xml:space="preserve">
-    <value>Yesterday</value>
+    <value>Вчора</value>
   </data>
 </root>

@@ -130,7 +130,7 @@
     <value>Все</value>
   </data>
   <data name="ASC" xml:space="preserve">
-    <value>спаданием</value>
+    <value>по спаданию</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Автор</value>
@@ -139,19 +139,19 @@
     <value>Изменить пароль</value>
   </data>
   <data name="Comment" xml:space="preserve">
-    <value>Коментировать</value>
+    <value>Комментировать</value>
   </data>
   <data name="Comments" xml:space="preserve">
     <value>Комментарии</value>
   </data>
   <data name="CommentsC" xml:space="preserve">
-    <value>Коментариев</value>
+    <value>Комментариев</value>
   </data>
   <data name="CommentsCount" xml:space="preserve">
-    <value>Количество коментариев</value>
+    <value>Количество комментариев</value>
   </data>
   <data name="CommentsList" xml:space="preserve">
-    <value>Список коментариев</value>
+    <value>Список комментариев</value>
   </data>
   <data name="CommentText" xml:space="preserve">
     <value>Комментировать</value>
@@ -163,13 +163,13 @@
     <value>Дата создания</value>
   </data>
   <data name="CreateNAdmin" xml:space="preserve">
-    <value>Создать администратора</value>
+    <value>Создать нового администратора</value>
   </data>
   <data name="CreateNews" xml:space="preserve">
     <value>Создать новость</value>
   </data>
   <data name="CreateNewsPost" xml:space="preserve">
-    <value>Создать новость</value>
+    <value>Создать новостной пост</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>Дата</value>
@@ -181,10 +181,10 @@
     <value>Удалить администратора</value>
   </data>
   <data name="DeleteNewsPost" xml:space="preserve">
-    <value>Удалить новость</value>
+    <value>Удалить новостной пост</value>
   </data>
   <data name="DESC" xml:space="preserve">
-    <value>возростанием</value>
+    <value>по возрастанию</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Описание</value>
@@ -202,13 +202,13 @@
     <value>Почта</value>
   </data>
   <data name="FilterBy" xml:space="preserve">
-    <value>Фильтровать за</value>
+    <value>Фильтровать по</value>
   </data>
   <data name="GoToPost" xml:space="preserve">
     <value>Перейти к посту</value>
   </data>
   <data name="LastEditDate" xml:space="preserve">
-    <value>Врем'я последнего редактирования</value>
+    <value>Дата последнего редактирования</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Логин</value>
@@ -217,7 +217,7 @@
     <value>Выйти</value>
   </data>
   <data name="ManageComments" xml:space="preserve">
-    <value>Изменить комментарии</value>
+    <value>Управлять комментариями</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>Им'я</value>
@@ -229,7 +229,7 @@
     <value>Страница новостей</value>
   </data>
   <data name="NewsPostName" xml:space="preserve">
-    <value>Название поста</value>
+    <value>Название новостного поста</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>Нет</value>
@@ -244,7 +244,7 @@
     <value>Не опубликовано!</value>
   </data>
   <data name="OpenFront" xml:space="preserve">
-    <value>Открыть фронтенд</value>
+    <value>Открыть frontend</value>
   </data>
   <data name="Pages" xml:space="preserve">
     <value>Страниц</value>
@@ -253,7 +253,7 @@
     <value>Пароль</value>
   </data>
   <data name="PostEdited" xml:space="preserve">
-    <value>Пост редактирован</value>
+    <value>Пост отредактирован</value>
   </data>
   <data name="Preview" xml:space="preserve">
     <value>Предосмотр</value>
@@ -280,7 +280,7 @@
     <value>Искать</value>
   </data>
   <data name="SortBy" xml:space="preserve">
-    <value>Сортировать за</value>
+    <value>Сортировать по</value>
   </data>
   <data name="SureQ" xml:space="preserve">
     <value>Вы согласны?</value>

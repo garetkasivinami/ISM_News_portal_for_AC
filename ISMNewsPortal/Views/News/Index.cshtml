@@ -88,7 +88,7 @@
     <div class="btn-group" role="group">
         @if (Model.Page > 0)
         {
-            @Html.ActionLink("<", "Index", "News", LinkHelper.CreatePageLinks(Model, -1), new { @class = "btn btn-outline-dark" }); ;
+            @Html.ActionLink("<", "Index", "News", LinkHelper.CreatePageLinks(Model, -1), new { @class = "btn btn-outline-dark btn-sm" }); ;
         }
     </div>
 
@@ -105,7 +105,7 @@
     <div class="btn-group" role="group">
         @if (Model.Page < Model.Pages - 1)
         {
-            @Html.ActionLink(">", "Index", "News", LinkHelper.CreatePageLinks(Model, 1), new { @class = "btn btn-outline-dark" }); ;
+            @Html.ActionLink(">", "Index", "News", LinkHelper.CreatePageLinks(Model, 1), new { @class = "btn btn-outline-dark btn-sm" }); ;
         }
     </div>
 </div>

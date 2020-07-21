@@ -161,3 +161,7 @@ textarea.form-control {
 .btn:focus {
     box-shadow: none;
 }
+
+.btn-group>.btn:not(:last-child) {
+    border-right: 0;
+}

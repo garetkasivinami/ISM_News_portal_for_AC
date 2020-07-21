@@ -20,7 +20,7 @@
         @Html.ActionLink("<<", "Index", "Home", new
         {
             @postId = Model.NewsPost.Id
-        }, new { @class = "btn btn-outline-dark" });
+        }, new { @class = "btn btn-outline-dark btn-sm" });
     }
 </div>
 
@@ -31,7 +31,7 @@
         {
             @Page = Model.Page - 1,
             @postId = Model.NewsPost.Id
-        }, new { @class = "btn btn-outline-dark" }); ;
+        }, new { @class = "btn btn-outline-dark btn-sm" }); ;
     }
 </div>
 
@@ -53,7 +53,7 @@
         {
             @Page = Model.Page + 1,
             @postId = Model.NewsPost.Id
-        }, new { @class = "btn btn-outline-dark" }); ;
+        }, new { @class = "btn btn-outline-dark btn-sm" }); ;
     }
 </div>
 
