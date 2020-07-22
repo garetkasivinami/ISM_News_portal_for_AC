@@ -25,6 +25,7 @@ namespace ISMNewsPortal.Models
         public int AuthorId { get; set; }
         [Display(Name = "Image Id")]
         public int ImageId { get; set; }
+        public int? MinutesOffset { get; set; }
 
         public NewsPostCreateModel()
         {

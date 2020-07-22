@@ -32,25 +32,20 @@ namespace ISMNewsPortal.Models
         {
             Name = model.Name;
             Description = model.Description;
-            CreatedDate = DateTime.Now;
+            CreatedDate = DateTime.Now.ToUniversalTime();
             EditDate = null;
             ImageId = model.ImageId;
             AuthorId = model.AuthorId;
             IsVisible = model.IsVisible;
-            PublicationDate = model.PublicationDate ?? DateTime.Now;
+
+            PublicationDate = model.PublicationDate?.AddMinutes(model.MinutesOffset ?? 0) ?? DateTime.Now.ToUniversalTime();
         }
 
-        public NewsPost(NewsPostEditModel model)
+        public NewsPost(NewsPostEditModel model) : this (model as NewsPostCreateModel)
         {
             Id = model.Id;
-            Name = model.Name;
-            Description = model.Description;
             CreatedDate = model.CreatedDate;
-            EditDate = DateTime.Now;
-            ImageId = model.ImageId;
-            AuthorId = model.AuthorId;
-            IsVisible = model.IsVisible;
-            PublicationDate = model.PublicationDate ?? DateTime.Now;
+            EditDate = DateTime.Now.ToUniversalTime();
         }
     }
 }

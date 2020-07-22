@@ -155,7 +155,7 @@
     <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
-    <Compile Include="CultureAttribute.cs" />
+    <Compile Include="Attributes\CultureAttribute.cs" />
     <Compile Include="ElmahExceptionLogger.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -170,7 +170,6 @@
     <Compile Include="Models\Admin\AdminViewModelCollection.cs" />
     <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Helpers\CommentHelper.cs" />
-    <Compile Include="Models\CultureAttribute.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\Comment\Comment.cs" />
     <Compile Include="Models\Comment\CommentCreateModel.cs" />
@@ -187,7 +186,7 @@
     <Compile Include="Models\NewsPost\NewsPostSimplifiedCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostSimplifiedView.cs" />
     <Compile Include="Models\NewsPost\NewsPostViewModel.cs" />
-    <Compile Include="Models\RoleAuthorizeAttribute.cs" />
+    <Compile Include="Attributes\RoleAuthorizeAttribute.cs" />
     <Compile Include="Models\Security.cs" />
     <Compile Include="Models\Tool.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -107,7 +107,9 @@ namespace ISMNewsPortal.DAL.Repositories
         {
             var newsPost = MapFromNewsPostDTO<NewsPost>(item);
             var createdNewsPost = session.Get<NewsPost>(item.Id);
+            DateTime createdDate = createdNewsPost.CreatedDate;
             Map(newsPost, createdNewsPost);
+            createdNewsPost.CreatedDate = createdDate;
             using (ITransaction transaction = session.BeginTransaction())
             {
                 session.Update(createdNewsPost);
