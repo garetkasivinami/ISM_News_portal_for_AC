@@ -4,7 +4,7 @@ let dates = document.querySelectorAll(".js_date");
 for (let i = 0; i < dates.length; i++) {
     let dateParse = Date.parse(dates[i].innerHTML);
     let date = new Date(dateParse);
-    editTime.innerHTML = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+    dates[i].innerHTML = date.toLocaleDateString() + " " + date.toLocaleTimeString();
 }
 
 let startUpdateCommection = document.querySelectorAll(".submit_date");
