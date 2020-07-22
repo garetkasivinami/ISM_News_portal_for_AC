@@ -23,7 +23,7 @@ namespace ISMNewsPortal.Models
         public int Id { get; set; }
         public string Login { get; set; }
         [MaxLength(512)]
-        [Display(Name = "Email")]
+        [Display(Name = "Email", ResourceType = typeof(Language.Language))]
         [RegularExpression(HelperActions.EmailRegex)]
         public string Email { get; set; }
         public string[] Roles { get; set; }
