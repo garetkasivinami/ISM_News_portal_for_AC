@@ -70,7 +70,11 @@ namespace ISMNewsPortal.DAL.Repositories
             string filterFunc = GetFilterSqlString(toolBar.Filter);
             string sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? false);
             string searchString = GetSearchSqlString();
-            IList<NewsPost> selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
+            IList<NewsPost> selectedNewsPost;
+            if (toolBar.Admin)
+                selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
+            else
+                selectedNewsPost = GetSqlQuerry(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
 
             toolBar.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
 
