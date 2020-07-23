@@ -8,11 +8,11 @@
         public int PageId { get; set; }
         [Required]
         [MaxLength(100)]
-        [Display(Name = "Username")]
+        [Display(Name = "Username", ResourceType = typeof(Language.Language))]
         public string UserName { get; set; }
         [DataType(DataType.MultilineText)]
         [Required]
-        [Display(Name = "Text")]
+        [Display(Name = "CommentText", ResourceType = typeof(Language.Language))]
         public string Text { get; set; }
     }
 }

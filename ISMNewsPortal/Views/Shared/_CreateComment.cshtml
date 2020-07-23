@@ -1,6 +1,6 @@
 ﻿@model ISMNewsPortal.Models.CommentCreateModel
 
-<h1>Comment</h1>
+<h1>@Language.Language.Comment</h1>
 @using (Ajax.BeginForm("CreateComment", new { }, new AjaxOptions { 
     UpdateTargetId = "comments", 
     HttpMethod = "POST", 

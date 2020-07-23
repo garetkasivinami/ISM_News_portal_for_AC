@@ -14,6 +14,7 @@
             </small>
             @if (Model.NewsPost.EditDate != null)
             {
+                <br>
                 <small class="text-muted">Post edited: 
                     <span class="js_date">@(Model.NewsPost.EditDate?.ToString("u").Replace('-', '/' ))</span>
                 </small>
@@ -26,7 +27,7 @@
 <p>@Language.Language.CommentsCount: <span id="commentsCount">@Model.Comments.Count</span></p>
 @if (User.IsInRole(ISMNewsPortal.Models.Roles.Moderator.ToString()))
 {
-    @Html.ActionLink("Manage comments", "Comments", "Admin", new { @postId = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+    @Html.ActionLink(Language.Language.ManageComments, "Comments", "Admin", new { @postId = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
 }
 <div id="comments">
     @if (Model.Comments.Any())
