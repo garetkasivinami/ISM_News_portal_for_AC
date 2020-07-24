@@ -130,7 +130,7 @@
     <value>Все</value>
   </data>
   <data name="ASC" xml:space="preserve">
-    <value>по спаданию</value>
+    <value>по возрастанию</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Автор</value>
@@ -184,7 +184,7 @@
     <value>Удалить новостной пост</value>
   </data>
   <data name="DESC" xml:space="preserve">
-    <value>по возрастанию</value>
+    <value>по спаданию</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Описание</value>

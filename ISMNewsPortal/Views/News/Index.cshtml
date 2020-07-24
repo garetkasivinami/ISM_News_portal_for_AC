@@ -13,7 +13,7 @@
 
     <nav class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto sortfilter">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown drop-flex">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @Language.Language.FilterBy...@LinkHelper.GetLocalizedByName(Model.Filter)
@@ -46,8 +46,8 @@
                         @Html.ActionLink(Language.Language.name + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "name", true), new { @class = "dropdown-item" })
                         @Html.ActionLink(Language.Language.Description + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "Description", false), new { @class = "dropdown-item" })
                         @Html.ActionLink(Language.Language.Description + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "Description", true), new { @class = "dropdown-item" })
-                        @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", false), new { @class = "dropdown-item", @Reversed = false })
-                        @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", true), new { @class = "dropdown-item", @Reversed = true })
+                        @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", true), new { @class = "dropdown-item", @Reversed = false })
+                        @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", false), new { @class = "dropdown-item", @Reversed = true })
                     </div>
                 </li>
                 @if (Model.Filter != null || Model.SortType != null)
@@ -83,26 +83,21 @@
         {
             @Html.ActionLink("<<", "Index", "News", LinkHelper.CreatePageLinks(Model, -Model.Page), new { @class = "btn btn-outline-dark" });
         }
-    </div>
 
-    <div class="btn-group" role="group">
         @if (Model.Page > 0)
         {
             @Html.ActionLink("<", "Index", "News", LinkHelper.CreatePageLinks(Model, -1), new { @class = "btn btn-outline-dark btn-sm" }); ;
         }
-    </div>
 
-    @if (Model.Pages > 1)
-    {
-        <div class="btn-group" role="group">
-            @for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
+        @if (Model.Pages > 1)
+        {
+
+            for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
             {
-                @Html.ActionLink((page + 1).ToString(), "Index", "News", LinkHelper.CreatePageLinks(Model, page - Model.Page), new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-primary btn-sm") });
+                @Html.ActionLink((page + 1).ToString(), "Index", "News", LinkHelper.CreatePageLinks(Model, page - Model.Page), new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-outline-dark btn-sm") });
             }
-        </div>
-    }
+        }
 
-    <div class="btn-group" role="group">
         @if (Model.Page < Model.Pages - 1)
         {
             @Html.ActionLink(">", "Index", "News", LinkHelper.CreatePageLinks(Model, 1), new { @class = "btn btn-outline-dark btn-sm" }); ;
