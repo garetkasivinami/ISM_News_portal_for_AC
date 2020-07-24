@@ -220,7 +220,7 @@
     <value>Управлять комментариями</value>
   </data>
   <data name="name" xml:space="preserve">
-    <value>Имя</value>
+    <value>Название</value>
   </data>
   <data name="NewsList" xml:space="preserve">
     <value>Список новостей</value>
