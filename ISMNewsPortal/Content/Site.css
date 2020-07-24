@@ -165,3 +165,7 @@ textarea.form-control {
 .btn-group>.btn:not(:last-child) {
     border-right: 0;
 }
+
+.sortfilter>li{
+    margin:10px;
+}
