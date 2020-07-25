@@ -39,7 +39,7 @@ namespace ISMNewsPortal.Controllers
             }
             if (ModelState.IsValid)
             {
-                var newsPost = new NewsPost(model);
+                var newsPost = model.ConvertToNewsPost();
                 NewsPostHelper.UpdateNewsPost(newsPost);
             }
             return RedirectToAction("Index");
@@ -81,7 +81,7 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var admin = new Admin() { Login = model.Login.Trim(), Email = model.Email };
+                var admin = new AdminDTO() { Login = model.Login.Trim(), Email = model.Email };
                 AdminHelper.SetPassword(admin, model.Password);
                 AdminHelper.CreateAdmin(admin);
             }
@@ -92,7 +92,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdmin(int id)
         {
-            Admin admin = AdminHelper.GetAdmin(id);
+            AdminDTO admin = AdminHelper.GetAdmin(id);
             return View(new AdminViewModel(admin));
         }
 
@@ -123,7 +123,7 @@ namespace ISMNewsPortal.Controllers
                 }
                 model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
                 model.AuthorId = AdminHelper.GetAdmin(User.Identity.Name).Id;
-                var newsPost = new NewsPost(model);
+                var newsPost = model.ConvertToNewsPost();
                 NewsPostHelper.CreateNewsPost(newsPost);
                 return RedirectToAction("Index");
             }

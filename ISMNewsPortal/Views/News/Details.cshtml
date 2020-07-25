@@ -15,9 +15,9 @@
             @if (Model.NewsPost.EditDate != null)
             {
                 <br>
-                <small class="text-muted">Post edited: 
-                    <span class="js_date">@(Model.NewsPost.EditDate?.ToString("u").Replace('-', '/' ))</span>
-                </small>
+                <small class="text-muted">@Language.Language.PostEdited:
+                                <span class="js_date">@(Model.NewsPost.EditDate?.ToString("u").Replace('-', '/' ))</span>
+                            </small>
             }
         </p>
     </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISMNewsPortal.BLL.DTO;
+using System;
 
 namespace ISMNewsPortal.Models
 {
@@ -7,7 +8,7 @@ namespace ISMNewsPortal.Models
         public NewsPostAdminView()
         {
         }
-        public NewsPostAdminView(NewsPost newsPost, string authorName, int commentsCount) : base(newsPost, commentsCount)
+        public NewsPostAdminView(NewsPostDTO newsPost, string authorName, int commentsCount) : base(newsPost, commentsCount)
         {
             EditDate = newsPost.EditDate;
             AuthorId = newsPost.AuthorId;

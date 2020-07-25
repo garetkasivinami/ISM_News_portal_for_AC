@@ -1,7 +1,10 @@
-﻿namespace ISMNewsPortal.Models
-{
-    using System.ComponentModel.DataAnnotations;
+﻿using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.DAL.Models;
+using System;
+using System.ComponentModel.DataAnnotations;
 
+namespace ISMNewsPortal.Models
+{
     public class CommentCreateModel
     {
         [Required]
@@ -14,5 +17,17 @@
         [Required]
         [Display(Name = "CommentText", ResourceType = typeof(Language.Language))]
         public string Text { get; set; }
+
+        public CommentDTO ConvertToComment()
+        {
+            var comment = new CommentDTO();
+
+            comment.UserName = UserName;
+            comment.Date = DateTime.Now;
+            comment.Text = Text;
+            comment.NewsPostId = PageId;
+
+            return comment;
+        }
     }
 }

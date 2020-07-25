@@ -1,4 +1,5 @@
-﻿using ISMNewsPortal.Helpers;
+﻿using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -19,11 +20,22 @@ namespace ISMNewsPortal.Models
         {
 
         }
-        public NewsPostEditModel(NewsPost newsPost) : base(newsPost)
+        public NewsPostEditModel(NewsPostDTO newsPost) : base(newsPost)
         {
             Id = newsPost.Id;
             CreatedDate = newsPost.CreatedDate;
             ImagePath = FileModelActions.GetNameByIdFormated(ImageId);
+        }
+
+        public override NewsPostDTO ConvertToNewsPost()
+        {
+            var newsPost = base.ConvertToNewsPost();
+
+            newsPost.Id = Id;
+            newsPost.CreatedDate = CreatedDate;
+            newsPost.EditDate = DateTime.Now.ToUniversalTime();
+
+            return newsPost;
         }
     }
 }

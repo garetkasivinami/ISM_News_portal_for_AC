@@ -1,4 +1,5 @@
 ﻿using Antlr.Runtime.Tree;
+using ISMNewsPortal.BLL.DTO;
 using ISMNewsPortal.Helpers;
 using System.Collections.Generic;
 using System.Drawing;
@@ -9,7 +10,7 @@ namespace ISMNewsPortal.Models
 {
     public class NewsPostViewModel
     {
-        public NewsPostViewModel(NewsPost newsPost, ICollection<CommentViewModel> comments, int page, int pages, bool actionLinks)
+        public NewsPostViewModel(NewsPostDTO newsPost, ICollection<CommentViewModel> comments, int page, int pages, bool actionLinks)
         {
             NewsPost = newsPost;
             Comments = comments;
@@ -18,7 +19,7 @@ namespace ISMNewsPortal.Models
             ImagePath = FileModelActions.GetNameByIdFormated(newsPost.ImageId);
             ActionLinks = actionLinks;
         }
-        public NewsPost NewsPost { get; set; }
+        public NewsPostDTO NewsPost { get; set; }
         public string ImagePath { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
         public int Page { get; set; }

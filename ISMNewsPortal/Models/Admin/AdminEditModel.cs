@@ -1,4 +1,5 @@
-﻿using ISMNewsPortal.Helpers;
+﻿using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +14,7 @@ namespace ISMNewsPortal.Models
         {
 
         }
-        public AdminEditModel(Admin admin)
+        public AdminEditModel(AdminDTO admin)
         {
             Id = admin.Id;
             Login = admin.Login;

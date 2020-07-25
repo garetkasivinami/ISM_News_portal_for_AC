@@ -1,4 +1,5 @@
-﻿using ISMNewsPortal.Helpers;
+﻿using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.Helpers;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,7 +10,7 @@ namespace ISMNewsPortal.Models
         public NewsPostSimplifiedView()
         {
         }
-        public NewsPostSimplifiedView(NewsPost newsPost, int commentsCount)
+        public NewsPostSimplifiedView(NewsPostDTO newsPost, int commentsCount)
         {
             Id = newsPost.Id;
             Name = newsPost.Name;

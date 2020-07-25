@@ -1,10 +1,11 @@
-﻿namespace ISMNewsPortal.Models
-{
-    using System;
+﻿using ISMNewsPortal.BLL.DTO;
+using System;
 
+namespace ISMNewsPortal.Models
+{
     public class CommentViewModel
     {
-        public CommentViewModel(Comment comment)
+        public CommentViewModel(CommentDTO comment)
         {
             Id = comment.Id;
             Date = comment.Date;

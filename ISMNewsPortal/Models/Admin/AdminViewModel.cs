@@ -1,11 +1,12 @@
-﻿using ISMNewsPortal.Helpers;
+﻿using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.Helpers;
 using System.Collections.Generic;
 
 namespace ISMNewsPortal.Models
 {
     public class AdminViewModel
     {
-        public AdminViewModel(Admin admin)
+        public AdminViewModel(AdminDTO admin)
         {
             Id = admin.Id;
             Login = admin.Login;

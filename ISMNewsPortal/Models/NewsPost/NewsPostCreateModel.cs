@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISMNewsPortal.BLL.DTO;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Web;
 using System.Web.Mvc;
@@ -31,7 +32,8 @@ namespace ISMNewsPortal.Models
         {
 
         }
-        public NewsPostCreateModel(NewsPost newsPost)
+
+        public NewsPostCreateModel(NewsPostDTO newsPost)
         {
             Name = newsPost.Name;
             Description = newsPost.Description;
@@ -39,6 +41,22 @@ namespace ISMNewsPortal.Models
             IsVisible = newsPost.IsVisible;
             AuthorId = newsPost.AuthorId;
             ImageId = newsPost.ImageId;
+        }
+
+        public virtual NewsPostDTO ConvertToNewsPost()
+        {
+            var newsPost = new NewsPostDTO();
+
+            newsPost.Name = Name;
+            newsPost.Description = Description;
+            newsPost.CreatedDate = DateTime.Now.ToUniversalTime();
+            newsPost.EditDate = null;
+            newsPost.ImageId = ImageId;
+            newsPost.AuthorId = AuthorId;
+            newsPost.IsVisible = IsVisible;
+
+            newsPost.PublicationDate = PublicationDate?.AddMinutes(MinutesOffset ?? 0) ?? DateTime.Now.ToUniversalTime();
+            return newsPost;
         }
     }
 }

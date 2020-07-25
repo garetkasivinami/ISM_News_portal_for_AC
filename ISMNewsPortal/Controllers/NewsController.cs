@@ -54,7 +54,7 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var comment = new Comment(model);
+                var comment = model.ConvertToComment();
                 comment.Id = CommentHelper.CreateComment(comment);
                 return PartialView("_Comment", new CommentViewModel(comment));
             }

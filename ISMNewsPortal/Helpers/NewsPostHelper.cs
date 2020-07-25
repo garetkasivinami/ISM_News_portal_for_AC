@@ -13,7 +13,7 @@ namespace ISMNewsPortal.Helpers
 {
     public static class NewsPostHelper
     {
-        public static void CreateNewsPost(NewsPost newsPost)
+        public static void CreateNewsPost(NewsPostDTO newsPost)
         {
             NewsPostService newsPostService = new NewsPostService();
 
@@ -21,7 +21,7 @@ namespace ISMNewsPortal.Helpers
             newsPostService.CreateNewsPost(newsPostDTO);
         }
 
-        public static void UpdateNewsPost(NewsPost newsPost)
+        public static void UpdateNewsPost(NewsPostDTO newsPost)
         {
             NewsPostService newsPostService = new NewsPostService();
  
@@ -42,22 +42,22 @@ namespace ISMNewsPortal.Helpers
             CommentService commentService = new CommentService();
 
             var newsPostDTO = newsPostService.GetNewsPost(id);
-            var newsPost = MapFromNewsPostDTO<NewsPost>(newsPostDTO);
+            var newsPost = MapFromNewsPostDTO<NewsPostDTO>(newsPostDTO);
             if (onlyVisible && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
                 throw new Exception("Post isn`t visible!");
 
             var commentDTOs = commentService.GetCommentsByPostId(newsPost.Id);
-            var comments = MapFromCommentDTOList<Comment>(commentDTOs);
+            var comments = MapFromCommentDTOList<CommentDTO>(commentDTOs);
 
             int commentsCount = comments.Count();
-            int pages = commentsCount / Comment.CommentsInOnePage;
-            if (commentsCount % Comment.CommentsInOnePage != 0)
+            int pages = commentsCount / CommentDTO.CommentsInOnePage;
+            if (commentsCount % CommentDTO.CommentsInOnePage != 0)
                 pages++;
 
-            comments = comments.Skip(commentPage * Comment.CommentsInOnePage).Take(Comment.CommentsInOnePage).ToList();
+            comments = comments.Skip(commentPage * CommentDTO.CommentsInOnePage).Take(CommentDTO.CommentsInOnePage).ToList();
 
             var commentsViewModel = new List<CommentViewModel>();
-            foreach (Comment comment in comments)
+            foreach (CommentDTO comment in comments)
             {
                 commentsViewModel.Add(new CommentViewModel(comment));
             }
@@ -72,10 +72,10 @@ namespace ISMNewsPortal.Helpers
 
             var toolsDTO = MapToToolsDTO(model);
             var newsPostsDTO = newsPostService.GetNewsPostsWithAdminTools(toolsDTO);
-            var newsPosts = MapFromNewsPostDTOList<NewsPost>(newsPostsDTO);
+            var newsPosts = MapFromNewsPostDTOList<NewsPostDTO>(newsPostsDTO);
 
             var newsPostAdminViews = new List<NewsPostAdminView>();
-            foreach (NewsPost newsPost in newsPosts)
+            foreach (NewsPostDTO newsPost in newsPosts)
             {
                 string newsPostAuthorName = adminService.GetAdmin(newsPost.AuthorId).Login;
                 int commentCount = commentService.GetCommentCountByPostId(newsPost.Id);
@@ -92,10 +92,10 @@ namespace ISMNewsPortal.Helpers
 
             var modelDTO = MapToToolsDTO(model);
             var newsPostsDTO = newsPostService.GetNewsPostsWithTools(modelDTO);
-            var newsPosts = MapFromNewsPostDTOList<NewsPost>(newsPostsDTO);
+            var newsPosts = MapFromNewsPostDTOList<NewsPostDTO>(newsPostsDTO);
 
             var newsPostSimplifiedViews = new List<NewsPostSimplifiedView>();
-            foreach (NewsPost newsPost in newsPosts)
+            foreach (NewsPostDTO newsPost in newsPosts)
             {
                 int commentCount = commentService.GetCommentCountByPostId(newsPost.Id);
                 newsPostSimplifiedViews.Add(new NewsPostSimplifiedView(newsPost, commentCount));
@@ -111,7 +111,7 @@ namespace ISMNewsPortal.Helpers
             AdminService adminService = new AdminService();
 
             var newsPostDTO = newsPostService.GetNewsPost(id);
-            var newsPost = MapFromNewsPostDTO<NewsPost>(newsPostDTO);
+            var newsPost = MapFromNewsPostDTO<NewsPostDTO>(newsPostDTO);
             string newsPostAuthorName = adminService.GetAdmin(newsPost.AuthorId).Login;
             int commentsCount = newsPostService.CommentsCount(id);
             return new NewsPostAdminView(newsPost, newsPostAuthorName, commentsCount);
@@ -122,7 +122,7 @@ namespace ISMNewsPortal.Helpers
             NewsPostService newsPostService = new NewsPostService();
 
             var newsPostDTO = newsPostService.GetNewsPost(id);
-            var newsPost = MapFromNewsPostDTO<NewsPost>(newsPostDTO);
+            var newsPost = MapFromNewsPostDTO<NewsPostDTO>(newsPostDTO);
             return new NewsPostEditModel(newsPost);
         }
     }

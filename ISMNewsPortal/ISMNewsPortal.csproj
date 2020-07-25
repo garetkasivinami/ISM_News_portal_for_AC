@@ -162,7 +162,6 @@
     </Compile>
     <Compile Include="Helpers\LinkHelper.cs" />
     <Compile Include="Models\AccountRequest.cs" />
-    <Compile Include="Models\Admin\Admin.cs" />
     <Compile Include="Models\Admin\AdminCreateModel.cs" />
     <Compile Include="Models\Admin\AdminEditModel.cs" />
     <Compile Include="Helpers\AdminHelper.cs" />
@@ -170,14 +169,11 @@
     <Compile Include="Models\Admin\AdminViewModelCollection.cs" />
     <Compile Include="Models\ChangePassword.cs" />
     <Compile Include="Helpers\CommentHelper.cs" />
-    <Compile Include="Models\FileModel.cs" />
-    <Compile Include="Models\Comment\Comment.cs" />
     <Compile Include="Models\Comment\CommentCreateModel.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CommentViewModelCollection.cs" />
     <Compile Include="Models\CustomRoleProvider.cs" />
     <Compile Include="Helpers\FileModelActions.cs" />
-    <Compile Include="Models\NewsPost\NewsPost.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminView.cs" />
     <Compile Include="Models\NewsPost\NewsPostEditModel.cs" />
