@@ -114,7 +114,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
                     sortString = "@Description";
                     break;
                 default:
-                    sortString = "@PublicationDate DESC";
+                    sortString = "@PublicationDate";
                     break;
             }
             if (reversed)
@@ -158,14 +158,12 @@ namespace ISMNewsPortal.DAL.ToolsLogic
                     sortString = "@AuthorId";
                     break;
                 case "publicationdate":
-                    reversed = !reversed;
                     sortString = "@PublicationDate";
                     break;
                 case "visibility":
                     sortString = "@IsVisible";
                     break;
                 default:
-                    reversed = !reversed;
                     sortString = "@CreatedDate";
                     break;
             }

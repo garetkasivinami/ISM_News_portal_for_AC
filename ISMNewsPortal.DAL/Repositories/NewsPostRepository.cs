@@ -68,14 +68,19 @@ namespace ISMNewsPortal.DAL.Repositories
         public IEnumerable<NewsPost> GetAllWithTools(ToolsDTO toolBar)
         {
             string filterFunc = GetFilterSqlString(toolBar.Filter);
-            string sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? false);
+            string sortString;
             string searchString = GetSearchSqlString();
             IList<NewsPost> selectedNewsPost;
             if (toolBar.Admin)
+            {
+                sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? false);
                 selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
+            }
             else
+            {
+                sortString = GetSortSqlString(toolBar.SortType, toolBar.Reversed ?? false);
                 selectedNewsPost = GetSqlQuerry(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
-
+            }
             toolBar.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
 
             IEnumerable<NewsPost> result = Helper.CutIEnumarable(toolBar.Page, NewsPost.NewsInOnePage, selectedNewsPost);

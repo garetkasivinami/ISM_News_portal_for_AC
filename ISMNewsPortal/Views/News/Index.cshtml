@@ -46,8 +46,8 @@
                         @Html.ActionLink(Language.Language.name + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "name", true), new { @class = "dropdown-item" })
                         @Html.ActionLink(Language.Language.Description + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "Description", false), new { @class = "dropdown-item" })
                         @Html.ActionLink(Language.Language.Description + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "Description", true), new { @class = "dropdown-item" })
-                        @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", true), new { @class = "dropdown-item", @Reversed = false })
-                        @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", false), new { @class = "dropdown-item", @Reversed = true })
+                        @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", false), new { @class = "dropdown-item", @Reversed = false })
+                        @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Index", "News", LinkHelper.CreateSortLinks(Model, "date", true), new { @class = "dropdown-item", @Reversed = true })
                     </div>
                 </li>
                 @if (Model.Filter != null || Model.SortType != null)
