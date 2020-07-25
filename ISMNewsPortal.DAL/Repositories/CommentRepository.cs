@@ -1,5 +1,5 @@
 ﻿using ISMNewsPortal.BLL.BusinessModels;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Interfaces;
 using ISMNewsPortal.DAL.Models;
 using NHibernate;

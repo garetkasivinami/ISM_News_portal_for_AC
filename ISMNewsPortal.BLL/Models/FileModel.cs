@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISMNewsPortal.BLL.DTO
+namespace ISMNewsPortal.BLL.Models
 {
     public class FileModel
     {

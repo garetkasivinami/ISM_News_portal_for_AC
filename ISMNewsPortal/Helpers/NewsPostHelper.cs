@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ISMNewsPortal.BLL.BusinessModels;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Infrastructure;
 using static ISMNewsPortal.BLL.Mappers.Automapper;
 using ISMNewsPortal.Models;

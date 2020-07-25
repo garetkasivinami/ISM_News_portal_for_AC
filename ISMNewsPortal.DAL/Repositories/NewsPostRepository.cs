@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static ISMNewsPortal.BLL.Mappers.Automapper;
 using static ISMNewsPortal.DAL.ToolsLogic.NewsPostToolsLogic;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 
 namespace ISMNewsPortal.DAL.Repositories

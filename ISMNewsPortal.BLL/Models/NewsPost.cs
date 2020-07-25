@@ -4,7 +4,7 @@ using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 
-namespace ISMNewsPortal.BLL.DTO
+namespace ISMNewsPortal.BLL.Models
 {
     public partial class NewsPost
     {

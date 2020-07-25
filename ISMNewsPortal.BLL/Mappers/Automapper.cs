@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 
 namespace ISMNewsPortal.BLL.Mappers

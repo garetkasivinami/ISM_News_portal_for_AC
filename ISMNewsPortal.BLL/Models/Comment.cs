@@ -1,6 +1,6 @@
 using System;
 
-namespace ISMNewsPortal.BLL.DTO
+namespace ISMNewsPortal.BLL.Models
 {
     public partial class Comment
     {

@@ -84,7 +84,7 @@
                     <li class="list-group-item">@Language.Language.Author: @newsPost.AuthorName</li>
                     <li class="list-group-item">@Language.Language.CreatedDate: <span class="js_date">@newsPost.CreatedDate.ToString("u").Replace('-', '/')</span></li>
                     <li class="list-group-item">@Language.Language.PublicationDate: <span class="js_date">@newsPost.PublicationDate.ToString("u").Replace('-', '/')</span></li>
-                    <li class="list-group-item">@Language.Language.Visibility: @newsPost.IsVisible</li>
+                    <li class="list-group-item">@Language.Language.Visibility: @(newsPost.IsVisible ? Language.Language.Yes: Language.Language.No )</li>
                 </ul>
             </div>
             <div class="card-body">

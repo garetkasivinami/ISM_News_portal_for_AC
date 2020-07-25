@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Interfaces;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 using static ISMNewsPortal.BLL.Mappers.Automapper;
 

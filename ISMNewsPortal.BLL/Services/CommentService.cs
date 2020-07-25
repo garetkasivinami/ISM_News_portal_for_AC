@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using ISMNewsPortal.BLL.BusinessModels;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Infrastructure;
 using ISMNewsPortal.BLL.Mappers;
 using System;

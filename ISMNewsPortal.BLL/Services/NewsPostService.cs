@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Mappers;
 using ISMNewsPortal.BLL.Infrastructure;
 using ISMNewsPortal.BLL.BusinessModels;

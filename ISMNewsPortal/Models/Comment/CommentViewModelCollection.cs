@@ -1,4 +1,4 @@
-﻿using ISMNewsPortal.BLL.DTO;
+﻿using ISMNewsPortal.BLL.Models;
 using System.Collections.Generic;
 
 namespace ISMNewsPortal.Models

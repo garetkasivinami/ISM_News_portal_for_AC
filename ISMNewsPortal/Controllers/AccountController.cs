@@ -9,7 +9,7 @@ using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.Models;
 using ISMNewsPortal.BLL.Infrastructure;
 using NHibernate;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Helpers;
 
 namespace ISMNewsPortal.Controllers

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.DAL.Models;
 using ISMNewsPortal.DAL.Repositories;
 using Lucene.Net.Analysis.Standard;

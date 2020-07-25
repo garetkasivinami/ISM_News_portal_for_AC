@@ -1,7 +1,7 @@
 ﻿using ISMNewsPortal.Models;
 using System.Web.Mvc;
 using ISMNewsPortal.BLL.Services;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using System;
 using ISMNewsPortal.BLL.Infrastructure;
 using ISMNewsPortal.Helpers;

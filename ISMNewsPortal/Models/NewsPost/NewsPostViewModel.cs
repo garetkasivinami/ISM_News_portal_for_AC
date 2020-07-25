@@ -1,5 +1,5 @@
 ﻿using Antlr.Runtime.Tree;
-using ISMNewsPortal.BLL.DTO;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Helpers;
 using System.Collections.Generic;
 using System.Drawing;

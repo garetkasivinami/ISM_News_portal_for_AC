@@ -1,4 +1,4 @@
-﻿using ISMNewsPortal.BLL.DTO;
+﻿using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.Models;
 using NHibernate;
