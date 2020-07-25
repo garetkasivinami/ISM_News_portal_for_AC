@@ -6,7 +6,7 @@ using System.Web;
 
 namespace ISMNewsPortal.BLL.DTO
 {
-    public partial class NewsPostDTO
+    public partial class NewsPost
     {
         public const int NewsInOnePage = 10;
         public int Id { get; set; }

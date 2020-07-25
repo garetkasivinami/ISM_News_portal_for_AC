@@ -6,7 +6,7 @@ namespace ISMNewsPortal.Models
 {
     public class AdminViewModel
     {
-        public AdminViewModel(AdminDTO admin)
+        public AdminViewModel(Admin admin)
         {
             Id = admin.Id;
             Login = admin.Login;

@@ -46,10 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessModels\ToolsDTO.cs" />
-    <Compile Include="DTO\AdminDTO.cs" />
-    <Compile Include="DTO\CommentDTO.cs" />
-    <Compile Include="DTO\FileDTO.cs" />
-    <Compile Include="DTO\NewsPostDTO.cs" />
+    <Compile Include="DTO\Admin.cs" />
+    <Compile Include="DTO\Comment.cs" />
+    <Compile Include="DTO\FileModel.cs" />
+    <Compile Include="DTO\NewsPost.cs" />
     <Compile Include="Infrastructure\ErrorLogger.cs" />
     <Compile Include="Infrastructure\ExceptionGenerator.cs" />
     <Compile Include="Infrastructure\ValidationException.cs" />

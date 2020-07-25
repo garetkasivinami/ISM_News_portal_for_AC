@@ -20,14 +20,14 @@ namespace ISMNewsPortal.Models
         {
 
         }
-        public NewsPostEditModel(NewsPostDTO newsPost) : base(newsPost)
+        public NewsPostEditModel(NewsPost newsPost) : base(newsPost)
         {
             Id = newsPost.Id;
             CreatedDate = newsPost.CreatedDate;
             ImagePath = FileModelActions.GetNameByIdFormated(ImageId);
         }
 
-        public override NewsPostDTO ConvertToNewsPost()
+        public override NewsPost ConvertToNewsPost()
         {
             var newsPost = base.ConvertToNewsPost();
 

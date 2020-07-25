@@ -33,7 +33,7 @@ namespace ISMNewsPortal.Helpers
             file.SaveAs(path);
 
             file.InputStream.Close();
-            var fileModelDTO = new FileDTO() { HashCode = hashCode, Name = fileName };
+            var fileModelDTO = new FileModel() { HashCode = hashCode, Name = fileName };
             return fileService.CreateFile(fileModelDTO);
         }
 

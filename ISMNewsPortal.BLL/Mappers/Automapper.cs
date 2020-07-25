@@ -16,51 +16,51 @@ namespace ISMNewsPortal.BLL.Mappers
             return new MapperConfiguration(cfg => cfg.CreateMap<T, T>()).CreateMapper().Map(original, target);
         }
         #region Map
-        public static AdminDTO MapToAdminDTO<T>(T target)
+        public static Admin MapToAdminDTO<T>(T target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, AdminDTO>()).CreateMapper();
-            return mapper.Map<AdminDTO>(target);
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, Admin>()).CreateMapper();
+            return mapper.Map<Admin>(target);
         }
 
-        public static T MapFromAdminDTO<T>(AdminDTO target)
+        public static T MapFromAdminDTO<T>(Admin target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<AdminDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<Admin, T>()).CreateMapper();
             return mapper.Map<T>(target);
         }
 
-        public static NewsPostDTO MapToNewsPostDTO<T>(T target)
+        public static NewsPost MapToNewsPostDTO<T>(T target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, NewsPostDTO>()).CreateMapper();
-            return mapper.Map<NewsPostDTO>(target);
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, NewsPost>()).CreateMapper();
+            return mapper.Map<NewsPost>(target);
         }
 
-        public static T MapFromNewsPostDTO<T>(NewsPostDTO target)
+        public static T MapFromNewsPostDTO<T>(NewsPost target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<NewsPostDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<NewsPost, T>()).CreateMapper();
             return mapper.Map<T>(target);
         }
 
-        public static CommentDTO MapToCommentDTO<T>(T target)
+        public static Comment MapToCommentDTO<T>(T target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, CommentDTO>()).CreateMapper();
-            return mapper.Map<CommentDTO>(target);
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, Comment>()).CreateMapper();
+            return mapper.Map<Comment>(target);
         }
 
-        public static T MapFromCommentDTO<T>(CommentDTO target)
+        public static T MapFromCommentDTO<T>(Comment target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<CommentDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<Comment, T>()).CreateMapper();
             return mapper.Map<T>(target);
         }
 
-        public static FileDTO MapToFileDTO<T>(T target)
+        public static FileModel MapToFileDTO<T>(T target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, FileDTO>()).CreateMapper();
-            return mapper.Map<FileDTO>(target);
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, FileModel>()).CreateMapper();
+            return mapper.Map<FileModel>(target);
         }
 
-        public static T MapFromFileDTO<T>(FileDTO target)
+        public static T MapFromFileDTO<T>(FileModel target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<FileModel, T>()).CreateMapper();
             return mapper.Map<T>(target);
         }
 
@@ -89,74 +89,74 @@ namespace ISMNewsPortal.BLL.Mappers
         }
         #endregion
         #region MapList 
-        public static List<AdminDTO> MapToAdminDTOList<T>(IEnumerable<T> target)
+        public static List<Admin> MapToAdminDTOList<T>(IEnumerable<T> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, AdminDTO>()).CreateMapper();
-            var result = new List<AdminDTO>();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, Admin>()).CreateMapper();
+            var result = new List<Admin>();
             foreach (T item in target)
-                result.Add(mapper.Map<AdminDTO>(item));
+                result.Add(mapper.Map<Admin>(item));
             return result;
         }
 
-        public static List<T> MapFromAdminDTOList<T>(IEnumerable<AdminDTO> target)
+        public static List<T> MapFromAdminDTOList<T>(IEnumerable<Admin> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<AdminDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<Admin, T>()).CreateMapper();
             var result = new List<T>();
-            foreach (AdminDTO item in target)
+            foreach (Admin item in target)
                 result.Add(mapper.Map<T>(item));
             return result;
         }
 
-        public static List<NewsPostDTO> MapToNewsPostDTOList<T>(IEnumerable<T> target)
+        public static List<NewsPost> MapToNewsPostDTOList<T>(IEnumerable<T> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, NewsPostDTO>()).CreateMapper();
-            var result = new List<NewsPostDTO>();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, NewsPost>()).CreateMapper();
+            var result = new List<NewsPost>();
             foreach (T item in target)
-                result.Add(mapper.Map<NewsPostDTO>(item));
+                result.Add(mapper.Map<NewsPost>(item));
             return result;
         }
 
-        public static List<T> MapFromNewsPostDTOList<T>(IEnumerable<NewsPostDTO> target)
+        public static List<T> MapFromNewsPostDTOList<T>(IEnumerable<NewsPost> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<NewsPostDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<NewsPost, T>()).CreateMapper();
             var result = new List<T>();
-            foreach (NewsPostDTO item in target)
+            foreach (NewsPost item in target)
                 result.Add(mapper.Map<T>(item));
             return result;
         }
 
-        public static List<CommentDTO> MapToCommentDTOList<T>(IEnumerable<T> target)
+        public static List<Comment> MapToCommentDTOList<T>(IEnumerable<T> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, CommentDTO>()).CreateMapper();
-            var result = new List<CommentDTO>();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, Comment>()).CreateMapper();
+            var result = new List<Comment>();
             foreach (T item in target)
-                result.Add(mapper.Map<CommentDTO>(item));
+                result.Add(mapper.Map<Comment>(item));
             return result;
         }
 
-        public static List<T> MapFromCommentDTOList<T>(IEnumerable<CommentDTO> target)
+        public static List<T> MapFromCommentDTOList<T>(IEnumerable<Comment> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<CommentDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<Comment, T>()).CreateMapper();
             var result = new List<T>();
-            foreach (CommentDTO item in target)
+            foreach (Comment item in target)
                 result.Add(mapper.Map<T>(item));
             return result;
         }
 
-        public static List<FileDTO> MapToFileDTOList<T>(IEnumerable<T> target)
+        public static List<FileModel> MapToFileDTOList<T>(IEnumerable<T> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, FileDTO>()).CreateMapper();
-            var result = new List<FileDTO>();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, FileModel>()).CreateMapper();
+            var result = new List<FileModel>();
             foreach (T item in target)
-                result.Add(mapper.Map<FileDTO>(item));
+                result.Add(mapper.Map<FileModel>(item));
             return result;
         }
 
-        public static List<T> MapFromFileDTOList<T>(IEnumerable<FileDTO> target)
+        public static List<T> MapFromFileDTOList<T>(IEnumerable<FileModel> target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<CommentDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<Comment, T>()).CreateMapper();
             var result = new List<T>();
-            foreach (FileDTO item in target)
+            foreach (FileModel item in target)
                 result.Add(mapper.Map<T>(item));
             return result;
         }

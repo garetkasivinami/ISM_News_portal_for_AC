@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ISMNewsPortal.BLL.Interfaces
 {
-    public interface ICommentRepository : IRepository<CommentDTO>
+    public interface ICommentRepository : IRepository<Comment>
     {
-        IEnumerable<CommentDTO> GetByUserName(string userName);
-        IEnumerable<CommentDTO> GetByPostId(int id);
-        IEnumerable<CommentDTO> GetByUserNameAndPostId(string userName, int postId);
+        IEnumerable<Comment> GetByUserName(string userName);
+        IEnumerable<Comment> GetByPostId(int id);
+        IEnumerable<Comment> GetByUserNameAndPostId(string userName, int postId);
         int CountByPostId(int id);
         void DeleteCommentsByPostId(int postId);
     }

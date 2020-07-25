@@ -10,7 +10,7 @@ namespace ISMNewsPortal.Models
 {
     public class NewsPostViewModel
     {
-        public NewsPostViewModel(NewsPostDTO newsPost, ICollection<CommentViewModel> comments, int page, int pages, bool actionLinks)
+        public NewsPostViewModel(NewsPost newsPost, ICollection<CommentViewModel> comments, int page, int pages, bool actionLinks)
         {
             NewsPost = newsPost;
             Comments = comments;
@@ -19,7 +19,7 @@ namespace ISMNewsPortal.Models
             ImagePath = FileModelActions.GetNameByIdFormated(newsPost.ImageId);
             ActionLinks = actionLinks;
         }
-        public NewsPostDTO NewsPost { get; set; }
+        public NewsPost NewsPost { get; set; }
         public string ImagePath { get; set; }
         public ICollection<CommentViewModel> Comments { get; set; }
         public int Page { get; set; }

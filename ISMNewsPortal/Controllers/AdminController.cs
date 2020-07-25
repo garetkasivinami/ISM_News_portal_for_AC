@@ -81,7 +81,7 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var admin = new AdminDTO() { Login = model.Login.Trim(), Email = model.Email };
+                var admin = new Admin() { Login = model.Login.Trim(), Email = model.Email };
                 AdminHelper.SetPassword(admin, model.Password);
                 AdminHelper.CreateAdmin(admin);
             }
@@ -92,7 +92,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdmin(int id)
         {
-            AdminDTO admin = AdminHelper.GetAdmin(id);
+            Admin admin = AdminHelper.GetAdmin(id);
             return View(new AdminViewModel(admin));
         }
 

@@ -12,12 +12,12 @@ namespace ISMNewsPortal.BLL.Services
 {
     public class AdminService {
 
-        public IEnumerable<AdminDTO> GetAdmins()
+        public IEnumerable<Admin> GetAdmins()
         {
             return Unity.UnitOfWork.Admins.GetAll();
         }
 
-        public AdminDTO GetAdmin(int id)
+        public Admin GetAdmin(int id)
         {
             var admin = Unity.UnitOfWork.Admins.Get(id);
             if (admin == null)
@@ -25,7 +25,7 @@ namespace ISMNewsPortal.BLL.Services
             return admin;
         }
 
-        public AdminDTO GetAdminByLogin(string login)
+        public Admin GetAdminByLogin(string login)
         {
             var admin = Unity.UnitOfWork.Admins.GetByLogin(login);
             if (admin == null)
@@ -33,7 +33,7 @@ namespace ISMNewsPortal.BLL.Services
             return admin;
         }
 
-        public void UpdateAdmin(AdminDTO adminDTO)
+        public void UpdateAdmin(Admin adminDTO)
         {
             Unity.UnitOfWork.Admins.Update(adminDTO);
         }
@@ -47,7 +47,7 @@ namespace ISMNewsPortal.BLL.Services
             Unity.UnitOfWork.Admins.Update(admin);
         }
 
-        public void CreateAdmin(AdminDTO adminDTO)
+        public void CreateAdmin(Admin adminDTO)
         {
             var createdAdmin = Unity.UnitOfWork.Admins.GetByLogin(adminDTO.Login);
             if (createdAdmin != null)

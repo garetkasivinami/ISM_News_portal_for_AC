@@ -32,7 +32,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return session.Query<NewsPost>().Count();
         }
 
-        public int Create(NewsPostDTO item)
+        public int Create(NewsPost item)
         {
             var newsPost = MapFromNewsPostDTO<NewsPost>(item);
             using (ITransaction transaction = session.BeginTransaction())
@@ -53,19 +53,19 @@ namespace ISMNewsPortal.DAL.Repositories
             }
         }
 
-        public NewsPostDTO Get(int id)
+        public NewsPost Get(int id)
         {
             var newsPost = session.Get<NewsPost>(id);
             return MapToNewsPostDTO(newsPost);
         }
 
-        public IEnumerable<NewsPostDTO> GetAll()
+        public IEnumerable<NewsPost> GetAll()
         {
             var newsPosts = session.Query<NewsPost>();
             return MapToNewsPostDTOList(newsPosts);
         }
 
-        public IEnumerable<NewsPostDTO> GetAllWithTools(ToolsDTO toolBar)
+        public IEnumerable<NewsPost> GetAllWithTools(ToolsDTO toolBar)
         {
             string filterFunc = GetFilterSqlString(toolBar.Filter);
             string sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? false);
@@ -83,31 +83,31 @@ namespace ISMNewsPortal.DAL.Repositories
             return MapToNewsPostDTOList(result);
         }
 
-        public IEnumerable<NewsPostDTO> GetByAuthorId(int id)
+        public IEnumerable<NewsPost> GetByAuthorId(int id)
         {
             var newsPosts = session.Query<NewsPost>().Where(u => u.AuthorId == id);
             return MapToNewsPostDTOList(newsPosts);
         }
 
-        public IEnumerable<NewsPostDTO> GetByImageId(int id)
+        public IEnumerable<NewsPost> GetByImageId(int id)
         {
             var newsPosts = session.Query<NewsPost>().Where(u => u.ImageId == id);
             return MapToNewsPostDTOList(newsPosts);
         }
 
-        public IEnumerable<NewsPostDTO> GetByName(string name)
+        public IEnumerable<NewsPost> GetByName(string name)
         {
             var newsPosts = session.Query<NewsPost>().Where(u => u.Name == name);
             return MapToNewsPostDTOList(newsPosts);
         }
 
-        public IEnumerable<NewsPostDTO> GetByVisibility(bool visible)
+        public IEnumerable<NewsPost> GetByVisibility(bool visible)
         {
             var newsPosts = session.Query<NewsPost>().Where(u => u.IsVisible == visible);
             return MapToNewsPostDTOList(newsPosts);
         }
 
-        public void Update(NewsPostDTO item)
+        public void Update(NewsPost item)
         {
             var newsPost = MapFromNewsPostDTO<NewsPost>(item);
             var createdNewsPost = session.Get<NewsPost>(item.Id);

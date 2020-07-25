@@ -31,7 +31,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return session.Query<Comment>().Count(u => u.NewsPostId == id);
         }
 
-        public int Create(CommentDTO item)
+        public int Create(Comment item)
         {
             var comment = MapFromCommentDTO<Comment>(item);
             using (ITransaction transaction = session.BeginTransaction())
@@ -63,42 +63,42 @@ namespace ISMNewsPortal.DAL.Repositories
             }
         }
 
-        public CommentDTO Get(int id)
+        public Comment Get(int id)
         {
             var comment = session.Get<Comment>(id);
             return MapToCommentDTO(comment);
         }
 
-        public IEnumerable<CommentDTO> GetAll()
+        public IEnumerable<Comment> GetAll()
         {
             var comments = session.Query<Comment>();
             return MapToCommentDTOList(comments);
         }
 
-        public IEnumerable<CommentDTO> GetAllWithTools(ToolsDTO toolBar)
+        public IEnumerable<Comment> GetAllWithTools(ToolsDTO toolBar)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CommentDTO> GetByPostId(int id)
+        public IEnumerable<Comment> GetByPostId(int id)
         {
             var comments = session.Query<Comment>().Where(u => u.NewsPostId == id);
             return MapToCommentDTOList(comments);
         }
 
-        public IEnumerable<CommentDTO> GetByUserName(string userName)
+        public IEnumerable<Comment> GetByUserName(string userName)
         {
             var comments = session.Query<Comment>().Where(u => u.UserName == userName);
             return MapToCommentDTOList(comments);
         }
 
-        public IEnumerable<CommentDTO> GetByUserNameAndPostId(string userName, int postId)
+        public IEnumerable<Comment> GetByUserNameAndPostId(string userName, int postId)
         {
             var comments = session.Query<Comment>().Where(u => u.NewsPostId == postId && u.UserName == userName);
             return MapToCommentDTOList(comments);
         }
 
-        public void Update(CommentDTO item)
+        public void Update(Comment item)
         {
             var comment = MapFromCommentDTO<Comment>(item);
             var createdComment = session.Get<Comment>(item.Id);

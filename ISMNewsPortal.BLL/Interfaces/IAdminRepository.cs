@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ISMNewsPortal.BLL.Interfaces
 {
-    public interface IAdminRepository : IRepository<AdminDTO>
+    public interface IAdminRepository : IRepository<Admin>
     {
-        AdminDTO GetByLogin(string login);
-        AdminDTO GetByEmail(string email);
-        IEnumerable<AdminDTO> GetByRole(string role);
+        Admin GetByLogin(string login);
+        Admin GetByEmail(string email);
+        IEnumerable<Admin> GetByRole(string role);
     }
 }

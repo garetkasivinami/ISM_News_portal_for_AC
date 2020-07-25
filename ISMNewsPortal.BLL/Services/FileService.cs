@@ -11,12 +11,12 @@ namespace ISMNewsPortal.BLL.Services
 {
     public class FileService
     {
-        public IEnumerable<FileDTO> GetFiles()
+        public IEnumerable<FileModel> GetFiles()
         {
             return Unity.UnitOfWork.Files.GetAll();
         }
 
-        public FileDTO GetFile(int id)
+        public FileModel GetFile(int id)
         {
             var file = Unity.UnitOfWork.Files.Get(id);
             if (file == null)
@@ -25,13 +25,13 @@ namespace ISMNewsPortal.BLL.Services
         }
 
 
-        public FileDTO FindByHashCode(string hashCode)
+        public FileModel FindByHashCode(string hashCode)
         {
             var file = Unity.UnitOfWork.Files.GetByHashCode(hashCode);
             return file;
         }
 
-        public int CreateFile(FileDTO fileDTO)
+        public int CreateFile(FileModel fileDTO)
         {
             return Unity.UnitOfWork.Files.Create(fileDTO);
         }

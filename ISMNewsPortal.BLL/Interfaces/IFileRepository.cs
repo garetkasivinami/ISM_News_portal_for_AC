@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ISMNewsPortal.BLL.Interfaces
 {
-    public interface IFileRepository : IRepository<FileDTO>
+    public interface IFileRepository : IRepository<FileModel>
     {
-        FileDTO GetByName(string name);
-        FileDTO GetByHashCode(string hashCode);
+        FileModel GetByName(string name);
+        FileModel GetByHashCode(string hashCode);
         int GetPostsCount(int fileId);
     }
 }

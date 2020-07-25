@@ -10,7 +10,7 @@ namespace ISMNewsPortal.Models
         public NewsPostSimplifiedView()
         {
         }
-        public NewsPostSimplifiedView(NewsPostDTO newsPost, int commentsCount)
+        public NewsPostSimplifiedView(NewsPost newsPost, int commentsCount)
         {
             Id = newsPost.Id;
             Name = newsPost.Name;

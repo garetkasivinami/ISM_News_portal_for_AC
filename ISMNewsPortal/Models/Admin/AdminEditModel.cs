@@ -14,7 +14,7 @@ namespace ISMNewsPortal.Models
         {
 
         }
-        public AdminEditModel(AdminDTO admin)
+        public AdminEditModel(Admin admin)
         {
             Id = admin.Id;
             Login = admin.Login;

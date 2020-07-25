@@ -8,7 +8,7 @@ namespace ISMNewsPortal.Models
         public NewsPostAdminView()
         {
         }
-        public NewsPostAdminView(NewsPostDTO newsPost, string authorName, int commentsCount) : base(newsPost, commentsCount)
+        public NewsPostAdminView(NewsPost newsPost, string authorName, int commentsCount) : base(newsPost, commentsCount)
         {
             EditDate = newsPost.EditDate;
             AuthorId = newsPost.AuthorId;

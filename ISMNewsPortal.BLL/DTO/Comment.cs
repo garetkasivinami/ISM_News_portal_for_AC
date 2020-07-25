@@ -2,7 +2,7 @@ using System;
 
 namespace ISMNewsPortal.BLL.DTO
 {
-    public partial class CommentDTO
+    public partial class Comment
     {
         public const int CommentsInOnePage = 10;
         public int Id { get; set; }

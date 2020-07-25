@@ -33,7 +33,7 @@ namespace ISMNewsPortal.Models
 
         }
 
-        public NewsPostCreateModel(NewsPostDTO newsPost)
+        public NewsPostCreateModel(NewsPost newsPost)
         {
             Name = newsPost.Name;
             Description = newsPost.Description;
@@ -43,9 +43,9 @@ namespace ISMNewsPortal.Models
             ImageId = newsPost.ImageId;
         }
 
-        public virtual NewsPostDTO ConvertToNewsPost()
+        public virtual NewsPost ConvertToNewsPost()
         {
-            var newsPost = new NewsPostDTO();
+            var newsPost = new NewsPost();
 
             newsPost.Name = Name;
             newsPost.Description = Description;

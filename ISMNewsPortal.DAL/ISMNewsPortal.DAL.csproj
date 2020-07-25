@@ -68,10 +68,6 @@
   <ItemGroup>
     <Compile Include="Helper.cs" />
     <Compile Include="Lucene\LuceneSearch.cs" />
-    <Compile Include="Models\Admin.cs" />
-    <Compile Include="Models\Comment.cs" />
-    <Compile Include="Models\FileModel.cs" />
-    <Compile Include="Models\NewsPost.cs" />
     <Compile Include="Models\Tool.cs" />
     <Compile Include="NHibernateSession.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,13 +78,6 @@
     <Compile Include="Repositories\NewsPostRepository.cs" />
     <Compile Include="ToolsLogic\CommentToolsLogic.cs" />
     <Compile Include="ToolsLogic\NewsPostToolsLogic.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Models\NHibernate\Admin.hbm.xml" />
-    <Content Include="Models\NHibernate\Comment.hbm.xml" />
-    <Content Include="Models\NHibernate\FileModel.hbm.xml" />
-    <Content Include="Models\NHibernate\hibernate.cfg.xml" />
-    <Content Include="Models\NHibernate\NewsPost.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

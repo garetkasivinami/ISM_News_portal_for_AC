@@ -5,7 +5,7 @@ namespace ISMNewsPortal.Models
 {
     public class CommentViewModel
     {
-        public CommentViewModel(CommentDTO comment)
+        public CommentViewModel(Comment comment)
         {
             Id = comment.Id;
             Date = comment.Date;

@@ -14,12 +14,12 @@ namespace ISMNewsPortal.BLL.Services
     public class CommentService
     {
 
-        public IEnumerable<CommentDTO> GetComments()
+        public IEnumerable<Comment> GetComments()
         {
             return Unity.UnitOfWork.Comments.GetAll();
         }
 
-        public CommentDTO GetComment(int id)
+        public Comment GetComment(int id)
         {
             var comment = Unity.UnitOfWork.Comments.Get(id);
             if (comment == null)
@@ -27,18 +27,18 @@ namespace ISMNewsPortal.BLL.Services
             return comment;
         }
 
-        public IEnumerable<CommentDTO> GetCommentsByPostId(int id)
+        public IEnumerable<Comment> GetCommentsByPostId(int id)
         {
             var comments = Unity.UnitOfWork.Comments.GetByPostId(id).Reverse();
             return comments;
         }
 
-        public void UpdateComment(CommentDTO commentDTO)
+        public void UpdateComment(Comment commentDTO)
         {
             Unity.UnitOfWork.Comments.Update(commentDTO);
         }
 
-        public int CreateComment(CommentDTO commentDTO)
+        public int CreateComment(Comment commentDTO)
         {
             return Unity.UnitOfWork.Comments.Create(commentDTO);
         }

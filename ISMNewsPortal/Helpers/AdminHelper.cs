@@ -12,14 +12,14 @@ namespace ISMNewsPortal.Helpers
 {
     public static class AdminHelper
     {
-        public static void CreateAdmin(AdminDTO admin)
+        public static void CreateAdmin(Admin admin)
         {
             AdminService adminService = new AdminService();
             var adminDTO = MapToAdminDTO(admin);
             adminService.CreateAdmin(adminDTO);
         }
 
-        public static void UpdateAdmin(AdminDTO admin)
+        public static void UpdateAdmin(Admin admin)
         {
             AdminService adminService = new AdminService();
             var adminDTO = MapToAdminDTO(admin);
@@ -38,13 +38,13 @@ namespace ISMNewsPortal.Helpers
             adminService.DeleteAdmin(id);
         }
 
-        public static void SetPassword(AdminDTO admin, string password)
+        public static void SetPassword(Admin admin, string password)
         {
             admin.Password = Security.SHA512(password, out string salt);
             admin.Salt = salt;
         }
 
-        public static bool CheckPassword(AdminDTO admin, string password)
+        public static bool CheckPassword(Admin admin, string password)
         {
             string sha512password = Security.SHA512(password, admin.Salt);
             if (sha512password == admin.Password)
@@ -53,23 +53,23 @@ namespace ISMNewsPortal.Helpers
                 return false;
         }
 
-        public static AdminDTO GetAdmin(int id)
+        public static Admin GetAdmin(int id)
         {
             AdminService adminService = new AdminService();
             var adminDTO = adminService.GetAdmin(id);
-            return MapFromAdminDTO<AdminDTO>(adminDTO);
+            return MapFromAdminDTO<Admin>(adminDTO);
         }
 
-        public static AdminDTO GetAdmin(string login)
+        public static Admin GetAdmin(string login)
         {
             AdminService adminService = new AdminService();
             var adminDTO = adminService.GetAdminByLogin(login);
-            return MapFromAdminDTO<AdminDTO>(adminDTO);
+            return MapFromAdminDTO<Admin>(adminDTO);
         }
 
-        public static AdminDTO GetAdminByLoginAndPassword(string login, string password)
+        public static Admin GetAdminByLoginAndPassword(string login, string password)
         {
-            AdminDTO admin = GetAdmin(login);
+            Admin admin = GetAdmin(login);
             if (CheckPassword(admin, password))
                 return admin;
             else
@@ -80,9 +80,9 @@ namespace ISMNewsPortal.Helpers
         {
             AdminService adminService = new AdminService();
             var adminDTOs = adminService.GetAdmins();
-            var admins = MapFromAdminDTOList<AdminDTO>(adminDTOs);
+            var admins = MapFromAdminDTOList<Admin>(adminDTOs);
             var adminViewModels = new List<AdminViewModel>();
-            foreach (AdminDTO admin in admins)
+            foreach (Admin admin in admins)
             {
                 adminViewModels.Add(new AdminViewModel(admin));
             }
@@ -94,12 +94,12 @@ namespace ISMNewsPortal.Helpers
             return RoleCutter(GetAdmin(login).Roles);
         }
 
-        public static IEnumerable<Roles> GetRoles(AdminDTO admin)
+        public static IEnumerable<Roles> GetRoles(Admin admin)
         {
             return ConvertStringToRoles(admin.Roles);
         }
 
-        public static void SetRoles(AdminDTO admin, IEnumerable<Roles> roles)
+        public static void SetRoles(Admin admin, IEnumerable<Roles> roles)
         {
             admin.Roles = ConvertRolesToString(roles.ToArray());
         }

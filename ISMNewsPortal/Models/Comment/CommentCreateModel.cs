@@ -18,9 +18,9 @@ namespace ISMNewsPortal.Models
         [Display(Name = "CommentText", ResourceType = typeof(Language.Language))]
         public string Text { get; set; }
 
-        public CommentDTO ConvertToComment()
+        public Comment ConvertToComment()
         {
-            var comment = new CommentDTO();
+            var comment = new Comment();
 
             comment.UserName = UserName;
             comment.Date = DateTime.Now;

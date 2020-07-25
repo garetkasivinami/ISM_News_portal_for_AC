@@ -13,19 +13,19 @@ namespace ISMNewsPortal.BLL.Services
     public class NewsPostService
     {
 
-        public IEnumerable<NewsPostDTO> GetNewsPosts()
+        public IEnumerable<NewsPost> GetNewsPosts()
         {
             return Unity.UnitOfWork.NewsPosts.GetAll();
         }
 
-        public IEnumerable<NewsPostDTO> GetNewsPostsWithTools(ToolsDTO toolsDTO)
+        public IEnumerable<NewsPost> GetNewsPostsWithTools(ToolsDTO toolsDTO)
         {
             var newsPosts = Unity.UnitOfWork.NewsPosts.GetAllWithTools(toolsDTO);
             toolsDTO.Pages = toolsDTO.Pages;
             return newsPosts;
         }
 
-        public IEnumerable<NewsPostDTO> GetNewsPostsWithAdminTools(ToolsDTO toolsDTO)
+        public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(ToolsDTO toolsDTO)
         {
             toolsDTO.Admin = true;
             var newsPosts = Unity.UnitOfWork.NewsPosts.GetAllWithTools(toolsDTO);
@@ -33,7 +33,7 @@ namespace ISMNewsPortal.BLL.Services
             return newsPosts;
         }
 
-        public NewsPostDTO GetNewsPost(int id)
+        public NewsPost GetNewsPost(int id)
         {
             var newsPost = Unity.UnitOfWork.NewsPosts.Get(id);
             if (newsPost == null)
@@ -41,12 +41,12 @@ namespace ISMNewsPortal.BLL.Services
             return newsPost;
         }
 
-        public void UpdateNewsPost(NewsPostDTO newsPostDTO)
+        public void UpdateNewsPost(NewsPost newsPostDTO)
         {
             Unity.UnitOfWork.NewsPosts.Update(newsPostDTO);
         }
 
-        public void CreateNewsPost(NewsPostDTO newsPostDTO)
+        public void CreateNewsPost(NewsPost newsPostDTO)
         {
             Unity.UnitOfWork.NewsPosts.Create(newsPostDTO);
         }

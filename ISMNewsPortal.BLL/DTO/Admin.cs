@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ISMNewsPortal.BLL.DTO
 {
-    public class AdminDTO
+    public class Admin
     {
         public int Id { get; set; }
         public string Login { get; set; }

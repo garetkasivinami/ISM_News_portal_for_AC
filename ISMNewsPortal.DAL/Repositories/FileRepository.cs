@@ -25,7 +25,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return session.Query<FileModel>().Count();
         }
 
-        public int Create(FileDTO item)
+        public int Create(FileModel item)
         {
             var fileModel = MapFromFileDTO<FileModel>(item);
             using (ITransaction transaction = session.BeginTransaction())
@@ -46,30 +46,30 @@ namespace ISMNewsPortal.DAL.Repositories
             }
         }
 
-        public FileDTO Get(int id)
+        public FileModel Get(int id)
         {
             var fileModel = session.Get<FileModel>(id);
             return MapToFileDTO(fileModel);
         }
 
-        public IEnumerable<FileDTO> GetAll()
+        public IEnumerable<FileModel> GetAll()
         {
             var fileModels = session.Query<FileModel>();
             return MapToFileDTOList(fileModels);
         }
 
-        public IEnumerable<FileDTO> GetAllWithTools(ToolsDTO toolBar)
+        public IEnumerable<FileModel> GetAllWithTools(ToolsDTO toolBar)
         {
             throw new NotImplementedException();
         }
 
-        public FileDTO GetByHashCode(string hashCode)
+        public FileModel GetByHashCode(string hashCode)
         {
             var fileModel = session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
             return MapToFileDTO(fileModel);
         }
 
-        public FileDTO GetByName(string name)
+        public FileModel GetByName(string name)
         {
             var fileModel = session.Query<FileModel>().SingleOrDefault(u => u.Name == name);
             return MapToFileDTO(fileModel);
@@ -80,7 +80,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return session.Query<NewsPost>().Count(u => u.ImageId == fileId);
         }
 
-        public void Update(FileDTO item)
+        public void Update(FileModel item)
         {
             var fileModel = MapFromFileDTO<FileModel>(item);
             var createdFileModel = session.Get<FileModel>(item.Id);

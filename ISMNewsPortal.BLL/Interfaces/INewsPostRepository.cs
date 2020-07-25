@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ISMNewsPortal.BLL.Interfaces
 {
-    public interface INewsPostRepository : IRepository<NewsPostDTO>
+    public interface INewsPostRepository : IRepository<NewsPost>
     {
-        IEnumerable<NewsPostDTO> GetByName(string name);
-        IEnumerable<NewsPostDTO> GetByAuthorId(int id);
-        IEnumerable<NewsPostDTO> GetByVisibility(bool visible);
-        IEnumerable<NewsPostDTO> GetByImageId(int id);
+        IEnumerable<NewsPost> GetByName(string name);
+        IEnumerable<NewsPost> GetByAuthorId(int id);
+        IEnumerable<NewsPost> GetByVisibility(bool visible);
+        IEnumerable<NewsPost> GetByImageId(int id);
         int CommentsCount(int postId);
     }
 }

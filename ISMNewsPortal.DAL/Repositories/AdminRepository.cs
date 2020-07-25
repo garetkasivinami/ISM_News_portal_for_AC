@@ -25,7 +25,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return session.Query<Admin>().Count();
         }
 
-        public int Create(AdminDTO item)
+        public int Create(Admin item)
         {
             var admin = MapFromAdminDTO<Admin>(item);
             using (ITransaction transaction = session.BeginTransaction())
@@ -46,42 +46,42 @@ namespace ISMNewsPortal.DAL.Repositories
             }
         }
 
-        public AdminDTO Get(int id)
+        public Admin Get(int id)
         {
             var admin = session.Get<Admin>(id);
             return MapToAdminDTO(admin);
         }
 
-        public IEnumerable<AdminDTO> GetAll()
+        public IEnumerable<Admin> GetAll()
         {
             var admins = session.Query<Admin>();
             return MapToAdminDTOList(admins);
         }
 
-        public IEnumerable<AdminDTO> GetAllWithTools(ToolsDTO toolBar)
+        public IEnumerable<Admin> GetAllWithTools(ToolsDTO toolBar)
         {
             return GetAll();
         }
 
-        public AdminDTO GetByEmail(string email)
+        public Admin GetByEmail(string email)
         {
             var admin = session.Query<Admin>().Where(u => u.Email == email);
             return MapToAdminDTO(admin);
         }
 
-        public AdminDTO GetByLogin(string login)
+        public Admin GetByLogin(string login)
         {
             var admin = session.Query<Admin>().SingleOrDefault(u => u.Login == login);
             return MapToAdminDTO(admin);
         }
 
-        public IEnumerable<AdminDTO> GetByRole(string role)
+        public IEnumerable<Admin> GetByRole(string role)
         {
             var admins = session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
             return MapToAdminDTOList(admins);
         }
 
-        public void Update(AdminDTO item)
+        public void Update(Admin item)
         {
             var admin = MapFromAdminDTO<Admin>(item);
             var createdAdmin = session.Get<Admin>(item.Id);
