@@ -85,13 +85,14 @@
                     <li class="list-group-item">@Language.Language.CreatedDate: <span class="js_date">@newsPost.CreatedDate.ToString("u").Replace('-', '/')</span></li>
                     <li class="list-group-item">@Language.Language.PublicationDate: <span class="js_date">@newsPost.PublicationDate.ToString("u").Replace('-', '/')</span></li>
                     <li class="list-group-item">@Language.Language.Visibility: @(newsPost.IsVisible ? Language.Language.Yes: Language.Language.No )</li>
+                    @if (newsPost.EditDate != null)
+                    {
+                        <li class="list-group-item">@Language.Language.LastEditDate: <span class="js_date">@(newsPost.EditDate?.ToString("u").Replace('-', '/'))</span></li>
+                    }
                 </ul>
             </div>
             <div class="card-body">
-                @if (newsPost.EditDate != null)
-                {
-                    <p>@Language.Language.LastEditDate: <span class="js_date">@(newsPost.EditDate?.ToString("u").Replace('-', '/'))</span></p>
-                }
+                
                 @if (newsPost.PublicationDate > DateTime.Now || !newsPost.IsVisible)
                 {
                     <h1>@Language.Language.NotPublished</h1>

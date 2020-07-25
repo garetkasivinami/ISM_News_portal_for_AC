@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISMNewsPortal.BLL.Interfaces
+namespace ISMNewsPortal.BLL.Repositories
 {
     public interface INewsPostRepository : IRepository<NewsPost>
     {
@@ -13,6 +13,6 @@ namespace ISMNewsPortal.BLL.Interfaces
         IEnumerable<NewsPost> GetByAuthorId(int id);
         IEnumerable<NewsPost> GetByVisibility(bool visible);
         IEnumerable<NewsPost> GetByImageId(int id);
-        int CommentsCount(int postId);
+        int GetCommentsCount(int postId);
     }
 }

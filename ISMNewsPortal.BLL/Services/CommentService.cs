@@ -63,7 +63,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public int GetCommentCountByPostId(int id)
         {
-            return Unity.UnitOfWork.Comments.CountByPostId(id);
+            return Unity.UnitOfWork.Comments.GetCountByPostId(id);
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ISMNewsPortal.BLL.BusinessModels;
 
-namespace ISMNewsPortal.BLL.Interfaces
+namespace ISMNewsPortal.BLL.Repositories
 {
     public interface IRepository<T> where T : class
     {
@@ -14,7 +14,7 @@ namespace ISMNewsPortal.BLL.Interfaces
         void Delete(int id);
         T Get(int id);
         IEnumerable<T> GetAll();
-        IEnumerable<T> GetAllWithTools(ToolsDTO toolBar);
+        IEnumerable<T> GetWithOptions(ToolsDTO toolBar);
         int Count();
     }
 }

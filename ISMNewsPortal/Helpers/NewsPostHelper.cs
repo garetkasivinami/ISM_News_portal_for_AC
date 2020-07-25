@@ -16,17 +16,13 @@ namespace ISMNewsPortal.Helpers
         public static void CreateNewsPost(NewsPost newsPost)
         {
             NewsPostService newsPostService = new NewsPostService();
-
-            var newsPostDTO = MapToNewsPostDTO(newsPost);
-            newsPostService.CreateNewsPost(newsPostDTO);
+            newsPostService.CreateNewsPost(newsPost);
         }
 
         public static void UpdateNewsPost(NewsPost newsPost)
         {
             NewsPostService newsPostService = new NewsPostService();
- 
-            var newsPostDTO = MapToNewsPostDTO(newsPost);
-            newsPostService.UpdateNewsPost(newsPostDTO);
+            newsPostService.UpdateNewsPost(newsPost);
         }
 
         public static void DeleteNewsPost(int id)
@@ -41,16 +37,15 @@ namespace ISMNewsPortal.Helpers
             NewsPostService newsPostService = new NewsPostService();
             CommentService commentService = new CommentService();
 
-            var newsPostDTO = newsPostService.GetNewsPost(id);
-            var newsPost = MapFromNewsPostDTO<NewsPost>(newsPostDTO);
+            var newsPost = newsPostService.GetNewsPost(id);
             if (onlyVisible && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
                 throw new Exception("Post isn`t visible!");
 
-            var commentDTOs = commentService.GetCommentsByPostId(newsPost.Id);
-            var comments = MapFromCommentDTOList<Comment>(commentDTOs);
+            var comments = commentService.GetCommentsByPostId(newsPost.Id);
 
             int commentsCount = comments.Count();
             int pages = commentsCount / Comment.CommentsInOnePage;
+
             if (commentsCount % Comment.CommentsInOnePage != 0)
                 pages++;
 
@@ -71,8 +66,7 @@ namespace ISMNewsPortal.Helpers
             CommentService commentService = new CommentService();
 
             var toolsDTO = MapToToolsDTO(model);
-            var newsPostsDTO = newsPostService.GetNewsPostsWithAdminTools(toolsDTO);
-            var newsPosts = MapFromNewsPostDTOList<NewsPost>(newsPostsDTO);
+            var newsPosts = newsPostService.GetNewsPostsWithAdminTools(toolsDTO);
 
             var newsPostAdminViews = new List<NewsPostAdminView>();
             foreach (NewsPost newsPost in newsPosts)
@@ -91,8 +85,7 @@ namespace ISMNewsPortal.Helpers
             CommentService commentService = new CommentService();
 
             var modelDTO = MapToToolsDTO(model);
-            var newsPostsDTO = newsPostService.GetNewsPostsWithTools(modelDTO);
-            var newsPosts = MapFromNewsPostDTOList<NewsPost>(newsPostsDTO);
+            var newsPosts = newsPostService.GetNewsPostsWithTools(modelDTO);
 
             var newsPostSimplifiedViews = new List<NewsPostSimplifiedView>();
             foreach (NewsPost newsPost in newsPosts)
@@ -110,8 +103,7 @@ namespace ISMNewsPortal.Helpers
             NewsPostService newsPostService = new NewsPostService();
             AdminService adminService = new AdminService();
 
-            var newsPostDTO = newsPostService.GetNewsPost(id);
-            var newsPost = MapFromNewsPostDTO<NewsPost>(newsPostDTO);
+            var newsPost = newsPostService.GetNewsPost(id);
             string newsPostAuthorName = adminService.GetAdmin(newsPost.AuthorId).Login;
             int commentsCount = newsPostService.CommentsCount(id);
             return new NewsPostAdminView(newsPost, newsPostAuthorName, commentsCount);
@@ -121,8 +113,7 @@ namespace ISMNewsPortal.Helpers
         {
             NewsPostService newsPostService = new NewsPostService();
 
-            var newsPostDTO = newsPostService.GetNewsPost(id);
-            var newsPost = MapFromNewsPostDTO<NewsPost>(newsPostDTO);
+            var newsPost = newsPostService.GetNewsPost(id);
             return new NewsPostEditModel(newsPost);
         }
     }

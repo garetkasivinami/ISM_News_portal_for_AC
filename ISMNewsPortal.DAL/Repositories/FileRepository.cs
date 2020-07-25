@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ISMNewsPortal.BLL.Interfaces;
+using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 using static ISMNewsPortal.BLL.Mappers.Automapper;
@@ -58,7 +58,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return MapToFileDTOList(fileModels);
         }
 
-        public IEnumerable<FileModel> GetAllWithTools(ToolsDTO toolBar)
+        public IEnumerable<FileModel> GetWithOptions(ToolsDTO toolBar)
         {
             throw new NotImplementedException();
         }

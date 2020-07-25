@@ -1,4 +1,4 @@
-﻿using ISMNewsPortal.BLL.Interfaces;
+﻿using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.DAL.Models;
 using ISMNewsPortal.DAL.Lucene;
 using NHibernate;
@@ -22,7 +22,7 @@ namespace ISMNewsPortal.DAL.Repositories
             this.session = session;
         }
 
-        public int CommentsCount(int postId)
+        public int GetCommentsCount(int postId)
         {
             return session.Query<Comment>().Count(u => u.NewsPostId == postId);
         }
@@ -65,7 +65,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return MapToNewsPostDTOList(newsPosts);
         }
 
-        public IEnumerable<NewsPost> GetAllWithTools(ToolsDTO toolBar)
+        public IEnumerable<NewsPost> GetWithOptions(ToolsDTO toolBar)
         {
             string filterFunc = GetFilterSqlString(toolBar.Filter);
             string sortString;
@@ -73,12 +73,12 @@ namespace ISMNewsPortal.DAL.Repositories
             IList<NewsPost> selectedNewsPost;
             if (toolBar.Admin)
             {
-                sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? false);
+                sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? true);
                 selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
             }
             else
             {
-                sortString = GetSortSqlString(toolBar.SortType, toolBar.Reversed ?? false);
+                sortString = GetSortSqlString(toolBar.SortType, toolBar.Reversed ?? true);
                 selectedNewsPost = GetSqlQuerry(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
             }
             toolBar.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISMNewsPortal.BLL.Interfaces
+namespace ISMNewsPortal.BLL.Repositories
 {
     public interface IFileRepository : IRepository<FileModel>
     {

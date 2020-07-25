@@ -16,15 +16,13 @@ namespace ISMNewsPortal.Helpers
         public static int CreateComment(Comment comment)
         {
             CommentService commentService = new CommentService();
-            var commentDTO = MapToCommentDTO(comment);
-            return commentService.CreateComment(commentDTO);
+            return commentService.CreateComment(comment);
         }
 
         public static void UdpateComment(Comment comment)
         {
             CommentService commentService = new CommentService();
-            var commentDTO = MapToCommentDTO(comment);
-            commentService.UpdateComment(commentDTO);
+            commentService.UpdateComment(comment);
         }
 
         public static void DeleteComment(int id)
@@ -37,8 +35,7 @@ namespace ISMNewsPortal.Helpers
         {
             CommentService commentService = new CommentService();
             NewsPostService newsPostService = new NewsPostService();
-            var commentsDTO = commentService.GetCommentsByPostId(postId);
-            var comments = MapFromCommentDTOList<Comment>(commentsDTO);
+            var comments = commentService.GetCommentsByPostId(postId);
 
             int commentsCount = comments.Count();
 
@@ -47,8 +44,7 @@ namespace ISMNewsPortal.Helpers
             {
                 commentsViewModel.Add(new CommentViewModel(comment));
             }
-            var newsPostDTO = newsPostService.GetNewsPost(postId);
-            var newsPost = MapFromNewsPostDTO<NewsPost>(newsPostDTO);
+            var newsPost = newsPostService.GetNewsPost(postId);
             string imagePath = FileModelActions.GetNameByIdFormated(newsPost.ImageId);
             return new CommentViewModelCollection(newsPost, imagePath, commentsViewModel, new ToolBarModel(), commentsCount);
         }

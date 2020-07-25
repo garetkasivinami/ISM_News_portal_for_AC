@@ -1,6 +1,6 @@
 ﻿using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.BLL.Interfaces;
+using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.DAL.Models;
 using NHibernate;
 using System;
@@ -26,7 +26,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return session.Query<Comment>().Count();
         }
 
-        public int CountByPostId(int id)
+        public int GetCountByPostId(int id)
         {
             return session.Query<Comment>().Count(u => u.NewsPostId == id);
         }
@@ -75,7 +75,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return MapToCommentDTOList(comments);
         }
 
-        public IEnumerable<Comment> GetAllWithTools(ToolsDTO toolBar)
+        public IEnumerable<Comment> GetWithOptions(ToolsDTO toolBar)
         {
             throw new NotImplementedException();
         }

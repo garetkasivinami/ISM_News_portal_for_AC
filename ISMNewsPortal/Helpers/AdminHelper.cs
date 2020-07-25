@@ -15,15 +15,13 @@ namespace ISMNewsPortal.Helpers
         public static void CreateAdmin(Admin admin)
         {
             AdminService adminService = new AdminService();
-            var adminDTO = MapToAdminDTO(admin);
-            adminService.CreateAdmin(adminDTO);
+            adminService.CreateAdmin(admin);
         }
 
         public static void UpdateAdmin(Admin admin)
         {
             AdminService adminService = new AdminService();
-            var adminDTO = MapToAdminDTO(admin);
-            adminService.UpdateAdmin(adminDTO);
+            adminService.UpdateAdmin(admin);
         }
 
         public static void UpdateAdminPartial(int id, string email, string roles = null, bool updateRoles = false)
@@ -56,15 +54,13 @@ namespace ISMNewsPortal.Helpers
         public static Admin GetAdmin(int id)
         {
             AdminService adminService = new AdminService();
-            var adminDTO = adminService.GetAdmin(id);
-            return MapFromAdminDTO<Admin>(adminDTO);
+            return adminService.GetAdmin(id);
         }
 
         public static Admin GetAdmin(string login)
         {
             AdminService adminService = new AdminService();
-            var adminDTO = adminService.GetAdminByLogin(login);
-            return MapFromAdminDTO<Admin>(adminDTO);
+            return adminService.GetAdminByLogin(login);
         }
 
         public static Admin GetAdminByLoginAndPassword(string login, string password)
@@ -79,8 +75,7 @@ namespace ISMNewsPortal.Helpers
         public static AdminViewModelCollection GenerateAdminViewModelCollection()
         {
             AdminService adminService = new AdminService();
-            var adminDTOs = adminService.GetAdmins();
-            var admins = MapFromAdminDTOList<Admin>(adminDTOs);
+            var admins = adminService.GetAdmins();
             var adminViewModels = new List<AdminViewModel>();
             foreach (Admin admin in admins)
             {

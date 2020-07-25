@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ISMNewsPortal.BLL.Interfaces;
+using ISMNewsPortal.BLL.Repositories;
 
 namespace ISMNewsPortal.BLL
 {

@@ -20,7 +20,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<NewsPost> GetNewsPostsWithTools(ToolsDTO toolsDTO)
         {
-            var newsPosts = Unity.UnitOfWork.NewsPosts.GetAllWithTools(toolsDTO);
+            var newsPosts = Unity.UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
             toolsDTO.Pages = toolsDTO.Pages;
             return newsPosts;
         }
@@ -28,7 +28,7 @@ namespace ISMNewsPortal.BLL.Services
         public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(ToolsDTO toolsDTO)
         {
             toolsDTO.Admin = true;
-            var newsPosts = Unity.UnitOfWork.NewsPosts.GetAllWithTools(toolsDTO);
+            var newsPosts = Unity.UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
             toolsDTO.Pages = toolsDTO.Pages;
             return newsPosts;
         }
@@ -64,7 +64,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public int CommentsCount(int id)
         {
-            return Unity.UnitOfWork.Comments.CountByPostId(id);
+            return Unity.UnitOfWork.Comments.GetCountByPostId(id);
         }
     }
 }
