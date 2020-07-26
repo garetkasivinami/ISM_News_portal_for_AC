@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Models;
-using static ISMNewsPortal.BLL.Mappers.Automapper;
 using ISMNewsPortal.Models;
 
 namespace ISMNewsPortal.Helpers
@@ -64,7 +63,7 @@ namespace ISMNewsPortal.Helpers
             AdminService adminService = new AdminService();
             CommentService commentService = new CommentService();
 
-            var toolsDTO = MapToToolsDTO(model);
+            var toolsDTO = model;
             var newsPosts = newsPostService.GetNewsPostsWithAdminTools(toolsDTO);
 
             var newsPostAdminViews = new List<NewsPostAdminView>();
@@ -83,7 +82,7 @@ namespace ISMNewsPortal.Helpers
             NewsPostService newsPostService = new NewsPostService();
             CommentService commentService = new CommentService();
 
-            var modelDTO = MapToToolsDTO(model);
+            var modelDTO = model;
             var newsPosts = newsPostService.GetNewsPostsWithTools(modelDTO);
 
             var newsPostSimplifiedViews = new List<NewsPostSimplifiedView>();

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
-using static ISMNewsPortal.BLL.Mappers.Automapper;
 
 namespace ISMNewsPortal.DAL.Repositories
 {

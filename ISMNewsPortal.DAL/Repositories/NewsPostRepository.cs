@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ISMNewsPortal.BLL.Mappers.Automapper;
 using static ISMNewsPortal.DAL.ToolsLogic.NewsPostToolsLogic;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
@@ -67,14 +66,12 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public override void Update(NewsPost item)
         {
-            var newsPost = item;
             var createdNewsPost = _session.Get<NewsPost>(item.Id);
             DateTime createdDate = createdNewsPost.CreatedDate;
-            Map(newsPost, createdNewsPost);
-            createdNewsPost.CreatedDate = createdDate;
+            item.CreatedDate = createdDate;
             using (ITransaction transaction = _session.BeginTransaction())
             {
-                _session.Update(createdNewsPost);
+                _session.Update(item);
                 transaction.Commit();
             }
         }

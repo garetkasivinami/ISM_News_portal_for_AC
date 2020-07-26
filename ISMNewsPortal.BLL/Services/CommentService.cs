@@ -2,7 +2,6 @@
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Infrastructure;
-using ISMNewsPortal.BLL.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
