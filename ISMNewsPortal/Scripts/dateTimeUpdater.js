@@ -2,9 +2,23 @@
 
 let dates = document.querySelectorAll(".js_date");
 for (let i = 0; i < dates.length; i++) {
-    let dateParse = Date.parse(dates[i].innerHTML);
+    UpdateDate(dates[i]);
+}
+
+function UpdateDate(element) {
+    let dateParse = Date.parse(element.innerHTML);
     let date = new Date(dateParse);
-    dates[i].innerHTML = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+    element.innerHTML = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+}
+
+function GetFirstDateElement() {
+    let commentSet = document.querySelector("#comments");
+    return commentSet.querySelector(".js_date");
+}
+
+function UpdateFirstDateElement() {
+    let element = GetFirstDateElement();
+    UpdateDate(element);
 }
 
 let startUpdateCommection = document.querySelectorAll(".submit_date");

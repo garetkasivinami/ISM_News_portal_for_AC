@@ -27,12 +27,11 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public int Create(Admin item)
         {
-            var admin = MapFromAdminDTO<Admin>(item);
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Save(admin);
+                session.Save(item);
                 transaction.Commit();
-                return admin.Id;
+                return item.Id;
             }
         }
 
@@ -48,14 +47,12 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public Admin Get(int id)
         {
-            var admin = session.Get<Admin>(id);
-            return MapToAdminDTO(admin);
+            return session.Get<Admin>(id);
         }
 
         public IEnumerable<Admin> GetAll()
         {
-            var admins = session.Query<Admin>();
-            return MapToAdminDTOList(admins);
+            return session.Query<Admin>();
         }
 
         public IEnumerable<Admin> GetWithOptions(ToolsDTO toolBar)
@@ -65,25 +62,22 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public Admin GetByEmail(string email)
         {
-            var admin = session.Query<Admin>().Where(u => u.Email == email);
-            return MapToAdminDTO(admin);
+            return session.Query<Admin>().FirstOrDefault(u => u.Email == email);
         }
 
         public Admin GetByLogin(string login)
         {
-            var admin = session.Query<Admin>().SingleOrDefault(u => u.Login == login);
-            return MapToAdminDTO(admin);
+            return session.Query<Admin>().SingleOrDefault(u => u.Login == login);
         }
 
         public IEnumerable<Admin> GetByRole(string role)
         {
-            var admins = session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
-            return MapToAdminDTOList(admins);
+            return session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
         }
 
         public void Update(Admin item)
         {
-            var admin = MapFromAdminDTO<Admin>(item);
+            var admin = item;
             var createdAdmin = session.Get<Admin>(item.Id);
             Map(admin, createdAdmin);
             using (ITransaction transaction = session.BeginTransaction())

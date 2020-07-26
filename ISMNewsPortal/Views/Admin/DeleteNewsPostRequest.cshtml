@@ -9,12 +9,13 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text">@Html.Raw(Html.Encode(Model.Description).Replace("\n", "<br />"))</p>
+        <p class="card-text">@Html.Raw(Model.Description)</p>
         <p class="card-text">
             <small class="text-muted">
                 @Model.CreatedDate
                 @if (Model.EditDate != null)
                 {
+                    <br>
                     <span>@Language.Language.PostEdited: @Model.EditDate</span>
                 }
             </small>
@@ -22,4 +23,6 @@
     </div>
 </div>
 <hr />
-@Html.ActionLink(Language.Language.Delete, "DeleteNewsPost", "Admin", new { @id = Model.Id }, new { @class = "btn btn-outline-danger" })
+<h1>@Language.Language.SureQ</h1>
+@Html.ActionLink(Language.Language.Yes, "DeleteNewsPost", "Admin", new { @id = Model.Id }, new { @class = "btn btn-outline-danger" })
+@Html.ActionLink(Language.Language.No, "Index", "Admin", null, new { @class = "btn btn-outline-danger" })

@@ -27,12 +27,11 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public int Create(FileModel item)
         {
-            var fileModel = MapFromFileDTO<FileModel>(item);
             using (ITransaction transaction = session.BeginTransaction())
             {
-                session.Save(fileModel);
+                session.Save(item);
                 transaction.Commit();
-                return fileModel.Id;
+                return item.Id;
             }
         }
 
@@ -48,31 +47,27 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public FileModel Get(int id)
         {
-            var fileModel = session.Get<FileModel>(id);
-            return MapToFileDTO(fileModel);
+            return session.Get<FileModel>(id);
         }
 
         public IEnumerable<FileModel> GetAll()
         {
-            var fileModels = session.Query<FileModel>();
-            return MapToFileDTOList(fileModels);
+            return session.Query<FileModel>();
         }
 
         public IEnumerable<FileModel> GetWithOptions(ToolsDTO toolBar)
         {
-            throw new NotImplementedException();
+            return GetAll();
         }
 
         public FileModel GetByHashCode(string hashCode)
         {
-            var fileModel = session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
-            return MapToFileDTO(fileModel);
+            return session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
         }
 
         public FileModel GetByName(string name)
         {
-            var fileModel = session.Query<FileModel>().SingleOrDefault(u => u.Name == name);
-            return MapToFileDTO(fileModel);
+            return session.Query<FileModel>().SingleOrDefault(u => u.Name == name);
         }
 
         public int GetPostsCount(int fileId)
@@ -82,7 +77,7 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public void Update(FileModel item)
         {
-            var fileModel = MapFromFileDTO<FileModel>(item);
+            var fileModel = item;
             var createdFileModel = session.Get<FileModel>(item.Id);
             Map(fileModel, createdFileModel);
             using (ITransaction transaction = session.BeginTransaction())

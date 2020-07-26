@@ -46,6 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessModels\ToolsDTO.cs" />
+    <Compile Include="Exceptions\AdminExistsException.cs" />
+    <Compile Include="Exceptions\NullExceptions\AdminNullException.cs" />
+    <Compile Include="Exceptions\NullExceptions\CommentNullException.cs" />
+    <Compile Include="Exceptions\NullExceptions\FileNullException.cs" />
+    <Compile Include="Exceptions\NullExceptions\NewsPostNullException.cs" />
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\FileModel.cs" />

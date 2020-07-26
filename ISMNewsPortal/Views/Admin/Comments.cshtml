@@ -164,7 +164,7 @@
             </div>
             <div class="card-footer">
                 <div class="btn-group" role="group">
-                    @Html.ActionLink(Language.Language.Delete, "DeleteComment", "Admin", new { @id = comment.Id }, new { @class = "btn btn-outline-secondary btn-sm doubleClickLink" })
+                    <button class = "btn btn-outline-secondary btn-sm" onclick="DeleteComment(@comment.Id)">@Language.Language.Delete</button>
                     @Html.ActionLink(Language.Language.GoToPost, "Details", "News", new { @id = comment.NewsPostId }, new { @class = "btn btn-outline-secondary btn-sm", @target = "_blank" })
                 </div>
             </div>
@@ -177,3 +177,12 @@ else
     <p>@Language.Language.NoComments</p>
 }
 <script src="~/Scripts/doubleClickLink.js"></script>
+<script>
+    function DeleteComment(id) {
+        let result = confirm('@Language.Language.SureQ');
+        if (result == true) {
+            let url = '@Url.Action("DeleteComment", "Admin", new { @id = "targetId", @postId = Model.NewsPost.Id })';
+            window.open(url.replace("targetId", id), "_self");
+        }
+    }
+</script>

@@ -7,6 +7,7 @@ using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Mappers;
 using ISMNewsPortal.BLL.Infrastructure;
 using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.BLL.Exceptions;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -37,7 +38,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var newsPost = Unity.UnitOfWork.NewsPosts.Get(id);
             if (newsPost == null)
-                throw new Exception("News post is null");
+                throw new NewsPostNullException();
             return newsPost;
         }
 

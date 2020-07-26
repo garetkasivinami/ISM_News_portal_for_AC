@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISMNewsPortal.BLL.Exceptions;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -20,7 +21,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var file = Unity.UnitOfWork.Files.Get(id);
             if (file == null)
-                throw new Exception("File is null");
+                throw new FileNullException();
             return file;
         }
 
@@ -52,7 +53,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var file = Unity.UnitOfWork.Files.Get(id);
             if (file == null)
-                throw new Exception("File is null");
+                throw new FileNullException();
             return file.Name;
         }
     }

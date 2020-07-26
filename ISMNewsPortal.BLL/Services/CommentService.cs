@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISMNewsPortal.BLL.Exceptions;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -23,7 +24,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var comment = Unity.UnitOfWork.Comments.Get(id);
             if (comment == null)
-                throw new Exception("Comment is null");
+                throw new CommentNullException();
             return comment;
         }
 

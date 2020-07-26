@@ -7,6 +7,7 @@ using System.Linq;
 using AutoMapper;
 using System.Text;
 using System.Threading.Tasks;
+using ISMNewsPortal.BLL.Exceptions;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -21,7 +22,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var admin = Unity.UnitOfWork.Admins.Get(id);
             if (admin == null)
-                throw new Exception("Admin is null");
+                throw new AdminNullException();
             return admin;
         }
 
@@ -29,7 +30,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var admin = Unity.UnitOfWork.Admins.GetByLogin(login);
             if (admin == null)
-                throw new Exception("Admin is null");
+                throw new AdminNullException();
             return admin;
         }
 
@@ -51,7 +52,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             var createdAdmin = Unity.UnitOfWork.Admins.GetByLogin(adminDTO.Login);
             if (createdAdmin != null)
-                throw new Exception("An administrator with this login already exists");
+                throw new AdminExistsException("An administrator with this login already exists");
             Unity.UnitOfWork.Admins.Create(adminDTO);
         }
 

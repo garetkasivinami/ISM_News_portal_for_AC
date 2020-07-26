@@ -50,12 +50,13 @@ namespace ISMNewsPortal.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public PartialViewResult CreateComment(CommentCreateModel model)
+        public ActionResult CreateComment(CommentCreateModel model)
         {
             if (ModelState.IsValid)
             {
                 var comment = model.ConvertToComment();
                 comment.Id = CommentHelper.CreateComment(comment);
+                //return Json(PartialView("_Comment", new CommentViewModel(comment)), JsonRequestBehavior.AllowGet);
                 return PartialView("_Comment", new CommentViewModel(comment));
             }
             return null;
