@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.BLL.Models;
 using System;
-using ISMNewsPortal.BLL.Infrastructure;
+using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.Helpers;
 
 namespace ISMNewsPortal.Controllers
@@ -13,7 +13,7 @@ namespace ISMNewsPortal.Controllers
     public class AdminController : Controller
     {
         [HttpGet]
-        public ActionResult Index(ToolBarModel model)
+        public ActionResult Index(Options model)
         {
             NewsPostAdminCollection result = NewsPostHelper.GenerateNewsPostAdminCollection(model);
             return View(result);

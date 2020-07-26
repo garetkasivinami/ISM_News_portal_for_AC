@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
-using ISMNewsPortal.DAL.Models;
 using NHibernate;
 
 namespace ISMNewsPortal.DAL.Repositories
@@ -21,9 +21,9 @@ namespace ISMNewsPortal.DAL.Repositories
 
         private ISession session;
 
-        public EFUnitOfWork()
+        public EFUnitOfWork(ISession session)
         {
-            session = NHibernateSession.OpenSession();
+            this.session = session;
 
             signedObjects = new List<object>();
 
@@ -58,6 +58,35 @@ namespace ISMNewsPortal.DAL.Repositories
                 session.Close();
                 disposed = true;
             }
+        }
+
+        public void Save()
+        {
+            using (ITransaction transaction = session.BeginTransaction())
+            {
+                transaction.Commit();
+            }
+        }
+
+        public void Update<T>(T item) where T : Model
+        {
+            session.Update(item);
+        }
+
+        public int Create<T>(T item) where T : Model
+        {
+            session.Save(item);
+            return item.Id;
+        }
+
+        public void Delete<T>(int id)
+        {
+            Delete(session.Get<T>(id));
+        }
+
+        public void Delete<T>(T item)
+        {
+            session.Delete(item);
         }
     }
 }

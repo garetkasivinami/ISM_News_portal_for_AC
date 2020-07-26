@@ -16,27 +16,27 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<NewsPost> GetNewsPosts()
         {
-            return Unity.UnitOfWork.NewsPosts.GetAll();
+            return UnitOfWorkManager.UnitOfWork.NewsPosts.GetAll();
         }
 
-        public IEnumerable<NewsPost> GetNewsPostsWithTools(ToolsDTO toolsDTO)
+        public IEnumerable<NewsPost> GetNewsPostsWithTools(Options toolsDTO)
         {
-            var newsPosts = Unity.UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
+            var newsPosts = UnitOfWorkManager.UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
             toolsDTO.Pages = toolsDTO.Pages;
             return newsPosts;
         }
 
-        public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(ToolsDTO toolsDTO)
+        public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(Options toolsDTO)
         {
             toolsDTO.Admin = true;
-            var newsPosts = Unity.UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
+            var newsPosts = UnitOfWorkManager.UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
             toolsDTO.Pages = toolsDTO.Pages;
             return newsPosts;
         }
 
         public NewsPost GetNewsPost(int id)
         {
-            var newsPost = Unity.UnitOfWork.NewsPosts.Get(id);
+            var newsPost = UnitOfWorkManager.UnitOfWork.NewsPosts.Get(id);
             if (newsPost == null)
                 throw new NewsPostNullException();
             return newsPost;
@@ -44,28 +44,28 @@ namespace ISMNewsPortal.BLL.Services
 
         public void UpdateNewsPost(NewsPost newsPostDTO)
         {
-            Unity.UnitOfWork.NewsPosts.Update(newsPostDTO);
+            UnitOfWorkManager.UnitOfWork.Update(newsPostDTO);
         }
 
         public void CreateNewsPost(NewsPost newsPostDTO)
         {
-            Unity.UnitOfWork.NewsPosts.Create(newsPostDTO);
+            UnitOfWorkManager.UnitOfWork.Create(newsPostDTO);
         }
 
         public void DeleteNewsPost(int id)
         {
-            Unity.UnitOfWork.NewsPosts.Delete(id);
-            Unity.UnitOfWork.Comments.DeleteCommentsByPostId(id);
+            UnitOfWorkManager.UnitOfWork.NewsPosts.Delete(id);
+            UnitOfWorkManager.UnitOfWork.Comments.DeleteCommentsByPostId(id);
         }
 
         public int Count()
         {
-            return Unity.UnitOfWork.NewsPosts.Count();
+            return UnitOfWorkManager.UnitOfWork.NewsPosts.Count();
         }
 
         public int CommentsCount(int id)
         {
-            return Unity.UnitOfWork.Comments.GetCountByPostId(id);
+            return UnitOfWorkManager.UnitOfWork.Comments.GetCountByPostId(id);
         }
     }
 }

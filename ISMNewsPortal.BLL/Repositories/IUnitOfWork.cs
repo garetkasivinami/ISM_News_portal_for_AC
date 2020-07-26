@@ -13,5 +13,10 @@ namespace ISMNewsPortal.BLL.Repositories
         ICommentRepository Comments { get; }
         INewsPostRepository NewsPosts { get; }
         IFileRepository Files { get; }
+        void Update<T>(T item) where T: Model;
+        int Create<T>(T item) where T : Model;
+        void Delete<T>(int id);
+        void Delete<T>(T item);
+        void Save();
     }
 }

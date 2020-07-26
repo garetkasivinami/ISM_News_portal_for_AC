@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessModels\ToolsDTO.cs" />
+    <Compile Include="BusinessModels\Options.cs" />
     <Compile Include="Exceptions\AdminExistsException.cs" />
     <Compile Include="Exceptions\NullExceptions\AdminNullException.cs" />
     <Compile Include="Exceptions\NullExceptions\CommentNullException.cs" />
@@ -54,6 +54,7 @@
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Models\NewsPost.cs" />
     <Compile Include="Infrastructure\ErrorLogger.cs" />
     <Compile Include="Infrastructure\ExceptionGenerator.cs" />
@@ -70,7 +71,7 @@
     <Compile Include="Services\CommentService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\NewsPostService.cs" />
-    <Compile Include="Unity.cs" />
+    <Compile Include="UnitOfWorkManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

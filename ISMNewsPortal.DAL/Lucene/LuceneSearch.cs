@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.DAL.Models;
 using ISMNewsPortal.DAL.Repositories;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;

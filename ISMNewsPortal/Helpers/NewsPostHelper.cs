@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.BLL.Infrastructure;
 using static ISMNewsPortal.BLL.Mappers.Automapper;
 using ISMNewsPortal.Models;
 
@@ -59,7 +58,7 @@ namespace ISMNewsPortal.Helpers
             return new NewsPostViewModel(newsPost, commentsViewModel, commentPage, pages, allowAdminActions);
         }
 
-        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(ToolBarModel model)
+        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(Options model)
         {
             NewsPostService newsPostService = new NewsPostService();
             AdminService adminService = new AdminService();
@@ -79,7 +78,7 @@ namespace ISMNewsPortal.Helpers
             return new NewsPostAdminCollection(newsPostAdminViews, model);
         }
 
-        public static NewsPostSimplifiedCollection GenerateNewsPostSimplifiedCollection(ToolBarModel model)
+        public static NewsPostSimplifiedCollection GenerateNewsPostSimplifiedCollection(Options model)
         {
             NewsPostService newsPostService = new NewsPostService();
             CommentService commentService = new CommentService();

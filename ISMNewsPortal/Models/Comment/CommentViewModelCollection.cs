@@ -1,12 +1,13 @@
-﻿using ISMNewsPortal.BLL.Models;
+﻿using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.BLL.Models;
 using System.Collections.Generic;
 
 namespace ISMNewsPortal.Models
 {
 
-    public class CommentViewModelCollection : ToolBarModel
+    public class CommentViewModelCollection : Options
     {
-        public CommentViewModelCollection(NewsPost newsPost, string imagePath, ICollection<CommentViewModel> commentViewModels, ToolBarModel toolBar, int commentsCount) : base(toolBar)
+        public CommentViewModelCollection(NewsPost newsPost, string imagePath, ICollection<CommentViewModel> commentViewModels, Options toolBar, int commentsCount) : base(toolBar)
         {
             CommentViewModels = commentViewModels;
             CommentsCount = commentsCount;

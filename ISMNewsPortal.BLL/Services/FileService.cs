@@ -14,12 +14,12 @@ namespace ISMNewsPortal.BLL.Services
     {
         public IEnumerable<FileModel> GetFiles()
         {
-            return Unity.UnitOfWork.Files.GetAll();
+            return UnitOfWorkManager.UnitOfWork.Files.GetAll();
         }
 
         public FileModel GetFile(int id)
         {
-            var file = Unity.UnitOfWork.Files.Get(id);
+            var file = UnitOfWorkManager.UnitOfWork.Files.Get(id);
             if (file == null)
                 throw new FileNullException();
             return file;
@@ -28,30 +28,30 @@ namespace ISMNewsPortal.BLL.Services
 
         public FileModel FindByHashCode(string hashCode)
         {
-            var file = Unity.UnitOfWork.Files.GetByHashCode(hashCode);
+            var file = UnitOfWorkManager.UnitOfWork.Files.GetByHashCode(hashCode);
             return file;
         }
 
         public int CreateFile(FileModel fileDTO)
         {
-            return Unity.UnitOfWork.Files.Create(fileDTO);
+            return UnitOfWorkManager.UnitOfWork.Create(fileDTO);
         }
 
         public void DeleteFile(int id)
         {
-            if (Unity.UnitOfWork.Files.GetPostsCount(id) > 0)
+            if (UnitOfWorkManager.UnitOfWork.Files.GetPostsCount(id) > 0)
                 return;
-            Unity.UnitOfWork.Files.Delete(id);
+            UnitOfWorkManager.UnitOfWork.Files.Delete(id);
         }
 
         public int Count()
         {
-            return Unity.UnitOfWork.Files.Count();
+            return UnitOfWorkManager.UnitOfWork.Files.Count();
         }
 
         public string GetNameById(int id)
         {
-            var file = Unity.UnitOfWork.Files.Get(id);
+            var file = UnitOfWorkManager.UnitOfWork.Files.Get(id);
             if (file == null)
                 throw new FileNullException();
             return file.Name;

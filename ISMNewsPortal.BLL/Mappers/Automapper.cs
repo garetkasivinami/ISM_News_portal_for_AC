@@ -64,15 +64,15 @@ namespace ISMNewsPortal.BLL.Mappers
             return mapper.Map<T>(target);
         }
 
-        public static ToolsDTO MapToToolsDTO<T>(T target)
+        public static Options MapToToolsDTO<T>(T target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, ToolsDTO>()).CreateMapper();
-            return mapper.Map<ToolsDTO>(target);
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<T, Options>()).CreateMapper();
+            return mapper.Map<Options>(target);
         }
 
-        public static T MapFromToolsDTO<T>(ToolsDTO target)
+        public static T MapFromToolsDTO<T>(Options target)
         {
-            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<ToolsDTO, T>()).CreateMapper();
+            IMapper mapper = new MapperConfiguration(cfg => cfg.CreateMap<Options, T>()).CreateMapper();
             return mapper.Map<T>(target);
         }
 

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
-using ISMNewsPortal.BLL.Infrastructure;
+using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.Helpers;
 
 namespace ISMNewsPortal.Controllers
@@ -19,7 +19,7 @@ namespace ISMNewsPortal.Controllers
     public class NewsController : Controller
     {
         [HttpGet]
-        public ActionResult Index(ToolBarModel model)
+        public ActionResult Index(Options model)
         {
             NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPostHelper.GenerateNewsPostSimplifiedCollection(model);
             return View(newsPostSimplifiedCollection);

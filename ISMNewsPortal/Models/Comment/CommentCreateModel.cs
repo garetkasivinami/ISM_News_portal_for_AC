@@ -1,5 +1,4 @@
 ﻿using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.DAL.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 

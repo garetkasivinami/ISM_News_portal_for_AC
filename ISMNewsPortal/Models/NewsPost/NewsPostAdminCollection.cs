@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using ISMNewsPortal.BLL.BusinessModels;
+using System.Collections.Generic;
 
 namespace ISMNewsPortal.Models
 {
-    public class NewsPostAdminCollection : ToolBarModel
+    public class NewsPostAdminCollection : Options
     {
-        public NewsPostAdminCollection(ICollection<NewsPostAdminView> newsPostAdminViews, ToolBarModel toolBarModel) : base(toolBarModel)
+        public NewsPostAdminCollection(ICollection<NewsPostAdminView> newsPostAdminViews, Options toolBarModel) : base(toolBarModel)
         {
             NewsPostAdminViews = newsPostAdminViews;
         }

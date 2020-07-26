@@ -14,8 +14,8 @@ namespace ISMNewsPortal
     {
         protected void Application_Start()
         {
-            EFUnitOfWork unit = new EFUnitOfWork();
-            Unity.SetUnitOfWork(unit);
+            EFUnitOfWork unit = new EFUnitOfWork(NHibernateSession.OpenSession());
+            UnitOfWorkManager.SetUnitOfWork(unit);
             GlobalFilters.Filters.Add(new ElmahExceptionLogger());
 
             AreaRegistration.RegisterAllAreas();

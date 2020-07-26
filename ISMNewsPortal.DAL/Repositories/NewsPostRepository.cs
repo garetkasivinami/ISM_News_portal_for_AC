@@ -1,5 +1,4 @@
 ﻿using ISMNewsPortal.BLL.Repositories;
-using ISMNewsPortal.DAL.Models;
 using ISMNewsPortal.DAL.Lucene;
 using NHibernate;
 using System;
@@ -14,55 +13,18 @@ using ISMNewsPortal.BLL.BusinessModels;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
-    public class NewsPostRepository : INewsPostRepository
+    public class NewsPostRepository : Repository<NewsPost>, INewsPostRepository
     {
-        private ISession session;
-        public NewsPostRepository(ISession session)
+        public NewsPostRepository(ISession session) : base(session)
         {
-            this.session = session;
         }
 
         public int GetCommentsCount(int postId)
         {
-            return session.Query<Comment>().Count(u => u.NewsPostId == postId);
+            return _session.Query<Comment>().Count(u => u.NewsPostId == postId);
         }
 
-        public int Count()
-        {
-            return session.Query<NewsPost>().Count();
-        }
-
-        public int Create(NewsPost item)
-        {
-            using (ITransaction transaction = session.BeginTransaction())
-            {
-                session.Save(item);
-                transaction.Commit();
-                return item.Id;
-            }
-        }
-
-        public void Delete(int id)
-        {
-            var newsPost = session.Get<NewsPost>(id);
-            using (ITransaction transaction = session.BeginTransaction())
-            {
-                session.Save(newsPost);
-                transaction.Commit();
-            }
-        }
-
-        public NewsPost Get(int id)
-        {
-            return session.Get<NewsPost>(id);
-        }
-
-        public IEnumerable<NewsPost> GetAll()
-        {
-            return session.Query<NewsPost>();
-        }
-
-        public IEnumerable<NewsPost> GetWithOptions(ToolsDTO toolBar)
+        public override IEnumerable<NewsPost> GetWithOptions(Options toolBar)
         {
             string filterFunc = GetFilterSqlString(toolBar.Filter);
             string sortString;
@@ -71,12 +33,12 @@ namespace ISMNewsPortal.DAL.Repositories
             if (toolBar.Admin)
             {
                 sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? true);
-                selectedNewsPost = GetSqlQuerryAdmin(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
+                selectedNewsPost = GetSqlQuerryAdmin(_session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
             }
             else
             {
                 sortString = GetSortSqlString(toolBar.SortType, toolBar.Reversed ?? true);
-                selectedNewsPost = GetSqlQuerry(session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
+                selectedNewsPost = GetSqlQuerry(_session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
             }
             toolBar.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
 
@@ -85,34 +47,34 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public IEnumerable<NewsPost> GetByAuthorId(int id)
         {
-            return session.Query<NewsPost>().Where(u => u.AuthorId == id);
+            return _session.Query<NewsPost>().Where(u => u.AuthorId == id);
         }
 
         public IEnumerable<NewsPost> GetByImageId(int id)
         {
-            return session.Query<NewsPost>().Where(u => u.ImageId == id);
+            return _session.Query<NewsPost>().Where(u => u.ImageId == id);
         }
 
         public IEnumerable<NewsPost> GetByName(string name)
         {
-            return session.Query<NewsPost>().Where(u => u.Name == name);
+            return _session.Query<NewsPost>().Where(u => u.Name == name);
         }
 
         public IEnumerable<NewsPost> GetByVisibility(bool visible)
         {
-            return session.Query<NewsPost>().Where(u => u.IsVisible == visible);
+            return _session.Query<NewsPost>().Where(u => u.IsVisible == visible);
         }
 
-        public void Update(NewsPost item)
+        public override void Update(NewsPost item)
         {
             var newsPost = item;
-            var createdNewsPost = session.Get<NewsPost>(item.Id);
+            var createdNewsPost = _session.Get<NewsPost>(item.Id);
             DateTime createdDate = createdNewsPost.CreatedDate;
             Map(newsPost, createdNewsPost);
             createdNewsPost.CreatedDate = createdDate;
-            using (ITransaction transaction = session.BeginTransaction())
+            using (ITransaction transaction = _session.BeginTransaction())
             {
-                session.Update(createdNewsPost);
+                _session.Update(createdNewsPost);
                 transaction.Commit();
             }
         }

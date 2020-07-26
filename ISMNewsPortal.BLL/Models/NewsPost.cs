@@ -6,10 +6,9 @@ using System.Web;
 
 namespace ISMNewsPortal.BLL.Models
 {
-    public partial class NewsPost
+    public partial class NewsPost : Model
     {
         public const int NewsInOnePage = 10;
-        public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }

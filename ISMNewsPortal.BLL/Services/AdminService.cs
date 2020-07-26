@@ -15,12 +15,12 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<Admin> GetAdmins()
         {
-            return Unity.UnitOfWork.Admins.GetAll();
+            return UnitOfWorkManager.UnitOfWork.Admins.GetAll();
         }
 
         public Admin GetAdmin(int id)
         {
-            var admin = Unity.UnitOfWork.Admins.Get(id);
+            var admin = UnitOfWorkManager.UnitOfWork.Admins.Get(id);
             if (admin == null)
                 throw new AdminNullException();
             return admin;
@@ -28,7 +28,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public Admin GetAdminByLogin(string login)
         {
-            var admin = Unity.UnitOfWork.Admins.GetByLogin(login);
+            var admin = UnitOfWorkManager.UnitOfWork.Admins.GetByLogin(login);
             if (admin == null)
                 throw new AdminNullException();
             return admin;
@@ -36,34 +36,34 @@ namespace ISMNewsPortal.BLL.Services
 
         public void UpdateAdmin(Admin adminDTO)
         {
-            Unity.UnitOfWork.Admins.Update(adminDTO);
+            UnitOfWorkManager.UnitOfWork.Update(adminDTO);
         }
 
         public void UpdateAdminPartial(int id, string email, string roles = null, bool updateRoles = false)
         {
-            var admin = Unity.UnitOfWork.Admins.Get(id);
+            var admin = UnitOfWorkManager.UnitOfWork.Admins.Get(id);
             admin.Email = email;
             if (updateRoles)
                 admin.Roles = roles;
-            Unity.UnitOfWork.Admins.Update(admin);
+            UnitOfWorkManager.UnitOfWork.Update(admin);
         }
 
         public void CreateAdmin(Admin adminDTO)
         {
-            var createdAdmin = Unity.UnitOfWork.Admins.GetByLogin(adminDTO.Login);
+            var createdAdmin = UnitOfWorkManager.UnitOfWork.Admins.GetByLogin(adminDTO.Login);
             if (createdAdmin != null)
                 throw new AdminExistsException("An administrator with this login already exists");
-            Unity.UnitOfWork.Admins.Create(adminDTO);
+            UnitOfWorkManager.UnitOfWork.Create(adminDTO);
         }
 
         public void DeleteAdmin(int id)
         {
-            Unity.UnitOfWork.Admins.Delete(id);
+            UnitOfWorkManager.UnitOfWork.Admins.Delete(id);
         }
 
         public int Count()
         {
-            return Unity.UnitOfWork.Admins.Count();
+            return UnitOfWorkManager.UnitOfWork.Admins.Count();
         }
     }
 }
