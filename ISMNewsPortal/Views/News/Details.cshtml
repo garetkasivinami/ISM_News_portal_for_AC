@@ -42,15 +42,15 @@
 </div>
 <script src="~/Scripts/dateTimeUpdater.js"></script>
 <div class="btn-group" role="group">
-    @if (Model.Page > 0)
+    @if (Model.Page > 1)
     {
         @Html.ActionLink("Last page", "Details", "News", new { @page = Model.Page - 1, @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
     }
-    @if (Model.Page > 1 && Model.Pages > 2)
+    @if (Model.Page > 2 && Model.Pages > 2)
     {
-        @Html.ActionLink("First page", "Details", "News", new { @page = 0, @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
+        @Html.ActionLink("First page", "Details", "News", new { @page = 1, @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
     }
-    @if (Model.Page < Model.Pages - 1)
+    @if (Model.Page < Model.Pages)
     {
         @Html.ActionLink("Next page", "Details", "News", new { @page = Model.Page + 1, @id = Model.NewsPost.Id }, new { @class = "btn btn-outline-dark" });
     }

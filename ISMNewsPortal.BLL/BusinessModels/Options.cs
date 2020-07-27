@@ -18,6 +18,7 @@ namespace ISMNewsPortal.BLL.BusinessModels
 
         public Options()
         {
+            Page = 1;
         }
 
         public Options(Options toolBar)

@@ -34,7 +34,7 @@ namespace ISMNewsPortal.Controllers
         [HttpGet]
         public ActionResult Details(int id, int? page)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 0, User.IsInRole(Roles.Moderator.ToString()), true);
+            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 1, User.IsInRole(Roles.Moderator.ToString()), true);
             return View(newsPostViewModel);
 
         }
@@ -44,7 +44,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult Preview(int id)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 0, User.IsInRole(Roles.Moderator.ToString()));
+            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 1, User.IsInRole(Roles.Moderator.ToString()));
             return View("Details", newsPostViewModel);
         }
 

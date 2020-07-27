@@ -47,7 +47,7 @@ namespace ISMNewsPortal.Helpers
             if (commentsCount % Comment.CommentsInOnePage != 0)
                 pages++;
 
-            comments = comments.Skip(commentPage * Comment.CommentsInOnePage).Take(Comment.CommentsInOnePage).ToList();
+            comments = comments.Skip((commentPage - 1) * Comment.CommentsInOnePage).Take(Comment.CommentsInOnePage).ToList();
 
             var commentsViewModel = new List<CommentViewModel>();
             foreach (Comment comment in comments)

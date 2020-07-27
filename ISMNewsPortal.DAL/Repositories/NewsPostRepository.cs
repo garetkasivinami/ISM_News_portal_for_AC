@@ -41,7 +41,7 @@ namespace ISMNewsPortal.DAL.Repositories
             }
             toolBar.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
 
-            return Helper.CutIEnumarable(toolBar.Page, NewsPost.NewsInOnePage, selectedNewsPost);
+            return Helper.CutIEnumarable(toolBar.Page - 1, NewsPost.NewsInOnePage, selectedNewsPost);
         }
 
         public IEnumerable<NewsPost> GetByAuthorId(int id)
