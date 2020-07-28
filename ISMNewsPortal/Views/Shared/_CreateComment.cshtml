@@ -45,7 +45,8 @@
         let textareaField = document.querySelector("#Text");
         commentsCount.innerHTML = +commentsCount.innerHTML + 1;
         textareaField.value = '';
-        window.location.href = '#commentsLine'
+        window.location.href = '#commentsLine';
+        UpdateFirstDateElement();
     }
 </script>
 <script src="~/Scripts/generator.js"></script>
