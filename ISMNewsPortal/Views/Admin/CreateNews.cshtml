@@ -14,7 +14,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.MinutesOffset, new { @class = "submit_date_offset" })
-    <div class="card">
+    <div class="card create-card">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="card-body">
             <div class="form-group">
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.PublicationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.PublicationDate, htmlAttributes: new { @class = "control-label col-md-12" })
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.PublicationDate, new { htmlAttributes = new { @type = "datetime-local", @class = "card-text", @placeholder = "dd/mm/yyyy hh:mm:ss" } })
                     @Html.ValidationMessageFor(model => model.PublicationDate, "", new { @class = "text-danger card-text" })
