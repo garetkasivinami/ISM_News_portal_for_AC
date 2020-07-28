@@ -193,3 +193,7 @@ textarea.form-control {
     width: 32px;
     background: linear-gradient(to bottom, #fff 0%,#fff 33.3%, #0039a6 33.3%, #0039a6 66.6%, #d52b1e 66.6%, #d52b1e 100%);
 }
+
+.mb {
+    margin-bottom: 30px;
+}
