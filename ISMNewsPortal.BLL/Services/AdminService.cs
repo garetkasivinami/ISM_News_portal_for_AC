@@ -7,6 +7,7 @@ using AutoMapper;
 using System.Text;
 using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Exceptions;
+using static ISMNewsPortal.BLL.UnitOfWorkManager;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -14,12 +15,12 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<Admin> GetAdmins()
         {
-            return UnitOfWorkManager.UnitOfWork.Admins.GetAll();
+            return UnitOfWork.Admins.GetAll();
         }
 
         public Admin GetAdmin(int id)
         {
-            var admin = UnitOfWorkManager.UnitOfWork.Admins.Get(id);
+            var admin = UnitOfWork.Admins.Get(id);
             if (admin == null)
                 throw new AdminNullException();
             return admin;
@@ -27,7 +28,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public Admin GetAdminByLogin(string login)
         {
-            var admin = UnitOfWorkManager.UnitOfWork.Admins.GetByLogin(login);
+            var admin = UnitOfWork.Admins.GetByLogin(login);
             if (admin == null)
                 throw new AdminNullException();
             return admin;
@@ -35,34 +36,36 @@ namespace ISMNewsPortal.BLL.Services
 
         public void UpdateAdmin(Admin adminDTO)
         {
-            UnitOfWorkManager.UnitOfWork.Update(adminDTO);
+            UnitOfWork.Update(adminDTO);
+            UnitOfWork.Save();
         }
 
         public void UpdateAdminPartial(int id, string email, string roles = null, bool updateRoles = false)
         {
-            var admin = UnitOfWorkManager.UnitOfWork.Admins.Get(id);
+            var admin = UnitOfWork.Admins.Get(id);
             admin.Email = email;
             if (updateRoles)
                 admin.Roles = roles;
-            UnitOfWorkManager.UnitOfWork.Update(admin);
+            UnitOfWork.Update(admin);
         }
 
         public void CreateAdmin(Admin adminDTO)
         {
-            var createdAdmin = UnitOfWorkManager.UnitOfWork.Admins.GetByLogin(adminDTO.Login);
+            var createdAdmin = UnitOfWork.Admins.GetByLogin(adminDTO.Login);
             if (createdAdmin != null)
                 throw new AdminExistsException("An administrator with this login already exists");
-            UnitOfWorkManager.UnitOfWork.Create(adminDTO);
+            UnitOfWork.Create(adminDTO);
+            UnitOfWork.Save();
         }
 
         public void DeleteAdmin(int id)
         {
-            UnitOfWorkManager.UnitOfWork.Admins.Delete(id);
+            UnitOfWork.Admins.Delete(id);
         }
 
         public int Count()
         {
-            return UnitOfWorkManager.UnitOfWork.Admins.Count();
+            return UnitOfWork.Admins.Count();
         }
     }
 }

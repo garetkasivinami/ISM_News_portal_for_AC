@@ -7,6 +7,7 @@ using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Infrastructure;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Exceptions;
+using static ISMNewsPortal.BLL.UnitOfWorkManager;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -15,12 +16,12 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<NewsPost> GetNewsPosts()
         {
-            return UnitOfWorkManager.UnitOfWork.NewsPosts.GetAll();
+            return UnitOfWork.NewsPosts.GetAll();
         }
 
         public IEnumerable<NewsPost> GetNewsPostsWithTools(Options toolsDTO)
         {
-            var newsPosts = UnitOfWorkManager.UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
+            var newsPosts = UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
             toolsDTO.Pages = toolsDTO.Pages;
             return newsPosts;
         }
@@ -28,14 +29,14 @@ namespace ISMNewsPortal.BLL.Services
         public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(Options toolsDTO)
         {
             toolsDTO.Admin = true;
-            var newsPosts = UnitOfWorkManager.UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
+            var newsPosts = UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
             toolsDTO.Pages = toolsDTO.Pages;
             return newsPosts;
         }
 
         public NewsPost GetNewsPost(int id)
         {
-            var newsPost = UnitOfWorkManager.UnitOfWork.NewsPosts.Get(id);
+            var newsPost = UnitOfWork.NewsPosts.Get(id);
             if (newsPost == null)
                 throw new NewsPostNullException();
             return newsPost;
@@ -43,28 +44,31 @@ namespace ISMNewsPortal.BLL.Services
 
         public void UpdateNewsPost(NewsPost newsPostDTO)
         {
-            UnitOfWorkManager.UnitOfWork.Update(newsPostDTO);
+            UnitOfWork.Update(newsPostDTO);
+            UnitOfWork.Save();
         }
 
         public void CreateNewsPost(NewsPost newsPostDTO)
         {
-            UnitOfWorkManager.UnitOfWork.Create(newsPostDTO);
+            UnitOfWork.Create(newsPostDTO);
+            UnitOfWork.Save();
         }
 
         public void DeleteNewsPost(int id)
         {
-            UnitOfWorkManager.UnitOfWork.NewsPosts.Delete(id);
-            UnitOfWorkManager.UnitOfWork.Comments.DeleteCommentsByPostId(id);
+            UnitOfWork.NewsPosts.Delete(id);
+            UnitOfWork.Comments.DeleteCommentsByPostId(id);
+            UnitOfWork.Save();
         }
 
         public int Count()
         {
-            return UnitOfWorkManager.UnitOfWork.NewsPosts.Count();
+            return UnitOfWork.NewsPosts.Count();
         }
 
         public int CommentsCount(int id)
         {
-            return UnitOfWorkManager.UnitOfWork.Comments.GetCountByPostId(id);
+            return UnitOfWork.Comments.GetCountByPostId(id);
         }
     }
 }

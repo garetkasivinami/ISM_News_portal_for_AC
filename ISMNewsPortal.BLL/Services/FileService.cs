@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Exceptions;
+using static ISMNewsPortal.BLL.UnitOfWorkManager;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -13,12 +14,12 @@ namespace ISMNewsPortal.BLL.Services
     {
         public IEnumerable<FileModel> GetFiles()
         {
-            return UnitOfWorkManager.UnitOfWork.Files.GetAll();
+            return UnitOfWork.Files.GetAll();
         }
 
         public FileModel GetFile(int id)
         {
-            var file = UnitOfWorkManager.UnitOfWork.Files.Get(id);
+            var file = UnitOfWork.Files.Get(id);
             if (file == null)
                 throw new FileNullException();
             return file;
@@ -27,30 +28,33 @@ namespace ISMNewsPortal.BLL.Services
 
         public FileModel FindByHashCode(string hashCode)
         {
-            var file = UnitOfWorkManager.UnitOfWork.Files.GetByHashCode(hashCode);
+            var file = UnitOfWork.Files.GetByHashCode(hashCode);
             return file;
         }
 
         public int CreateFile(FileModel fileDTO)
         {
-            return UnitOfWorkManager.UnitOfWork.Create(fileDTO);
+            int id = UnitOfWork.Create(fileDTO);
+            UnitOfWork.Save();
+            return id;
         }
 
         public void DeleteFile(int id)
         {
-            if (UnitOfWorkManager.UnitOfWork.Files.GetPostsCount(id) > 0)
+            if (UnitOfWork.Files.GetPostsCount(id) > 0)
                 return;
-            UnitOfWorkManager.UnitOfWork.Files.Delete(id);
+            UnitOfWork.Files.Delete(id);
+            UnitOfWork.Save();
         }
 
         public int Count()
         {
-            return UnitOfWorkManager.UnitOfWork.Files.Count();
+            return UnitOfWork.Files.Count();
         }
 
         public string GetNameById(int id)
         {
-            var file = UnitOfWorkManager.UnitOfWork.Files.Get(id);
+            var file = UnitOfWork.Files.Get(id);
             if (file == null)
                 throw new FileNullException();
             return file.Name;

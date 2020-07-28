@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Exceptions;
+using static ISMNewsPortal.BLL.UnitOfWorkManager;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -16,12 +17,12 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<Comment> GetComments()
         {
-            return UnitOfWorkManager.UnitOfWork.Comments.GetAll();
+            return UnitOfWork.Comments.GetAll();
         }
 
         public Comment GetComment(int id)
         {
-            var comment = UnitOfWorkManager.UnitOfWork.Comments.Get(id);
+            var comment = UnitOfWork.Comments.Get(id);
             if (comment == null)
                 throw new CommentNullException();
             return comment;
@@ -29,18 +30,21 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<Comment> GetCommentsByPostId(int id)
         {
-            var comments = UnitOfWorkManager.UnitOfWork.Comments.GetByPostId(id).Reverse();
+            var comments = UnitOfWork.Comments.GetByPostId(id).Reverse();
             return comments;
         }
 
         public void UpdateComment(Comment commentDTO)
         {
-            UnitOfWorkManager.UnitOfWork.Update(commentDTO);
+            UnitOfWork.Update(commentDTO);
+            UnitOfWork.Save();
         }
 
         public int CreateComment(Comment commentDTO)
         {
-            return UnitOfWorkManager.UnitOfWork.Create(commentDTO);
+            int id = UnitOfWork.Create(commentDTO);
+            UnitOfWork.Save();
+            return id;
         }
 
         //public IEnumerable<CommentDTO> GetCommentsWithTools(ToolsDTO toolsDTO)
@@ -53,17 +57,18 @@ namespace ISMNewsPortal.BLL.Services
 
         public void DeleteComment(int id)
         {
-            UnitOfWorkManager.UnitOfWork.Comments.Delete(id);
+            UnitOfWork.Comments.Delete(id);
+            UnitOfWork.Save();
         }
 
         public int Count()
         {
-            return UnitOfWorkManager.UnitOfWork.Comments.Count();
+            return UnitOfWork.Comments.Count();
         }
 
         public int GetCommentCountByPostId(int id)
         {
-            return UnitOfWorkManager.UnitOfWork.Comments.GetCountByPostId(id);
+            return UnitOfWork.Comments.GetCountByPostId(id);
         }
     }
 }
