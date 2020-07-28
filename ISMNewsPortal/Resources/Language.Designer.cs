@@ -133,6 +133,24 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Looks like there was some unforeseen mistake! Contact the site administrator..
+        /// </summary>
+        public static string CommentAddErrorMessage {
+            get {
+                return ResourceManager.GetString("CommentAddErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Comment author name not valid!.
+        /// </summary>
+        public static string CommentAuthorNotValid {
+            get {
+                return ResourceManager.GetString("CommentAuthorNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Comments.
         /// </summary>
         public static string Comments {
@@ -174,6 +192,15 @@ namespace Language {
         public static string CommentText {
             get {
                 return ResourceManager.GetString("CommentText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Comment text not valid!.
+        /// </summary>
+        public static string CommentTextNotValid {
+            get {
+                return ResourceManager.GetString("CommentTextNotValid", resourceCulture);
             }
         }
         

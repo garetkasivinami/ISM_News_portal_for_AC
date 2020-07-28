@@ -141,6 +141,12 @@
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="CommentAddErrorMessage" xml:space="preserve">
+    <value>Looks like there was some unforeseen mistake! Contact the site administrator.</value>
+  </data>
+  <data name="CommentAuthorNotValid" xml:space="preserve">
+    <value>Comment author name not valid!</value>
+  </data>
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="CommentText" xml:space="preserve">
     <value>Text</value>
+  </data>
+  <data name="CommentTextNotValid" xml:space="preserve">
+    <value>Comment text not valid!</value>
   </data>
   <data name="CreateAdmin" xml:space="preserve">
     <value>Create admin</value>

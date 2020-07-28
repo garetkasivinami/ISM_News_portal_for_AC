@@ -141,6 +141,12 @@
   <data name="Comment" xml:space="preserve">
     <value>Коментувати</value>
   </data>
+  <data name="CommentAddErrorMessage" xml:space="preserve">
+    <value>Схоже, виникла якась непередбачена помилка! Зверніться до адміністратора сайту.</value>
+  </data>
+  <data name="CommentAuthorNotValid" xml:space="preserve">
+    <value>Ім'я автора коментаря недійсне!</value>
+  </data>
   <data name="Comments" xml:space="preserve">
     <value>Коментарі</value>
   </data>
@@ -155,6 +161,9 @@
   </data>
   <data name="CommentText" xml:space="preserve">
     <value>Коментувати</value>
+  </data>
+  <data name="CommentTextNotValid" xml:space="preserve">
+    <value>Текст коментаря недійсний!</value>
   </data>
   <data name="CreateAdmin" xml:space="preserve">
     <value>Створити адміністратора</value>

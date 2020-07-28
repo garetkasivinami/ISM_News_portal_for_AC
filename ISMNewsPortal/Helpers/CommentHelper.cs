@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ISMNewsPortal.Helpers
 {
@@ -28,6 +29,22 @@ namespace ISMNewsPortal.Helpers
         {
             CommentService commentService = new CommentService();
             commentService.DeleteComment(id);
+        }
+
+        public static string BuildErrorMessage(ModelStateDictionary modelState)
+        {
+            bool addNewLine = false;
+            string result = "";
+            if (modelState["UserName"].Errors.Any())
+            {
+                result += Language.Language.CommentAuthorNotValid;
+                addNewLine = true;
+            }
+            if (addNewLine)
+                result += Environment.NewLine;
+            if (modelState["Text"].Errors.Any())
+                result += Language.Language.CommentTextNotValid;
+            return result;
         }
 
         public static CommentViewModelCollection GenerateCommentViewModelCollection(int postId)
