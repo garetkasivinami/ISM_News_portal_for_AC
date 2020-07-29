@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ISMNewsPortal.BLL.Repositories
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         IAdminRepository Admins { get; }
         ICommentRepository Comments { get; }

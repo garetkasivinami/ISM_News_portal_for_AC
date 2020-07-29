@@ -135,6 +135,12 @@
   <data name="Author" xml:space="preserve">
     <value>Автор</value>
   </data>
+  <data name="Authorization" xml:space="preserve">
+    <value>Авторизация</value>
+  </data>
+  <data name="Authorize" xml:space="preserve">
+    <value>Авторизироваться</value>
+  </data>
   <data name="ChangPassword" xml:space="preserve">
     <value>Изменить пароль</value>
   </data>
@@ -231,6 +237,9 @@
   <data name="name" xml:space="preserve">
     <value>Название</value>
   </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Новый пароль</value>
+  </data>
   <data name="NewsList" xml:space="preserve">
     <value>Список новостей</value>
   </data>
@@ -251,6 +260,9 @@
   </data>
   <data name="NotPublished" xml:space="preserve">
     <value>Не опубликовано!</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Старый пароль</value>
   </data>
   <data name="OpenFront" xml:space="preserve">
     <value>Открыть frontend</value>

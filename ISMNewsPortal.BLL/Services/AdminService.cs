@@ -47,6 +47,7 @@ namespace ISMNewsPortal.BLL.Services
             if (updateRoles)
                 admin.Roles = roles;
             UnitOfWork.Update(admin);
+            UnitOfWork.Save();
         }
 
         public void CreateAdmin(Admin adminDTO)

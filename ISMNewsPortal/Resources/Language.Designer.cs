@@ -115,6 +115,24 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Login.
+        /// </summary>
+        public static string Authorization {
+            get {
+                return ResourceManager.GetString("Authorization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Login.
+        /// </summary>
+        public static string Authorize {
+            get {
+                return ResourceManager.GetString("Authorize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Change password.
         /// </summary>
         public static string ChangPassword {
@@ -421,6 +439,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на New password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на News list.
         /// </summary>
         public static string NewsList {
@@ -480,6 +507,15 @@ namespace Language {
         public static string NotPublished {
             get {
                 return ResourceManager.GetString("NotPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Old password.
+        /// </summary>
+        public static string OldPassword {
+            get {
+                return ResourceManager.GetString("OldPassword", resourceCulture);
             }
         }
         

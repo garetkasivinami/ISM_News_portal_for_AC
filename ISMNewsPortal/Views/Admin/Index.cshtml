@@ -120,23 +120,24 @@ else
 <div class="btn-group" role="group">
     @if (Model.Page > 5)
     {
-        @Html.ActionLink("<<", "Index", "Home", LinkHelper.CreatePageLinks(Model, -Model.Page), new { @class = "btn btn-outline-dark" });
+        @Html.ActionLink("<<", "Index", "Admin", LinkHelper.CreatePageLinks(Model, -Model.Page + 4), new { @class = "btn btn-outline-dark" });
     }
 
-    @if (Model.Page > 0)
+    @if (Model.Page > 1)
     {
         @Html.ActionLink("<", "Index", "Admin", LinkHelper.CreatePageLinks(Model, -1), new { @class = "btn btn-outline-dark btn-sm" }); ;
     }
 
     @if (Model.Pages > 1)
     {
-        for (int page = ((Model.Page > 4) ? Model.Page - 5 : 0); (page < Model.Page + 5 && page < Model.Pages); page++)
+
+        for (int page = ((Model.Page > 5) ? Model.Page - 5 : 1); (page < Model.Page + 5 && page <= Model.Pages); page++)
         {
-            @Html.ActionLink((page + 1).ToString(), "Index", "Admin", LinkHelper.CreatePageLinks(Model, page - Model.Page), new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-outline-dark btn-sm") });
+            @Html.ActionLink(page.ToString(), "Index", "Admin", LinkHelper.CreatePageLinks(Model, page - Model.Page), new { @class = ((page == Model.Page) ? "btn btn-dark btn-sm" : "btn btn-outline-dark btn-sm") });
         }
     }
 
-    @if (Model.Page < Model.Pages - 1)
+    @if (Model.Page < Model.Pages)
     {
         @Html.ActionLink(">", "Index", "Admin", LinkHelper.CreatePageLinks(Model, 1), new { @class = "btn btn-outline-dark btn-sm" }); ;
     }

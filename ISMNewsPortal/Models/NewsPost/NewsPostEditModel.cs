@@ -27,12 +27,15 @@ namespace ISMNewsPortal.Models
             ImagePath = FileModelActions.GetNameByIdFormated(ImageId);
         }
 
-        public override NewsPost ConvertToNewsPost()
+        public override NewsPost PassToNewsPost(NewsPost newsPostArgument)
         {
-            var newsPost = base.ConvertToNewsPost();
+            DateTime postCreatedDate = newsPostArgument.CreatedDate;
+
+            var newsPost = base.PassToNewsPost(newsPostArgument);
+
+            newsPostArgument.CreatedDate = postCreatedDate;
 
             newsPost.Id = Id;
-            newsPost.CreatedDate = CreatedDate;
             newsPost.EditDate = DateTime.Now.ToUniversalTime();
 
             return newsPost;

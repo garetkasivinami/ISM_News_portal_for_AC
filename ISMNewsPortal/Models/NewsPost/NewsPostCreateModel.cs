@@ -43,10 +43,9 @@ namespace ISMNewsPortal.Models
             ImageId = newsPost.ImageId;
         }
 
-        public virtual NewsPost ConvertToNewsPost()
+        public virtual NewsPost PassToNewsPost(NewsPost newsPost = null)
         {
-            var newsPost = new NewsPost();
-
+            newsPost = newsPost ?? new NewsPost();
             newsPost.Name = Name;
             newsPost.Description = Description;
             newsPost.CreatedDate = DateTime.Now.ToUniversalTime();

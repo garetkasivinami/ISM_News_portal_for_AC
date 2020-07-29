@@ -31,38 +31,13 @@ namespace ISMNewsPortal.Models
     {
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MaxLength(128)]
-        [Display(Name = "Login")]
+        [Display(Name = "Login", ResourceType = typeof(Language.Language))]
         public string Login { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(8)]
         [MaxLength(128)]
-        [Display(Name = "Password")]
+        [Display(Name = "Password", ResourceType = typeof(Language.Language))]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-    }
-    public class RegisterAdminModel
-    {
-        [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "The login you entered was not valid!")]
-        [MaxLength(128)]
-        [Display(Name = "Login")]
-        public string Login { get; set; }
-        [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [RegularExpression(HelperActions.EmailRegex, ErrorMessage = "The email you entered was not valid!")]
-        [MaxLength(128)]
-        [Display(Name = "Email adress")]
-        public string Email { get; set; }
-        [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [MinLength(8)]
-        [MaxLength(128)]
-        [Display(Name = "Password")]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-        [Compare("Password")]
-        [MinLength(8)]
-        [MaxLength(128)]
-        [Display(Name = "Repeat password")]
-        [DataType(DataType.Password)]
-        public string RepeatedPassword { get; set; }
     }
 }

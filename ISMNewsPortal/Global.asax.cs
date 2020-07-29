@@ -14,7 +14,7 @@ namespace ISMNewsPortal
     {
         protected void Application_Start()
         {
-            EFUnitOfWork unit = new EFUnitOfWork(NHibernateSession.OpenSession());
+            HibernateUnitOfWork unit = new HibernateUnitOfWork(NHibernateSession.OpenSession());
             UnitOfWorkManager.SetUnitOfWork(unit);
             GlobalFilters.Filters.Add(new ElmahExceptionLogger());
 

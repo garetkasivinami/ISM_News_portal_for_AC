@@ -10,17 +10,17 @@ namespace ISMNewsPortal.Models
     {
         [MinLength(8)]
         [MaxLength(128)]
-        [Display(Name = "Old password")]
+        [Display(Name = "OldPassword", ResourceType = typeof(Language.Language))]
         [DataType(DataType.Password)]
         public string LastPassword { get; set; }
         [MinLength(8)]
         [MaxLength(128)]
-        [Display(Name = "New password")]
+        [Display(Name = "NewPassword", ResourceType = typeof(Language.Language))]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [MinLength(8)]
         [MaxLength(128)]
-        [Display(Name = "Repeat password")]
+        [Display(Name = "RepPassword", ResourceType = typeof(Language.Language))]
         [DataType(DataType.Password)]
         public string RepeatPassword { get; set; }
     }

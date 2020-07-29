@@ -17,9 +17,11 @@ namespace ISMNewsPortal.Helpers
             newsPostService.CreateNewsPost(newsPost);
         }
 
-        public static void UpdateNewsPost(NewsPost newsPost)
+        public static void UpdateNewsPost(NewsPostEditModel editModel)
         {
             NewsPostService newsPostService = new NewsPostService();
+            var newsPost = newsPostService.GetNewsPost(editModel.Id);
+            editModel.PassToNewsPost(newsPost);
             newsPostService.UpdateNewsPost(newsPost);
         }
 
