@@ -12,16 +12,17 @@
         <p class="card-text">@Html.Raw(Model.Description)</p>
         <p class="card-text">
             <small class="text-muted">
-                @Model.CreatedDate
+                <span class="js_date">@Model.CreatedDate.ToString("u").Replace('-', '/')</span>
                 @if (Model.EditDate != null)
                 {
                     <br>
-                    <span>@Language.Language.PostEdited: @Model.EditDate</span>
+                    <span>@Language.Language.PostEdited: <span class="js_date">@(Model.EditDate?.ToString("u").Replace('-', '/')) </span></span>
                 }
             </small>
         </p>
     </div>
 </div>
+<script src="~/Scripts/dateTimeUpdater.js"></script>
 <hr />
 <h1>@Language.Language.SureQ</h1>
 @Html.ActionLink(Language.Language.Yes, "DeleteNewsPost", "Admin", new { @id = Model.Id }, new { @class = "btn btn-outline-danger" })

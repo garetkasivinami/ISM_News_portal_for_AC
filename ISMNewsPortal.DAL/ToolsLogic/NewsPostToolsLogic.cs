@@ -91,7 +91,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
                 case "onlyPublished":
                     filterFunc = FilterPublished();
                     break;
-                case "notPublished":
+                case "NotPublished":
                     filterFunc = FilterDontPublished();
                     break;
                 default:
@@ -151,10 +151,10 @@ namespace ISMNewsPortal.DAL.ToolsLogic
                 case "description":
                     sortString = "@Description";
                     break;
-                case "editDate":
+                case "editdate":
                     sortString = "@EditDate";
                     break;
-                case "Author":
+                case "author":
                     sortString = "@AuthorId";
                     break;
                 case "publicationdate":

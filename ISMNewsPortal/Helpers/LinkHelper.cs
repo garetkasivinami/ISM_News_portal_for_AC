@@ -23,7 +23,7 @@ namespace ISMNewsPortal.Helpers
         {
             return new
             {
-                @Page = 0,
+                @Page = 1,
                 @SortType = toolsModel.SortType,
                 @Filter = filter,
                 @Search = toolsModel.Search,
