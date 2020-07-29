@@ -20,7 +20,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
-        [RoleAuthorize(Roles.Creator)]
+        //[RoleAuthorize(Roles.Creator)]
         public ActionResult EditNews(int id)
         {
             NewsPostEditModel newsPostAdminView = NewsPostHelper.GetNewsPostEditModel(id);
@@ -29,7 +29,7 @@ namespace ISMNewsPortal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [RoleAuthorize(Roles.Creator)]
+        //[RoleAuthorize(Roles.Creator)]
         public ActionResult EditNews(NewsPostEditModel model)
         {
             if (model.uploadFiles[0] != null)

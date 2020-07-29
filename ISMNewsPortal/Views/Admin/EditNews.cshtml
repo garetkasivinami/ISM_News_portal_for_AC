@@ -7,7 +7,7 @@
     string publicationDate = publishDate.ToString("s").Remove(16);
 }
 <h4>Edit news post!</h4>
-@Html.ActionLink(Language.Language.ManageComments, "Comments", "Admin", new { @postId = Model.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+@Html.ActionLink(Language.Language.ManageComments, "Comments", "Admin", new { @postId = Model.Id }, new { @class = "btn btn-outline-dark btn-sm btn-manage-comments" })
 <img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath" />
 
 @using (Html.BeginForm("EditNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "main_form" }))
@@ -22,7 +22,7 @@
 
         @Html.AntiForgeryToken()
 
-        <div class="card">
+        <div class="card create-card">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="card-body">
                 <div class="form-group">
