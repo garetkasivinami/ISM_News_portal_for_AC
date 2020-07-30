@@ -24,7 +24,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             documents = new Dictionary<Type, XmlDocument>();
         }
 
-        public void CreateRange<T>(params T[] items) where T: Model
+        public void CreateRange<T>(params T[] items) where T : Model
         {
             Type type = typeof(T);
             XmlDocument document = GetDocument(type);
@@ -46,6 +46,76 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             xmlAttribute.Value = lastId.ToString();
         }
 
+        public int GetLastId<T>()
+        {
+            Type type = typeof(T);
+            XmlDocument document = GetDocument(type);
+            int lastId;
+            XmlNode infoNode = document.GetElementsByTagName("info").Item(0);
+            XmlAttribute xmlAttribute = infoNode.Attributes["lastId"];
+            lastId = int.Parse(xmlAttribute.Value);
+            lastId++;
+            xmlAttribute.Value = lastId.ToString();
+            return lastId - 1;
+        }
+
+        public int Count<T>()
+        {
+            Type type = typeof(T);
+            XmlDocument document = GetDocument(type);
+            XmlNode root = document.SelectNodes("store/items").Item(0);
+            return root.ChildNodes.Count;
+        }
+
+        public T Get<T>(int id) where T : Model
+        {
+            Type type = typeof(T);
+            XmlDocument document = GetDocument(type);
+            XmlNode root = document.SelectNodes("store/items").Item(0);
+            ReflectionParse reflectionParse = new ReflectionParse();
+            for (int i = 0; i < root.ChildNodes.Count; i++)
+            {
+                XmlNode xmlNode = root.ChildNodes[i];
+                if (xmlNode.Attributes["Id"].Value == id.ToString())
+                {
+                    T item = typeof(T).GetConstructor(Type.EmptyTypes).Invoke(null) as T;
+                    var values = GetPropertyValuesFromNode(xmlNode);
+                    reflectionParse.SetPropertiesValues<T>(item, values);
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public IEnumerable<T> GetAll<T>() where T : Model
+        {
+            Type type = typeof(T);
+            XmlDocument document = GetDocument(type);
+            XmlNode root = document.SelectNodes("store/items").Item(0);
+            ReflectionParse reflectionParse = new ReflectionParse();
+
+            List<T> items = new List<T>();
+            for (int i = 0; i < root.ChildNodes.Count; i++)
+            {
+                XmlNode xmlNode = root.ChildNodes[i];
+                T item = typeof(T).GetConstructor(Type.EmptyTypes).Invoke(null) as T;
+                var values = GetPropertyValuesFromNode(xmlNode);
+                reflectionParse.SetPropertiesValues<T>(item, values);
+                items.Add(item);
+            }
+            return items;
+        }
+
+        public List<PropertyValue> GetPropertyValuesFromNode(XmlNode xmlNode)
+        {
+            List<PropertyValue> values = new List<PropertyValue>();
+            foreach (XmlAttribute xmlAttribute in xmlNode.Attributes)
+            {
+                values.Add(new PropertyValue(xmlAttribute.Name, xmlAttribute.Value));
+            }
+            return values;
+        }
+
         public void UpdateRange<T>(params T[] items) where T : Model
         {
             Type type = typeof(T);
@@ -56,7 +126,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             {
                 List<PropertyValue> values = reflectionParse.GetProperties(item);
                 int id = item.Id;
-                for(int i = 0; i < root.ChildNodes.Count; i++)
+                for (int i = 0; i < root.ChildNodes.Count; i++)
                 {
                     XmlNode xmlNode = root.ChildNodes[i];
                     if (xmlNode.Attributes["Id"].Value == id.ToString())
@@ -152,12 +222,16 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
 
         public void Dispose()
         {
+            Save();
+            Disposed = true;
+        }
+        public void Save()
+        {
             foreach (Type key in documents.Keys)
             {
                 string path = Path.Combine(folderPath, key.Name + ".xml");
                 documents[key].Save(path);
             }
-            Disposed = true;
         }
     }
 }

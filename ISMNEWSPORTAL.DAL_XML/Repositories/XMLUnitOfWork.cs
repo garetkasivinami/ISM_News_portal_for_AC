@@ -10,42 +10,111 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
 {
     public class XMLUnitOfWork : IUnitOfWork
     {
-        public IAdminRepository Admins => throw new NotImplementedException();
+        private XMLContex contex;
+        private AdminRepository adminRepository;
+        private CommentRepository commentRepository;
+        private NewsPostRepository newsPostRepository;
+        private FileRepository fileRepository;
 
-        public ICommentRepository Comments => throw new NotImplementedException();
+        private Dictionary<Type, object> repositories;
+        public IAdminRepository Admins => adminRepository;
 
-        public INewsPostRepository NewsPosts => throw new NotImplementedException();
+        public ICommentRepository Comments => commentRepository;
 
-        public IFileRepository Files => throw new NotImplementedException();
+        public INewsPostRepository NewsPosts => newsPostRepository;
+
+        public IFileRepository Files => fileRepository;
+
+        public XMLUnitOfWork(XMLContex contex)
+        {
+            this.contex = contex;
+
+            adminRepository = new AdminRepository(contex);
+            commentRepository = new CommentRepository(contex);
+            newsPostRepository = new NewsPostRepository(contex);
+            fileRepository = new FileRepository(contex);
+
+            repositories = new Dictionary<Type, object>();
+            repositories.Add(typeof(Admin), adminRepository);
+            repositories.Add(typeof(Comment), commentRepository);
+            repositories.Add(typeof(NewsPost), newsPostRepository);
+            repositories.Add(typeof(FileModel), fileRepository);
+        }
 
         public int Create<T>(T item) where T : Model
         {
-            throw new NotImplementedException();
+            Type type = typeof(T);
+            if (repositories.ContainsKey(type))
+            {
+                IRepository<T> repository = repositories[type] as IRepository<T>;
+                return repository.Create(item);
+            }
+            return -1;
         }
 
         public void Delete<T>(int id) where T : Model
         {
-            throw new NotImplementedException();
+            Type type = typeof(T);
+            if (repositories.ContainsKey(type))
+            {
+                IRepository<T> repository = repositories[type] as IRepository<T>;
+                repository.Delete(id);
+            }
         }
 
         public void Delete<T>(T item) where T : Model
         {
-            throw new NotImplementedException();
+            Delete<T>(item.Id);
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            contex.Dispose();
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            AppendChanges(adminRepository);
+            AppendChanges(commentRepository);
+            AppendChanges(newsPostRepository);
+            AppendChanges(fileRepository);
+            contex.Save();
+        }
+
+        private void AppendChanges<T>(Repository<T> repository) where T : Model
+        {
+            List<ModelObject<T>> changes = repository.entities.Values.Where(u => u.State == ModelState.Created).ToList();
+            T[] changedObjects = ConvertModelObjectToModel<T>(changes);
+            contex.CreateRange<T>(changedObjects);
+
+            changes = repository.entities.Values.Where(u => u.State == ModelState.Updated).ToList();
+            changedObjects = ConvertModelObjectToModel<T>(changes);
+            contex.UpdateRange<T>(changedObjects);
+
+            var deleteObjects = repository.entities.Where(u => u.Value.State == ModelState.Deleted);
+            contex.DeleteRange<T>(deleteObjects.Select(u => u.Key).ToArray());
+
+            repository.ResetEntitiesStates();
+        }
+
+        private T[] ConvertModelObjectToModel<T>(List<ModelObject<T>> items)
+        {
+            T[] result = new T[items.Count()];
+            for (int i = 0; i < items.Count(); i++)
+            {
+                result[i] = items[i].Model;
+            }
+            return result;
         }
 
         public void Update<T>(T item) where T : Model
         {
-            throw new NotImplementedException();
+            Type type = typeof(T);
+            if (repositories.ContainsKey(type))
+            {
+                IRepository<T> repository = repositories[type] as IRepository<T>;
+                repository.Update(item);
+            }
         }
     }
 }

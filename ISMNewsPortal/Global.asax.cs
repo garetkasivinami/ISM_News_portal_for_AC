@@ -16,19 +16,12 @@ namespace ISMNewsPortal
     {
         protected void Application_Start()
         {
-            HibernateUnitOfWork unit = new HibernateUnitOfWork(NHibernateSession.OpenSession());
-            UnitOfWorkManager.SetUnitOfWork(unit);
-            GlobalFilters.Filters.Add(new ElmahExceptionLogger());
-
             string path = "C:\\Test\\";
-            using (XMLContex contex = new XMLContex(path))
-            {
-                contex.CreateRange(new Admin() { Email = "222", Login = "2223", Password = "42342", Salt = "325fds"});
+            HibernateUnitOfWork unit = new HibernateUnitOfWork(NHibernateSession.OpenSession());
+            XMLUnitOfWork xmlUnitOfWork = new XMLUnitOfWork(new XMLContex(path));
 
-                contex.UpdateRange(new Admin() { Email = "222", Login = "2223", Password = "42342", Salt = "325fdssss" });
-
-                contex.DeleteRange<Admin>(4);
-            }
+            UnitOfWorkManager.SetUnitOfWork(xmlUnitOfWork);
+            GlobalFilters.Filters.Add(new ElmahExceptionLogger());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
