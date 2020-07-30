@@ -74,12 +74,12 @@ namespace ISMNewsPortal.DAL.Repositories
             return item.Id;
         }
 
-        public void Delete<T>(int id)
+        public void Delete<T>(int id) where T : Model
         {
             Delete(session.Get<T>(id));
         }
 
-        public void Delete<T>(T item)
+        public void Delete<T>(T item) where T : Model
         {
             session.Delete(item);
         }

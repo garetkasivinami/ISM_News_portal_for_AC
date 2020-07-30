@@ -13,6 +13,7 @@ namespace ISMNewsPortal
         public static ISession OpenSession()
         {
             var configuration = new Configuration().SetProperty(NHibernate.Cfg.Environment.UseProxyValidator, bool.FalseString);
+
             var configurationPath = HttpContext.Current.Server.MapPath(@"~\NHibernate\hibernate.cfg.xml");
             configuration.Configure(configurationPath);
 

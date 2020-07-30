@@ -15,8 +15,8 @@ namespace ISMNewsPortal.BLL.Repositories
         IFileRepository Files { get; }
         void Update<T>(T item) where T: Model;
         int Create<T>(T item) where T : Model;
-        void Delete<T>(int id);
-        void Delete<T>(T item);
+        void Delete<T>(int id) where T : Model;
+        void Delete<T>(T item) where T : Model;
         void Save();
     }
 }

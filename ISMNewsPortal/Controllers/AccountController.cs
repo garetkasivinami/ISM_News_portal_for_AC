@@ -7,7 +7,6 @@ using System.Web.Mvc;
 using System.Web.Security;
 using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.Models;
-using ISMNewsPortal.BLL.Infrastructure;
 using NHibernate;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Helpers;
@@ -61,22 +60,15 @@ namespace ISMNewsPortal.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePassword model)
         {
-            try
+            var admin = AdminHelper.GetAdmin(User.Identity.Name);
+            string passportSalted = Security.SHA512(model.LastPassword, admin.Salt);
+            if (admin.Password != passportSalted)
             {
-                var admin = AdminHelper.GetAdmin(User.Identity.Name);
-                string passportSalted = Security.SHA512(model.LastPassword, admin.Salt);
-                if (admin.Password != passportSalted)
-                {
-                    ModelState.AddModelError("", "The old password is incorrect!");
-                    return View(model);
-                }
-                AdminHelper.SetPassword(admin, model.Password);
-                AdminHelper.UpdateAdmin(admin);
+                ModelState.AddModelError("", "The old password is incorrect!");
+                return View(model);
             }
-            catch (Exception ex)
-            {
-                ErrorLogger.LogError(ex.Message);
-            }
+            AdminHelper.SetPassword(admin, model.Password);
+            AdminHelper.UpdateAdmin(admin);
             return RedirectToAction("Index", "Admin");
         }
     }

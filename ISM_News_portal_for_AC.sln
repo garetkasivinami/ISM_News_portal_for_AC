@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNewsPortal.DAL", "ISMNew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNewsPortal.BLL", "ISMNewsPortal.BLL\ISMNewsPortal.BLL.csproj", "{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNEWSPORTAL.DAL_XML", "ISMNEWSPORTAL.DAL_XML\ISMNEWSPORTAL.DAL_XML.csproj", "{932CFBAA-E579-4BC9-8199-751BF9B3AD5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFC8A452-CAC6-4EB4-B1E8-D5269E18F37D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{932CFBAA-E579-4BC9-8199-751BF9B3AD5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932CFBAA-E579-4BC9-8199-751BF9B3AD5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932CFBAA-E579-4BC9-8199-751BF9B3AD5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932CFBAA-E579-4BC9-8199-751BF9B3AD5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

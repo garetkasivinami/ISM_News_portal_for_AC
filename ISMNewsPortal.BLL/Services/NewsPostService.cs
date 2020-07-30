@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.BLL.Infrastructure;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Exceptions;
 using static ISMNewsPortal.BLL.UnitOfWorkManager;
