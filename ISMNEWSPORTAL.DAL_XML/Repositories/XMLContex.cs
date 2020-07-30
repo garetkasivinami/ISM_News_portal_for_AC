@@ -11,25 +11,24 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
 {
     public class XMLContex : IDisposable
     {
-        public Dictionary<Type, XmlDocument> documents;
+        public XmlDocument document;
 
-        private string folderPath;
+        private string filePath;
 
         public bool Disposed { get; private set; }
 
-        public XMLContex(string folderPath)
+        public XMLContex(string filePath)
         {
-            this.folderPath = folderPath;
+            this.filePath = filePath;
 
-            documents = new Dictionary<Type, XmlDocument>();
+            FindPhysicalDocument();
         }
 
         public void CreateRange<T>(params T[] items) where T : Model
         {
             Type type = typeof(T);
-            XmlDocument document = GetDocument(type);
             XmlNode infoNode = document.GetElementsByTagName("info").Item(0);
-            XmlNode root = document.SelectNodes("store/items").Item(0);
+            XmlNode root = SelectNode(type, document);
             ReflectionParse reflectionParse = new ReflectionParse();
             foreach (T item in items)
             {
@@ -40,12 +39,31 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             }
         }
 
+        public XmlNode SelectNode(Type type, XmlDocument document)
+        {
+            XmlNode result = document.SelectNodes($"store/{type.Name}/items").Item(0);
+            if (result != null)
+                return result;
+
+            XmlNode rootNode = document.SelectSingleNode("store");
+            XmlElement typeNode = document.CreateElement(type.Name);
+
+            XmlElement infoElement = document.CreateElement("info");
+            infoElement.SetAttribute("lastId", "0");
+            typeNode.AppendChild(infoElement);
+
+            XmlElement itemsElement = document.CreateElement("items");
+            typeNode.AppendChild(itemsElement);
+
+            rootNode.AppendChild(typeNode);
+            return itemsElement;
+        }
+
         public int GetLastId<T>()
         {
             Type type = typeof(T);
-            XmlDocument document = GetDocument(type);
             int lastId;
-            XmlNode infoNode = document.GetElementsByTagName("info").Item(0);
+            XmlNode infoNode = document.SelectNodes($"store/{type.Name}/info").Item(0);
             XmlAttribute xmlAttribute = infoNode.Attributes["lastId"];
             lastId = int.Parse(xmlAttribute.Value);
             lastId++;
@@ -56,16 +74,14 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         public int Count<T>()
         {
             Type type = typeof(T);
-            XmlDocument document = GetDocument(type);
-            XmlNode root = document.SelectNodes("store/items").Item(0);
+            XmlNode root = SelectNode(type, document);
             return root.ChildNodes.Count;
         }
 
         public T Get<T>(int id) where T : Model
         {
             Type type = typeof(T);
-            XmlDocument document = GetDocument(type);
-            XmlNode root = document.SelectNodes("store/items").Item(0);
+            XmlNode root = SelectNode(type, document);
             ReflectionParse reflectionParse = new ReflectionParse();
             for (int i = 0; i < root.ChildNodes.Count; i++)
             {
@@ -84,8 +100,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         public IEnumerable<T> GetAll<T>() where T : Model
         {
             Type type = typeof(T);
-            XmlDocument document = GetDocument(type);
-            XmlNode root = document.SelectNodes("store/items").Item(0);
+            XmlNode root = SelectNode(type, document);
             ReflectionParse reflectionParse = new ReflectionParse();
 
             List<T> items = new List<T>();
@@ -113,8 +128,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         public void UpdateRange<T>(params T[] items) where T : Model
         {
             Type type = typeof(T);
-            XmlDocument document = GetDocument(type);
-            XmlNode root = document.SelectNodes("store/items").Item(0);
+            XmlNode root = SelectNode(type, document);
             ReflectionParse reflectionParse = new ReflectionParse();
             foreach (T item in items)
             {
@@ -135,8 +149,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         public void DeleteRange<T>(params int[] ids) where T : Model
         {
             Type type = typeof(T);
-            XmlDocument document = GetDocument(type);
-            XmlNode root = document.SelectNodes("store/items").Item(0);
+            XmlNode root = SelectNode(type, document);
             foreach (int id in ids)
             {
                 for (int i = 0; i < root.ChildNodes.Count; i++)
@@ -166,51 +179,29 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             }
         }
 
-        public XmlDocument GetDocument(Type type)
+        public void FindPhysicalDocument()
         {
-            if (documents.ContainsKey(type))
-            {
-                return documents[type];
-            }
-            else
-            {
-                return FindPhysicalDocument(type);
-            }
-        }
-
-        public XmlDocument FindPhysicalDocument(Type type)
-        {
-            string path = Path.Combine(folderPath, type.Name + ".xml");
+            string path = filePath;
             XmlDocument xmlDocument = new XmlDocument();
-            if (File.Exists(path))
+            if (File.Exists(filePath))
             {
                 xmlDocument.Load(path);
             }
             else
             {
-                ConfigDocument(xmlDocument, type);
+                ConfigDocument(xmlDocument);
             }
-            documents.Add(type, xmlDocument);
-            return xmlDocument;
+            document = xmlDocument;
         }
 
-        public void ConfigDocument(XmlDocument document, Type type)
+        public void ConfigDocument(XmlDocument document)
         {
-            string typeString = type.Name;
 
             XmlDeclaration XmlDec = document.CreateXmlDeclaration("1.0", "utf-8", null);
             document.AppendChild(XmlDec);
 
             XmlElement rootElement = document.CreateElement("store");
-            XmlElement infoElement = document.CreateElement("info");
 
-            infoElement.SetAttribute("type", type.Name);
-            infoElement.SetAttribute("lastId", "0");
-
-            XmlElement itemsElement = document.CreateElement("items");
-
-            rootElement.AppendChild(infoElement);
-            rootElement.AppendChild(itemsElement);
             document.AppendChild(rootElement);
         }
 
@@ -221,11 +212,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         }
         public void Save()
         {
-            foreach (Type key in documents.Keys)
-            {
-                string path = Path.Combine(folderPath, key.Name + ".xml");
-                documents[key].Save(path);
-            }
+            document.Save(filePath);
         }
     }
 }

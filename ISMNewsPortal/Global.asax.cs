@@ -16,7 +16,7 @@ namespace ISMNewsPortal
     {
         protected void Application_Start()
         {
-            string path = "C:\\Test\\";
+            string path = "C:\\Test\\datebase.xml";
             HibernateUnitOfWork unit = new HibernateUnitOfWork(NHibernateSession.OpenSession());
             XMLUnitOfWork xmlUnitOfWork = new XMLUnitOfWork(new XMLContex(path));
 
