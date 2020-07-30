@@ -35,7 +35,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         }
         public int Count()
         {
-            return contex.Count<T>();
+            return GetAll().Count<T>();
         }
 
         public int Create(T item)
@@ -50,6 +50,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             if (entities.ContainsKey(id))
             {
                 entities[id].State = ModelState.Deleted;
+                return;
             }
             entities.Add(id, new ModelObject<T>() { Model = Get(id), State = ModelState.Deleted });
         }
@@ -83,11 +84,16 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
                 }
                 gotAll = true;
             }
-            return entities.Select(u => u.Value.Model);
+            return entities.Where(u => u.Value.State != ModelState.Deleted).Select(u => u.Value.Model);
         }
         
         public void ResetEntitiesStates()
         {
+            var deleteList = entities.Where(u => u.Value.State == ModelState.Deleted).ToList();
+            foreach(var item in deleteList)
+            {
+                entities.Remove(item.Key);
+            }
             foreach(var item in entities)
             {
                 item.Value.State = ModelState.Normal;
@@ -103,7 +109,10 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         {
             if (entities.ContainsKey(item.Id))
             {
-                entities[item.Id].Model = item;
+                var entity = entities[item.Id];
+                entity.Model = item;
+                if (entity.State == ModelState.Normal)
+                    entity.State = ModelState.Updated;
                 return;
             }
             entities.Add(item.Id, new ModelObject<T>() { Model = item, State = ModelState.Updated } );

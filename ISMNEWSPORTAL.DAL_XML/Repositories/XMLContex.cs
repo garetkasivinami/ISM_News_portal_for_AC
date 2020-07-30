@@ -28,22 +28,16 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         {
             Type type = typeof(T);
             XmlDocument document = GetDocument(type);
-            int lastId;
             XmlNode infoNode = document.GetElementsByTagName("info").Item(0);
-            XmlAttribute xmlAttribute = infoNode.Attributes["lastId"];
-            lastId = int.Parse(xmlAttribute.Value);
             XmlNode root = document.SelectNodes("store/items").Item(0);
             ReflectionParse reflectionParse = new ReflectionParse();
             foreach (T item in items)
             {
                 XmlElement xmlElement = document.CreateElement("item");
                 List<PropertyValue> values = reflectionParse.GetProperties(item);
-                values.Where(u => u.Name == "Id").Single().SetValue(lastId);
-                lastId++;
                 UpdateXmlElement(xmlElement, values);
                 root.AppendChild(xmlElement);
             }
-            xmlAttribute.Value = lastId.ToString();
         }
 
         public int GetLastId<T>()
