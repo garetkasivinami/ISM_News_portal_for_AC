@@ -62,6 +62,7 @@ namespace ISMNewsPortal.BLL.Services
         public void DeleteAdmin(int id)
         {
             UnitOfWork.Admins.Delete(id);
+            UnitOfWork.Save();
         }
 
         public int Count()
