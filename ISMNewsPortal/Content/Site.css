@@ -212,7 +212,12 @@ textarea.form-control {
     margin-bottom:10px;
 }
 
-.btn-lang-group>a{
+.btn-lang-group > a {
     margin: 0 5px;
-    border-radius:2px;
+    border-radius: 2px;
+}
+
+.btn-lang-group{
+    line-height:52px;
+    /*vertical-align:middle;*/
 }
