@@ -21,9 +21,10 @@ namespace ISMNewsPortal
         {
             string path = "C:\\Test\\datebase.xml";
 
-            ExeConfigurationFileMap map = new ExeConfigurationFileMap { ExeConfigFilename = "Web.config" };
+            //ExeConfigurationFileMap map = new ExeConfigurationFileMap { ExeConfigFilename = "Web.config" };
             //Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
-            //CustomSettingsGroup customSettingsGroup = configuration.SectionGroups["CustomSettings"] as CustomSettingsGroup;
+            //configuration.
+
             TypeConnection typeConnection = GetTypeConnection(ConfigurationManager.AppSettings["typeConnection"]);
 
             IUnitOfWork unitOfWork;

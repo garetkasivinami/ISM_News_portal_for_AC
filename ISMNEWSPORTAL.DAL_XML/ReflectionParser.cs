@@ -7,11 +7,11 @@ using System.Reflection;
 
 namespace ISMNEWSPORTAL.DAL_XML
 {
-    public class ReflectionParse
+    public static class ReflectionParser
     {
         private static Dictionary<Type, PropertyInfo[]> propertyValueList = new Dictionary<Type, PropertyInfo[]>();
 
-        public List<PropertyValue> GetProperties<T>(T item)
+        public static List<PropertyValue> GetProperties<T>(T item)
         {
             Type t = typeof(T);
             PropertyInfo[] properties;
@@ -28,7 +28,7 @@ namespace ISMNEWSPORTAL.DAL_XML
             }
             return values;
         }
-        public void SetPropertiesValues<T>(T item, List<PropertyValue> propertyValues)
+        public static void SetPropertiesValues<T>(T item, List<PropertyValue> propertyValues)
         {
             Type t = typeof(T);
             PropertyInfo[] properties;

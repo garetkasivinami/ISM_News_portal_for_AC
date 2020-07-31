@@ -40,7 +40,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
 
         public int Create(T item)
         {
-            item.Id = contex.GetLastId<T>();
+            contex.SetNewItemId<T>(item);
             entities.Add(item.Id, new ModelObject<T>() { Model = item, State = ModelState.Created });
             return item.Id;
         }
@@ -94,6 +94,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             {
                 entities.Remove(item.Key);
             }
+
             foreach(var item in entities)
             {
                 item.Value.State = ModelState.Normal;
