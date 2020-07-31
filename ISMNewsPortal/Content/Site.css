@@ -165,10 +165,6 @@ textarea.form-control {
     box-shadow: none;
 }
 
-.btn-group > .btn:not(:last-child) {
-    border-right: 0;
-}
-
 /*.sortfilter > li {
     margin: 10px;
 }*/
@@ -214,4 +210,9 @@ textarea.form-control {
 
 .btn-manage-comments{
     margin-bottom:10px;
+}
+
+.btn-lang-group>a{
+    margin: 0 5px;
+    border-radius:2px;
 }
