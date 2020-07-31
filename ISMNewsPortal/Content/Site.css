@@ -220,3 +220,13 @@ textarea.form-control {
 .btn-lang-group{
     line-height:52px;
 }
+
+.btn-lang-admin{
+    margin-bottom:5px;
+}
+
+.nav-admin{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}

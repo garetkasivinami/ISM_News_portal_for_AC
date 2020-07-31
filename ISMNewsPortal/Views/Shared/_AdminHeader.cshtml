@@ -7,7 +7,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse nav-admin id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         @Html.ActionLink(Language.Language.OpenFront, "Index", "Home", new { area = "" }, new { @class = "nav-link" })
@@ -21,14 +21,12 @@
                     <li class="nav-item">
                         @Html.ActionLink(Language.Language.ChangPassword, "ChangePassword", "Account", new { }, new { @class = "btn btn-outline-secondary" })
                     </li>
-                    <li class="nav-item">
-                        <div class="btn-lang-group" role="group">
-                            @Html.ActionLink(" ", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { @lang = "en", @id = ViewContext.RouteData.Values["id"] }, new { @class = "en btn btn-outline-dark btn-sm" })
-                            @Html.ActionLink(" ", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { @lang = "uk", @id = ViewContext.RouteData.Values["id"] }, new { @class = "ua btn btn-outline-dark btn-sm" })
-                            @Html.ActionLink(" ", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { @lang = "ru", @id = ViewContext.RouteData.Values["id"] }, new { @class = "ru btn btn-outline-dark btn-sm" })
-                        </div>
-                    </li>
                 </ul>
+                <div class="btn-lang-group btn-lang-admin" role="group">
+                    @Html.ActionLink(" ", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { @lang = "en", @id = ViewContext.RouteData.Values["id"] }, new { @class = "en btn btn-outline-dark btn-sm" })
+                    @Html.ActionLink(" ", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { @lang = "uk", @id = ViewContext.RouteData.Values["id"] }, new { @class = "ua btn btn-outline-dark btn-sm" })
+                    @Html.ActionLink(" ", ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { @lang = "ru", @id = ViewContext.RouteData.Values["id"] }, new { @class = "ru btn btn-outline-dark btn-sm" })
+                </div>
             </div>
         </div>
     </nav>
