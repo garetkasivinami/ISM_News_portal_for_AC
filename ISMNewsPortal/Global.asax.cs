@@ -9,6 +9,9 @@ using ISMNewsPortal.DAL.Repositories;
 using ISMNEWSPORTAL.DAL_XML.Repositories;
 using ISMNewsPortal.BLL;
 using ISMNewsPortal.BLL.Models;
+using System.Configuration;
+using ISMNewsPortal.Config;
+using ISMNewsPortal.BLL.Repositories;
 
 namespace ISMNewsPortal
 {
@@ -17,16 +20,42 @@ namespace ISMNewsPortal
         protected void Application_Start()
         {
             string path = "C:\\Test\\datebase.xml";
-            HibernateUnitOfWork unit = new HibernateUnitOfWork(NHibernateSession.OpenSession());
-            XMLUnitOfWork xmlUnitOfWork = new XMLUnitOfWork(new XMLContex(path));
 
-            UnitOfWorkManager.SetUnitOfWork(xmlUnitOfWork);
+            ExeConfigurationFileMap map = new ExeConfigurationFileMap { ExeConfigFilename = "Web.config" };
+            //Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+            //CustomSettingsGroup customSettingsGroup = configuration.SectionGroups["CustomSettings"] as CustomSettingsGroup;
+            TypeConnection typeConnection = GetTypeConnection(ConfigurationManager.AppSettings["typeConnection"]);
+
+            IUnitOfWork unitOfWork;
+            switch(typeConnection) {
+                case TypeConnection.XML:
+                    unitOfWork = new XMLUnitOfWork(new XMLContex(path));
+                    break;
+                case TypeConnection.Hibernate:
+                    unitOfWork = new HibernateUnitOfWork(NHibernateSession.OpenSession());
+                    break;
+                default:
+                    unitOfWork = null;
+                    break;
+            }
+
+            UnitOfWorkManager.SetUnitOfWork(unitOfWork);
             GlobalFilters.Filters.Add(new ElmahExceptionLogger());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+        private TypeConnection GetTypeConnection(string type)
+        {
+            switch (type)
+            {
+                case "xml":
+                    return TypeConnection.XML;
+                default:
+                    return TypeConnection.Hibernate;
+            }
         }
     }
 }
