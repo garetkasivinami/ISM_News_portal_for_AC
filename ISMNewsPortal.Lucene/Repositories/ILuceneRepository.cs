@@ -1,4 +1,5 @@
-﻿using ISMNewsPortal.BLL.Models;
+﻿using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.BLL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace ISMNewsPortal.Lucene.Repository
         void Delete(int id);
         bool DeleteAll();
         void Optimize();
+        IEnumerable<int> Search(Options options);
     }
 }

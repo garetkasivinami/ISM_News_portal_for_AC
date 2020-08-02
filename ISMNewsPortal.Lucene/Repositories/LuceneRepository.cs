@@ -1,7 +1,9 @@
-﻿using ISMNewsPortal.BLL.Models;
+﻿using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.BLL.Models;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
+using Lucene.Net.QueryParsers;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
 using System;
@@ -128,6 +130,65 @@ namespace ISMNewsPortal.Lucene.Repository
                 return false;
             }
             return true;
+        }
+
+        private static Query parseQuery(string searchQuery, QueryParser parser)
+        {
+            Query query;
+            try
+            {
+                query = parser.Parse(searchQuery.Trim());
+            }
+            catch (ParseException)
+            {
+                query = parser.Parse(QueryParser.Escape(searchQuery.Trim()));
+            }
+            return query;
+        }
+
+        protected List<int> search(string input)
+        {
+            if (string.IsNullOrEmpty(input.Replace("*", "").Replace("?", "")))
+                return new List<int>();
+
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
+            {
+                using (var searcher = new IndexSearcher(_directory, false))
+                {
+                    var hits_limit = 1000;
+                    QueryParser parser = new QueryParser(Version.LUCENE_30, "Name", analyzer);
+                    var query = parseQuery(input, parser);
+
+                    var hits = searcher.Search(query, hits_limit).ScoreDocs;
+
+                    return _mapLuceneToDataList(hits, searcher);
+                }
+            }
+        }
+
+        private static List<int> _mapLuceneToDataList(IEnumerable<ScoreDoc> hits,
+            IndexSearcher searcher)
+        {
+            return hits.Select(hit => _mapLuceneDocumentToDataId(searcher.Doc(hit.Doc))).ToList();
+        }
+
+        private static int _mapLuceneDocumentToDataId(Document doc)
+        {
+            return Convert.ToInt32(doc.Get("Id"));
+        }
+
+        public IEnumerable<int> Search(Options options)
+        {
+            var input = options.Search;
+            if (string.IsNullOrEmpty(input))
+                return new List<int>();
+
+            var terms = input.Trim().Replace("-", " ").Split(' ')
+                .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim() + "*");
+            input = string.Join(" ", terms);
+
+            List<int> results = search(input);
+            return results;
         }
     }
 }

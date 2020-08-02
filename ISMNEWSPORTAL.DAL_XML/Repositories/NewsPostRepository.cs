@@ -1,4 +1,5 @@
-﻿using ISMNewsPortal.BLL.Models;
+﻿using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.Lucene;
 using System;
@@ -49,15 +50,29 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
             return base.Create(item);
         }
+
         public override void Delete(int id)
         {
             LuceneRepositoryFactory.GetRepository<NewsPost>().Delete(id);
             base.Delete(id);
         }
+
         public override void Update(NewsPost item)
         {
             LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
             base.Update(item);
+        }
+
+        public override IEnumerable<NewsPost> GetWithOptions(Options toolBar)
+        {
+            if (!string.IsNullOrEmpty(toolBar.Search))
+            {
+                var results = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(toolBar);
+                return GetAll().Where(u => results.Contains(u.Id));
+            } else
+            {
+                return base.GetWithOptions(toolBar);
+            }
         }
     }
 }
