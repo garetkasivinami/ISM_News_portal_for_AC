@@ -60,6 +60,10 @@
       <Project>{efc8a452-cac6-4eb4-b1e8-d5269e18f37d}</Project>
       <Name>ISMNewsPortal.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ISMNewsPortal.Lucene\ISMNewsPortal.Lucene.csproj">
+      <Project>{208e92bb-a6de-46f0-94be-04f5901df0cd}</Project>
+      <Name>ISMNewsPortal.Lucene</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

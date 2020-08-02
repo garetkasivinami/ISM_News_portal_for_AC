@@ -12,6 +12,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
     {
         public AdminRepository(XMLContex contex) : base(contex)
         {
+            
         }
 
         public Admin GetByEmail(string email)

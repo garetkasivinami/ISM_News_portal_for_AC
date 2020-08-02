@@ -38,14 +38,14 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             return GetAll().Count<T>();
         }
 
-        public int Create(T item)
+        public virtual int Create(T item)
         {
             contex.SetNewItemId<T>(item);
             entities.Add(item.Id, new ModelObject<T>() { Model = item, State = ModelState.Created });
             return item.Id;
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             if (entities.ContainsKey(id))
             {
@@ -106,7 +106,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             return GetAll();
         }
 
-        public void Update(T item)
+        public virtual void Update(T item)
         {
             if (entities.ContainsKey(item.Id))
             {

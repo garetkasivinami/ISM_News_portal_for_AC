@@ -17,9 +17,9 @@ namespace ISMNewsPortal.Lucene.Repository
 {
     public abstract class LuceneRepository<T> : ILuceneRepository<T> where T : Model
     {
-        private string directory;
         private static FSDirectory _directoryTemp;
 
+        private string directory;
         public string Directory
         {
             get => directory;
@@ -40,22 +40,37 @@ namespace ISMNewsPortal.Lucene.Repository
         public LuceneRepository()
         {
             Type type = typeof(T);
-            directory = Path.Combine(HttpContext.Current.Request.PhysicalApplicationPath, "lucene_index", type.Name);
+            directory = Path.Combine(HttpRuntime.AppDomainAppPath, "lucene_index", type.Name);
         }
 
         public void Delete(IEnumerable<T> items)
         {
-            foreach (T item in items)
-                Delete(item);
+            
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
+            {
+                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                {
+                    foreach (T item in items)
+                    {
+                        var searchQuery = new TermQuery(new Term("Id", item.Id.ToString()));
+                        writer.DeleteDocuments(searchQuery);
+                    }
+                }
+            }
         }
 
         public void Delete(T item)
+        {
+            Delete(item.Id);
+        }
+
+        public void Delete(int id)
         {
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
                 using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
-                    var searchQuery = new TermQuery(new Term("Id", item.Id.ToString()));
+                    var searchQuery = new TermQuery(new Term("Id", id.ToString()));
                     writer.DeleteDocuments(searchQuery);
                 }
             }

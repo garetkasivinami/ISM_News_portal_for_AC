@@ -14,6 +14,7 @@ namespace ISMNewsPortal.Lucene.Repository
         void SaveOrUpdate(T item);
         void Delete(IEnumerable<T> items);
         void Delete(T item);
+        void Delete(int id);
         bool DeleteAll();
         void Optimize();
     }
