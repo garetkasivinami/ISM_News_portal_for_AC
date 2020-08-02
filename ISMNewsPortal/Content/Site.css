@@ -234,3 +234,12 @@ textarea.form-control {
 .create-head{
     margin-left:15px;
 }
+
+.card-text {
+    overflow: hidden;
+}
+
+.card-img {
+    max-height:300px;
+    overflow: hidden;
+}
