@@ -146,7 +146,9 @@ namespace ISMNewsPortal.Lucene.Repository
             return query;
         }
 
-        protected List<int> search(string input)
+        protected abstract string[] GetFields();
+
+        private List<int> search(string input)
         {
             if (string.IsNullOrEmpty(input.Replace("*", "").Replace("?", "")))
                 return new List<int>();
@@ -156,7 +158,7 @@ namespace ISMNewsPortal.Lucene.Repository
                 using (var searcher = new IndexSearcher(_directory, false))
                 {
                     var hits_limit = 1000;
-                    QueryParser parser = new QueryParser(Version.LUCENE_30, "Name", analyzer);
+                    QueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30, GetFields(), analyzer);
                     var query = parseQuery(input, parser);
 
                     var hits = searcher.Search(query, hits_limit).ScoreDocs;

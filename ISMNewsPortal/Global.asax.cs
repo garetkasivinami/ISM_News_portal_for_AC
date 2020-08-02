@@ -12,6 +12,7 @@ using ISMNewsPortal.BLL.Models;
 using System.Configuration;
 using ISMNewsPortal.Config;
 using ISMNewsPortal.BLL.Repositories;
+using System.IO;
 
 namespace ISMNewsPortal
 {
@@ -19,11 +20,7 @@ namespace ISMNewsPortal
     {
         protected void Application_Start()
         {
-            string path = "C:\\Test\\datebase.xml";
-
-            //ExeConfigurationFileMap map = new ExeConfigurationFileMap { ExeConfigFilename = "Web.config" };
-            //Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
-            //configuration.
+            string path = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data", "datebase.xml");
 
             TypeConnection typeConnection = GetTypeConnection(ConfigurationManager.AppSettings["typeConnection"]);
 

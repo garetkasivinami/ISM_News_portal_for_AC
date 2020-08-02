@@ -194,6 +194,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\datebase.xml" />
     <Content Include="App_Data\Files\admin.png" />
     <Content Include="App_Data\Files\be.png" />
     <Content Include="App_Data\Files\facebook.png" />
