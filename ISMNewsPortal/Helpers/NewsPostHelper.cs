@@ -59,14 +59,14 @@ namespace ISMNewsPortal.Helpers
             return new NewsPostViewModel(newsPost, commentsViewModel, commentPage, pages, allowAdminActions);
         }
 
-        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(Options model)
+        public static NewsPostAdminCollection GenerateNewsPostAdminCollection(ToolsModel model)
         {
             NewsPostService newsPostService = new NewsPostService();
             AdminService adminService = new AdminService();
             CommentService commentService = new CommentService();
 
-            var toolsDTO = model;
-            var newsPosts = newsPostService.GetNewsPostsWithAdminTools(toolsDTO);
+            var businessModel = model.ConvertToOptions();
+            var newsPosts = newsPostService.GetNewsPostsWithAdminTools(businessModel);
 
             var newsPostAdminViews = new List<NewsPostAdminView>();
             foreach (NewsPost newsPost in newsPosts)
@@ -75,17 +75,17 @@ namespace ISMNewsPortal.Helpers
                 int commentCount = commentService.GetCommentCountByPostId(newsPost.Id);
                 newsPostAdminViews.Add(new NewsPostAdminView(newsPost, newsPostAuthorName, commentCount));
             }
-            model.Pages = toolsDTO.Pages;
+            model.Pages = businessModel.Pages;
             return new NewsPostAdminCollection(newsPostAdminViews, model);
         }
 
-        public static NewsPostSimplifiedCollection GenerateNewsPostSimplifiedCollection(Options model)
+        public static NewsPostSimplifiedCollection GenerateNewsPostSimplifiedCollection(ToolsModel model)
         {
             NewsPostService newsPostService = new NewsPostService();
             CommentService commentService = new CommentService();
 
-            var modelDTO = model;
-            var newsPosts = newsPostService.GetNewsPostsWithTools(modelDTO);
+            var businessModel = model.ConvertToOptions();
+            var newsPosts = newsPostService.GetNewsPostsWithTools(businessModel);
 
             var newsPostSimplifiedViews = new List<NewsPostSimplifiedView>();
             foreach (NewsPost newsPost in newsPosts)
@@ -93,7 +93,7 @@ namespace ISMNewsPortal.Helpers
                 int commentCount = commentService.GetCommentCountByPostId(newsPost.Id);
                 newsPostSimplifiedViews.Add(new NewsPostSimplifiedView(newsPost, commentCount));
             }
-            model.Pages = modelDTO.Pages;
+            model.Pages = businessModel.Pages;
             return new NewsPostSimplifiedCollection(newsPostSimplifiedViews, model);
 
         }

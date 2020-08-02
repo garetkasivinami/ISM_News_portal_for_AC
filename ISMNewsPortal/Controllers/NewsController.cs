@@ -19,7 +19,7 @@ namespace ISMNewsPortal.Controllers
     public class NewsController : Controller
     {
         [HttpGet]
-        public ActionResult Index(Options model)
+        public ActionResult Index(ToolsModel model)
         {
             NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPostHelper.GenerateNewsPostSimplifiedCollection(model);
             return View(newsPostSimplifiedCollection);

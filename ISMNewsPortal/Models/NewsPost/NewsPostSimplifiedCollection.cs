@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ISMNewsPortal.Models
 {
-    public class NewsPostSimplifiedCollection : Options
+    public class NewsPostSimplifiedCollection : ToolsModel
     {
-        public NewsPostSimplifiedCollection(ICollection<NewsPostSimplifiedView> newsPostSimplifiedViews, Options toolBarModel) : base(toolBarModel)
+        public NewsPostSimplifiedCollection(ICollection<NewsPostSimplifiedView> newsPostSimplifiedViews, ToolsModel toolBarModel) : base(toolBarModel)
         {
             NewsPostSimpliedViews = newsPostSimplifiedViews;
         }

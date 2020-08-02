@@ -5,9 +5,9 @@ using System.Collections.Generic;
 namespace ISMNewsPortal.Models
 {
 
-    public class CommentViewModelCollection : Options
+    public class CommentViewModelCollection : ToolsModel
     {
-        public CommentViewModelCollection(NewsPost newsPost, string imagePath, ICollection<CommentViewModel> commentViewModels, Options toolBar, int commentsCount) : base(toolBar)
+        public CommentViewModelCollection(NewsPost newsPost, string imagePath, ICollection<CommentViewModel> commentViewModels, ToolsModel toolBar, int commentsCount) : base(toolBar)
         {
             CommentViewModels = commentViewModels;
             CommentsCount = commentsCount;

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ISMNewsPortal.Models
 {
-    public class NewsPostAdminCollection : Options
+    public class NewsPostAdminCollection : ToolsModel
     {
-        public NewsPostAdminCollection(ICollection<NewsPostAdminView> newsPostAdminViews, Options toolBarModel) : base(toolBarModel)
+        public NewsPostAdminCollection(ICollection<NewsPostAdminView> newsPostAdminViews, ToolsModel toolBarModel) : base(toolBarModel)
         {
             NewsPostAdminViews = newsPostAdminViews;
         }

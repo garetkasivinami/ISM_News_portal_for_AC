@@ -25,23 +25,29 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public override IEnumerable<NewsPost> GetWithOptions(Options toolBar)
         {
-            string filterFunc = GetFilterSqlString(toolBar.Filter);
-            string sortString;
-            string searchString = GetSearchSqlString();
-            IList<NewsPost> selectedNewsPost;
-            if (toolBar.Admin)
-            {
-                sortString = GetAdminSortSqlString(toolBar.SortType, toolBar.Reversed ?? true);
-                selectedNewsPost = GetSqlQuerryAdmin(_session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
-            }
-            else
-            {
-                sortString = GetSortSqlString(toolBar.SortType, toolBar.Reversed ?? true);
-                selectedNewsPost = GetSqlQuerry(_session, sortString, filterFunc, toolBar.Search, searchString).List<NewsPost>();
-            }
-            toolBar.Pages = Helper.CalculatePages(selectedNewsPost.Count, NewsPost.NewsInOnePage);
+            var items = _session.Query<NewsPost>();
+            if (toolBar.MinimumDate != null)
+                items = items.Where(u => u.PublicationDate >= toolBar.MinimumDate);
 
-            return Helper.CutIEnumarable(toolBar.Page - 1, NewsPost.NewsInOnePage, selectedNewsPost);
+            if (toolBar.MaximumDate != null)
+                items = items.Where(u => u.PublicationDate < toolBar.MaximumDate);
+
+            if (toolBar.Published != null)
+            {
+                if (toolBar.Published == true)
+                    items = items.Where(u => u.IsVisible == true);
+                else
+                    items = items.Where(u => u.IsVisible == false);
+            }
+
+            if (!toolBar.Admin)
+                items = items.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
+
+            var result = items.ToList();
+
+            toolBar.Pages = Helper.CalculatePages(result.Count, NewsPost.NewsInOnePage);
+
+            return Helper.CutIEnumarable(toolBar.Page - 1, NewsPost.NewsInOnePage, result);
         }
 
         public IEnumerable<NewsPost> GetByAuthorId(int id)

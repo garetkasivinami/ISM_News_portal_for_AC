@@ -62,7 +62,7 @@ namespace ISMNewsPortal.Helpers
             }
             var newsPost = newsPostService.GetNewsPost(postId);
             string imagePath = FileModelActions.GetNameByIdFormated(newsPost.ImageId);
-            return new CommentViewModelCollection(newsPost, imagePath, commentsViewModel, new Options(), commentsCount);
+            return new CommentViewModelCollection(newsPost, imagePath, commentsViewModel, new ToolsModel(), commentsCount);
         }
     }
 }

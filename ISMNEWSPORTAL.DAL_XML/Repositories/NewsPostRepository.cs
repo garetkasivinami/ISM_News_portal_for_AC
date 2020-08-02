@@ -65,14 +65,34 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
 
         public override IEnumerable<NewsPost> GetWithOptions(Options toolBar)
         {
+
+            IEnumerable<NewsPost> result;
             if (!string.IsNullOrEmpty(toolBar.Search))
             {
                 var results = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(toolBar);
-                return GetAll().Where(u => results.Contains(u.Id));
+                result = GetAll().Where(u => results.Contains(u.Id));
             } else
             {
-                return base.GetWithOptions(toolBar);
+                result = base.GetWithOptions(toolBar);
             }
+            if (toolBar.MinimumDate != null)
+                result = result.Where(u => u.PublicationDate >= toolBar.MinimumDate);
+
+            if (toolBar.MaximumDate != null)
+                result = result.Where(u => u.PublicationDate < toolBar.MaximumDate);
+
+            if (toolBar.Published != null)
+            {
+                if (toolBar.Published == true)
+                    result = result.Where(u => u.IsVisible == true);
+                else
+                    result = result.Where(u => u.IsVisible == false);
+            }
+
+            if (!toolBar.Admin)
+                result = result.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
+
+            return result;
         }
     }
 }

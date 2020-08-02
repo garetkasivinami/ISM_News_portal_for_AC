@@ -13,7 +13,7 @@ namespace ISMNewsPortal.Controllers
     public class AdminController : Controller
     {
         [HttpGet]
-        public ActionResult Index(Options model)
+        public ActionResult Index(ToolsModel model)
         {
             NewsPostAdminCollection result = NewsPostHelper.GenerateNewsPostAdminCollection(model);
             return View(result);

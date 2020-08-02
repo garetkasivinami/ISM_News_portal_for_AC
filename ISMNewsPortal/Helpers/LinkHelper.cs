@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.Models;
 
 namespace ISMNewsPortal.Helpers
 {
     public static class LinkHelper
     {
-        public static object CreatePageLinks(Options toolsModel, int pageOffset = 0)
+        public static object CreatePageLinks(ToolsModel toolsModel, int pageOffset = 0)
         {
             return new
             {
@@ -19,7 +20,7 @@ namespace ISMNewsPortal.Helpers
                 @Reversed = toolsModel.Reversed
             };
         }
-        public static object CreateFilterLinks(Options toolsModel, string filter)
+        public static object CreateFilterLinks(ToolsModel toolsModel, string filter)
         {
             return new
             {
@@ -30,7 +31,7 @@ namespace ISMNewsPortal.Helpers
                 @Reversed = toolsModel.Reversed
             };
         }
-        public static object CreateSortLinks(Options toolsModel, string sortType, bool reversed)
+        public static object CreateSortLinks(ToolsModel toolsModel, string sortType, bool reversed)
         {
             return new
             {
