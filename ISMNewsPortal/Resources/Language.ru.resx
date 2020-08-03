@@ -144,6 +144,9 @@
   <data name="ChangPassword" xml:space="preserve">
     <value>Изменить пароль</value>
   </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>Выберите изображение</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Комментировать</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="CreateNewsPost" xml:space="preserve">
     <value>Создать новостной пост</value>
   </data>
+  <data name="CreatePostBtn" xml:space="preserve">
+    <value>Создать</value>
+  </data>
   <data name="date" xml:space="preserve">
     <value>Дата</value>
   </data>
@@ -209,6 +215,9 @@
   </data>
   <data name="EditAdmin" xml:space="preserve">
     <value>Редактировать администратора</value>
+  </data>
+  <data name="editDate" xml:space="preserve">
+    <value>Дата редактирование</value>
   </data>
   <data name="EditNews" xml:space="preserve">
     <value>Редактировать новости</value>
@@ -255,6 +264,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>Нет коментариев</value>
   </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>Изображение</value>
+  </data>
   <data name="NoNews" xml:space="preserve">
     <value>Нету новостей</value>
   </data>
@@ -263,6 +275,9 @@
   </data>
   <data name="OldPassword" xml:space="preserve">
     <value>Старый пароль</value>
+  </data>
+  <data name="onlyPublished" xml:space="preserve">
+    <value>Только опубликованые</value>
   </data>
   <data name="OpenFront" xml:space="preserve">
     <value>Открыть frontend</value>
@@ -292,7 +307,7 @@
     <value>Вернуться</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Обязаности</value>
+    <value>Роли</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Поиск</value>

@@ -24,7 +24,7 @@
                         <p class="card-text">@Language.Language.Email: @adminView.Email</p>
                         @if (adminView.Roles.Any())
                         {
-                            <p class="card-text">Roles:</p>
+                            <p class="card-text">@Language.Language.Roles:</p>
                             <ul class="list-group">
                                 @foreach (string role in adminView.Roles)
                                 {

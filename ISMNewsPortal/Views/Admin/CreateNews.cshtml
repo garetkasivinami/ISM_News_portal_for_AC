@@ -8,7 +8,7 @@
 
 <h3 class="create-head">@Language.Language.CreateNewsPost!</h3>
 <div class="col-md-offset-2 col-md-10">
-    <img id="imageElement" class="post-img" alt="no image" />
+    <img id="imageElement" class="post-img" alt=@Language.Language.NoImage />
 </div>
 @using (Html.BeginForm("CreateNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "main_form" }))
 {
@@ -49,7 +49,7 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <label class="btn btn-outline-dark">
-                Choose image file
+                @Language.Language.ChooseImage
                 <input type="file" class="btn btn-outline-secondary submit_date" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
             </label>
             @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
@@ -58,7 +58,7 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-outline-dark" />
+            <input type="submit" value=@Language.Language.CreatePostBtn class="btn btn-outline-dark" />
             @Html.ActionLink(Language.Language.Return, "Index", null, new { @class = "btn btn-outline-primary" })
         </div>
     </div>
