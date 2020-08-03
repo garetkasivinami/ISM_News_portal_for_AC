@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ISMNewsPortal.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -34,27 +35,43 @@ namespace ISMNewsPortal.Models
             var url = new UrlHelper(filterContext.RequestContext);
             var accessDeniedUrl = url.Action("Error404", "Home");
 
-            if (!string.IsNullOrEmpty(base.Roles))
+            var user = filterContext.HttpContext.User;
+
+            if (user != null)
             {
-                var isRoleError = true;
-                var rolesAllowed = base.Roles.Split(',');
-
-                var user = filterContext.HttpContext.User;
-                if (user != null && rolesAllowed.Any())
+                var adminUser = AdminHelper.GetAdmin(user.Identity.Name);
+                var passwordCookie = filterContext.HttpContext.Request.Cookies["Request_p"];
+                if (adminUser == null || passwordCookie == null || passwordCookie.Value != adminUser.Salt)
                 {
-                    foreach (var role in rolesAllowed)
-                        if (user.IsInRole(role))
-                            isRoleError = false;
-                }
-
-                if (isRoleError)
-                {
+                    var logoff = url.Action("Logoff", "Account");
                     if (request.IsAjaxRequest())
-                        filterContext.Result = new JsonResult { Data = new { error = true, signinerror = true, message = "Access denied", url = accessDeniedUrl }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+                        filterContext.Result = new JsonResult { Data = new { error = true, signinerror = true, message = "Access denied", url = logoff }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     else
-                        filterContext.Result = new RedirectResult(accessDeniedUrl);
+                        filterContext.Result = new RedirectResult(logoff);
+                    return;
+                }
+                if (!string.IsNullOrEmpty(base.Roles))
+                {
+                    var isRoleError = true;
+                    var rolesAllowed = base.Roles.Split(',');
+                    if (rolesAllowed.Any())
+                    {
+                        foreach (var role in rolesAllowed)
+                            if (user.IsInRole(role))
+                                isRoleError = false;
+                    }
+
+                    if (!isRoleError)
+                        return;
+                } else
+                {
+                    return;
                 }
             }
+            if (request.IsAjaxRequest())
+                filterContext.Result = new JsonResult { Data = new { error = true, signinerror = true, message = "Access denied", url = accessDeniedUrl }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            else
+                filterContext.Result = new RedirectResult(accessDeniedUrl);
         }
     }
 }

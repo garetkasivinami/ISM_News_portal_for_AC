@@ -8,7 +8,7 @@ using ISMNewsPortal.Helpers;
 
 namespace ISMNewsPortal.Controllers
 {
-    [Authorize]
+    [RoleAuthorize]
     [Culture]
     public class AdminController : Controller
     {

@@ -47,10 +47,10 @@ namespace ISMNewsPortal
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        void Session_Start(object sender, EventArgs e)
-        {
-            string path = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data", "datebase.xml");
-        }
+        //void Session_Start(object sender, EventArgs e)
+        //{
+        //    string path = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data", "datebase.xml");
+        //}
 
         private TypeConnection GetTypeConnection(string type)
         {

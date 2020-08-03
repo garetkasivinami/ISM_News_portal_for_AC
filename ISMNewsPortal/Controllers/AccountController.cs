@@ -34,6 +34,9 @@ namespace ISMNewsPortal.Controllers
                 if (admin != null && AdminHelper.CheckPassword(admin, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(admin.Login, true);
+                    var cookies = new HttpCookie("Request_p", admin.Salt);
+                    cookies.Expires = DateTime.Now.AddMinutes(FormsAuthentication.Timeout.TotalMinutes);
+                    HttpContext.Response.Cookies.Add(cookies);
                     return RedirectToAction("Index", "Admin");
                 }
                 ModelState.AddModelError("", "Invalid login and/or password!");
@@ -46,6 +49,7 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
+            Request.Cookies.Remove("password");
             return RedirectToAction("Index", "Home");
         }
 
