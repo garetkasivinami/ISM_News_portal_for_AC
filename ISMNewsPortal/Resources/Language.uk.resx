@@ -144,6 +144,9 @@
   <data name="ChangPassword" xml:space="preserve">
     <value>Змінити пароль</value>
   </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>Оберіть зображення</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Коментувати</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="CreateNewsPost" xml:space="preserve">
     <value>Створити пост новини</value>
   </data>
+  <data name="CreatePostBtn" xml:space="preserve">
+    <value>Створити</value>
+  </data>
   <data name="date" xml:space="preserve">
     <value>Дата</value>
   </data>
@@ -209,6 +215,9 @@
   </data>
   <data name="EditAdmin" xml:space="preserve">
     <value>Редагувати адміністратора</value>
+  </data>
+  <data name="editDate" xml:space="preserve">
+    <value>Дата редагування</value>
   </data>
   <data name="EditNews" xml:space="preserve">
     <value>Редагувати новину</value>
@@ -255,6 +264,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>Коментарі відсутні</value>
   </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>Зображення</value>
+  </data>
   <data name="NoNews" xml:space="preserve">
     <value>Новини відсутні</value>
   </data>
@@ -263,6 +275,9 @@
   </data>
   <data name="OldPassword" xml:space="preserve">
     <value>Старий пароль</value>
+  </data>
+  <data name="onlyPublished" xml:space="preserve">
+    <value>Тільки опубліковані</value>
   </data>
   <data name="OpenFront" xml:space="preserve">
     <value>Відкрити frontend</value>

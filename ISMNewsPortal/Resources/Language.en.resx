@@ -144,6 +144,9 @@
   <data name="ChangPassword" xml:space="preserve">
     <value>Change password</value>
   </data>
+  <data name="ChooseImage" xml:space="preserve">
+    <value>Choose image</value>
+  </data>
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="CreateNewsPost" xml:space="preserve">
     <value>Create news post</value>
   </data>
+  <data name="CreatePostBtn" xml:space="preserve">
+    <value>Create</value>
+  </data>
   <data name="date" xml:space="preserve">
     <value>Date</value>
   </data>
@@ -209,6 +215,9 @@
   </data>
   <data name="EditAdmin" xml:space="preserve">
     <value>Edit admin</value>
+  </data>
+  <data name="editDate" xml:space="preserve">
+    <value>Edit date</value>
   </data>
   <data name="EditNews" xml:space="preserve">
     <value>Edit news</value>
@@ -254,6 +263,9 @@
   </data>
   <data name="NoComments" xml:space="preserve">
     <value>No comments</value>
+  </data>
+  <data name="NoImage" xml:space="preserve">
+    <value>No image</value>
   </data>
   <data name="NoNews" xml:space="preserve">
     <value>No news</value>
