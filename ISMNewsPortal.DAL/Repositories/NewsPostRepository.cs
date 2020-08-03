@@ -28,8 +28,10 @@ namespace ISMNewsPortal.DAL.Repositories
         {
             var items = _session.Query<NewsPost>();
 
-
-            items = SortBy(items, toolBar.SortType, toolBar.Reversed ?? true);
+            if(toolBar.Reversed == true || toolBar.Reversed == null)
+                items = SortByReversed(items, toolBar.SortType);
+            else
+                items = SortBy(items, toolBar.SortType);
 
             if (toolBar.MinimumDate != null)
                 items = items.Where(u => u.PublicationDate >= toolBar.MinimumDate);

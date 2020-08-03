@@ -6,6 +6,7 @@ using System.Linq;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Models;
+using ISMNewsPortal.BLL.Exceptions;
 
 namespace ISMNewsPortal.Helpers
 {
@@ -39,7 +40,7 @@ namespace ISMNewsPortal.Helpers
 
             var newsPost = newsPostService.GetNewsPost(id);
             if (onlyVisible && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
-                throw new Exception("Post isn`t visible!");
+                throw new NewsPostNullException("Post isn`t visible!");
 
             var comments = commentService.GetCommentsByPostId(newsPost.Id);
 

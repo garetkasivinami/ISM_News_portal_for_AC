@@ -62,7 +62,7 @@
             </li>
             @if (Model.Filter != null || Model.SortType != null)
             {
-                @Html.ActionLink(Language.Language.Reset, "Index", "Home", new { }, new { @class = "nav-link" })
+                @Html.ActionLink(Language.Language.Reset, "Index", "Admin", new { }, new { @class = "nav-link" })
             }
         </ul>
         @using (Html.BeginForm("Index", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
@@ -89,7 +89,7 @@
                     {
                         <li class="list-group-item">@Language.Language.LastEditDate: <span class="js_date">@(newsPost.EditDate?.ToString("u").Replace('-', '/'))</span></li>
                     }
-                </ul>
+                </ul>`
             </div>
             <div class="card-body">
                 
@@ -103,7 +103,7 @@
                 <div class="btn-group" role="group">
                     @Html.ActionLink(Language.Language.Edit, "EditNews", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
                     @Html.ActionLink(Language.Language.Preview, "Preview", "News", new { @id = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
-                    @Html.ActionLink(Language.Language.ManageComments, "Comments", "Admin", new { @postId = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
+                    @Html.ActionLink(Language.Language.ManageComments, "Comments", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-dark btn-sm" })
                     @Html.ActionLink(Language.Language.Delete, "DeleteNewsPostRequest", "Admin", new { @id = newsPost.Id }, new { @class = "btn btn-outline-danger btn-sm" })
                 </div>
             </div>

@@ -139,9 +139,9 @@ namespace ISMNewsPortal.Controllers
 
         [HttpGet]
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
-        public ActionResult Comments(int postId)
+        public ActionResult Comments(int id)
         {
-            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(postId);
+            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(id);
             return View(commentViewModelCollection);
         }
 
