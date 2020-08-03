@@ -50,11 +50,13 @@ namespace ISMNewsPortal.DAL.Repositories
             if (!toolBar.Admin)
                 items = items.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
 
+            items = items.Skip((toolBar.Page - 1) * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
+
             var result = items.ToList();
 
             toolBar.Pages = Helper.CalculatePages(result.Count, NewsPost.NewsInOnePage);
 
-            return Helper.CutIEnumarable(toolBar.Page - 1, NewsPost.NewsInOnePage, result);
+            return result;
         }
 
         public IEnumerable<NewsPost> GetByAuthorId(int id)

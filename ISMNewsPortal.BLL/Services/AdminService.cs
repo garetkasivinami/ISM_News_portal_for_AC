@@ -28,8 +28,6 @@ namespace ISMNewsPortal.BLL.Services
         public Admin GetAdminByLogin(string login)
         {
             var admin = UnitOfWork.Admins.GetByLogin(login);
-            if (admin == null)
-                throw new AdminNullException();
             return admin;
         }
 

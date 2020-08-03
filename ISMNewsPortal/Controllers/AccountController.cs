@@ -20,7 +20,7 @@ namespace ISMNewsPortal.Controllers
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Admin");
             return View();
         }
 
@@ -31,7 +31,7 @@ namespace ISMNewsPortal.Controllers
             if (ModelState.IsValid)
             {
                 var admin = AdminHelper.GetAdmin(model.Login);
-                if (AdminHelper.CheckPassword(admin, model.Password))
+                if (admin != null && AdminHelper.CheckPassword(admin, model.Password))
                 {
                     FormsAuthentication.SetAuthCookie(admin.Login, true);
                     return RedirectToAction("Index", "Admin");
@@ -61,6 +61,9 @@ namespace ISMNewsPortal.Controllers
         public ActionResult ChangePassword(ChangePassword model)
         {
             var admin = AdminHelper.GetAdmin(User.Identity.Name);
+            if (admin == null)
+                return RedirectToAction("Logoff");
+
             string passportSalted = Security.SHA512(model.LastPassword, admin.Salt);
             if (admin.Password != passportSalted)
             {

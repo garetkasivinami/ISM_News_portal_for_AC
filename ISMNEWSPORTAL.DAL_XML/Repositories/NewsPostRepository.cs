@@ -129,6 +129,8 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             if (!toolBar.Admin)
                 result = result.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
 
+            result = result.Skip((toolBar.Page - 1) * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
+
             return result;
         }
     }

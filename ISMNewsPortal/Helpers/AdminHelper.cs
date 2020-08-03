@@ -85,7 +85,10 @@ namespace ISMNewsPortal.Helpers
 
         public static IEnumerable<string> GetRolesStringsByLogin(string login)
         {
-            return RoleCutter(GetAdmin(login).Roles);
+            var admin = GetAdmin(login);
+            if (admin == null)
+                return null;
+            return RoleCutter(admin.Roles);
         }
 
         public static IEnumerable<Roles> GetRoles(Admin admin)

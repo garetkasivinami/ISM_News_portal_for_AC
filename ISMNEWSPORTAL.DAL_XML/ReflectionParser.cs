@@ -42,11 +42,14 @@ namespace ISMNEWSPORTAL.DAL_XML
             foreach (PropertyValue propertyValue in propertyValues)
             {
                 PropertyInfo property = properties.SingleOrDefault(u => u.Name == propertyValue.Name);
-                Type type = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+                if (property != null)
+                {
+                    Type type = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
 
-                object value = (string.IsNullOrEmpty(propertyValue.Value?.ToString())) ? null : Convert.ChangeType(propertyValue.Value, type);
+                    object value = (string.IsNullOrEmpty(propertyValue.Value?.ToString())) ? null : Convert.ChangeType(propertyValue.Value, type);
 
-                property.SetValue(item, value);
+                    property.SetValue(item, value);
+                }
             }
         }
     }
