@@ -63,6 +63,40 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             base.Update(item);
         }
 
+        public static IEnumerable<NewsPost> SortBy(IEnumerable<NewsPost> items, string sortType, bool reversed)
+        {
+            switch (sortType)
+            {
+                case "id":
+                    items = items.OrderBy(u => u.Id);
+                    break;
+                case "name":
+                    items = items.OrderBy(u => u.Name);
+                    break;
+                case "description":
+                    items = items.OrderBy(u => u.Description);
+                    break;
+                case "editdate":
+                    items = items.OrderBy(u => u.EditDate);
+                    break;
+                case "author":
+                    items = items.OrderBy(u => u.AuthorId);
+                    break;
+                case "publicationdate":
+                    items = items.OrderBy(u => u.PublicationDate);
+                    break;
+                case "visibility":
+                    items = items.OrderBy(u => u.IsVisible);
+                    break;
+                default:
+                    items = items.OrderBy(u => u.CreatedDate);
+                    break;
+            }
+            if (reversed)
+                items = items.Reverse();
+            return items;
+        }
+
         public override IEnumerable<NewsPost> GetWithOptions(Options toolBar)
         {
 
@@ -75,6 +109,9 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             {
                 result = base.GetWithOptions(toolBar);
             }
+
+            result = SortBy(result, toolBar.SortType, toolBar.Reversed ?? true);
+
             if (toolBar.MinimumDate != null)
                 result = result.Where(u => u.PublicationDate >= toolBar.MinimumDate);
 

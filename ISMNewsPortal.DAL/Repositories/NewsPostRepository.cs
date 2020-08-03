@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using static ISMNewsPortal.DAL.ToolsLogic.NewsPostToolsLogic;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.DAL.ToolsLogic;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
@@ -26,6 +27,10 @@ namespace ISMNewsPortal.DAL.Repositories
         public override IEnumerable<NewsPost> GetWithOptions(Options toolBar)
         {
             var items = _session.Query<NewsPost>();
+
+
+            items = SortBy(items, toolBar.SortType, toolBar.Reversed ?? true);
+
             if (toolBar.MinimumDate != null)
                 items = items.Where(u => u.PublicationDate >= toolBar.MinimumDate);
 
