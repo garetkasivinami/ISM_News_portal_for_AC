@@ -8,7 +8,7 @@ namespace ISMNewsPortal.Models
 {
     public static class Security
     {
-        public const int PasswordUserLength = 128;
+        public const int PasswordUserLength = 64;
 
         public static string SHA512(string input, out string salt)
         {
@@ -23,7 +23,10 @@ namespace ISMNewsPortal.Models
             using (var hash = System.Security.Cryptography.SHA512.Create())
             {
                 var hashedInputBytes = hash.ComputeHash(bytes);
-                return Encoding.UTF8.GetString(hashedInputBytes);
+                var hashedInputStringBuilder = new StringBuilder(128);
+                foreach (var b in hashedInputBytes)
+                    hashedInputStringBuilder.Append(b.ToString("X2"));
+                return hashedInputStringBuilder.ToString();
             }
         }
 

@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.Models;
-using NHibernate;
-using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Helpers;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace ISMNewsPortal.Controllers
 {
     [Culture]
     public class AccountController : Controller
     {
+        public SignInManager SignInManager
+        {
+            get { return HttpContext.GetOwinContext().Get<SignInManager>(); }
+        }
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -31,13 +30,14 @@ namespace ISMNewsPortal.Controllers
             if (ModelState.IsValid)
             {
                 var admin = AdminHelper.GetAdmin(model.Login);
-                if (admin != null && AdminHelper.CheckPassword(admin, model.Password))
+                if (admin != null)
                 {
-                    FormsAuthentication.SetAuthCookie(admin.Login, true);
-                    var cookies = new HttpCookie("Request_p", admin.Salt);
-                    cookies.Expires = DateTime.Now.AddMinutes(FormsAuthentication.Timeout.TotalMinutes);
-                    HttpContext.Response.Cookies.Add(cookies);
-                    return RedirectToAction("Index", "Admin");
+                    var password = Security.SHA512(model.Password, admin.Salt);
+                    var result = SignInManager.PasswordSignIn(model.Login, password, true,  false);
+                    if (result == SignInStatus.Success)
+                    {
+                        return RedirectToAction("Index", "Admin");
+                    }
                 }
                 ModelState.AddModelError("", "Invalid login and/or password!");
             }
@@ -48,8 +48,7 @@ namespace ISMNewsPortal.Controllers
         [Authorize]
         public ActionResult Logoff()
         {
-            FormsAuthentication.SignOut();
-            Request.Cookies.Remove("password");
+            SignInManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
 

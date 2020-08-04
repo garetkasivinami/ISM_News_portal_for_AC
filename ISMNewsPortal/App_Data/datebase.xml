@@ -11,9 +11,11 @@
     </items>
   </FileModel>
   <Admin>
-    <info lastId="2" />
+    <info lastId="4" />
     <items>
-      <item Login="Main" Email="" Password="�6~]]tq%Y�Vmki�Ћ&#xD;&gt;�%�f�tEG�+�&#xA;��){�&#xB;&#x18;�G&#xC;���:�J�&#x5;)y�j����*v5�" Salt="LM0AYTJV1DVBTIWU9X7Q3WTCJ6V6IPZ9HCR8F1XCIC2CO9GXUQOYC0MY3Y017MNLOV4Q0XPI95H04RXJZ7L1BB7Q02FRA5E6ZQX2F067BGYHSW4MARC9BWKMYN08R8HD" Roles="Creator,Administrator,Moderator,CanEditAdmin,CanSetAdminRole,CanCreateAdmin" Id="1" />
+      <item Login="Main" Email="" Password="MTIzNDU2Nzg5MA==" Salt="LM0AYTJV1DVBTIWU9X7Q3WTCJ6V6IPZ9HCR8F1XCIC2CO9GXUQOYC0MY3Y017MNLOV4Q0XPI95H04RXJZ7L1BB7Q02FRA5E6ZQX2F067BGYHSW4MARC9BWKMYN08R8HD" Roles="Creator,Administrator,Moderator,CanEditAdmin,CanSetAdminRole,CanCreateAdmin" Id="1" />
+      <item Login="BigMan" Email="" Password="12345678" Salt="" Roles="" Id="2" />
+      <item Login="Bigan" Email="" Password="FA585D89C851DD338A70DCF535AA2A92FEE7836DD6AFF1226583E88E0996293F16BC009C652826E0FC5C706695A03CDDCE372F139EFF4D13959DA6F1F5D3EABE" Salt="" Roles="Creator,Administrator,Moderator,CanEditAdmin,CanSetAdminRole,CanCreateAdmin" Id="3" />
     </items>
   </Admin>
   <Comment>

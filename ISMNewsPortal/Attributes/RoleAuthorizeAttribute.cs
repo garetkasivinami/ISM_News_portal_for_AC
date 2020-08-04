@@ -40,8 +40,7 @@ namespace ISMNewsPortal.Models
             if (user != null)
             {
                 var adminUser = AdminHelper.GetAdmin(user.Identity.Name);
-                var passwordCookie = filterContext.HttpContext.Request.Cookies["Request_p"];
-                if (adminUser == null || passwordCookie == null || passwordCookie.Value != adminUser.Salt)
+                if (adminUser == null)
                 {
                     var logoff = url.Action("Logoff", "Account");
                     if (request.IsAjaxRequest())

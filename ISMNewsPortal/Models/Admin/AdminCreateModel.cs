@@ -16,13 +16,13 @@ namespace ISMNewsPortal.Models
         [Required]
         [DataType(DataType.Password)]
         [MinLength(8)]
-        [MaxLength(128)]
+        [MaxLength(64)]
         [Display(Name = "Password", ResourceType = typeof(Language.Language))]
         public string Password { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [MinLength(8)]
-        [MaxLength(128)]
+        [MaxLength(64)]
         [Compare("Password")]
         [Display(Name = "RepPassword", ResourceType = typeof(Language.Language))]
         public string RepeatPassword { get; set; }

@@ -32,12 +32,6 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
-        public ActionResult CatError()
-        {
-            return View();
-        }
-
-        [HttpGet]
         public ActionResult Details(int id, int? page)
         {
             NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 1, User.IsInRole(Roles.Moderator.ToString()), true);
