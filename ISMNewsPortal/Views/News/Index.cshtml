@@ -57,7 +57,7 @@
             @using (Html.BeginForm("Index", "News", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
             {
                 <input class="form-control mr-sm-2" type="search" name="search" placeholder="@Language.Language.Search" aria-label="Search" value="@Model.Search">
-                <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">@Language.Language.SearchButton</button>
+                <button class="btn btn-outline-dark my-2 my-sm-0 btn-search" type="submit">@Language.Language.SearchButton</button>
             }
         </div>
     </nav>

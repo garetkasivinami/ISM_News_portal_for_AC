@@ -6,7 +6,7 @@
     ViewBag.Title = Language.Language.NewsPage;
 }
 <h1>@Language.Language.NewsList</h1>
-@Html.ActionLink(Language.Language.CreateNews, "CreateNews", "Admin", new { }, new { @class = "btn btn-outline-dark" })
+@Html.ActionLink(Language.Language.CreateNews, "CreateNews", "Admin", new { }, new { @class = "btn btn-outline-dark btn-createNews" })
 <hr />
 
 <nav class="navbar navbar-expand-sm navbar-light bg-light">
@@ -68,7 +68,7 @@
         @using (Html.BeginForm("Index", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {
             <input class="form-control mr-sm-2" type="search" name="Search" placeholder="@Language.Language.Search" aria-label="Search" value="@Model.Search">
-            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">@Language.Language.SearchButton</button>
+            <button class="btn btn-outline-dark my-2 my-sm-0 btn-search" type="submit">@Language.Language.SearchButton</button>
         }
     </div>
 </nav>

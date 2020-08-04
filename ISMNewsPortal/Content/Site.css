@@ -243,3 +243,23 @@ textarea.form-control {
     max-height:300px;
     overflow: hidden;
 }
+
+.btn-createNews {
+    width:155px;
+    text-align: center;
+}
+
+.btn-search {
+    width:80px;
+    text-align: center;
+}
+
+.btn-admin {
+    width: 320px;
+    text-align: center;
+}
+
+.btn-logoff {
+    width: 95px;
+    text-align: center;
+}
