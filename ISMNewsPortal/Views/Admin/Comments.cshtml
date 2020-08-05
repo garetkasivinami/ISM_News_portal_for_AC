@@ -46,7 +46,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown drop-flex">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @Language.Language.FilterBy... @Model.Filter
+                    @Language.Language.FilterBy... @LinkHelper.GetLocalizedByName(Model.Filter)
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     @Html.ActionLink(Language.Language.today, "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "today"), new { @class = "dropdown-item" })
@@ -57,20 +57,32 @@
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @Language.Language.SortBy... @Model.SortType
+                    @Language.Language.SortBy...
+                    @if (Model.SortType != null)
+                    {
+                        @LinkHelper.GetLocalizedByName(Model.SortType)
+                        if (Model.Reversed == true)
+                        {
+                            <span> @Language.Language.DESC</span>
+                        }
+                        else
+                        {
+                            <span> @Language.Language.ASC</span>
+                        }
+                    }
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink(Language.Language.Username + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "username", false), new { @class = "dropdown-item" })
-                    @Html.ActionLink(Language.Language.Username + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "username", true), new { @class = "dropdown-item" })
-                    @Html.ActionLink(Language.Language.CommentText + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "text", false), new { @class = "dropdown-item" })
-                    @Html.ActionLink(Language.Language.CommentText + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "text", true), new { @class = "dropdown-item" })
-                    @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Date", false), new { @class = "dropdown-item" })
-                    @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Date", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Username + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Username", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Username + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Username", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.CommentText + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "CommentText", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.CommentText + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "CommentText", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "date", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "date", true), new { @class = "dropdown-item" })
                 </div>
             </li>
             @if (Model.Filter != null || Model.SortType != null)
             {
-                @Html.ActionLink(Language.Language.Reset, "Index", "Admin", new { }, new { @class = "nav-link" })
+                @Html.ActionLink(Language.Language.Reset, "Comments", "Admin", new { @id = Model.Id }, new { @class = "nav-link" })
             }
         </ul>
         @using (Html.BeginForm("Comments", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))

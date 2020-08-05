@@ -65,7 +65,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
                 case "username":
                     items = items.OrderBy(u => u.UserName);
                     break;
-                case "text":
+                case "commenttext":
                     items = items.OrderBy(u => u.Text);
                     break;
                 default:

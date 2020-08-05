@@ -21,7 +21,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
                 case "username":
                     items = items.OrderBy(u => u.UserName);
                     break;
-                case "text":
+                case "commenttext":
                     items = items.OrderBy(u => u.Text);
                     break;
                 default:
@@ -42,7 +42,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
                 case "username":
                     items = items.OrderByDescending(u => u.UserName);
                     break;
-                case "text":
+                case "commenttext":
                     items = items.OrderByDescending(u => u.Text);
                     break;
                 default:

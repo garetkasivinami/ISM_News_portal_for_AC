@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
     ViewBag.Title = Language.Language.AdminsList;
 }
-<h1>Admin list</h1>
+<h1>@Language.Language.AdminsList</h1>
 @if (User.IsInRole(ISMNewsPortal.Models.Roles.CanCreateAdmin.ToString()))
 {
     @Html.ActionLink(Language.Language.CreateNAdmin, "CreateAdmin", "Admin", new { }, new { @class = "btn btn-outline-dark" })
