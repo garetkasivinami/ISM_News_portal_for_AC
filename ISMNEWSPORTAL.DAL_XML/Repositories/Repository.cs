@@ -90,7 +90,7 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             }
         }
 
-        public virtual IEnumerable<T> GetWithOptions(Options toolBar)
+        public virtual IEnumerable<T> GetWithOptions(object toolBar)
         {
             return GetAll();
         }

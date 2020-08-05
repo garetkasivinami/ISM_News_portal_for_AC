@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISMNewsPortal.Lucene.Repository
+namespace ISMNewsPortal.Lucene.Repositories
 {
     public class NewsPostLuceneRepository : LuceneRepository<NewsPost>, ILuceneRepository<NewsPost>
     {

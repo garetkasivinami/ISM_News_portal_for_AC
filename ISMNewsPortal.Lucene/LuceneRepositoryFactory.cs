@@ -1,5 +1,5 @@
 ﻿using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.Lucene.Repository;
+using ISMNewsPortal.Lucene.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +30,9 @@ namespace ISMNewsPortal.Lucene
             if (type == typeof(NewsPost))
             {
                 return new NewsPostLuceneRepository() as ILuceneRepository<T>;
+            } else if (type == typeof(Comment))
+            {
+                return new CommentLuceneRepository() as ILuceneRepository<T>;
             }
             throw new Exception();
         }

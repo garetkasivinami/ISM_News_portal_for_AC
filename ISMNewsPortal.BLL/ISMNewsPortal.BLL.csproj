@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessModels\Options.cs" />
+    <Compile Include="BusinessModels\OptionsCollectionById.cs" />
     <Compile Include="Exceptions\AdminExistsException.cs" />
     <Compile Include="Exceptions\NullExceptions\AdminNullException.cs" />
     <Compile Include="Exceptions\NullExceptions\CommentNullException.cs" />

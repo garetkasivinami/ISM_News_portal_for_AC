@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using ISMNewsPortal.BLL.Models;
+using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,86 +10,46 @@ namespace ISMNewsPortal.DAL.ToolsLogic
 {
     public static class CommentToolsLogic
     {
-        public static string FilterToday()
+        public static IQueryable<Comment> SortBy(IQueryable<Comment> items, string sortType)
         {
-            return $"Date >= CONVERT(DATETIME, '{DateTime.Now.Year}.{DateTime.Now.Month}.{DateTime.Now.Day}')";
-        }
-
-        public static string FilterYesterday()
-        {
-            DateTime yesterday = DateTime.Now.AddDays(-1);
-            return $"Date >= CONVERT(DATETIME, '{yesterday.Year}.{yesterday.Month}.{yesterday.Day}') AND Date < CONVERT(DATETIME, '{DateTime.Now.Year}.{DateTime.Now.Month}.{DateTime.Now.Day}')";
-        }
-
-        public static string FilterWeek()
-        {
-            DateTime week = DateTime.Now.AddDays(-7);
-            return $"Date >= CONVERT(DATETIME, '{week.Year}.{week.Month}.{week.Day}')";
-        }
-
-        public static string FilterAll()
-        {
-            return "1 = 1";
-        }
-
-        public static string GetFilterSqlString(string filter)
-        {
-            string filterFunc;
-            switch (filter)
-            {
-                case "today":
-                    filterFunc = FilterToday();
-                    break;
-                case "yesterday":
-                    filterFunc = FilterYesterday();
-                    break;
-                case "week":
-                    filterFunc = FilterWeek();
-                    break;
-                default:
-                    filterFunc = FilterAll();
-                    break;
-            }
-            return filterFunc;
-        }
-
-        public static string GetSortSqlString(string sortType, bool reversed)
-        {
-            string sortString;
+            sortType = sortType?.ToLower();
             switch (sortType)
             {
                 case "id":
-                    sortString = "@Id";
+                    items = items.OrderBy(u => u.Id);
                     break;
                 case "username":
-                    sortString = "@UserName";
+                    items = items.OrderBy(u => u.UserName);
                     break;
                 case "text":
-                    sortString = "@text";
-                    break;
-                case "newsPost":
-                    sortString = "@NewsPostId";
+                    items = items.OrderBy(u => u.Text);
                     break;
                 default:
-                    reversed = !reversed;
-                    sortString = "@Date";
+                    items = items.OrderBy(u => u.Date);
                     break;
             }
-            if (reversed)
-                sortString += " DESC";
-            return sortString;
+            return items;
         }
 
-        public static string GetSearchSqlString()
+        public static IQueryable<Comment> SortByReversed(IQueryable<Comment> items, string sortType)
         {
-            return "Text LIKE :searchName AND UserName LIKE :searchName ";
-        }
-
-        public static IQuery GetSqlQuerry(ISession session, string sortType, string filter, string search, string searchString)
-        {
-            search = search ?? "_";
-            return session.CreateQuery($"from Comment where {filter} AND {searchString} ORDER BY {sortType}").
-                    SetParameter("searchName", $"%{search}%");
+            sortType = sortType?.ToLower();
+            switch (sortType)
+            {
+                case "id":
+                    items = items.OrderByDescending(u => u.Id);
+                    break;
+                case "username":
+                    items = items.OrderByDescending(u => u.UserName);
+                    break;
+                case "text":
+                    items = items.OrderByDescending(u => u.Text);
+                    break;
+                default:
+                    items = items.OrderByDescending(u => u.Date);
+                    break;
+            }
+            return items;
         }
     }
 }

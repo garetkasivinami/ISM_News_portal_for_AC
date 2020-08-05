@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Version = Lucene.Net.Util.Version;
 
-namespace ISMNewsPortal.Lucene.Repository
+namespace ISMNewsPortal.Lucene.Repositories
 {
     public abstract class LuceneRepository<T> : ILuceneRepository<T> where T : Model
     {

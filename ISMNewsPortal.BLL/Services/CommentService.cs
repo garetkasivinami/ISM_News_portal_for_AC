@@ -46,13 +46,11 @@ namespace ISMNewsPortal.BLL.Services
             return id;
         }
 
-        //public IEnumerable<CommentDTO> GetCommentsWithTools(ToolsDTO toolsDTO)
-        //{
-        //    var toolsModel = DTOMapper.ToolsMapper.Map<ToolsDTO, ToolBarModel>(toolsDTO);
-        //    var comments = database.Comments.GetAllWithTools(toolsModel);
-        //    toolsDTO.Pages = toolsModel.Pages;
-        //    return comments;
-        //}
+        public IEnumerable<Comment> GetCommentsWithTools(OptionsCollectionById options)
+        {
+            var comments = UnitOfWork.Comments.GetWithOptions(options);
+            return comments;
+        }
 
         public void DeleteComment(int id)
         {

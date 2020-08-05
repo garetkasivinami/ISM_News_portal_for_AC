@@ -107,41 +107,41 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             return items;
         }
 
-        public override IEnumerable<NewsPost> GetWithOptions(Options toolBar)
+        public override IEnumerable<NewsPost> GetWithOptions(object requirements)
         {
-
+            Options options = requirements as Options;
             IEnumerable<NewsPost> result;
-            if (!string.IsNullOrEmpty(toolBar.Search))
+            if (!string.IsNullOrEmpty(options.Search))
             {
-                var results = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(toolBar);
+                var results = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
                 result = GetAll().Where(u => results.Contains(u.Id));
             } else
             {
-                result = base.GetWithOptions(toolBar);
+                result = base.GetWithOptions(options);
             }
 
-            result = SortBy(result, toolBar.SortType, toolBar.Reversed ?? true);
+            result = SortBy(result, options.SortType, options.Reversed ?? true);
 
-            if (toolBar.MinimumDate != null)
-                result = result.Where(u => u.PublicationDate >= toolBar.MinimumDate);
+            if (options.MinimumDate != null)
+                result = result.Where(u => u.PublicationDate >= options.MinimumDate);
 
-            if (toolBar.MaximumDate != null)
-                result = result.Where(u => u.PublicationDate < toolBar.MaximumDate);
+            if (options.MaximumDate != null)
+                result = result.Where(u => u.PublicationDate < options.MaximumDate);
 
-            if (toolBar.Published != null)
+            if (options.Published != null)
             {
-                if (toolBar.Published == true)
+                if (options.Published == true)
                     result = result.Where(u => u.IsVisible == true);
                 else
                     result = result.Where(u => u.IsVisible == false);
             }
 
-            toolBar.Pages = CalculatePages(result.Count(), NewsPost.NewsInOnePage);
+            options.Pages = CalculatePages(result.Count(), NewsPost.NewsInOnePage);
 
-            if (!toolBar.Admin)
+            if (!options.Admin)
                 result = result.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
 
-            result = result.Skip(toolBar.Page * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
+            result = result.Skip(options.Page * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
 
             return result;
         }

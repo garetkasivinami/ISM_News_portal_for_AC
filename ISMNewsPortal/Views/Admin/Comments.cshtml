@@ -49,33 +49,10 @@
                     Filter by...@Model.Filter
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Today", "Comments", "Admin", new
-                    {
-                        @Filter = "today",
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Yesterday", "Comments", "Admin", new
-                    {
-                        @Filter = "yesterday",
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("This week", "Comments", "Admin", new
-                    {
-                        @Filter = "week",
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("All", "Comments", "Admin", new
-                    {
-                        @SortType = Model.SortType,
-                        @Search = Model.Search,
-                        @Reversed = Model.Reversed
-                    }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Today", "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "today"), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Yesterday", "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "yesterday"), new { @class = "dropdown-item" })
+                    @Html.ActionLink("This week", "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "week"), new { @class = "dropdown-item" })
+                    @Html.ActionLink("All", "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, null), new { @class = "dropdown-item" })
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -83,38 +60,22 @@
                     Sort by...@Model.SortType
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Username", "Comments", "Admin", new
-                    {
-                        @SortType = "username",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Commentary text", "Comments", "Admin", new
-                    {
-                        @SortType = "text",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("News post", "Comments", "Admin", new
-                    {
-                        @SortType = "news post",
-                        @Filter = Model.Filter,
-                        @Search = Model.Search
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Id", "Comments", "Admin", new
-                    {
-                        @SortType = "id",
-                        @filter = Model.@Filter,
-                        @Search = Model.Search
-                    }, new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date", "Comments", "Admin", new
-                    {
-                        @Filter = Model.Filter,
-                        @Search = Model.Search
-                    }, new { @class = "dropdown-item" })
+                    @Html.ActionLink("Username ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "username", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Username DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "username", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Commentary text ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "text", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Commentary text DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "text", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink("News post ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "news post", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink("News post DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "news post", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Id ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "id", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Id DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "id", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Date ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, null, false), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Date DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, null, true), new { @class = "dropdown-item" })
                 </div>
             </li>
-            @Html.ActionLink("Reverse", "Comments", "Admin", new { @sortType = Model.SortType, @page = Model.Page, @filter = Model.Filter, @Reversed = !(Model.Reversed ?? false), @Search = Model.Search }, new { @class = "nav-link" })
+            @if (Model.Filter != null || Model.SortType != null)
+            {
+                @Html.ActionLink(Language.Language.Reset, "Index", "Admin", new { }, new { @class = "nav-link" })
+            }
         </ul>
         @using (Html.BeginForm("Comments", "Admin", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {

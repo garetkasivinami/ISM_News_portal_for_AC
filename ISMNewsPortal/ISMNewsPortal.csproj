@@ -339,9 +339,11 @@
     <Compile Include="Models\NewsPost\NewsPostViewModel.cs" />
     <Compile Include="Attributes\RoleAuthorizeAttribute.cs" />
     <Compile Include="Models\SignInManager.cs" />
-    <Compile Include="Models\ToolsModel.cs" />
+    <Compile Include="Models\Tools\CommentToolsModel.cs" />
+    <Compile Include="Models\Tools\CommentToolsModelBinder.cs" />
+    <Compile Include="Models\Tools\ToolsModel.cs" />
     <Compile Include="Models\Security.cs" />
-    <Compile Include="Models\ToolsModelBinder.cs" />
+    <Compile Include="Models\Tools\ToolsModelBinder.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

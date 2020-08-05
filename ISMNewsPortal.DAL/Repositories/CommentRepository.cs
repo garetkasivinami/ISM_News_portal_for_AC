@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ISMNewsPortal.DAL.ToolsLogic.CommentToolsLogic;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
@@ -44,5 +45,32 @@ namespace ISMNewsPortal.DAL.Repositories
         {
             return _session.Query<Comment>().Where(u => u.NewsPostId == postId && u.UserName == userName);
         }
+        public override IEnumerable<Comment> GetWithOptions(object requirements)
+        {
+            var options = requirements as OptionsCollectionById;
+            var items = _session.Query<Comment>().Where(u => u.NewsPostId == options.TargetId);
+
+            int count = items.Count();
+
+            if (options.Reversed == true || options.Reversed == null)
+                items = SortByReversed(items, options.SortType);
+            else
+                items = SortBy(items, options.SortType);
+
+            if (options.MinimumDate != null)
+                items = items.Where(u => u.Date >= options.MinimumDate);
+
+            if (options.MaximumDate != null)
+                items = items.Where(u => u.Date < options.MaximumDate);
+
+            options.Pages = Helper.CalculatePages(items.Count(), Comment.CommentsInOnePage);
+
+            items = items.Skip(options.Page * Comment.CommentsInOnePage).Take(Comment.CommentsInOnePage);
+
+            var result = items.ToList();
+
+            return result;
+        }
+
     }
 }

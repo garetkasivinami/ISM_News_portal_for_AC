@@ -2,6 +2,7 @@
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.Models;
+using ISMNewsPortal.Models.Tools;
 using NHibernate;
 using System;
 using System.Collections.Generic;
@@ -47,11 +48,12 @@ namespace ISMNewsPortal.Helpers
             return result;
         }
 
-        public static CommentViewModelCollection GenerateCommentViewModelCollection(int postId)
+        public static CommentViewModelCollection GenerateCommentViewModelCollection(CommentToolsModel options)
         {
             CommentService commentService = new CommentService();
             NewsPostService newsPostService = new NewsPostService();
-            var comments = commentService.GetCommentsByPostId(postId);
+            var optionsBusiness = options.ConvertToOptionsCollectionById();
+            var comments = commentService.GetCommentsWithTools(optionsBusiness);
 
             int commentsCount = comments.Count();
 
@@ -60,9 +62,10 @@ namespace ISMNewsPortal.Helpers
             {
                 commentsViewModel.Add(new CommentViewModel(comment));
             }
-            var newsPost = newsPostService.GetNewsPost(postId);
+            options.Pages = optionsBusiness.Pages;
+            var newsPost = newsPostService.GetNewsPost(options.Id);
             string imagePath = FileModelActions.GetNameByIdFormated(newsPost.ImageId);
-            return new CommentViewModelCollection(newsPost, imagePath, commentsViewModel, new ToolsModel(), commentsCount);
+            return new CommentViewModelCollection(newsPost, imagePath, commentsViewModel, options, commentsCount);
         }
     }
 }

@@ -5,6 +5,7 @@ using ISMNewsPortal.BLL.Models;
 using System;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.Helpers;
+using ISMNewsPortal.Models.Tools;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -140,9 +141,9 @@ namespace ISMNewsPortal.Controllers
 
         [HttpGet]
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
-        public ActionResult Comments(int id)
+        public ActionResult Comments(CommentToolsModel commentTools)
         {
-            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(id);
+            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(commentTools);
             return View(commentViewModelCollection);
         }
 

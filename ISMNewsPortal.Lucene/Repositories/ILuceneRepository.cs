@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISMNewsPortal.Lucene.Repository
+namespace ISMNewsPortal.Lucene.Repositories
 {
     public interface ILuceneRepository<T> where T : Model
     {

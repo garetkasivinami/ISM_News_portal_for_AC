@@ -15,7 +15,7 @@ namespace ISMNewsPortal.BLL.Repositories
         void Delete(int id);
         T Get(int id);
         IEnumerable<T> GetAll();
-        IEnumerable<T> GetWithOptions(Options toolBar);
+        IEnumerable<T> GetWithOptions(object options);
         int Count();
     }
 }

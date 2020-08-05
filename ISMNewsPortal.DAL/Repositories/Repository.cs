@@ -43,7 +43,7 @@ namespace ISMNewsPortal.DAL.Repositories
             return _session.Query<T>();
         }
 
-        public virtual IEnumerable<T> GetWithOptions(Options toolBar)
+        public virtual IEnumerable<T> GetWithOptions(object toolBar)
         {
             return GetAll();
         }

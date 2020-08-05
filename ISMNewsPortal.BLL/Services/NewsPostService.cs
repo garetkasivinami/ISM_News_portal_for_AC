@@ -18,18 +18,17 @@ namespace ISMNewsPortal.BLL.Services
             return UnitOfWork.NewsPosts.GetAll();
         }
 
-        public IEnumerable<NewsPost> GetNewsPostsWithTools(Options toolsDTO)
+        public IEnumerable<NewsPost> GetNewsPostsWithTools(Options options)
         {
-            var newsPosts = UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
-            toolsDTO.Pages = toolsDTO.Pages;
+            var newsPosts = UnitOfWork.NewsPosts.GetWithOptions(options);
             return newsPosts;
         }
 
-        public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(Options toolsDTO)
+        public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(Options options)
         {
-            toolsDTO.Admin = true;
-            var newsPosts = UnitOfWork.NewsPosts.GetWithOptions(toolsDTO);
-            toolsDTO.Pages = toolsDTO.Pages;
+            options.Admin = true;
+            var newsPosts = UnitOfWork.NewsPosts.GetWithOptions(options);
+            options.Pages = options.Pages;
             return newsPosts;
         }
 
