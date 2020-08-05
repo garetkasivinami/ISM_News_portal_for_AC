@@ -40,6 +40,11 @@ namespace ISMNewsPortal.Controllers
             }
             if (ModelState.IsValid)
             {
+                if (model.Description == "<br>")
+                {
+                    ModelState.AddModelError("Description", "No description!");
+                    return View(model);
+                }
                 NewsPostHelper.UpdateNewsPost(model);
                 return RedirectToAction("Index");
             }
@@ -117,6 +122,11 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (model.Description == "<br>")
+                {
+                    ModelState.AddModelError("Description", "No description!");
+                    return View(model);
+                }
                 if (model.uploadFiles[0] == null)
                 {
                     ModelState.AddModelError("", "No file!");
