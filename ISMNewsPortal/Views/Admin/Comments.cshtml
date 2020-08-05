@@ -68,8 +68,8 @@
                     @Html.ActionLink("News post DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "news post", true), new { @class = "dropdown-item" })
                     @Html.ActionLink("Id ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "id", false), new { @class = "dropdown-item" })
                     @Html.ActionLink("Id DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "id", true), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, null, false), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, null, true), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Date ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Date", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink("Date DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Date", true), new { @class = "dropdown-item" })
                 </div>
             </li>
             @if (Model.Filter != null || Model.SortType != null)

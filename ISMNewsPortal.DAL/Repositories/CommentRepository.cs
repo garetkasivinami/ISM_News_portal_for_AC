@@ -45,12 +45,16 @@ namespace ISMNewsPortal.DAL.Repositories
         {
             return _session.Query<Comment>().Where(u => u.NewsPostId == postId && u.UserName == userName);
         }
+
         public override IEnumerable<Comment> GetWithOptions(object requirements)
         {
             var options = requirements as OptionsCollectionById;
             var items = _session.Query<Comment>().Where(u => u.NewsPostId == options.TargetId);
 
-            int count = items.Count();
+            if (!string.IsNullOrEmpty(options.Search))
+            {
+                items = items.Where(u => (u.Text.Contains(options.Search) || u.UserName.Contains(options.Search)));
+            }
 
             if (options.Reversed == true || options.Reversed == null)
                 items = SortByReversed(items, options.SortType);

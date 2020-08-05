@@ -10,6 +10,7 @@ using static ISMNewsPortal.DAL.ToolsLogic.NewsPostToolsLogic;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.DAL.ToolsLogic;
+using ISMNewsPortal.Lucene;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
@@ -28,6 +29,12 @@ namespace ISMNewsPortal.DAL.Repositories
         {
             var options = requirements as Options;
             var items = _session.Query<NewsPost>();
+
+            if (!string.IsNullOrEmpty(options.Search))
+            {
+                var results = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
+                items = items.Where(u => results.Contains(u.Id));
+            }
 
             if (options.Reversed == true || options.Reversed == null)
                 items = SortByReversed(items, options.SortType);
