@@ -6,7 +6,7 @@
     ViewBag.Title = Language.Language.Comments;
 }
 
-<img src="@Model.ImagePath" class="post-img" alt="Post image">
+<img src="@Model.ImagePath" class="post-img" alt=@Language.Language.NoImage>
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">@Model.NewsPost.Name</h5>
@@ -46,30 +46,26 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item dropdown drop-flex">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filter by...@Model.Filter
+                    @Language.Language.FilterBy... @Model.Filter
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Today", "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "today"), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Yesterday", "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "yesterday"), new { @class = "dropdown-item" })
-                    @Html.ActionLink("This week", "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "week"), new { @class = "dropdown-item" })
-                    @Html.ActionLink("All", "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, null), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.today, "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "today"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.yesterday, "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "yesterday"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.week, "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, "week"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.all, "Comments", "Admin", LinkHelper.CreateCommentFilterLinks(Model, null), new { @class = "dropdown-item" })
                 </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Sort by...@Model.SortType
+                    @Language.Language.SortBy... @Model.SortType
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    @Html.ActionLink("Username ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "username", false), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Username DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "username", true), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Commentary text ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "text", false), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Commentary text DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "text", true), new { @class = "dropdown-item" })
-                    @Html.ActionLink("News post ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "news post", false), new { @class = "dropdown-item" })
-                    @Html.ActionLink("News post DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "news post", true), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Id ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "id", false), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Id DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "id", true), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date ACS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Date", false), new { @class = "dropdown-item" })
-                    @Html.ActionLink("Date DECS", "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Date", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Username + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "username", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.Username + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "username", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.CommentText + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "text", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.CommentText + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "text", true), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.date + " " + Language.Language.ASC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Date", false), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.date + " " + Language.Language.DESC, "Comments", "Admin", LinkHelper.CreateCommentSortLinks(Model, "Date", true), new { @class = "dropdown-item" })
                 </div>
             </li>
             @if (Model.Filter != null || Model.SortType != null)
@@ -81,10 +77,10 @@
         {
             @Html.Hidden("sortType", Model.SortType);
             @Html.Hidden("filter", Model.Filter);
-            <p class="nav-link" style="margin:0">Search by....</p>
+            <p class="nav-link" style="margin:0">@Language.Language.Search</p>
 
-            <input class="form-control mr-sm-2" type="search" name="Search" placeholder="Search" aria-label="Search" value="@Model.Search">
-            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control mr-sm-2" type="search" name="Search" placeholder=@Language.Language.Search aria-label="Search" value="@Model.Search">
+            <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">@Language.Language.SearchButton</button>
         }
     </div>
 </nav>

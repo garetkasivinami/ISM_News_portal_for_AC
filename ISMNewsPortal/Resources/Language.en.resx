@@ -169,7 +169,7 @@
     <value>Comments list</value>
   </data>
   <data name="CommentText" xml:space="preserve">
-    <value>Text</value>
+    <value>Comment text</value>
   </data>
   <data name="CommentTextNotValid" xml:space="preserve">
     <value>Comment text not valid!</value>

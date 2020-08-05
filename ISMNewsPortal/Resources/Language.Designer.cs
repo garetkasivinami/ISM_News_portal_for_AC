@@ -214,7 +214,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text.
+        ///   Looks up a localized string similar to Comment text.
         /// </summary>
         public static string CommentText {
             get {

@@ -169,7 +169,7 @@
     <value>Список комментариев</value>
   </data>
   <data name="CommentText" xml:space="preserve">
-    <value>Текст</value>
+    <value>Текст комментария</value>
   </data>
   <data name="CommentTextNotValid" xml:space="preserve">
     <value>Текст комментария недействителен!</value>
