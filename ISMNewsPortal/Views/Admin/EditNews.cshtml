@@ -18,6 +18,7 @@
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.AuthorId)
         @Html.HiddenFor(model => model.ImageId)
+        @Html.HiddenFor(model => model.ImagePath)
         @Html.HiddenFor(model => model.MinutesOffset, new { @class = "submit_date_offset" })
 
         @Html.AntiForgeryToken()

@@ -1,5 +1,6 @@
 ﻿using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
+using ISMNEWSPORTAL.DAL_XML.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

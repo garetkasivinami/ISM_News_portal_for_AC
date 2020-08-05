@@ -40,8 +40,9 @@ namespace ISMNewsPortal.Controllers
             if (ModelState.IsValid)
             {
                 NewsPostHelper.UpdateNewsPost(model);
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         [HttpGet]

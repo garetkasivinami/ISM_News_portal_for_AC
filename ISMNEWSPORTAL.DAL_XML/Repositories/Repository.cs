@@ -1,6 +1,7 @@
 ﻿using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
+using ISMNEWSPORTAL.DAL_XML.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,6 @@ using System.Threading.Tasks;
 
 namespace ISMNEWSPORTAL.DAL_XML.Repositories
 {
-    public enum ModelState
-    {
-        Normal,
-        Created,
-        Updated,
-        Deleted
-    }
-    public class ModelObject<T>
-    {
-        public T Model;
-        public ModelState State;
-    }
     public class Repository<T> : IRepository<T> where T : Model
     {
         protected XMLContex contex;
