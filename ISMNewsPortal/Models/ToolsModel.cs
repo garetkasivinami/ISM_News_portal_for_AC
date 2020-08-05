@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ISMNewsPortal.Models
 {
+    [ModelBinder(typeof(ToolsModelBinder))]
     public class ToolsModel
     {
         public int Page { get; set; }

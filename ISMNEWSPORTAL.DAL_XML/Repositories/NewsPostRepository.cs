@@ -57,6 +57,16 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             base.Delete(id);
         }
 
+        public static int CalculatePages(int count, int countInOnePage)
+        {
+            int pages = count / countInOnePage;
+            if (count % countInOnePage != 0)
+            {
+                pages++;
+            }
+            return pages;
+        }
+
         public override void Update(NewsPost item)
         {
             LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
@@ -126,10 +136,12 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
                     result = result.Where(u => u.IsVisible == false);
             }
 
+            toolBar.Pages = CalculatePages(result.Count(), NewsPost.NewsInOnePage);
+
             if (!toolBar.Admin)
                 result = result.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
 
-            result = result.Skip((toolBar.Page - 1) * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
+            result = result.Skip(toolBar.Page * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
 
             return result;
         }

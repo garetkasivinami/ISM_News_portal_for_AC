@@ -28,7 +28,7 @@ namespace ISMNewsPortal.DAL.Repositories
         {
             var items = _session.Query<NewsPost>();
 
-            if(toolBar.Reversed == true || toolBar.Reversed == null)
+            if (toolBar.Reversed == true || toolBar.Reversed == null)
                 items = SortByReversed(items, toolBar.SortType);
             else
                 items = SortBy(items, toolBar.SortType);
@@ -50,11 +50,11 @@ namespace ISMNewsPortal.DAL.Repositories
             if (!toolBar.Admin)
                 items = items.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
 
-            items = items.Skip((toolBar.Page - 1) * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
+            toolBar.Pages = Helper.CalculatePages(items.Count(), NewsPost.NewsInOnePage);
+
+            items = items.Skip(toolBar.Page * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
 
             var result = items.ToList();
-
-            toolBar.Pages = Helper.CalculatePages(result.Count, NewsPost.NewsInOnePage);
 
             return result;
         }
@@ -84,11 +84,7 @@ namespace ISMNewsPortal.DAL.Repositories
             var createdNewsPost = _session.Get<NewsPost>(item.Id);
             DateTime createdDate = createdNewsPost.CreatedDate;
             item.CreatedDate = createdDate;
-            using (ITransaction transaction = _session.BeginTransaction())
-            {
-                _session.Update(item);
-                transaction.Commit();
-            }
+            _session.Update(item);
         }
     }
 }

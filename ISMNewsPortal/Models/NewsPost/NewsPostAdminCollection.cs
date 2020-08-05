@@ -8,6 +8,7 @@ namespace ISMNewsPortal.Models
         public NewsPostAdminCollection(ICollection<NewsPostAdminView> newsPostAdminViews, ToolsModel toolBarModel) : base(toolBarModel)
         {
             NewsPostAdminViews = newsPostAdminViews;
+            Page++;
         }
         public ICollection<NewsPostAdminView> NewsPostAdminViews { get; set; }
     }

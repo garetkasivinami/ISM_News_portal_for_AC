@@ -8,6 +8,7 @@ namespace ISMNewsPortal.Models
         public NewsPostSimplifiedCollection(ICollection<NewsPostSimplifiedView> newsPostSimplifiedViews, ToolsModel toolBarModel) : base(toolBarModel)
         {
             NewsPostSimpliedViews = newsPostSimplifiedViews;
+            Page++;
         }
         public ICollection<NewsPostSimplifiedView> NewsPostSimpliedViews { get; set; }
     }

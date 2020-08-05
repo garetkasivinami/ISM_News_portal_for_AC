@@ -12,8 +12,10 @@
 </div>
 @using (Html.BeginForm("CreateNews", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "main_form" }))
 {
+    
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.MinutesOffset, new { @class = "submit_date_offset" })
+
     <div class="card create-card">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="card-body">
@@ -50,7 +52,7 @@
         <div class="col-md-offset-2 col-md-10">
             <label class="btn btn-outline-dark">
                 @Language.Language.ChooseImage
-                <input type="file" class="btn btn-outline-secondary submit_date" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
+                <input type="file" class="btn btn-outline-secondary" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
             </label>
             @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })
         </div>
