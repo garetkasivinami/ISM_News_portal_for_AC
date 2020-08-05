@@ -35,13 +35,13 @@ namespace ISMNewsPortal.BLL.Services
 
         public void UpdateComment(Comment commentDTO)
         {
-            UnitOfWork.Update(commentDTO);
+            UnitOfWork.Comments.Update(commentDTO);
             UnitOfWork.Save();
         }
 
         public int CreateComment(Comment commentDTO)
         {
-            int id = UnitOfWork.Create(commentDTO);
+            int id = UnitOfWork.Comments.Create(commentDTO);
             UnitOfWork.Save();
             return id;
         }

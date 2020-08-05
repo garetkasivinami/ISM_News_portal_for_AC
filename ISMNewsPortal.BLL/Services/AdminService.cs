@@ -33,7 +33,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public void UpdateAdmin(Admin adminDTO)
         {
-            UnitOfWork.Update(adminDTO);
+            UnitOfWork.Admins.Update(adminDTO);
             UnitOfWork.Save();
         }
 
@@ -43,7 +43,7 @@ namespace ISMNewsPortal.BLL.Services
             admin.Email = email;
             if (updateRoles)
                 admin.Roles = roles;
-            UnitOfWork.Update(admin);
+            UnitOfWork.Admins.Update(admin);
             UnitOfWork.Save();
         }
 
@@ -52,7 +52,7 @@ namespace ISMNewsPortal.BLL.Services
             var createdAdmin = UnitOfWork.Admins.GetByLogin(adminDTO.Login);
             if (createdAdmin != null)
                 throw new AdminExistsException("An administrator with this login already exists");
-            UnitOfWork.Create(adminDTO);
+            UnitOfWork.Admins.Create(adminDTO);
             UnitOfWork.Save();
         }
 

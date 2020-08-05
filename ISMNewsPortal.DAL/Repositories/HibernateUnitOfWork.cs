@@ -62,26 +62,5 @@ namespace ISMNewsPortal.DAL.Repositories
                 transaction.Commit();
             }
         }
-
-        public void Update<T>(T item) where T : Model
-        {
-            session.Update(item);
-        }
-
-        public int Create<T>(T item) where T : Model
-        {
-            session.Save(item);
-            return item.Id;
-        }
-
-        public void Delete<T>(int id) where T : Model
-        {
-            Delete(session.Get<T>(id));
-        }
-
-        public void Delete<T>(T item) where T : Model
-        {
-            session.Delete(item);
-        }
     }
 }

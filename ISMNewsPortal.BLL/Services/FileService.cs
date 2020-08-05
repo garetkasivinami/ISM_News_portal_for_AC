@@ -33,7 +33,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public int CreateFile(FileModel fileDTO)
         {
-            int id = UnitOfWork.Create(fileDTO);
+            int id = UnitOfWork.Files.Create(fileDTO);
             UnitOfWork.Save();
             return id;
         }

@@ -42,32 +42,6 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
             repositories.Add(typeof(FileModel), fileRepository);
         }
 
-        public int Create<T>(T item) where T : Model
-        {
-            Type type = typeof(T);
-            if (repositories.ContainsKey(type))
-            {
-                IRepository<T> repository = repositories[type] as IRepository<T>;
-                return repository.Create(item);
-            }
-            return -1;
-        }
-
-        public void Delete<T>(int id) where T : Model
-        {
-            Type type = typeof(T);
-            if (repositories.ContainsKey(type))
-            {
-                IRepository<T> repository = repositories[type] as IRepository<T>;
-                repository.Delete(id);
-            }
-        }
-
-        public void Delete<T>(T item) where T : Model
-        {
-            Delete<T>(item.Id);
-        }
-
         public void Dispose()
         {
             contex.Dispose();
@@ -106,16 +80,6 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
                 result[i] = items[i].Model;
             }
             return result;
-        }
-
-        public void Update<T>(T item) where T : Model
-        {
-            Type type = typeof(T);
-            if (repositories.ContainsKey(type))
-            {
-                IRepository<T> repository = repositories[type] as IRepository<T>;
-                repository.Update(item);
-            }
         }
     }
 }

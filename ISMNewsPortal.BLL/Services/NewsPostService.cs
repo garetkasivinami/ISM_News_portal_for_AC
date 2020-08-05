@@ -42,13 +42,13 @@ namespace ISMNewsPortal.BLL.Services
 
         public void UpdateNewsPost(NewsPost newsPostDTO)
         {
-            UnitOfWork.Update(newsPostDTO);
+            UnitOfWork.NewsPosts.Update(newsPostDTO);
             UnitOfWork.Save();
         }
 
         public void CreateNewsPost(NewsPost newsPostDTO)
         {
-            UnitOfWork.Create(newsPostDTO);
+            UnitOfWork.NewsPosts.Create(newsPostDTO);
             UnitOfWork.Save();
         }
 
