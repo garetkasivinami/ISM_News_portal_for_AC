@@ -376,6 +376,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit news post!.
+        /// </summary>
+        public static string EditPost {
+            get {
+                return ResourceManager.GetString("EditPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -669,15 +678,6 @@ namespace Language {
         public static string SortBy {
             get {
                 return ResourceManager.GetString("SortBy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
             }
         }
         

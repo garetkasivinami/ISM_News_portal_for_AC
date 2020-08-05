@@ -222,6 +222,9 @@
   <data name="EditNews" xml:space="preserve">
     <value>Edit news</value>
   </data>
+  <data name="EditPost" xml:space="preserve">
+    <value>Edit news post!</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>

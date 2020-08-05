@@ -222,6 +222,9 @@
   <data name="EditNews" xml:space="preserve">
     <value>Редагувати новину</value>
   </data>
+  <data name="EditPost" xml:space="preserve">
+    <value>Редагування поста</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Пошта</value>
   </data>

@@ -222,6 +222,9 @@
   <data name="EditNews" xml:space="preserve">
     <value>Edit news</value>
   </data>
+  <data name="EditPost" xml:space="preserve">
+    <value>Edit news post!</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
@@ -320,9 +323,6 @@
   </data>
   <data name="SortBy" xml:space="preserve">
     <value>Sort by</value>
-  </data>
-  <data name="String1" xml:space="preserve">
-    <value />
   </data>
   <data name="SureQ" xml:space="preserve">
     <value>Are you sure?</value>

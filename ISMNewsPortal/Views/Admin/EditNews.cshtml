@@ -6,7 +6,7 @@
     DateTime publishDate = Model.PublicationDate ?? DateTime.Now;
     string publicationDate = publishDate.ToString("s").Remove(16);
 }
-<h4>Edit news post!</h4>
+<h4>@Language.Language.EditPost</h4>
 @Html.ActionLink(Language.Language.ManageComments, "Comments", "Admin", new { @postId = Model.Id }, new { @class = "btn btn-outline-dark btn-sm btn-manage-comments" })
 <img id="imageElement" class="post-img edit-img" alt="no image" src="@Model.ImagePath" />
 
