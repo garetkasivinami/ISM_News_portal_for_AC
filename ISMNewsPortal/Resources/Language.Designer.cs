@@ -70,6 +70,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrator.
+        /// </summary>
+        public static string Administrator {
+            get {
+                return ResourceManager.GetString("Administrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin page.
         /// </summary>
         public static string AdminPage {
@@ -129,6 +138,33 @@ namespace Language {
         public static string Authorize {
             get {
                 return ResourceManager.GetString("Authorize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CanCreateAdmin.
+        /// </summary>
+        public static string CanCreateAdmin {
+            get {
+                return ResourceManager.GetString("CanCreateAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CanEditAdmin.
+        /// </summary>
+        public static string CanEditAdmin {
+            get {
+                return ResourceManager.GetString("CanEditAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CanSetAdminRole.
+        /// </summary>
+        public static string CanSetAdminRole {
+            get {
+                return ResourceManager.GetString("CanSetAdminRole", resourceCulture);
             }
         }
         
@@ -282,6 +318,15 @@ namespace Language {
         public static string CreatePostBtn {
             get {
                 return ResourceManager.GetString("CreatePostBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creator.
+        /// </summary>
+        public static string Creator {
+            get {
+                return ResourceManager.GetString("Creator", resourceCulture);
             }
         }
         
@@ -453,6 +498,15 @@ namespace Language {
         public static string ManageComments {
             get {
                 return ResourceManager.GetString("ManageComments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moderator.
+        /// </summary>
+        public static string Moderator {
+            get {
+                return ResourceManager.GetString("Moderator", resourceCulture);
             }
         }
         
@@ -646,7 +700,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles.
+        ///   Looks up a localized string similar to Roles &amp; rights.
         /// </summary>
         public static string Roles {
             get {

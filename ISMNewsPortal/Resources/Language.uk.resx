@@ -120,6 +120,9 @@
   <data name="AdminId" xml:space="preserve">
     <value>Id Адміністратора</value>
   </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Адміністратор</value>
+  </data>
   <data name="AdminPage" xml:space="preserve">
     <value>Сторінка адміністратора</value>
   </data>
@@ -140,6 +143,15 @@
   </data>
   <data name="Authorize" xml:space="preserve">
     <value>Авторизуватися</value>
+  </data>
+  <data name="CanCreateAdmin" xml:space="preserve">
+    <value>Може створювати адмінів</value>
+  </data>
+  <data name="CanEditAdmin" xml:space="preserve">
+    <value>Може редагувати адміна</value>
+  </data>
+  <data name="CanSetAdminRole" xml:space="preserve">
+    <value>Може міняти права адміна</value>
   </data>
   <data name="ChangPassword" xml:space="preserve">
     <value>Змінити пароль</value>
@@ -191,6 +203,9 @@
   </data>
   <data name="CreatePostBtn" xml:space="preserve">
     <value>Створити</value>
+  </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Створення постів</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>Дата</value>
@@ -245,6 +260,9 @@
   </data>
   <data name="ManageComments" xml:space="preserve">
     <value>Керувати коментарями</value>
+  </data>
+  <data name="Moderator" xml:space="preserve">
+    <value>Модератор</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>Назва</value>
@@ -310,7 +328,7 @@
     <value>Повернутися</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Ролі</value>
+    <value>Ролі та права</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Зберегти</value>

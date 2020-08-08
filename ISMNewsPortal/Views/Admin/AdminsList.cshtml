@@ -28,7 +28,29 @@
                             <ul class="list-group">
                                 @foreach (string role in adminView.Roles)
                                 {
-                                    <li class="list-group-item">@role</li>
+                                    <li class="list-group-item">
+                                        @switch (role)
+                                        {
+                                            case "Creator":
+                                                @Language.Language.Creator
+                                                break;
+                                            case "Administrator":
+                                                @Language.Language.Administrator
+                                                break;
+                                            case "Moderator":
+                                                @Language.Language.Moderator
+                                                break;
+                                            case "CanEditAdmin":
+                                                @Language.Language.CanEditAdmin
+                                                break;
+                                            case "CanSetAdminRole":
+                                                @Language.Language.CanSetAdminRole
+                                                break;
+                                            case "CanCreateAdmin":
+                                                @Language.Language.CanCreateAdmin
+                                                break;
+                                        }
+                                    </li>
                                 }
                             </ul>
                         }
