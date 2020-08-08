@@ -312,6 +312,9 @@
   <data name="Roles" xml:space="preserve">
     <value>Ролі</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Пошук</value>
   </data>
@@ -320,6 +323,9 @@
   </data>
   <data name="SortBy" xml:space="preserve">
     <value>Сортувати за</value>
+  </data>
+  <data name="SureDelete" xml:space="preserve">
+    <value>Ви точно хочете видалити цей пост?</value>
   </data>
   <data name="SureQ" xml:space="preserve">
     <value>Ви впевнені?</value>

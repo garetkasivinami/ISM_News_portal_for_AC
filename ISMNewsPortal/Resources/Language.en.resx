@@ -312,6 +312,9 @@
   <data name="Roles" xml:space="preserve">
     <value>Roles</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
   </data>
@@ -320,6 +323,9 @@
   </data>
   <data name="SortBy" xml:space="preserve">
     <value>Sort by</value>
+  </data>
+  <data name="SureDelete" xml:space="preserve">
+    <value>Are you sure want to delete this post?</value>
   </data>
   <data name="SureQ" xml:space="preserve">
     <value>Are you sure?</value>

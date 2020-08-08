@@ -655,6 +655,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search.
         /// </summary>
         public static string Search {
@@ -678,6 +687,15 @@ namespace Language {
         public static string SortBy {
             get {
                 return ResourceManager.GetString("SortBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to delete this post?.
+        /// </summary>
+        public static string SureDelete {
+            get {
+                return ResourceManager.GetString("SureDelete", resourceCulture);
             }
         }
         
