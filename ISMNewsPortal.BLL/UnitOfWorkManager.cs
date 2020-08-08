@@ -10,18 +10,36 @@ namespace ISMNewsPortal.BLL
     public static class UnitOfWorkManager
     {
         private static IUnitOfWork unitOfWork;
+        private static IAdminRepository adminRepository;
+        private static ICommentRepository commentRepository;
+        private static INewsPostRepository newsPostRepository;
+        private static IFileRepository fileRepository;
 
         public static IUnitOfWork UnitOfWork 
         {
-            get
-            {
-                return unitOfWork;
-            }
+            get => unitOfWork;
+        }
+        public static IAdminRepository AdminRepository { 
+            get => adminRepository;
+        }
+        public static ICommentRepository CommentRepository { 
+            get => commentRepository;
+        }
+        public static INewsPostRepository NewsPostRepository { 
+            get => newsPostRepository;
+        }
+        public static IFileRepository FileRepository { 
+            get => fileRepository;
         }
 
-        public static void SetUnitOfWork(IUnitOfWork targetUnitOfWork)
+        public static void SetUnitOfWork(IUnitOfWork unitOfWork, IAdminRepository adminRepository, 
+            ICommentRepository commentRepository, INewsPostRepository newsPostRepository, IFileRepository fileRepository)
         {
-            unitOfWork = targetUnitOfWork;
+            UnitOfWorkManager.unitOfWork = unitOfWork;
+            UnitOfWorkManager.adminRepository = adminRepository;
+            UnitOfWorkManager.commentRepository = commentRepository;
+            UnitOfWorkManager.newsPostRepository = newsPostRepository;
+            UnitOfWorkManager.fileRepository = fileRepository;
         }
     }
 }

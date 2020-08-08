@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISMNEWSPORTAL.DAL_XML.Reflection
+namespace ISMNewsPortal.DAL_XML.Reflection
 {
     public class PropertyValue
     {

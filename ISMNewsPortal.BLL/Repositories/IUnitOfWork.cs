@@ -9,10 +9,6 @@ namespace ISMNewsPortal.BLL.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-        IAdminRepository Admins { get; }
-        ICommentRepository Comments { get; }
-        INewsPostRepository NewsPosts { get; }
-        IFileRepository Files { get; }
         void Save();
     }
 }

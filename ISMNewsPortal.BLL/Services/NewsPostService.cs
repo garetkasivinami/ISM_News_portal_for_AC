@@ -15,26 +15,26 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<NewsPost> GetNewsPosts()
         {
-            return UnitOfWork.NewsPosts.GetAll();
+            return NewsPostRepository.GetAll();
         }
 
         public IEnumerable<NewsPost> GetNewsPostsWithTools(Options options)
         {
-            var newsPosts = UnitOfWork.NewsPosts.GetWithOptions(options);
+            var newsPosts = NewsPostRepository.GetWithOptions(options);
             return newsPosts;
         }
 
         public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(Options options)
         {
             options.Admin = true;
-            var newsPosts = UnitOfWork.NewsPosts.GetWithOptions(options);
+            var newsPosts = NewsPostRepository.GetWithOptions(options);
             options.Pages = options.Pages;
             return newsPosts;
         }
 
         public NewsPost GetNewsPost(int id)
         {
-            var newsPost = UnitOfWork.NewsPosts.Get(id);
+            var newsPost = NewsPostRepository.Get(id);
             if (newsPost == null)
                 throw new NewsPostNullException();
             return newsPost;
@@ -42,31 +42,31 @@ namespace ISMNewsPortal.BLL.Services
 
         public void UpdateNewsPost(NewsPost newsPostDTO)
         {
-            UnitOfWork.NewsPosts.Update(newsPostDTO);
+            NewsPostRepository.Update(newsPostDTO);
             UnitOfWork.Save();
         }
 
         public void CreateNewsPost(NewsPost newsPostDTO)
         {
-            UnitOfWork.NewsPosts.Create(newsPostDTO);
+            NewsPostRepository.Create(newsPostDTO);
             UnitOfWork.Save();
         }
 
         public void DeleteNewsPost(int id)
         {
-            UnitOfWork.NewsPosts.Delete(id);
-            UnitOfWork.Comments.DeleteCommentsByPostId(id);
+            NewsPostRepository.Delete(id);
+            CommentRepository.DeleteCommentsByPostId(id);
             UnitOfWork.Save();
         }
 
         public int Count()
         {
-            return UnitOfWork.NewsPosts.Count();
+            return NewsPostRepository.Count();
         }
 
         public int CommentsCount(int id)
         {
-            return UnitOfWork.Comments.GetCountByPostId(id);
+            return CommentRepository.GetCountByPostId(id);
         }
     }
 }

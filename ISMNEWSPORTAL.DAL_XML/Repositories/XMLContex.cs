@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.IO;
 using ISMNewsPortal.BLL.Models;
-using ISMNEWSPORTAL.DAL_XML.Reflection;
+using ISMNewsPortal.DAL_XML.Reflection;
 
-namespace ISMNEWSPORTAL.DAL_XML.Repositories
+namespace ISMNewsPortal.DAL_XML.Repositories
 {
     public class XMLContex : IDisposable
     {

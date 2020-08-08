@@ -11,14 +11,18 @@ namespace ISMNewsPortal
     public class NHibernateSession
     {
         private static ISessionFactory sessionFactory;
+        private static object _obj = new object();
         public static ISession OpenSession()
         {
-            if (sessionFactory == null)
+
+            lock (_obj)
             {
-                var configuration = new Configuration().SetProperty(NHibernate.Cfg.Environment.UseProxyValidator, bool.FalseString);
-                sessionFactory = CreateSessionFactory(configuration);
-                new SchemaUpdate(configuration).Execute(true, true);
-                return sessionFactory.OpenSession();
+                if (sessionFactory == null)
+                {
+                    var configuration = new Configuration().SetProperty(NHibernate.Cfg.Environment.UseProxyValidator, bool.FalseString);
+                    sessionFactory = CreateSessionFactory(configuration);
+                    new SchemaUpdate(configuration).Execute(true, true);
+                }
             }
             return sessionFactory.OpenSession();
         }

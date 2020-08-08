@@ -1,13 +1,13 @@
 ﻿using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
-using ISMNEWSPORTAL.DAL_XML.Models;
+using ISMNewsPortal.DAL_XML.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISMNEWSPORTAL.DAL_XML.Repositories
+namespace ISMNewsPortal.DAL_XML.Repositories
 {
     public class XMLUnitOfWork : IUnitOfWork
     {
@@ -17,29 +17,15 @@ namespace ISMNEWSPORTAL.DAL_XML.Repositories
         private NewsPostRepository newsPostRepository;
         private FileRepository fileRepository;
 
-        private Dictionary<Type, object> repositories;
-        public IAdminRepository Admins => adminRepository;
-
-        public ICommentRepository Comments => commentRepository;
-
-        public INewsPostRepository NewsPosts => newsPostRepository;
-
-        public IFileRepository Files => fileRepository;
-
-        public XMLUnitOfWork(XMLContex contex)
+        public XMLUnitOfWork(XMLContex contex, AdminRepository adminRepository, CommentRepository commentRepository,
+            NewsPostRepository newsPostRepository, FileRepository fileRepository)
         {
             this.contex = contex;
 
-            adminRepository = new AdminRepository(contex);
-            commentRepository = new CommentRepository(contex);
-            newsPostRepository = new NewsPostRepository(contex);
-            fileRepository = new FileRepository(contex);
-
-            repositories = new Dictionary<Type, object>();
-            repositories.Add(typeof(Admin), adminRepository);
-            repositories.Add(typeof(Comment), commentRepository);
-            repositories.Add(typeof(NewsPost), newsPostRepository);
-            repositories.Add(typeof(FileModel), fileRepository);
+            this.adminRepository = adminRepository;
+            this.commentRepository = commentRepository;
+            this.newsPostRepository = newsPostRepository;
+            this.fileRepository = fileRepository;
         }
 
         public void Dispose()

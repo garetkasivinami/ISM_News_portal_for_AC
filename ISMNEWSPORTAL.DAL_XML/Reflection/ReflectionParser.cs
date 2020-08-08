@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 
-namespace ISMNEWSPORTAL.DAL_XML.Reflection
+namespace ISMNewsPortal.DAL_XML.Reflection
 {
     public static class ReflectionParser
     {

@@ -16,12 +16,12 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<Comment> GetComments()
         {
-            return UnitOfWork.Comments.GetAll();
+            return CommentRepository.GetAll();
         }
 
         public Comment GetComment(int id)
         {
-            var comment = UnitOfWork.Comments.Get(id);
+            var comment = CommentRepository.Get(id);
             if (comment == null)
                 throw new CommentNullException();
             return comment;
@@ -29,43 +29,43 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<Comment> GetCommentsByPostId(int id)
         {
-            var comments = UnitOfWork.Comments.GetByPostId(id).Reverse();
+            var comments = CommentRepository.GetByPostId(id).Reverse();
             return comments;
         }
 
         public void UpdateComment(Comment commentDTO)
         {
-            UnitOfWork.Comments.Update(commentDTO);
+            CommentRepository.Update(commentDTO);
             UnitOfWork.Save();
         }
 
         public int CreateComment(Comment commentDTO)
         {
-            int id = UnitOfWork.Comments.Create(commentDTO);
+            int id = CommentRepository.Create(commentDTO);
             UnitOfWork.Save();
             return id;
         }
 
         public IEnumerable<Comment> GetCommentsWithTools(OptionsCollectionById options)
         {
-            var comments = UnitOfWork.Comments.GetWithOptions(options);
+            var comments = CommentRepository.GetWithOptions(options);
             return comments;
         }
 
         public void DeleteComment(int id)
         {
-            UnitOfWork.Comments.Delete(id);
+            CommentRepository.Delete(id);
             UnitOfWork.Save();
         }
 
         public int Count()
         {
-            return UnitOfWork.Comments.Count();
+            return CommentRepository.Count();
         }
 
         public int GetCommentCountByPostId(int id)
         {
-            return UnitOfWork.Comments.GetCountByPostId(id);
+            return CommentRepository.GetCountByPostId(id);
         }
     }
 }

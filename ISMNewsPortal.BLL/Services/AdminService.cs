@@ -14,57 +14,57 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<Admin> GetAdmins()
         {
-            return UnitOfWork.Admins.GetAll();
+            return AdminRepository.GetAll();
         }
 
         public Admin GetAdmin(int id)
         {
-            var admin = UnitOfWork.Admins.Get(id);
+            var admin = AdminRepository.Get(id);
             if (admin == null)
                 throw new AdminNullException();
             return admin;
         }
-
+        
         public Admin GetAdminByLogin(string login)
         {
-            var admin = UnitOfWork.Admins.GetByLogin(login);
+            var admin = AdminRepository.GetByLogin(login);
             return admin;
         }
 
         public void UpdateAdmin(Admin adminDTO)
         {
-            UnitOfWork.Admins.Update(adminDTO);
+            AdminRepository.Update(adminDTO);
             UnitOfWork.Save();
         }
 
         public void UpdateAdminPartial(int id, string email, string roles = null, bool updateRoles = false)
         {
-            var admin = UnitOfWork.Admins.Get(id);
+            var admin = AdminRepository.Get(id);
             admin.Email = email;
             if (updateRoles)
                 admin.Roles = roles;
-            UnitOfWork.Admins.Update(admin);
+            AdminRepository.Update(admin);
             UnitOfWork.Save();
         }
 
         public void CreateAdmin(Admin adminDTO)
         {
-            var createdAdmin = UnitOfWork.Admins.GetByLogin(adminDTO.Login);
+            var createdAdmin = AdminRepository.GetByLogin(adminDTO.Login);
             if (createdAdmin != null)
                 throw new AdminExistsException("An administrator with this login already exists");
-            UnitOfWork.Admins.Create(adminDTO);
+            AdminRepository.Create(adminDTO);
             UnitOfWork.Save();
         }
 
         public void DeleteAdmin(int id)
         {
-            UnitOfWork.Admins.Delete(id);
+            AdminRepository.Delete(id);
             UnitOfWork.Save();
         }
 
         public int Count()
         {
-            return UnitOfWork.Admins.Count();
+            return AdminRepository.Count();
         }
     }
 }

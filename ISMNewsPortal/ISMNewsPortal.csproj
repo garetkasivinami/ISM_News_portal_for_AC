@@ -562,9 +562,9 @@
       <Project>{49ddde19-febb-4869-bfdc-610d79316957}</Project>
       <Name>ISMNewsPortal.DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ISMNEWSPORTAL.DAL_XML\ISMNEWSPORTAL.DAL_XML.csproj">
+    <ProjectReference Include="..\ISMNEWSPORTAL.DAL_XML\ISMNewsPortal.DAL_XML.csproj">
       <Project>{932cfbaa-e579-4bc9-8199-751bf9b3ad5b}</Project>
-      <Name>ISMNEWSPORTAL.DAL_XML</Name>
+      <Name>ISMNewsPortal.DAL_XML</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

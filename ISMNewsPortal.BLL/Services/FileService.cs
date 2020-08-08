@@ -13,12 +13,12 @@ namespace ISMNewsPortal.BLL.Services
     {
         public IEnumerable<FileModel> GetFiles()
         {
-            return UnitOfWork.Files.GetAll();
+            return FileRepository.GetAll();
         }
 
         public FileModel GetFile(int id)
         {
-            var file = UnitOfWork.Files.Get(id);
+            var file = FileRepository.Get(id);
             if (file == null)
                 throw new FileNullException();
             return file;
@@ -27,33 +27,33 @@ namespace ISMNewsPortal.BLL.Services
 
         public FileModel FindByHashCode(string hashCode)
         {
-            var file = UnitOfWork.Files.GetByHashCode(hashCode);
+            var file = FileRepository.GetByHashCode(hashCode);
             return file;
         }
 
         public int CreateFile(FileModel fileDTO)
         {
-            int id = UnitOfWork.Files.Create(fileDTO);
+            int id = FileRepository.Create(fileDTO);
             UnitOfWork.Save();
             return id;
         }
 
         public void DeleteFile(int id)
         {
-            if (UnitOfWork.Files.GetPostsCount(id) > 0)
+            if (FileRepository.GetPostsCount(id) > 0)
                 return;
-            UnitOfWork.Files.Delete(id);
+            FileRepository.Delete(id);
             UnitOfWork.Save();
         }
 
         public int Count()
         {
-            return UnitOfWork.Files.Count();
+            return FileRepository.Count();
         }
 
         public string GetNameById(int id)
         {
-            var file = UnitOfWork.Files.Get(id);
+            var file = FileRepository.Get(id);
             if (file == null)
                 throw new FileNullException();
             return file.Name;

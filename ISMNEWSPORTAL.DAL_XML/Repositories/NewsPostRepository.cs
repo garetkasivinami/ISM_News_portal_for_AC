@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ISMNEWSPORTAL.DAL_XML.Repositories
+namespace ISMNewsPortal.DAL_XML.Repositories
 {
     public class NewsPostRepository : Repository<NewsPost>, INewsPostRepository
     {

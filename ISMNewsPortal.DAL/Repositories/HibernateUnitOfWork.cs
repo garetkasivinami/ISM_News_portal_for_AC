@@ -11,39 +11,15 @@ namespace ISMNewsPortal.DAL.Repositories
 {
     public class HibernateUnitOfWork : IUnitOfWork
     {
-        private Lazy<AdminRepository> adminRepository;
-        private Lazy<CommentRepository> commentRepository;
-        private Lazy<NewsPostRepository> newsPostRepository;
-        private Lazy<FileRepository> fileRepository;
-
         private bool disposed;
 
         private ISession session;
+        private ITransaction transaction;
 
         public HibernateUnitOfWork(ISession session)
         {
             this.session = session;
-
-            adminRepository = new Lazy<AdminRepository>(() => new AdminRepository(session));
-            commentRepository = new Lazy<CommentRepository>(() => new CommentRepository(session));
-            newsPostRepository = new Lazy<NewsPostRepository>(() => new NewsPostRepository(session));
-            fileRepository = new Lazy<FileRepository>(() => new FileRepository(session));
-        }
-        public IAdminRepository Admins
-        {
-            get => adminRepository.Value;
-        }
-        public ICommentRepository Comments
-        {
-            get => commentRepository.Value;
-        }
-        public INewsPostRepository NewsPosts
-        {
-            get => newsPostRepository.Value;
-        }
-        public IFileRepository Files
-        {
-            get => fileRepository.Value;
+            //this.transaction = session.BeginTransaction();
         }
 
         public void Dispose()

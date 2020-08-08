@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
 
-namespace ISMNEWSPORTAL.DAL_XML.Repositories
+namespace ISMNewsPortal.DAL_XML.Repositories
 {
     public class AdminRepository : Repository<Admin>, IAdminRepository
     {
