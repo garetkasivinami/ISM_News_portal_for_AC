@@ -20,6 +20,7 @@ namespace ISMNewsPortal.Controllers
     public class NewsController : Controller
     {
         [HttpGet]
+        [OutputCache(Duration = 30)]
         public ActionResult Index(ToolsModel model)
         {
             NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPostHelper.GenerateNewsPostSimplifiedCollection(model);
@@ -27,6 +28,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Location = System.Web.UI.OutputCacheLocation.Client, Duration = 180)]
         public ActionResult Error404()
         {
             return View();

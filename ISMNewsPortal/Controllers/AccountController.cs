@@ -16,6 +16,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
+        [OutputCache(Location = System.Web.UI.OutputCacheLocation.Client, Duration = 180)]
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
@@ -54,6 +55,7 @@ namespace ISMNewsPortal.Controllers
 
         [Authorize]
         [HttpGet]
+        [OutputCache(Location = System.Web.UI.OutputCacheLocation.Client, Duration = 180)]
         public ActionResult ChangePassword()
         {
             return View();
