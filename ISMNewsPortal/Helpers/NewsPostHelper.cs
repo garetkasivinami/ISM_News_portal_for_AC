@@ -30,7 +30,11 @@ namespace ISMNewsPortal.Helpers
         public static void DeleteNewsPost(int id)
         {
             NewsPostService newsPostService = new NewsPostService();
+            FileService fileService = new FileService();
 
+            var newsPost = newsPostService.GetNewsPost(id);
+
+            fileService.SafeDeleteFile(newsPost.ImageId);
             newsPostService.DeleteNewsPost(id);
         }
 

@@ -44,16 +44,18 @@ namespace ISMNewsPortal.DAL_XML.Repositories
 
         private void AppendChanges<T>(Repository<T> repository) where T : Model
         {
-            List<ModelObject<T>> changes = repository.entities.Values.Where(u => u.State == ModelState.Created).ToList();
-            T[] changedObjects = ConvertModelObjectToModel<T>(changes);
-            contex.CreateRange<T>(changedObjects);
+            var entitiesValues = repository.entities.Values;
 
-            changes = repository.entities.Values.Where(u => u.State == ModelState.Updated).ToList();
-            changedObjects = ConvertModelObjectToModel<T>(changes);
-            contex.UpdateRange<T>(changedObjects);
+            var changes = entitiesValues.Where(u => u.State == ModelState.Created).ToList();
+            var changedObjects = ConvertModelObjectToModel(changes);
+            contex.CreateRange(changedObjects);
 
-            var deleteObjects = repository.entities.Where(u => u.Value.State == ModelState.Deleted);
-            contex.DeleteRange<T>(deleteObjects.Select(u => u.Key).ToArray());
+            changes = entitiesValues.Where(u => u.State == ModelState.Updated).ToList();
+            changedObjects = ConvertModelObjectToModel(changes);
+            contex.UpdateRange(changedObjects);
+
+            var deleteObjects = entitiesValues.Where(u => u.State == ModelState.Deleted);
+            contex.DeleteRange<T>(deleteObjects.Select(u => u.Model.Id).ToArray());
 
             repository.ResetEntitiesStates();
         }

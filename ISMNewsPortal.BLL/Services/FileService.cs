@@ -38,10 +38,16 @@ namespace ISMNewsPortal.BLL.Services
             return id;
         }
 
-        public void DeleteFile(int id)
+        public bool SafeDeleteFile(int id)
         {
             if (FileRepository.GetPostsCount(id) > 0)
-                return;
+                return false;
+            DeleteFile(id);
+            return true;
+        }
+
+        public void DeleteFile(int id)
+        {
             FileRepository.Delete(id);
             UnitOfWork.Save();
         }

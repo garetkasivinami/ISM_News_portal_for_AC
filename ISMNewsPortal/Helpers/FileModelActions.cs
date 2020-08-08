@@ -45,7 +45,7 @@ namespace ISMNewsPortal.Helpers
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
-                fileService.DeleteFile(id);
+                fileService.SafeDeleteFile(id);
             }
         }
 
