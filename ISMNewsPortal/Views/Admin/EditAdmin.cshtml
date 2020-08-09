@@ -1,4 +1,5 @@
 ﻿@model ISMNewsPortal.Models.AdminEditModel
+@using ISMNewsPortal.Helpers
 
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
@@ -27,33 +28,14 @@
             <div class="col-md-10">
                 <label for="inputState">@Language.Language.Roles</label>
                 <select id="inputState" class="form-control" multiple name="Roles"
-                        @if (!User.IsInRole(ISMNewsPortal.Models.Roles.CanSetAdminRole.ToString())) { @disabled  }>
+                        @if (!User.IsInRole(ISMNewsPortal.Models.Roles.CanSetAdminRole.ToString())) { @disabled }>
                     @foreach (@ISMNewsPortal.Models.Roles role in Enum.GetValues(typeof(ISMNewsPortal.Models.Roles)))
                     {
-                    <option value="@role"
-                            @if (Model.Roles.Contains(role.ToString())) { @chekedText }>
-                        @switch (role.ToString())
-                        {
-                            case "Creator":
-                                @Language.Language.Creator
-                                break;
-                            case "Administrator":
-                                @Language.Language.Administrator
-                                break;
-                            case "Moderator":
-                                @Language.Language.Moderator
-                                break;
-                            case "CanEditAdmin":
-                                @Language.Language.CanEditAdmin
-                                break;
-                            case "CanSetAdminRole":
-                                @Language.Language.CanSetAdminRole
-                                break;
-                            case "CanCreateAdmin":
-                                @Language.Language.CanCreateAdmin
-                                break;
-                        }
-                    </option>
+                        <option value="@role"
+                                @if (Model.Roles.Contains(role.ToString())) { @chekedText }>
+
+                            @AdminHelper.GetLocalizedRoleName(role)
+                        </option>
                     }
                 </select>
             </div>

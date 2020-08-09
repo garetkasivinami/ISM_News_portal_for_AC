@@ -132,5 +132,15 @@ namespace ISMNewsPortal.Helpers
             IEnumerable<string> temp = roles.Select(r => Enum.GetName(r.GetType(), r));
             return string.Join(",", temp);
         }
+
+        public static string GetLocalizedRoleName(Roles role)
+        {
+            return GetLocalizedRoleName(role.ToString());
+        }
+
+        public static string GetLocalizedRoleName(string role)
+        {
+            return LinkHelper.GetLocalizedByName(role.ToString());
+        }
     }
 }
