@@ -58,7 +58,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <label class="btn btn-outline-secondary">
-                    Choose image file
+                    @Language.Language.ChooseImage
                     <input type="file" class="btn btn-outline-dark" name="uploadFiles" id="imagePath" accept=".png, .jpg, .jpeg" />
                 </label>
                 @Html.ValidationMessageFor(model => model.uploadFiles, "", new { @class = "text-danger card-text" })

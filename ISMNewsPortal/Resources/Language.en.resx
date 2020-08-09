@@ -297,6 +297,9 @@
   <data name="OldPassword" xml:space="preserve">
     <value>Old password</value>
   </data>
+  <data name="onlyNotPublished" xml:space="preserve">
+    <value>Only not published</value>
+  </data>
   <data name="onlyPublished" xml:space="preserve">
     <value>Only published</value>
   </data>

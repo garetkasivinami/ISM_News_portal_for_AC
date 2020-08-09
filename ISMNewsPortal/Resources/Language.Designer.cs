@@ -610,6 +610,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Only not published.
+        /// </summary>
+        public static string onlyNotPublished {
+            get {
+                return ResourceManager.GetString("onlyNotPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only published.
         /// </summary>
         public static string onlyPublished {
