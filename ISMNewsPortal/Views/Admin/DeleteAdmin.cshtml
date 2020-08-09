@@ -13,11 +13,33 @@
     <ul>
         @foreach (string role in Model.Roles)
         {
-            <li>@role</li>
+        <li>
+            @switch (role.ToString())
+            {
+                case "Creator":
+                    @Language.Language.Creator
+                    break;
+                case "Administrator":
+                    @Language.Language.Administrator
+                    break;
+                case "Moderator":
+                    @Language.Language.Moderator
+                    break;
+                case "CanEditAdmin":
+                    @Language.Language.CanEditAdmin
+                    break;
+                case "CanSetAdminRole":
+                    @Language.Language.CanSetAdminRole
+                    break;
+                case "CanCreateAdmin":
+                    @Language.Language.CanCreateAdmin
+                    break;
+            }
+        </li>
         }
     </ul>
 }
 
-<h1>@Language.Language.SureQ</h1>
+<h1>@Language.Language.SureDeleteAdmin</h1>
 @Html.ActionLink(Language.Language.Yes, "DeleteAdminSured", "Admin", new { @id = Model.Id }, new { @class = "btn btn-outline-danger" })
 @Html.ActionLink(Language.Language.No, "AdminsList", "Admin", new { }, new { @class = "btn btn-outline-primary" })

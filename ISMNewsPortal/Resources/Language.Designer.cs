@@ -763,6 +763,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure want to delete this admin?.
+        /// </summary>
+        public static string SureDeleteAdmin {
+            get {
+                return ResourceManager.GetString("SureDeleteAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure?.
         /// </summary>
         public static string SureQ {

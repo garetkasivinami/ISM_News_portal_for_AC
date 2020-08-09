@@ -348,6 +348,9 @@
   <data name="SureDelete" xml:space="preserve">
     <value>Are you sure want to delete this post?</value>
   </data>
+  <data name="SureDeleteAdmin" xml:space="preserve">
+    <value>Are you sure want to delete this admin?</value>
+  </data>
   <data name="SureQ" xml:space="preserve">
     <value>Are you sure?</value>
   </data>
