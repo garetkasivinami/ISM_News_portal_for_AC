@@ -81,12 +81,23 @@
             <div class="card-header">
                 <ul class="list-group list-group-horizontal">
                     <li class="list-group-item"><strong>ID: @newsPost.Id</strong></li>
+                    <li class="list-group-item">
+                        @if (newsPost.IsVisible)
+                        {
+                            <img src="/Files/?name=visible.png" height="25" class="d-inline-block align-top visibility" alt="visible" loading="lazy">
+                        }
+                        else
+                        {
+                            <img src="/Files/?name=invisible.png" height="25" class="d-inline-block align-top visibility" alt="invisible" loading="lazy">
+                        }
+                    </li>
                     <li class="list-group-item"><strong>@Language.Language.Author:</strong> @newsPost.AuthorName</li>
                     <li class="list-group-item"><strong>@Language.Language.CreatedDate:</strong> <span class="js_date">@newsPost.CreatedDate.ToString("u").Replace('-', '/')</span></li>
-                    <li class="list-group-item"><strong>@Language.Language.Visibility:</strong> @(newsPost.IsVisible ? Language.Language.Yes: Language.Language.No )</li>
+
+
                     @if (newsPost.EditDate != null)
                     {
-                <li class="list-group-item"><strong>@Language.Language.LastEditDate:</strong>  <span class="js_date">@(newsPost.EditDate?.ToString("u").Replace('-', '/'))</span></li>
+                        <li class="list-group-item"><strong>@Language.Language.LastEditDate:</strong>  <span class="js_date">@(newsPost.EditDate?.ToString("u").Replace('-', '/'))</span></li>
                     }
                 </ul>
             </div>
