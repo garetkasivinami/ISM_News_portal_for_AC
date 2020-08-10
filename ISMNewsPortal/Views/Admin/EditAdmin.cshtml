@@ -19,7 +19,7 @@
         @Html.HiddenFor(model => model.Id)
         <h4>@Language.Language.Login: @Model.Login</h4>
 
-        <div class="form-group">
+        <div class="form-group edit-form">
             @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-10">
                 <label for="inputState">@Language.Language.Roles</label>
-                <select id="inputState" class="form-control" multiple name="Roles"
+                <select id="inputState" class="form-control roles" multiple name="Roles"
                         @if (!User.IsInRole(ISMNewsPortal.Models.Roles.CanSetAdminRole.ToString())) { @disabled }>
                     @foreach (@ISMNewsPortal.Models.Roles role in Enum.GetValues(typeof(ISMNewsPortal.Models.Roles)))
                     {
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group edit-form">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="@Language.Language.Edit" class="btn btn-outline-success" />
                 @Html.ActionLink(Language.Language.Return, "AdminsList", null, new { @class = "btn btn-outline-primary" })

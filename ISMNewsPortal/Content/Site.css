@@ -151,7 +151,7 @@ textarea.form-control {
     margin: 5px;
 }
 
-#comment-form > .form-horizontal > div > * {
+#comment-form > .form-horizontal > div > *, .edit-form > *, .edit-form + * , .create-form > .form-group > *{
     padding-left: 0;
 }
 
@@ -161,13 +161,13 @@ textarea.form-control {
     margin-right: 15px;
 }
 
+.btn-group > .btn:not(:last-child) {
+    border-right: 0;
+}
+
 .btn:focus {
     box-shadow: none;
 }
-
-/*.sortfilter > li {
-    margin: 10px;
-}*/
 
 .ua {
     height: 18px;
@@ -262,4 +262,8 @@ textarea.form-control {
 .btn-logoff {
     width: 95px;
     text-align: center;
+}
+
+select.form-control.roles {
+    min-height: 150px;
 }
