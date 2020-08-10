@@ -212,14 +212,12 @@ namespace ISMNewsPortal.DAL_XML.Repositories
         {
             string path = filePath;
             XmlDocument xmlDocument = new XmlDocument();
+
             if (File.Exists(filePath))
-            {
                 xmlDocument.Load(path);
-            }
             else
-            {
                 ConfigDocument(xmlDocument);
-            }
+
             document = xmlDocument;
         }
 

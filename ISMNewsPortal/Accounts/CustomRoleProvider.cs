@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 
-namespace ISMNewsPortal.Models
+namespace ISMNewsPortal.Accounts
 {
     public class CustomRoleProvider : RoleProvider
     {

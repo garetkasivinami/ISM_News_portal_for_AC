@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ISMNewsPortal.Models
+namespace ISMNewsPortal.Accounts
 {
     public class IdentityStore : IUserStore<User, int>, IUserPasswordStore<User, int>,
     IUserLockoutStore<User, int>, IUserTwoFactorStore<User, int>

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ISMNewsPortal.Models
+namespace ISMNewsPortal.Accounts
 {
     public class User : Admin, IUser<int>
     {

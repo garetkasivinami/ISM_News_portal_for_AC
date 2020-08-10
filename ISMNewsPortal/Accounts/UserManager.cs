@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ISMNewsPortal.Models
+namespace ISMNewsPortal.Accounts
 {
     public class UserManager : UserManager<User, int>
     {

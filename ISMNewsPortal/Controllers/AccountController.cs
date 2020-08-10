@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using ISMNewsPortal.Models;
 using ISMNewsPortal.Helpers;
+using ISMNewsPortal.Accounts;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace ISMNewsPortal.Controllers

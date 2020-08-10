@@ -17,9 +17,14 @@ namespace ISMNewsPortal.DAL_XML.Reflection
             PropertyInfo[] properties;
 
             if (propertyValueList.ContainsKey(t))
+            {
                 properties = propertyValueList[t];
+            }    
             else
+            {
                 properties = t.GetProperties();
+                propertyValueList.Add(t, properties);
+            }
 
             var values = new List<PropertyValue>();
             foreach(PropertyInfo propertyInfo in properties)
@@ -34,9 +39,14 @@ namespace ISMNewsPortal.DAL_XML.Reflection
             PropertyInfo[] properties;
 
             if (propertyValueList.ContainsKey(t))
+            {
                 properties = propertyValueList[t];
+            }
             else
+            {
                 properties = t.GetProperties();
+                propertyValueList.Add(t, properties);
+            }
 
             var values = new List<PropertyValue>();
             foreach (PropertyValue propertyValue in propertyValues)
@@ -46,7 +56,11 @@ namespace ISMNewsPortal.DAL_XML.Reflection
                 {
                     Type type = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
 
-                    object value = (string.IsNullOrEmpty(propertyValue.Value?.ToString())) ? null : Convert.ChangeType(propertyValue.Value, type);
+                    object value;
+                    if (string.IsNullOrEmpty(propertyValue.Value?.ToString()))
+                        value = null;
+                    else
+                        value = Convert.ChangeType(propertyValue.Value, type);
 
                     property.SetValue(item, value);
                 }

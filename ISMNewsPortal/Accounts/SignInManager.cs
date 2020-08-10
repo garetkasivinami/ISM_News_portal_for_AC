@@ -3,7 +3,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 
-namespace ISMNewsPortal.Models
+namespace ISMNewsPortal.Accounts
 {
     public class SignInManager : SignInManager<User, int>
     {

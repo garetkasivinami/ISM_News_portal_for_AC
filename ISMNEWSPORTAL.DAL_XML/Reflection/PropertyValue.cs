@@ -21,13 +21,5 @@ namespace ISMNewsPortal.DAL_XML.Reflection
             Name = name;
             Value = value;
         }
-        public void SetName(string name)
-        {
-            Name = name;
-        }
-        public void SetValue(object value)
-        {
-            Value = value;
-        }
     }
 }

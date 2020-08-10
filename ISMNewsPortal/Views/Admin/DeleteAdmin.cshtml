@@ -1,4 +1,5 @@
 ﻿@model ISMNewsPortal.Models.AdminViewModel
+@using ISMNewsPortal.Helpers;
 @{
     ViewBag.Title = Language.Language.DeleteAdmin;
 }
@@ -13,29 +14,9 @@
     <ul>
         @foreach (string role in Model.Roles)
         {
-        <li>
-            @switch (role.ToString())
-            {
-                case "Creator":
-                    @Language.Language.Creator
-                    break;
-                case "Administrator":
-                    @Language.Language.Administrator
-                    break;
-                case "Moderator":
-                    @Language.Language.Moderator
-                    break;
-                case "CanEditAdmin":
-                    @Language.Language.CanEditAdmin
-                    break;
-                case "CanSetAdminRole":
-                    @Language.Language.CanSetAdminRole
-                    break;
-                case "CanCreateAdmin":
-                    @Language.Language.CanCreateAdmin
-                    break;
-            }
-        </li>
+            <li>
+                @AdminHelper.GetLocalizedRoleName(role)
+            </li>
         }
     </ul>
 }

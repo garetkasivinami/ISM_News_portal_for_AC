@@ -326,9 +326,9 @@
     <Compile Include="Models\Comment\CommentCreateModel.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CommentViewModelCollection.cs" />
-    <Compile Include="Models\CustomRoleProvider.cs" />
+    <Compile Include="Accounts\CustomRoleProvider.cs" />
     <Compile Include="Helpers\FileModelActions.cs" />
-    <Compile Include="Models\IdentityStore.cs" />
+    <Compile Include="Accounts\IdentityStore.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminCollection.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminView.cs" />
     <Compile Include="Models\NewsPost\NewsPostEditModel.cs" />
@@ -338,14 +338,14 @@
     <Compile Include="Models\NewsPost\NewsPostSimplifiedView.cs" />
     <Compile Include="Models\NewsPost\NewsPostViewModel.cs" />
     <Compile Include="Attributes\RoleAuthorizeAttribute.cs" />
-    <Compile Include="Models\SignInManager.cs" />
+    <Compile Include="Accounts\SignInManager.cs" />
     <Compile Include="Models\Tools\CommentToolsModel.cs" />
     <Compile Include="Models\Tools\CommentToolsModelBinder.cs" />
     <Compile Include="Models\Tools\ToolsModel.cs" />
     <Compile Include="Models\Security.cs" />
     <Compile Include="Models\Tools\ToolsModelBinder.cs" />
-    <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserManager.cs" />
+    <Compile Include="Accounts\User.cs" />
+    <Compile Include="Accounts\UserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Language.Designer.cs">
       <AutoGen>True</AutoGen>
