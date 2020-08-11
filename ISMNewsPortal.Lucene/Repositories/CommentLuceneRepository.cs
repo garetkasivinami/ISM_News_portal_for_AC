@@ -10,6 +10,11 @@ namespace ISMNewsPortal.Lucene.Repositories
 {
     class CommentLuceneRepository : LuceneRepository<Comment>, ILuceneRepository<Comment>
     {
+        public override Comment ConvertTo(Document doc)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override string[] GetFields()
         {
             return new string[] { "UserName", "Text" };

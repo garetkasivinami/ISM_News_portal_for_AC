@@ -10,7 +10,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
 {
     public static class NewsPostToolsLogic
     {
-        public static IQueryable<NewsPost> SortBy(IQueryable<NewsPost> items, string sortType)
+        public static IEnumerable<NewsPost> SortBy(IEnumerable<NewsPost> items, string sortType)
         {
             sortType = sortType?.ToLower();
             switch (sortType)
@@ -43,7 +43,7 @@ namespace ISMNewsPortal.DAL.ToolsLogic
             return items;
         }
 
-        public static IQueryable<NewsPost> SortByReversed(IQueryable<NewsPost> items, string sortType)
+        public static IEnumerable<NewsPost> SortByReversed(IEnumerable<NewsPost> items, string sortType)
         {
             sortType = sortType?.ToLower();
             switch (sortType)

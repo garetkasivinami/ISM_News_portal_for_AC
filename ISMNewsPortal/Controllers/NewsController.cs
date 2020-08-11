@@ -1,16 +1,5 @@
-﻿using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.BLL.Services;
-using ISMNewsPortal.Models;
-using Microsoft.Ajax.Utilities;
-using NHibernate;
-using NHibernate.Event;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Web;
+﻿using ISMNewsPortal.Models;
 using System.Web.Mvc;
-using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.Helpers;
 using ISMNewsPortal.Models.Tools;
 
@@ -20,7 +9,7 @@ namespace ISMNewsPortal.Controllers
     public class NewsController : Controller
     {
         [HttpGet]
-        [OutputCache(Duration = 30)]
+        [OutputCache(Duration = 10)]
         public ActionResult Index(ToolsModel model)
         {
             NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPostHelper.GenerateNewsPostSimplifiedCollection(model);

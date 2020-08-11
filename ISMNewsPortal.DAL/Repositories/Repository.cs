@@ -21,13 +21,13 @@ namespace ISMNewsPortal.DAL.Repositories
             return _session.Query<T>().Count();
         }
 
-        public int Create(T item)
+        public virtual int Create(T item)
         {
             _session.Save(item);
             return item.Id;
         }
 
-        public void Delete(int id)
+        public virtual void Delete(int id)
         {
             T item = _session.Get<T>(id);
             _session.Delete(item);

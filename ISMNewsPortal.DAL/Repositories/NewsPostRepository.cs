@@ -18,6 +18,10 @@ namespace ISMNewsPortal.DAL.Repositories
     {
         public NewsPostRepository(ISession session) : base(session)
         {
+            var items = GetAll();
+            var luceneRepository = LuceneRepositoryFactory.GetRepository<NewsPost>();
+            luceneRepository.DeleteAll();
+            luceneRepository.SaveOrUpdate(items);
         }
 
         public int GetCommentsCount(int postId)
@@ -28,12 +32,19 @@ namespace ISMNewsPortal.DAL.Repositories
         public override IEnumerable<NewsPost> GetWithOptions(object requirements)
         {
             var options = requirements as Options;
-            var items = _session.Query<NewsPost>();
+            IEnumerable<NewsPost> items;
 
             if (!string.IsNullOrEmpty(options.Search))
+                items = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
+            else
+                items = _session.Query<NewsPost>();
+
+            if (!options.Admin)
             {
-                var results = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
-                items = items.Where(u => results.Contains(u.Id));
+                items = items.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
+            } else {
+                var ids = items.Select(u => u.Id);
+                items = _session.Query<NewsPost>().Where(u => ids.Contains(u.Id));
             }
 
             if (options.Reversed == true || options.Reversed == null)
@@ -54,9 +65,7 @@ namespace ISMNewsPortal.DAL.Repositories
                 else
                     items = items.Where(u => u.IsVisible == false);
             }
-
-            if (!options.Admin)
-                items = items.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
+                
 
             options.Pages = Helper.CalculatePages(items.Count(), NewsPost.NewsInOnePage);
 
@@ -92,7 +101,19 @@ namespace ISMNewsPortal.DAL.Repositories
             var createdNewsPost = _session.Get<NewsPost>(item.Id);
             DateTime createdDate = createdNewsPost.CreatedDate;
             item.CreatedDate = createdDate;
+            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
             _session.Update(item);
+        }
+        public override int Create(NewsPost item)
+        {
+            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
+            return base.Create(item);
+        }
+
+        public override void Delete(int id)
+        {
+            LuceneRepositoryFactory.GetRepository<NewsPost>().Delete(id);
+            base.Delete(id);
         }
     }
 }

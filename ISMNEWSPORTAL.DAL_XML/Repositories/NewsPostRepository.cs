@@ -112,12 +112,16 @@ namespace ISMNewsPortal.DAL_XML.Repositories
             Options options = requirements as Options;
             IEnumerable<NewsPost> result;
             if (!string.IsNullOrEmpty(options.Search))
-            {
-                var results = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
-                result = GetAll().Where(u => results.Contains(u.Id));
-            } else
-            {
+                result = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
+            else
                 result = base.GetWithOptions(options);
+
+            if (!options.Admin)
+            {
+                result = result.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
+            } else {
+                var ids = result.Select(u => u.Id);
+                result = GetAll().Where(u => ids.Contains(u.Id));
             }
 
             result = SortBy(result, options.SortType, options.Reversed ?? true);
@@ -137,9 +141,6 @@ namespace ISMNewsPortal.DAL_XML.Repositories
             }
 
             options.Pages = CalculatePages(result.Count(), NewsPost.NewsInOnePage);
-
-            if (!options.Admin)
-                result = result.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
 
             result = result.Skip(options.Page * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
 

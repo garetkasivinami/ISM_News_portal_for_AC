@@ -148,10 +148,10 @@ namespace ISMNewsPortal.Lucene.Repositories
 
         protected abstract string[] GetFields();
 
-        private List<int> search(string input)
+        private List<T> search(string input)
         {
             if (string.IsNullOrEmpty(input.Replace("*", "").Replace("?", "")))
-                return new List<int>();
+                return new List<T>();
 
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
@@ -168,29 +168,30 @@ namespace ISMNewsPortal.Lucene.Repositories
             }
         }
 
-        private static List<int> _mapLuceneToDataList(IEnumerable<ScoreDoc> hits,
+        private List<T> _mapLuceneToDataList(IEnumerable<ScoreDoc> hits,
             IndexSearcher searcher)
         {
-            return hits.Select(hit => _mapLuceneDocumentToDataId(searcher.Doc(hit.Doc))).ToList();
+            return hits.Select(hit => _mapLuceneDocument(searcher.Doc(hit.Doc))).ToList();
         }
 
-        private static int _mapLuceneDocumentToDataId(Document doc)
+        private T _mapLuceneDocument(Document doc)
         {
-            return Convert.ToInt32(doc.Get("Id"));
+            return ConvertTo(doc);
         }
 
-        public IEnumerable<int> Search(Options options)
+        public IEnumerable<T> Search(Options options)
         {
             var input = options.Search;
             if (string.IsNullOrEmpty(input))
-                return new List<int>();
+                return new List<T>();
 
             var terms = input.Trim().Replace("-", " ").Split(' ')
                 .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim() + "*");
             input = string.Join(" ", terms);
 
-            List<int> results = search(input);
-            return results;
+            return search(input);
         }
+
+        public abstract T ConvertTo(Document doc);
     }
 }
