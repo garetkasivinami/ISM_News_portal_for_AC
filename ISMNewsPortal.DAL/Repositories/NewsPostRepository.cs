@@ -1,12 +1,11 @@
 ﻿using ISMNewsPortal.BLL.Repositories;
-using ISMNewsPortal.DAL.Lucene;
 using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ISMNewsPortal.DAL.ToolsLogic.NewsPostToolsLogic;
+using static ISMNewsPortal.BLL.Services.NewsPostService;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.DAL.ToolsLogic;

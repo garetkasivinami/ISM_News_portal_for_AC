@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ISMNewsPortal.BLL.Services.NewsPostService;
 
 namespace ISMNewsPortal.DAL_XML.Repositories
 {
@@ -73,40 +74,6 @@ namespace ISMNewsPortal.DAL_XML.Repositories
             base.Update(item);
         }
 
-        public static IEnumerable<NewsPost> SortBy(IEnumerable<NewsPost> items, string sortType, bool reversed)
-        {
-            switch (sortType)
-            {
-                case "id":
-                    items = items.OrderBy(u => u.Id);
-                    break;
-                case "name":
-                    items = items.OrderBy(u => u.Name);
-                    break;
-                case "description":
-                    items = items.OrderBy(u => u.Description);
-                    break;
-                case "editdate":
-                    items = items.OrderBy(u => u.EditDate);
-                    break;
-                case "author":
-                    items = items.OrderBy(u => u.AuthorId);
-                    break;
-                case "publicationdate":
-                    items = items.OrderBy(u => u.PublicationDate);
-                    break;
-                case "visibility":
-                    items = items.OrderBy(u => u.IsVisible);
-                    break;
-                default:
-                    items = items.OrderBy(u => u.CreatedDate);
-                    break;
-            }
-            if (reversed)
-                items = items.Reverse();
-            return items;
-        }
-
         public override IEnumerable<NewsPost> GetWithOptions(object requirements)
         {
             Options options = requirements as Options;
@@ -124,7 +91,10 @@ namespace ISMNewsPortal.DAL_XML.Repositories
                 result = GetAll().Where(u => ids.Contains(u.Id));
             }
 
-            result = SortBy(result, options.SortType, options.Reversed ?? true);
+            if (options.Reversed == true || options.Reversed == null)
+                result = SortByReversed(result, options.SortType);
+            else
+                result = SortBy(result, options.SortType);
 
             if (options.MinimumDate != null)
                 result = result.Where(u => u.PublicationDate >= options.MinimumDate);

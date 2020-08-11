@@ -28,8 +28,12 @@ namespace ISMNewsPortal.Helpers
                 return equalFileModelDTO.Id;
 
             string fileName = Path.GetFileName(file.FileName);
-            fileName = DateTime.Now.Ticks + Path.GetExtension(fileName);
             string path = server.MapPath("~/App_Data/Files/" + fileName);
+            if (File.Exists(path))
+            {
+                fileName = $"{DateTime.Now.Ticks}_{ Path.GetExtension(fileName)}";
+                path = server.MapPath("~/App_Data/Files/" + fileName);
+            }
             file.SaveAs(path);
 
             file.InputStream.Close();

@@ -140,7 +140,7 @@ namespace ISMNewsPortal.Helpers
 
         public static string GetLocalizedRoleName(string role)
         {
-            return LinkHelper.GetLocalizedByName(role.ToString());
+            return LinkHelper.GetLocalizedByName(role);
         }
     }
 }

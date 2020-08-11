@@ -33,13 +33,13 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult EditNews(NewsPostEditModel model)
         {
-            if (model.uploadFiles[0] != null)
-            {
-                FileModelActions.RemoveFile(model.ImageId, Server);
-                model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
-            }
             if (ModelState.IsValid)
             {
+                if (model.uploadFiles[0] != null)
+                {
+                    FileModelActions.RemoveFile(model.ImageId, Server);
+                    model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
+                }
                 if (model.Description == "<br>")
                 {
                     ModelState.AddModelError("Description", "No description!");

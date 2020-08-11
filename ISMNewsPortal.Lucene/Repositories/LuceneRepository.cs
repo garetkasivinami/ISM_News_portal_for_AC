@@ -19,7 +19,7 @@ namespace ISMNewsPortal.Lucene.Repositories
 {
     public abstract class LuceneRepository<T> : ILuceneRepository<T> where T : Model
     {
-        private static FSDirectory _directoryTemp;
+        private static FSDirectory fsdDirectory;
 
         private string directory;
         public string Directory
@@ -27,15 +27,22 @@ namespace ISMNewsPortal.Lucene.Repositories
             get => directory;
         }
 
-        private FSDirectory _directory
+        private FSDirectory FSDDirectory
         {
             get
             {
-                if (_directoryTemp == null) _directoryTemp = FSDirectory.Open(new DirectoryInfo(Directory));
-                if (IndexWriter.IsLocked(_directoryTemp)) IndexWriter.Unlock(_directoryTemp);
+                if (fsdDirectory == null)
+                    fsdDirectory = FSDirectory.Open(new DirectoryInfo(Directory));
+
+                if (IndexWriter.IsLocked(fsdDirectory)) 
+                    IndexWriter.Unlock(fsdDirectory);
+
                 var lockFilePath = Path.Combine(Directory, "write.lock");
-                if (File.Exists(lockFilePath)) File.Delete(lockFilePath);
-                return _directoryTemp;
+
+                if (File.Exists(lockFilePath)) 
+                    File.Delete(lockFilePath);
+
+                return fsdDirectory;
             }
         }
 
@@ -50,7 +57,7 @@ namespace ISMNewsPortal.Lucene.Repositories
             
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                using (var writer = new IndexWriter(FSDDirectory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
                     foreach (T item in items)
                     {
@@ -70,7 +77,7 @@ namespace ISMNewsPortal.Lucene.Repositories
         {
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                using (var writer = new IndexWriter(FSDDirectory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
                     var searchQuery = new TermQuery(new Term("Id", id.ToString()));
                     writer.DeleteDocuments(searchQuery);
@@ -84,13 +91,11 @@ namespace ISMNewsPortal.Lucene.Repositories
                 SaveOrUpdate(item);
         }
 
-        protected abstract void PassToIndex(T item, Document doc);
-
         public void SaveOrUpdate(T item)
         {
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                using (var writer = new IndexWriter(FSDDirectory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
                     var searchQuery = new TermQuery(new Term("Id", item.Id.ToString()));
                     writer.DeleteDocuments(searchQuery);
@@ -106,7 +111,7 @@ namespace ISMNewsPortal.Lucene.Repositories
         {
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                using (var writer = new IndexWriter(FSDDirectory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
                     writer.Optimize();
                 }
@@ -119,7 +124,7 @@ namespace ISMNewsPortal.Lucene.Repositories
             {
                 using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
                 {
-                    using (var writer = new IndexWriter(_directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
+                    using (var writer = new IndexWriter(FSDDirectory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
                     {
                         writer.DeleteAll();
                     }
@@ -146,8 +151,6 @@ namespace ISMNewsPortal.Lucene.Repositories
             return query;
         }
 
-        protected abstract string[] GetFields();
-
         private List<T> search(string input)
         {
             if (string.IsNullOrEmpty(input.Replace("*", "").Replace("?", "")))
@@ -155,7 +158,7 @@ namespace ISMNewsPortal.Lucene.Repositories
 
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                using (var searcher = new IndexSearcher(_directory, false))
+                using (var searcher = new IndexSearcher(FSDDirectory, false))
                 {
                     var hits_limit = 1000;
                     QueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30, GetFields(), analyzer);
@@ -193,5 +196,7 @@ namespace ISMNewsPortal.Lucene.Repositories
         }
 
         public abstract T ConvertTo(Document doc);
+        protected abstract string[] GetFields();
+        protected abstract void PassToIndex(T item, Document doc);
     }
 }
