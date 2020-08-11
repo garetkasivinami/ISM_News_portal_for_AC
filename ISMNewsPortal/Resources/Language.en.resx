@@ -121,7 +121,7 @@
     <value>Admin Id</value>
   </data>
   <data name="Administrator" xml:space="preserve">
-    <value>Administrator</value>
+    <value>View admin list</value>
   </data>
   <data name="AdminPage" xml:space="preserve">
     <value>Admin page</value>
@@ -145,13 +145,13 @@
     <value>Login</value>
   </data>
   <data name="CanCreateAdmin" xml:space="preserve">
-    <value>Can create new admin</value>
+    <value>Create new admin</value>
   </data>
   <data name="CanEditAdmin" xml:space="preserve">
-    <value>Can edit other admin</value>
+    <value>Edit admin</value>
   </data>
   <data name="CanSetAdminRole" xml:space="preserve">
-    <value>Can set other admin role</value>
+    <value>Change admin's rights</value>
   </data>
   <data name="ChangPassword" xml:space="preserve">
     <value>Change password</value>
@@ -190,7 +190,7 @@
     <value>Create admin</value>
   </data>
   <data name="CreatedDate" xml:space="preserve">
-    <value>Created date</value>
+    <value>Date of creation</value>
   </data>
   <data name="CreateNAdmin" xml:space="preserve">
     <value>Create new admin</value>
@@ -205,7 +205,7 @@
     <value>Create</value>
   </data>
   <data name="Creator" xml:space="preserve">
-    <value>Creator</value>
+    <value>Create posts</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>Date</value>
@@ -262,7 +262,7 @@
     <value>Manage comments</value>
   </data>
   <data name="Moderator" xml:space="preserve">
-    <value>Moderator</value>
+    <value>Manage comments</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>Title</value>
@@ -331,7 +331,7 @@
     <value>Return</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Roles &amp; rights</value>
+    <value>Rights</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

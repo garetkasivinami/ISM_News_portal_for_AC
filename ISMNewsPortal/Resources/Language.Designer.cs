@@ -70,7 +70,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Administrator.
+        ///   Looks up a localized string similar to View admins list.
         /// </summary>
         public static string Administrator {
             get {
@@ -142,7 +142,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CanCreateAdmin.
+        ///   Looks up a localized string similar to Create new admin.
         /// </summary>
         public static string CanCreateAdmin {
             get {
@@ -151,7 +151,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CanEditAdmin.
+        ///   Looks up a localized string similar to Edit admin.
         /// </summary>
         public static string CanEditAdmin {
             get {
@@ -160,7 +160,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CanSetAdminRole.
+        ///   Looks up a localized string similar to Change admin&apos;s rights.
         /// </summary>
         public static string CanSetAdminRole {
             get {
@@ -277,7 +277,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created date.
+        ///   Looks up a localized string similar to Date of creation.
         /// </summary>
         public static string CreatedDate {
             get {
@@ -322,7 +322,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Creator.
+        ///   Looks up a localized string similar to Create posts.
         /// </summary>
         public static string Creator {
             get {
@@ -502,7 +502,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Moderator.
+        ///   Looks up a localized string similar to Manage comments.
         /// </summary>
         public static string Moderator {
             get {
@@ -709,7 +709,7 @@ namespace Language {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles &amp; rights.
+        ///   Looks up a localized string similar to Rights.
         /// </summary>
         public static string Roles {
             get {

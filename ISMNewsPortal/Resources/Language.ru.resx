@@ -121,7 +121,7 @@
     <value>Id администратора</value>
   </data>
   <data name="Administrator" xml:space="preserve">
-    <value>Администратор</value>
+    <value>Просмотр списка админов</value>
   </data>
   <data name="AdminPage" xml:space="preserve">
     <value>Страница администратора</value>
@@ -145,13 +145,13 @@
     <value>Авторизироваться</value>
   </data>
   <data name="CanCreateAdmin" xml:space="preserve">
-    <value>Может создавать админов</value>
+    <value>Создание админов</value>
   </data>
   <data name="CanEditAdmin" xml:space="preserve">
-    <value>Может редактировать админа</value>
+    <value>Редактирование админа</value>
   </data>
   <data name="CanSetAdminRole" xml:space="preserve">
-    <value>Может менять права админа</value>
+    <value>Редактировать права админа</value>
   </data>
   <data name="ChangPassword" xml:space="preserve">
     <value>Изменить пароль</value>
@@ -205,7 +205,7 @@
     <value>Создать</value>
   </data>
   <data name="Creator" xml:space="preserve">
-    <value>Создатель постов</value>
+    <value>Создание постов</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>Дата</value>
@@ -262,7 +262,7 @@
     <value>Управлять комментариями</value>
   </data>
   <data name="Moderator" xml:space="preserve">
-    <value>Модератор</value>
+    <value>Удаление коментариев</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>Название</value>
@@ -331,7 +331,7 @@
     <value>Вернуться</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Роли и права</value>
+    <value>Права</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
