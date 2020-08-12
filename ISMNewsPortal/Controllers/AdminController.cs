@@ -60,7 +60,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult DeleteNewsPost(int id)
         {
-            NewsPostHelper.DeleteNewsPost(id);
+            NewsPostHelper.DeleteNewsPost(id, Server);
             return RedirectToAction("Index");
         }
 

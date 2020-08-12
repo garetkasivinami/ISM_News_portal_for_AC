@@ -31,7 +31,7 @@ namespace ISMNewsPortal.Helpers
             string path = server.MapPath("~/App_Data/Files/" + fileName);
             if (File.Exists(path))
             {
-                fileName = $"{DateTime.Now.Ticks}_{ Path.GetExtension(fileName)}";
+                fileName = $"{DateTime.Now.Ticks}_{fileName}";
                 path = server.MapPath("~/App_Data/Files/" + fileName);
             }
             file.SaveAs(path);

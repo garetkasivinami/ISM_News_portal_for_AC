@@ -8,6 +8,7 @@ using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Models;
 using ISMNewsPortal.BLL.Exceptions;
 using ISMNewsPortal.Models.Tools;
+using System.Web;
 
 namespace ISMNewsPortal.Helpers
 {
@@ -27,15 +28,12 @@ namespace ISMNewsPortal.Helpers
             newsPostService.UpdateNewsPost(newsPost);
         }
 
-        public static void DeleteNewsPost(int id)
+        public static void DeleteNewsPost(int id, HttpServerUtilityBase server)
         {
             NewsPostService newsPostService = new NewsPostService();
-            FileService fileService = new FileService();
-
             var newsPost = newsPostService.GetNewsPost(id);
-
             newsPostService.DeleteNewsPost(id);
-            fileService.SafeDeleteFile(newsPost.ImageId);
+            FileModelActions.RemoveFile(newsPost.ImageId, server);
         }
 
         public static NewsPostViewModel GetNewsPostViewModelById(int id, int commentPage, bool allowAdminActions, bool onlyVisible = false)
