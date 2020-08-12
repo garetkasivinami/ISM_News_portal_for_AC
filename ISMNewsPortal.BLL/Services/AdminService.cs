@@ -1,10 +1,5 @@
 ﻿using ISMNewsPortal.BLL.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using System.Text;
-using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Exceptions;
 using static ISMNewsPortal.BLL.UnitOfWorkManager;
 

@@ -1,9 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Tool.hbm2ddl;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 
 namespace ISMNewsPortal
@@ -19,7 +16,7 @@ namespace ISMNewsPortal
             {
                 if (sessionFactory == null)
                 {
-                    var configuration = new Configuration().SetProperty(NHibernate.Cfg.Environment.UseProxyValidator, bool.FalseString);
+                    var configuration = new Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
                     sessionFactory = CreateSessionFactory(configuration);
                     new SchemaUpdate(configuration).Execute(true, true);
                 }

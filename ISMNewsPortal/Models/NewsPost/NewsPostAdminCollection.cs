@@ -1,5 +1,4 @@
-﻿using ISMNewsPortal.BLL.BusinessModels;
-using ISMNewsPortal.Models.Tools;
+﻿using ISMNewsPortal.Models.Tools;
 using System.Collections.Generic;
 
 namespace ISMNewsPortal.Models

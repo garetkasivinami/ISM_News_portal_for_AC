@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ISMNewsPortal.BLL.BusinessModels;
+﻿using System.Collections.Generic;
 using ISMNewsPortal.BLL.Models;
 
 namespace ISMNewsPortal.BLL.Repositories

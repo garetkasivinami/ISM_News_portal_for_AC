@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using System.Linq;
-using System.Web;
 
 namespace ISMNewsPortal.BLL.Models
 {

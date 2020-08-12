@@ -1,12 +1,8 @@
-﻿using ISMNewsPortal.BLL.BusinessModels;
-using ISMNewsPortal.BLL.Models;
+﻿using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.DAL_XML.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ISMNewsPortal.DAL_XML.Repositories
 {

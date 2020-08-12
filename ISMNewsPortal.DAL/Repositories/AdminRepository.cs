@@ -2,11 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.BLL.BusinessModels;
 
 namespace ISMNewsPortal.DAL.Repositories
 {

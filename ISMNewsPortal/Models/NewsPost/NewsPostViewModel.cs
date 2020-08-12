@@ -1,10 +1,6 @@
-﻿using Antlr.Runtime.Tree;
-using ISMNewsPortal.BLL.Models;
+﻿using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Helpers;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Web.UI.HtmlControls;
 
 namespace ISMNewsPortal.Models
 {

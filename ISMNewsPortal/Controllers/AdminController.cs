@@ -1,9 +1,6 @@
 ﻿using ISMNewsPortal.Models;
 using System.Web.Mvc;
-using ISMNewsPortal.BLL.Services;
 using ISMNewsPortal.BLL.Models;
-using System;
-using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.Helpers;
 using ISMNewsPortal.Models.Tools;
 

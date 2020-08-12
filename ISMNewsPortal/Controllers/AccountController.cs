@@ -1,6 +1,5 @@
 ﻿using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using ISMNewsPortal.Models;
 using ISMNewsPortal.Helpers;
 using ISMNewsPortal.Accounts;

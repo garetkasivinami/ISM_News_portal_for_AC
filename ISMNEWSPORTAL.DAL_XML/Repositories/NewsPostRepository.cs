@@ -5,8 +5,6 @@ using ISMNewsPortal.Lucene;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static ISMNewsPortal.BLL.Services.NewsPostService;
 
 namespace ISMNewsPortal.DAL_XML.Repositories

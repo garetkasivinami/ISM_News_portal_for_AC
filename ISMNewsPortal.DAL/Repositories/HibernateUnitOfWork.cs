@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ISMNewsPortal.BLL.Models;
-using ISMNewsPortal.BLL.Repositories;
+﻿using ISMNewsPortal.BLL.Repositories;
 using NHibernate;
 
 namespace ISMNewsPortal.DAL.Repositories
