@@ -21,7 +21,7 @@
                     @Html.ActionLink(Language.Language.yesterday, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "yesterday"), new { @class = "dropdown-item" })
                     @Html.ActionLink(Language.Language.week, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "week"), new { @class = "dropdown-item" })
                     @Html.ActionLink(Language.Language.onlyPublished, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "onlyPublished"), new { @class = "dropdown-item" })
-                    @Html.ActionLink(Language.Language.NotPublished, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "NotPublished"), new { @class = "dropdown-item" })
+                    @Html.ActionLink(Language.Language.onlyNotPublished, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, "NotPublished"), new { @class = "dropdown-item" })
                     @Html.ActionLink(Language.Language.all, "Index", "Admin", LinkHelper.CreateFilterLinks(Model, null), new { @class = "dropdown-item" })
                 </div>
             </li>
