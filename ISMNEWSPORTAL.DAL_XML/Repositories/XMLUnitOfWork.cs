@@ -3,26 +3,17 @@ using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.DAL_XML.Models;
 using System.Collections.Generic;
 using System.Linq;
+using ISMNewsPortal.BLL;
 
 namespace ISMNewsPortal.DAL_XML.Repositories
 {
     public class XMLUnitOfWork : IUnitOfWork
     {
         private XMLContex contex;
-        private AdminRepository adminRepository;
-        private CommentRepository commentRepository;
-        private NewsPostRepository newsPostRepository;
-        private FileRepository fileRepository;
 
-        public XMLUnitOfWork(XMLContex contex, AdminRepository adminRepository, CommentRepository commentRepository,
-            NewsPostRepository newsPostRepository, FileRepository fileRepository)
+        public XMLUnitOfWork(XMLContex contex)
         {
             this.contex = contex;
-
-            this.adminRepository = adminRepository;
-            this.commentRepository = commentRepository;
-            this.newsPostRepository = newsPostRepository;
-            this.fileRepository = fileRepository;
         }
 
         public void Dispose()
@@ -32,11 +23,19 @@ namespace ISMNewsPortal.DAL_XML.Repositories
 
         public void Save()
         {
-            AppendChanges(adminRepository);
-            AppendChanges(commentRepository);
-            AppendChanges(newsPostRepository);
-            AppendChanges(fileRepository);
-            contex.Save();
+            lock(this)
+            {
+                AdminRepository adminRepository = UnitOfWorkManager.AdminRepository as AdminRepository;
+                CommentRepository commentRepository = UnitOfWorkManager.CommentRepository as CommentRepository;
+                NewsPostRepository newsPostRepository = UnitOfWorkManager.NewsPostRepository as NewsPostRepository;
+                FileRepository fileRepository = UnitOfWorkManager.FileRepository as FileRepository;
+
+                AppendChanges(adminRepository);
+                AppendChanges(commentRepository);
+                AppendChanges(newsPostRepository);
+                AppendChanges(fileRepository);
+                contex.Save();
+            }
         }
 
         private void AppendChanges<T>(Repository<T> repository) where T : Model

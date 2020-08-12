@@ -85,7 +85,7 @@ namespace ISMNewsPortal
             var newsPostRepository = new DAL_XML.Repositories.NewsPostRepository(xmlContex);
             var fileRepository = new DAL_XML.Repositories.FileRepository(xmlContex);
 
-            IUnitOfWork unitOfWork = new XMLUnitOfWork(xmlContex, adminRepository, commentRepository, newsPostRepository, fileRepository);
+            IUnitOfWork unitOfWork = new XMLUnitOfWork(xmlContex);
 
             UnitOfWorkManager.SetUnitOfWork(unitOfWork, adminRepository, commentRepository, newsPostRepository, fileRepository);
             connectionBuilded = true;
