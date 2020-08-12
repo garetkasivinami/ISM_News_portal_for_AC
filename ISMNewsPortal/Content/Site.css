@@ -271,3 +271,7 @@ select.form-control.roles {
 img.visibility {
     margin-top: 0;
 }
+
+.no-bordered {
+    border: 0;
+}
