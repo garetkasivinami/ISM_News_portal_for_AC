@@ -259,7 +259,7 @@
     <value>Вийти</value>
   </data>
   <data name="ManageComments" xml:space="preserve">
-    <value>Керувати коментарями</value>
+    <value>Робота з коментарями</value>
   </data>
   <data name="Moderator" xml:space="preserve">
     <value>Видалення коментарів</value>
