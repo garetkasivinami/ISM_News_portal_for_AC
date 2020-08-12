@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using ISMNewsPortal.Helpers;
 using ISMNewsPortal.Models.Tools;
+using System.Web.UI;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -9,24 +10,25 @@ namespace ISMNewsPortal.Controllers
     public class NewsController : Controller
     {
         [HttpGet]
-        [OutputCache(Duration = 10)]
+        [OutputCache(Duration = 20, Location = OutputCacheLocation.Client)]
         public ActionResult Index(ToolsModel model)
         {
-            NewsPostSimplifiedCollection newsPostSimplifiedCollection = NewsPostHelper.GenerateNewsPostSimplifiedCollection(model);
+            var newsPostSimplifiedCollection = NewsPostHelper.GenerateNewsPostSimplifiedCollection(model);
             return View(newsPostSimplifiedCollection);
         }
 
         [HttpGet]
-        [OutputCache(Location = System.Web.UI.OutputCacheLocation.Client, Duration = 180)]
+        [OutputCache(Location = OutputCacheLocation.Client, Duration = 360)]
         public ActionResult Error404()
         {
             return View();
         }
 
         [HttpGet]
+        [OutputCache(Location = OutputCacheLocation.ServerAndClient, Duration = 10)]
         public ActionResult Details(int id, int? page)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 1, User.IsInRole(Roles.Moderator.ToString()), true);
+            var newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 1, User.IsInRole(Roles.Moderator.ToString()), true);
             return View(newsPostViewModel);
 
         }
@@ -36,7 +38,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Creator)]
         public ActionResult Preview(int id)
         {
-            NewsPostViewModel newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 1, User.IsInRole(Roles.Moderator.ToString()));
+            var newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, 1, User.IsInRole(Roles.Moderator.ToString()));
             return View("Details", newsPostViewModel);
         }
 

@@ -288,6 +288,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>No comments</value>
   </data>
+  <data name="NoDescription" xml:space="preserve">
+    <value>No description!</value>
+  </data>
   <data name="NoImage" xml:space="preserve">
     <value>Image</value>
   </data>

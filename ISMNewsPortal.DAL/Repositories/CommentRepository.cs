@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static ISMNewsPortal.DAL.ToolsLogic.CommentToolsLogic;
+using static ISMNewsPortal.BLL.Services.CommentService;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
@@ -49,7 +49,7 @@ namespace ISMNewsPortal.DAL.Repositories
         public override IEnumerable<Comment> GetWithOptions(object requirements)
         {
             var options = requirements as OptionsCollectionById;
-            var items = _session.Query<Comment>().Where(u => u.NewsPostId == options.TargetId);
+            IEnumerable<Comment> items = _session.Query<Comment>().Where(u => u.NewsPostId == options.TargetId);
 
             if (!string.IsNullOrEmpty(options.Search))
             {
@@ -68,6 +68,8 @@ namespace ISMNewsPortal.DAL.Repositories
                 items = items.Where(u => u.Date < options.MaximumDate);
 
             options.Pages = Helper.CalculatePages(items.Count(), Comment.CommentsInOnePage);
+
+            options.CommentsCount = items.Count();
 
             items = items.Skip(options.Page * Comment.CommentsInOnePage).Take(Comment.CommentsInOnePage);
 

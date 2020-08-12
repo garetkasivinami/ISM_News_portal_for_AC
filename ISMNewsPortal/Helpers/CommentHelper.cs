@@ -55,7 +55,7 @@ namespace ISMNewsPortal.Helpers
             var optionsBusiness = options.ConvertToOptionsCollectionById();
             var comments = commentService.GetCommentsWithTools(optionsBusiness);
 
-            int commentsCount = comments.Count();
+            int commentsCount = optionsBusiness.CommentsCount;
 
             var commentsViewModel = new List<CommentViewModel>();
             foreach (Comment comment in comments)

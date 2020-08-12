@@ -166,18 +166,18 @@ namespace ISMNewsPortal.Lucene.Repositories
 
                     var hits = searcher.Search(query, hits_limit).ScoreDocs;
 
-                    return _mapLuceneToDataList(hits, searcher);
+                    return mapLuceneToDataList(hits, searcher);
                 }
             }
         }
 
-        private List<T> _mapLuceneToDataList(IEnumerable<ScoreDoc> hits,
+        private List<T> mapLuceneToDataList(IEnumerable<ScoreDoc> hits,
             IndexSearcher searcher)
         {
-            return hits.Select(hit => _mapLuceneDocument(searcher.Doc(hit.Doc))).ToList();
+            return hits.Select(hit => mapLuceneDocument(searcher.Doc(hit.Doc))).ToList();
         }
 
-        private T _mapLuceneDocument(Document doc)
+        private T mapLuceneDocument(Document doc)
         {
             return ConvertTo(doc);
         }

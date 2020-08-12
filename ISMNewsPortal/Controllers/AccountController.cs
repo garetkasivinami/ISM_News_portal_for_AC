@@ -5,6 +5,7 @@ using ISMNewsPortal.Models;
 using ISMNewsPortal.Helpers;
 using ISMNewsPortal.Accounts;
 using Microsoft.AspNet.Identity.Owin;
+using System.Web.UI;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -17,7 +18,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Location = System.Web.UI.OutputCacheLocation.Client, Duration = 180)]
+        [OutputCache(Location = OutputCacheLocation.Client, Duration = 180)]
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)

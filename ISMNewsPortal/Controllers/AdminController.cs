@@ -35,14 +35,14 @@ namespace ISMNewsPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model.uploadFiles[0] != null)
+                if (model.uploadFiles != null && model.uploadFiles[0] != null)
                 {
                     FileModelActions.RemoveFile(model.ImageId, Server);
                     model.ImageId = FileModelActions.SaveFile(model.uploadFiles[0], Server);
                 }
                 if (model.Description == "<br>")
                 {
-                    ModelState.AddModelError("Description", "No description!");
+                    ModelState.AddModelError("Description", Language.Language.NoDescription);
                     return View(model);
                 }
                 NewsPostHelper.UpdateNewsPost(model);
@@ -98,7 +98,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.CanCreateAdmin)]
         public ActionResult DeleteAdmin(int id)
         {
-            Admin admin = AdminHelper.GetAdmin(id);
+            var admin = AdminHelper.GetAdmin(id);
             return View(new AdminViewModel(admin));
         }
 
@@ -145,7 +145,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Administrator)]
         public ActionResult AdminsList()
         {
-            AdminViewModelCollection adminViewModelCollection = AdminHelper.GenerateAdminViewModelCollection();
+            var adminViewModelCollection = AdminHelper.GenerateAdminViewModelCollection();
             return View(adminViewModelCollection);
         }
 
@@ -153,7 +153,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
         public ActionResult Comments(CommentToolsModel commentTools)
         {
-            CommentViewModelCollection commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(commentTools);
+            var commentViewModelCollection = CommentHelper.GenerateCommentViewModelCollection(commentTools);
             return View(commentViewModelCollection);
         }
 

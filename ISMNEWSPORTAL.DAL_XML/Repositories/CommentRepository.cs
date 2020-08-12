@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static ISMNewsPortal.BLL.Services.CommentService;
 
 namespace ISMNewsPortal.DAL_XML.Repositories
 {
@@ -54,29 +55,6 @@ namespace ISMNewsPortal.DAL_XML.Repositories
             return pages;
         }
 
-        public static IEnumerable<Comment> SortBy(IEnumerable<Comment> items, string sortType, bool reversed)
-        {
-            sortType = sortType?.ToLower();
-            switch (sortType)
-            {
-                case "id":
-                    items = items.OrderBy(u => u.Id);
-                    break;
-                case "username":
-                    items = items.OrderBy(u => u.UserName);
-                    break;
-                case "commenttext":
-                    items = items.OrderBy(u => u.Text);
-                    break;
-                default:
-                    items = items.OrderBy(u => u.Date);
-                    break;
-            }
-            if (reversed)
-                items = items.Reverse();
-            return items;
-        }
-
         public override IEnumerable<Comment> GetWithOptions(object requirements)
         {
             var options = requirements as OptionsCollectionById;
@@ -86,7 +64,10 @@ namespace ISMNewsPortal.DAL_XML.Repositories
                 items = items.Where(u => (u.Text.Contains(options.Search) || u.UserName.Contains(options.Search)));
             }
 
-            items = SortBy(items, options.SortType, options.Reversed ?? true);
+            if (options.Reversed == true || options.Reversed == null)
+                items = SortByReversed(items, options.SortType);
+            else
+                items = SortBy(items, options.SortType);
 
             if (options.MinimumDate != null)
                 items = items.Where(u => u.Date >= options.MinimumDate);
@@ -95,6 +76,8 @@ namespace ISMNewsPortal.DAL_XML.Repositories
                 items = items.Where(u => u.Date < options.MaximumDate);
 
             options.Pages = CalculatePages(items.Count(), Comment.CommentsInOnePage);
+
+            options.CommentsCount = items.Count();
 
             items = items.Skip(options.Page * Comment.CommentsInOnePage).Take(Comment.CommentsInOnePage);
 

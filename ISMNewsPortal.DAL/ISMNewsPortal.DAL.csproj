@@ -75,8 +75,6 @@
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="Repositories\NewsPostRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="ToolsLogic\CommentToolsLogic.cs" />
-    <Compile Include="ToolsLogic\NewsPostToolsLogic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

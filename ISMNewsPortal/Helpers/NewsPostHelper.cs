@@ -34,8 +34,8 @@ namespace ISMNewsPortal.Helpers
 
             var newsPost = newsPostService.GetNewsPost(id);
 
-            fileService.SafeDeleteFile(newsPost.ImageId);
             newsPostService.DeleteNewsPost(id);
+            fileService.SafeDeleteFile(newsPost.ImageId);
         }
 
         public static NewsPostViewModel GetNewsPostViewModelById(int id, int commentPage, bool allowAdminActions, bool onlyVisible = false)
@@ -62,7 +62,7 @@ namespace ISMNewsPortal.Helpers
             {
                 commentsViewModel.Add(new CommentViewModel(comment));
             }
-            return new NewsPostViewModel(newsPost, commentsViewModel, commentPage, pages, allowAdminActions);
+            return new NewsPostViewModel(newsPost, commentsViewModel, commentPage, pages, allowAdminActions, commentsCount);
         }
 
         public static NewsPostAdminCollection GenerateNewsPostAdminCollection(ToolsModel model)

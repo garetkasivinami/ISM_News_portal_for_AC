@@ -285,6 +285,9 @@
   <data name="NoComments" xml:space="preserve">
     <value>Коментарі відсутні</value>
   </data>
+  <data name="NoDescription" xml:space="preserve">
+    <value>Опис відсутній!</value>
+  </data>
   <data name="NoImage" xml:space="preserve">
     <value>Зображення</value>
   </data>
