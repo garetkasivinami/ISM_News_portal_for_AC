@@ -25,7 +25,7 @@ namespace ISMNewsPortal.Controllers
         }
 
         [HttpGet]
-        [OutputCache(Location = OutputCacheLocation.ServerAndClient, Duration = 10)]
+        [OutputCache(Location = OutputCacheLocation.Client, Duration = 5)]
         public ActionResult Details(int id, int? page)
         {
             var newsPostViewModel = NewsPostHelper.GetNewsPostViewModelById(id, page ?? 1, User.IsInRole(Roles.Moderator.ToString()), true);

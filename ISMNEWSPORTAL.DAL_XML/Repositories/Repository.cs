@@ -1,6 +1,7 @@
 ﻿using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.DAL_XML.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -25,6 +26,8 @@ namespace ISMNewsPortal.DAL_XML.Repositories
 
         public virtual int Create(T item)
         {
+            if (item == null)
+                throw new NullReferenceException();
             contex.SetNewItemId<T>(item);
             entities.Add(item.Id, new ModelObject<T>() { Model = item, State = ModelState.Created });
             return item.Id;
@@ -37,7 +40,10 @@ namespace ISMNewsPortal.DAL_XML.Repositories
                 entities[id].State = ModelState.Deleted;
                 return;
             }
-            entities.Add(id, new ModelObject<T>() { Model = Get(id), State = ModelState.Deleted });
+            T item = Get(id);
+            if (item == null)
+                throw new NullReferenceException();
+            entities.Add(id, new ModelObject<T>() { Model = item, State = ModelState.Deleted });
         }
 
         public T Get(int id)

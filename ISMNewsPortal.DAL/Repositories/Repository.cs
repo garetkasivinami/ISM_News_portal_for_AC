@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System;
 using NHibernate;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
@@ -19,6 +20,9 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public virtual int Create(T item)
         {
+            if (item == null)
+                throw new NullReferenceException();
+
             _session.Save(item);
             return item.Id;
         }
@@ -26,6 +30,9 @@ namespace ISMNewsPortal.DAL.Repositories
         public virtual void Delete(int id)
         {
             T item = _session.Get<T>(id);
+            if (item == null)
+                throw new NullReferenceException();
+
             _session.Delete(item);
         }
 
@@ -46,6 +53,8 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public virtual void Update(T item)
         {
+            if (item == null)
+                throw new NullReferenceException();
             _session.Update(item);
         }
     }
