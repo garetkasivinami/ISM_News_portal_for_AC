@@ -9,19 +9,26 @@ namespace ISMNewsPortal
     {
         private static ISessionFactory sessionFactory;
         private static object _obj = new object();
+        
+        public static ISessionFactory SessionFactory
+        {
+            get
+            {
+                lock (_obj)
+                {
+                    if (sessionFactory == null)
+                    {
+                        var configuration = new Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
+                        sessionFactory = CreateSessionFactory(configuration);
+                        new SchemaUpdate(configuration).Execute(true, true);
+                    }
+                }
+                return sessionFactory;
+            }
+        }
         public static ISession OpenSession()
         {
-
-            lock (_obj)
-            {
-                if (sessionFactory == null)
-                {
-                    var configuration = new Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
-                    sessionFactory = CreateSessionFactory(configuration);
-                    new SchemaUpdate(configuration).Execute(true, true);
-                }
-            }
-            return sessionFactory.OpenSession();
+            return SessionFactory.OpenSession();
         }
 
         private static ISessionFactory CreateSessionFactory(Configuration configuration)
@@ -40,6 +47,7 @@ namespace ISMNewsPortal
 
             userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\NHibernate\FileModel.hbm.xml");
             configuration.AddFile(userConfigurationFile);
+
             return configuration.BuildSessionFactory();
         }
     }

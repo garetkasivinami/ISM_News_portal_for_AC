@@ -9,24 +9,24 @@ namespace ISMNewsPortal.DAL.Repositories
 {
     public class AdminRepository : Repository<Admin>, IAdminRepository
     {
-        public AdminRepository(ISession session) : base(session)
+        public AdminRepository(HibernateUnitOfWork hibernateUnitOfWork) : base(hibernateUnitOfWork)
         {
 
         }
 
         public Admin GetByEmail(string email)
         {
-            return _session.Query<Admin>().FirstOrDefault(u => u.Email == email);
+            return hibernateUnitOfWork.Session.Query<Admin>().FirstOrDefault(u => u.Email == email);
         }
 
         public Admin GetByLogin(string login)
         {
-            return _session.Query<Admin>().SingleOrDefault(u => u.Login == login);
+            return hibernateUnitOfWork.Session.Query<Admin>().SingleOrDefault(u => u.Login == login);
         }
 
         public IEnumerable<Admin> GetByRole(string role)
         {
-            return _session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
+            return hibernateUnitOfWork.Session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
         }
     }
 }

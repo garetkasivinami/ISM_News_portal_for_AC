@@ -9,41 +9,43 @@ namespace ISMNewsPortal.DAL.Repositories
 {
     public class Repository<T> : IRepository<T> where T : Model
     {
-        protected ISession _session;
-        public Repository(ISession session) {
-            _session = session;
+        protected HibernateUnitOfWork hibernateUnitOfWork;
+        public Repository(HibernateUnitOfWork hibernateUnitOfWork) {
+            this.hibernateUnitOfWork = hibernateUnitOfWork;
         }
         public int Count()
         {
-            return _session.Query<T>().Count();
+            return hibernateUnitOfWork.Session.Query<T>().Count();
         }
 
         public virtual int Create(T item)
         {
+            hibernateUnitOfWork.BeginTransaction();
             if (item == null)
                 throw new NullReferenceException();
 
-            _session.Save(item);
+            hibernateUnitOfWork.Session.Save(item);
             return item.Id;
         }
 
         public virtual void Delete(int id)
         {
-            T item = _session.Get<T>(id);
+            hibernateUnitOfWork.BeginTransaction();
+            T item = hibernateUnitOfWork.Session.Get<T>(id);
             if (item == null)
                 throw new NullReferenceException();
 
-            _session.Delete(item);
+            hibernateUnitOfWork.Session.Delete(item);
         }
 
         public T Get(int id)
         {
-            return _session.Get<T>(id);
+            return hibernateUnitOfWork.Session.Get<T>(id);
         }
 
         public IEnumerable<T> GetAll()
         {
-            return _session.Query<T>();
+            return hibernateUnitOfWork.Session.Query<T>();
         }
 
         public virtual IEnumerable<T> GetWithOptions(object toolBar)
@@ -53,9 +55,10 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public virtual void Update(T item)
         {
+            hibernateUnitOfWork.BeginTransaction();
             if (item == null)
                 throw new NullReferenceException();
-            _session.Update(item);
+            hibernateUnitOfWork.Session.Update(item);
         }
     }
 }

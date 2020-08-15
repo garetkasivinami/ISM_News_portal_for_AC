@@ -4,12 +4,14 @@ using ISMNewsPortal.DAL_XML.Models;
 using System.Collections.Generic;
 using System.Linq;
 using ISMNewsPortal.BLL;
+using System.Xml;
 
 namespace ISMNewsPortal.DAL_XML.Repositories
 {
     public class XMLUnitOfWork : IUnitOfWork
     {
         private XMLContex contex;
+        private XmlDocument rollbackDocument;
 
         public XMLUnitOfWork(XMLContex contex)
         {
@@ -23,7 +25,9 @@ namespace ISMNewsPortal.DAL_XML.Repositories
 
         public void Save()
         {
-            lock(this)
+            rollbackDocument = contex.document.Clone() as XmlDocument;
+
+            try
             {
                 AdminRepository adminRepository = UnitOfWorkManager.AdminRepository as AdminRepository;
                 CommentRepository commentRepository = UnitOfWorkManager.CommentRepository as CommentRepository;
@@ -34,6 +38,13 @@ namespace ISMNewsPortal.DAL_XML.Repositories
                 AppendChanges(commentRepository);
                 AppendChanges(newsPostRepository);
                 AppendChanges(fileRepository);
+            }
+            catch
+            {
+                contex.document = rollbackDocument;
+            }
+            finally
+            {
                 contex.Save();
             }
         }

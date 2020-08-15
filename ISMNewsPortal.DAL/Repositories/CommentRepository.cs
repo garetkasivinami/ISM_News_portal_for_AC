@@ -11,42 +11,43 @@ namespace ISMNewsPortal.DAL.Repositories
     public class CommentRepository : Repository<Comment>, ICommentRepository
     {
 
-        public CommentRepository(ISession session) : base(session)
+        public CommentRepository(HibernateUnitOfWork hibernateUnitOfWork) : base(hibernateUnitOfWork)
         {
 
         }
 
         public int GetCountByPostId(int id)
         {
-            return _session.Query<Comment>().Count(u => u.NewsPostId == id);
+            return hibernateUnitOfWork.Session.Query<Comment>().Count(u => u.NewsPostId == id);
         }
 
         public void DeleteCommentsByPostId(int postId)
         {
-            var comments = _session.Query<Comment>().Where(u => u.NewsPostId == postId);
+            hibernateUnitOfWork.BeginTransaction();
+            var comments = hibernateUnitOfWork.Session.Query<Comment>().Where(u => u.NewsPostId == postId);
             foreach (Comment comment in comments)
-                _session.Delete(comment);
+                hibernateUnitOfWork.Session.Delete(comment);
         }
 
         public IEnumerable<Comment> GetByPostId(int id)
         {
-            return _session.Query<Comment>().Where(u => u.NewsPostId == id);
+            return hibernateUnitOfWork.Session.Query<Comment>().Where(u => u.NewsPostId == id);
         }
 
         public IEnumerable<Comment> GetByUserName(string userName)
         {
-            return _session.Query<Comment>().Where(u => u.UserName == userName);
+            return hibernateUnitOfWork.Session.Query<Comment>().Where(u => u.UserName == userName);
         }
 
         public IEnumerable<Comment> GetByUserNameAndPostId(string userName, int postId)
         {
-            return _session.Query<Comment>().Where(u => u.NewsPostId == postId && u.UserName == userName);
+            return hibernateUnitOfWork.Session.Query<Comment>().Where(u => u.NewsPostId == postId && u.UserName == userName);
         }
 
         public override IEnumerable<Comment> GetWithOptions(object requirements)
         {
             var options = requirements as OptionsCollectionById;
-            IEnumerable<Comment> items = _session.Query<Comment>().Where(u => u.NewsPostId == options.TargetId);
+            IEnumerable<Comment> items = hibernateUnitOfWork.Session.Query<Comment>().Where(u => u.NewsPostId == options.TargetId);
 
             if (!string.IsNullOrEmpty(options.Search))
             {

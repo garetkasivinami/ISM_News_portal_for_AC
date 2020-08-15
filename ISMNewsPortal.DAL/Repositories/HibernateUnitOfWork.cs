@@ -1,35 +1,58 @@
 ﻿using ISMNewsPortal.BLL.Repositories;
 using NHibernate;
+using NHibernate.Impl;
+using System;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
     public class HibernateUnitOfWork : IUnitOfWork
     {
-        private bool disposed;
-
+        [ThreadStatic]
         private ISession session;
+        [ThreadStatic]
         private ITransaction transaction;
 
-        public HibernateUnitOfWork(ISession session)
+        public ISession Session
         {
-            this.session = session;
-            //this.transaction = session.BeginTransaction();
+            get
+            {
+                if (session != null)
+                    return session;
+                return session = NHibernateSession.SessionFactory.OpenSession();
+            }
         }
 
         public void Dispose()
         {
-            if (!disposed)
+            if(transaction != null)
             {
-                session.Close();
-                disposed = true;
+                transaction.Dispose();
+                transaction = null;
             }
+            session.Close();
+            session = null;
+        }
+
+        public void BeginTransaction()
+        {
+            transaction = Session.BeginTransaction();
         }
 
         public void Save()
         {
-            using (ITransaction transaction = session.BeginTransaction())
+            try
             {
-                transaction.Commit();
+                if (transaction != null)
+                {
+                    transaction.Commit();
+                }
+            } catch
+            {
+                transaction.Rollback();
+            }
+            finally
+            {
+                Dispose();
             }
         }
     }

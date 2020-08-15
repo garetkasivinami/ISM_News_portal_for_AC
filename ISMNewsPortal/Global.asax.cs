@@ -19,11 +19,10 @@ namespace ISMNewsPortal
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        protected TypeConnection typeConnection;
         protected void Application_Start()
         {
-            string path = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data", "datebase.xml");
-
-            TypeConnection typeConnection = GetTypeConnection(ConfigurationManager.AppSettings["typeConnection"]);
+            typeConnection = GetTypeConnection(ConfigurationManager.AppSettings["typeConnection"]);
 
             switch(typeConnection) {
                 case TypeConnection.XML:
@@ -62,13 +61,11 @@ namespace ISMNewsPortal
         {
             ConnectionBuildExceptionCheck();
 
-            var session = NHibernateSession.OpenSession();
-
-            IUnitOfWork unitOfWork = new HibernateUnitOfWork(session);
-            var adminRepository = new DAL.Repositories.AdminRepository(session);
-            var commentRepository = new DAL.Repositories.CommentRepository(session);
-            var newsPostRepository = new DAL.Repositories.NewsPostRepository(session);
-            var fileRepository = new DAL.Repositories.FileRepository(session);
+            HibernateUnitOfWork unitOfWork = new HibernateUnitOfWork();
+            var adminRepository = new DAL.Repositories.AdminRepository(unitOfWork);
+            var commentRepository = new DAL.Repositories.CommentRepository(unitOfWork);
+            var newsPostRepository = new DAL.Repositories.NewsPostRepository(unitOfWork);
+            var fileRepository = new DAL.Repositories.FileRepository(unitOfWork);
 
             UnitOfWorkManager.SetUnitOfWork(unitOfWork, adminRepository, commentRepository, newsPostRepository, fileRepository);
             connectionBuilded = true;

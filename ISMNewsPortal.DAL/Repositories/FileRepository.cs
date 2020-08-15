@@ -7,23 +7,23 @@ namespace ISMNewsPortal.DAL.Repositories
 {
     public class FileRepository : Repository<FileModel>, IFileRepository
     {
-        public FileRepository(ISession session) : base(session)
+        public FileRepository(HibernateUnitOfWork hibernateUnitOfWork) : base(hibernateUnitOfWork)
         {
         }
 
         public FileModel GetByHashCode(string hashCode)
         {
-            return _session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
+            return hibernateUnitOfWork.Session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
         }
 
         public FileModel GetByName(string name)
         {
-            return _session.Query<FileModel>().SingleOrDefault(u => u.Name == name);
+            return hibernateUnitOfWork.Session.Query<FileModel>().SingleOrDefault(u => u.Name == name);
         }
 
         public int GetPostsCount(int fileId)
         {
-            return _session.Query<NewsPost>().Count(u => u.ImageId == fileId);
+            return hibernateUnitOfWork.Session.Query<NewsPost>().Count(u => u.ImageId == fileId);
         }
     }
 }
