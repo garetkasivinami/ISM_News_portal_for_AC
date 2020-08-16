@@ -4,14 +4,21 @@ using System;
 using NHibernate;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
+using ISMNewsPortal.BLL;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
     public class Repository<T> : IRepository<T> where T : Model
     {
-        protected HibernateUnitOfWork hibernateUnitOfWork;
-        public Repository(HibernateUnitOfWork hibernateUnitOfWork) {
-            this.hibernateUnitOfWork = hibernateUnitOfWork;
+        protected HibernateUnitOfWork hibernateUnitOfWork
+        {
+            get
+            {
+                return SessionManager.UnitOfWork as HibernateUnitOfWork;
+            }
+        }
+        public Repository() {
+
         }
         public int Count()
         {

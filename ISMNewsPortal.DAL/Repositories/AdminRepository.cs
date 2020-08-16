@@ -9,7 +9,7 @@ namespace ISMNewsPortal.DAL.Repositories
 {
     public class AdminRepository : Repository<Admin>, IAdminRepository
     {
-        public AdminRepository(HibernateUnitOfWork hibernateUnitOfWork) : base(hibernateUnitOfWork)
+        public AdminRepository() : base()
         {
 
         }

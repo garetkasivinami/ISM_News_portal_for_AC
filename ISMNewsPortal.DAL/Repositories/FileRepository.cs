@@ -7,7 +7,7 @@ namespace ISMNewsPortal.DAL.Repositories
 {
     public class FileRepository : Repository<FileModel>, IFileRepository
     {
-        public FileRepository(HibernateUnitOfWork hibernateUnitOfWork) : base(hibernateUnitOfWork)
+        public FileRepository() : base()
         {
         }
 

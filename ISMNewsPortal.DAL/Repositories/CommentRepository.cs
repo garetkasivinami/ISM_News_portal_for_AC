@@ -11,7 +11,7 @@ namespace ISMNewsPortal.DAL.Repositories
     public class CommentRepository : Repository<Comment>, ICommentRepository
     {
 
-        public CommentRepository(HibernateUnitOfWork hibernateUnitOfWork) : base(hibernateUnitOfWork)
+        public CommentRepository() : base()
         {
 
         }

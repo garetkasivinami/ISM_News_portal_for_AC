@@ -3,7 +3,7 @@ using System.Linq;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Exceptions;
-using static ISMNewsPortal.BLL.UnitOfWorkManager;
+using static ISMNewsPortal.BLL.SessionManager;
 
 namespace ISMNewsPortal.BLL.Services
 {

@@ -29,10 +29,10 @@ namespace ISMNewsPortal.DAL_XML.Repositories
 
             try
             {
-                AdminRepository adminRepository = UnitOfWorkManager.AdminRepository as AdminRepository;
-                CommentRepository commentRepository = UnitOfWorkManager.CommentRepository as CommentRepository;
-                NewsPostRepository newsPostRepository = UnitOfWorkManager.NewsPostRepository as NewsPostRepository;
-                FileRepository fileRepository = UnitOfWorkManager.FileRepository as FileRepository;
+                AdminRepository adminRepository = SessionManager.AdminRepository as AdminRepository;
+                CommentRepository commentRepository = SessionManager.CommentRepository as CommentRepository;
+                NewsPostRepository newsPostRepository = SessionManager.NewsPostRepository as NewsPostRepository;
+                FileRepository fileRepository = SessionManager.FileRepository as FileRepository;
 
                 AppendChanges(adminRepository);
                 AppendChanges(commentRepository);

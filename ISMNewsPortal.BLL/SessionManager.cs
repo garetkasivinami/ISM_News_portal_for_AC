@@ -1,8 +1,10 @@
 ﻿using ISMNewsPortal.BLL.Repositories;
+using System.Runtime.CompilerServices;
+using System.Web;
 
 namespace ISMNewsPortal.BLL
 {
-    public static class UnitOfWorkManager
+    public static class SessionManager
     {
         private static IUnitOfWork unitOfWork;
         private static IAdminRepository adminRepository;
@@ -27,14 +29,18 @@ namespace ISMNewsPortal.BLL
             get => fileRepository;
         }
 
-        public static void SetUnitOfWork(IUnitOfWork unitOfWork, IAdminRepository adminRepository, 
+        public static void SetRepositories(IAdminRepository adminRepository, 
             ICommentRepository commentRepository, INewsPostRepository newsPostRepository, IFileRepository fileRepository)
         {
-            UnitOfWorkManager.unitOfWork = unitOfWork;
-            UnitOfWorkManager.adminRepository = adminRepository;
-            UnitOfWorkManager.commentRepository = commentRepository;
-            UnitOfWorkManager.newsPostRepository = newsPostRepository;
-            UnitOfWorkManager.fileRepository = fileRepository;
+            SessionManager.adminRepository = adminRepository;
+            SessionManager.commentRepository = commentRepository;
+            SessionManager.newsPostRepository = newsPostRepository;
+            SessionManager.fileRepository = fileRepository;
+        }
+
+        public static void SetUnitOfWork(IUnitOfWork unitOfWork)
+        {
+            SessionManager.unitOfWork = unitOfWork;
         }
     }
 }

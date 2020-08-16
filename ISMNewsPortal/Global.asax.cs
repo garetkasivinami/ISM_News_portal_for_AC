@@ -19,21 +19,26 @@ namespace ISMNewsPortal
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        protected TypeConnection typeConnection;
+        protected static ConnectionBuilder connectionBuilder;
         protected void Application_Start()
         {
-            typeConnection = GetTypeConnection(ConfigurationManager.AppSettings["typeConnection"]);
+            TypeConnection typeConnection = GetTypeConnection(ConfigurationManager.AppSettings["typeConnection"]);
 
             switch(typeConnection) {
                 case TypeConnection.XML:
-                    ConnectionBuilder.BuildXMLSession();
+                    connectionBuilder = new XMLConnection();
                     break;
                 case TypeConnection.Hibernate:
-                    ConnectionBuilder.BuildHibernateSession();
+                    connectionBuilder = new HibernateConnection();
                     break;
                 default:
                     throw new Exception("Unknown type of connection.");
             }
+
+            connectionBuilder.CreateRepositories();
+
+            IUnitOfWork unitOfWork = connectionBuilder.GetUnitOfWork();
+            SessionManager.SetUnitOfWork(unitOfWork);
 
             GlobalFilters.Filters.Add(new ElmahExceptionLogger());
 
@@ -54,43 +59,48 @@ namespace ISMNewsPortal
             }
         }
     }
-    public static class ConnectionBuilder
+    public abstract class ConnectionBuilder
     {
-        private static bool connectionBuilded;
-        public static void BuildHibernateSession()
+        public abstract void CreateRepositories();
+        public abstract IUnitOfWork GetUnitOfWork();
+    }
+    public class HibernateConnection : ConnectionBuilder
+    {
+        public override void CreateRepositories()
         {
-            ConnectionBuildExceptionCheck();
+            var adminRepository = new DAL.Repositories.AdminRepository();
+            var commentRepository = new DAL.Repositories.CommentRepository();
+            var newsPostRepository = new DAL.Repositories.NewsPostRepository();
+            var fileRepository = new DAL.Repositories.FileRepository();
 
-            HibernateUnitOfWork unitOfWork = new HibernateUnitOfWork();
-            var adminRepository = new DAL.Repositories.AdminRepository(unitOfWork);
-            var commentRepository = new DAL.Repositories.CommentRepository(unitOfWork);
-            var newsPostRepository = new DAL.Repositories.NewsPostRepository(unitOfWork);
-            var fileRepository = new DAL.Repositories.FileRepository(unitOfWork);
-
-            UnitOfWorkManager.SetUnitOfWork(unitOfWork, adminRepository, commentRepository, newsPostRepository, fileRepository);
-            connectionBuilded = true;
+            SessionManager.SetRepositories(adminRepository, commentRepository, newsPostRepository, fileRepository);
         }
-        public static void BuildXMLSession()
-        {
-            ConnectionBuildExceptionCheck();
 
+        public override IUnitOfWork GetUnitOfWork()
+        {
+            return new HibernateUnitOfWork();
+        }
+    }
+
+    public class XMLConnection : ConnectionBuilder
+    {
+        private XMLContex xmlContex;
+        public override void CreateRepositories()
+        {
             string path = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data", "datebase.xml");
-            XMLContex xmlContex = new XMLContex(path);
+            xmlContex = new XMLContex(path);
 
             var adminRepository = new DAL_XML.Repositories.AdminRepository(xmlContex);
             var commentRepository = new DAL_XML.Repositories.CommentRepository(xmlContex);
             var newsPostRepository = new DAL_XML.Repositories.NewsPostRepository(xmlContex);
             var fileRepository = new DAL_XML.Repositories.FileRepository(xmlContex);
 
-            IUnitOfWork unitOfWork = new XMLUnitOfWork(xmlContex);
-
-            UnitOfWorkManager.SetUnitOfWork(unitOfWork, adminRepository, commentRepository, newsPostRepository, fileRepository);
-            connectionBuilded = true;
+            SessionManager.SetRepositories(adminRepository, commentRepository, newsPostRepository, fileRepository);
         }
-        private static void ConnectionBuildExceptionCheck()
+
+        public override IUnitOfWork GetUnitOfWork()
         {
-            if (connectionBuilded)
-                throw new Exception("Connection has been builded!");
+            return new XMLUnitOfWork(xmlContex);
         }
     }
 }

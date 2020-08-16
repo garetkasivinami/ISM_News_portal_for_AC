@@ -12,12 +12,12 @@ namespace ISMNewsPortal.DAL.Repositories
 {
     public class NewsPostRepository : Repository<NewsPost>, INewsPostRepository
     {
-        public NewsPostRepository(HibernateUnitOfWork hibernateUnitOfWork) : base(hibernateUnitOfWork)
+        public NewsPostRepository() : base()
         {
-            var items = GetAll();
-            var luceneRepository = LuceneRepositoryFactory.GetRepository<NewsPost>();
-            luceneRepository.DeleteAll();
-            luceneRepository.SaveOrUpdate(items);
+            //var items = GetAll();
+            //var luceneRepository = LuceneRepositoryFactory.GetRepository<NewsPost>();
+            //luceneRepository.DeleteAll();
+            //luceneRepository.SaveOrUpdate(items);
         }
 
         public int GetCommentsCount(int postId)

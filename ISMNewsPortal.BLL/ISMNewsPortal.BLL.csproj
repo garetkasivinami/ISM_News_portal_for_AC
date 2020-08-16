@@ -68,7 +68,7 @@
     <Compile Include="Services\CommentService.cs" />
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\NewsPostService.cs" />
-    <Compile Include="UnitOfWorkManager.cs" />
+    <Compile Include="SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
