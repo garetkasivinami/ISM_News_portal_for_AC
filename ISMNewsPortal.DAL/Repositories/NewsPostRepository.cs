@@ -14,10 +14,10 @@ namespace ISMNewsPortal.DAL.Repositories
     {
         public NewsPostRepository() : base()
         {
-            //var items = GetAll();
-            //var luceneRepository = LuceneRepositoryFactory.GetRepository<NewsPost>();
-            //luceneRepository.DeleteAll();
-            //luceneRepository.SaveOrUpdate(items);
+            var items = GetAll();
+            var luceneRepository = LuceneRepositoryFactory.GetRepository<NewsPost>();
+            luceneRepository.DeleteAll();
+            luceneRepository.SaveOrUpdate(items);
         }
 
         public int GetCommentsCount(int postId)

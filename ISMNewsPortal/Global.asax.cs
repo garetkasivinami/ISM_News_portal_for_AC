@@ -35,10 +35,10 @@ namespace ISMNewsPortal
                     throw new Exception("Unknown type of connection.");
             }
 
-            connectionBuilder.CreateRepositories();
-
             IUnitOfWork unitOfWork = connectionBuilder.GetUnitOfWork();
             SessionManager.SetUnitOfWork(unitOfWork);
+
+            connectionBuilder.CreateRepositories();
 
             GlobalFilters.Filters.Add(new ElmahExceptionLogger());
 

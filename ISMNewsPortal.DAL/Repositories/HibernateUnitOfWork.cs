@@ -1,5 +1,6 @@
 ﻿using ISMNewsPortal.BLL.Repositories;
 using NHibernate;
+using NHibernate.Context;
 using NHibernate.Impl;
 using System;
 
@@ -8,17 +9,22 @@ namespace ISMNewsPortal.DAL.Repositories
     public class HibernateUnitOfWork : IUnitOfWork
     {
         [ThreadStatic]
-        private ISession session;
-        [ThreadStatic]
         private ITransaction transaction;
+        private ISessionFactory sessionFactory;
+
+        public HibernateUnitOfWork()
+        {
+            sessionFactory = NHibernateSession.SessionFactory;
+        }
 
         public ISession Session
         {
             get
             {
-                if (session != null)
-                    return session;
-                return session = NHibernateSession.SessionFactory.OpenSession();
+                if (!CurrentSessionContext.HasBind(sessionFactory))
+                    CurrentSessionContext.Bind(sessionFactory.OpenSession());
+
+                return NHibernateSession.SessionFactory.GetCurrentSession();
             }
         }
 
@@ -29,8 +35,11 @@ namespace ISMNewsPortal.DAL.Repositories
                 transaction.Dispose();
                 transaction = null;
             }
+
+            ISession session = CurrentSessionContext.Unbind(sessionFactory);
+
             session.Close();
-            session = null;
+            session.Dispose();
         }
 
         public void BeginTransaction()

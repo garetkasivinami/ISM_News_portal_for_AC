@@ -18,17 +18,16 @@ namespace ISMNewsPortal
                 {
                     if (sessionFactory == null)
                     {
-                        var configuration = new Configuration().SetProperty(Environment.UseProxyValidator, bool.FalseString);
+                        var configuration = new Configuration()
+                            .SetProperty(Environment.UseProxyValidator, bool.FalseString)
+                            .SetProperty(Environment.CurrentSessionContextClass, "thread_static");
+
                         sessionFactory = CreateSessionFactory(configuration);
                         new SchemaUpdate(configuration).Execute(true, true);
                     }
                 }
                 return sessionFactory;
             }
-        }
-        public static ISession OpenSession()
-        {
-            return SessionFactory.OpenSession();
         }
 
         private static ISessionFactory CreateSessionFactory(Configuration configuration)
