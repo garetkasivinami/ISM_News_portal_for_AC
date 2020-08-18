@@ -13,5 +13,11 @@
     <property name="dialect">
       NHibernate.Dialect.MsSql2012Dialect
     </property>
+    <property name="use_proxy_validator">
+      false
+    </property>
+    <property name="current_session_context_class">
+      thread_static
+    </property>
   </session-factory>
 </hibernate-configuration>

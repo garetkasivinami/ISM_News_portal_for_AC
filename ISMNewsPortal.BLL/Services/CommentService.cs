@@ -29,15 +29,15 @@ namespace ISMNewsPortal.BLL.Services
             return comments;
         }
 
-        public void UpdateComment(Comment commentDTO)
+        public void UpdateComment(Comment comment)
         {
-            CommentRepository.Update(commentDTO);
+            CommentRepository.Update(comment);
             UnitOfWork.Save();
         }
 
-        public int CreateComment(Comment commentDTO)
+        public int CreateComment(Comment comment)
         {
-            int id = CommentRepository.Create(commentDTO);
+            int id = CommentRepository.Create(comment);
             UnitOfWork.Save();
             return id;
         }

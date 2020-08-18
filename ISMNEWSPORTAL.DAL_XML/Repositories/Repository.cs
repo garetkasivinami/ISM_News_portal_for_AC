@@ -21,7 +21,7 @@ namespace ISMNewsPortal.DAL_XML.Repositories
         }
         public int Count()
         {
-            return GetAll().Count<T>();
+            return contex.Count<T>();
         }
 
         public virtual int Create(T item)

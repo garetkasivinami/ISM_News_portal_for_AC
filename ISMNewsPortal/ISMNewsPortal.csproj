@@ -304,6 +304,9 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Config\CustomSettingsGroup.cs" />
     <Compile Include="Config\TypeConnectionElement.cs" />
+    <Compile Include="ConnectionBuilders\ConnectionBuilder.cs" />
+    <Compile Include="ConnectionBuilders\HibernateConnection.cs" />
+    <Compile Include="ConnectionBuilders\XMLConnection.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\FilesController.cs" />

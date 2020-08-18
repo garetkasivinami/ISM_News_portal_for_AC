@@ -51,8 +51,8 @@
     <Compile Include="Repositories\FileRepository.cs" />
     <Compile Include="Repositories\NewsPostRepository.cs" />
     <Compile Include="Repositories\Repository.cs" />
-    <Compile Include="Repositories\XMLContex.cs" />
-    <Compile Include="Repositories\XMLUnitOfWork.cs" />
+    <Compile Include="XMLContex.cs" />
+    <Compile Include="XMLUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

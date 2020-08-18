@@ -18,9 +18,7 @@ namespace ISMNewsPortal
                 {
                     if (sessionFactory == null)
                     {
-                        var configuration = new Configuration()
-                            .SetProperty(Environment.UseProxyValidator, bool.FalseString)
-                            .SetProperty(Environment.CurrentSessionContextClass, "thread_static");
+                        var configuration = new Configuration();
 
                         sessionFactory = CreateSessionFactory(configuration);
                         new SchemaUpdate(configuration).Execute(true, true);
@@ -35,7 +33,7 @@ namespace ISMNewsPortal
             var configurationPath = HttpContext.Current.Server.MapPath(@"~\NHibernate\hibernate.cfg.xml");
             configuration.Configure(configurationPath);
 
-            string userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\NHibernate\NewsPost.hbm.xml");
+            var userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\NHibernate\NewsPost.hbm.xml");
             configuration.AddFile(userConfigurationFile);
 
             userConfigurationFile = HttpContext.Current.Server.MapPath(@"~\NHibernate\Comment.hbm.xml");

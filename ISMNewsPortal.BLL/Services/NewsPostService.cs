@@ -37,15 +37,15 @@ namespace ISMNewsPortal.BLL.Services
             return newsPost;
         }
 
-        public void UpdateNewsPost(NewsPost newsPostDTO)
+        public void UpdateNewsPost(NewsPost newsPost)
         {
-            NewsPostRepository.Update(newsPostDTO);
+            NewsPostRepository.Update(newsPost);
             UnitOfWork.Save();
         }
 
-        public void CreateNewsPost(NewsPost newsPostDTO)
+        public void CreateNewsPost(NewsPost newsPost)
         {
-            NewsPostRepository.Create(newsPostDTO);
+            NewsPostRepository.Create(newsPost);
             UnitOfWork.Save();
         }
 

@@ -26,9 +26,9 @@ namespace ISMNewsPortal.BLL.Services
             return admin;
         }
 
-        public void UpdateAdmin(Admin adminDTO)
+        public void UpdateAdmin(Admin admin)
         {
-            AdminRepository.Update(adminDTO);
+            AdminRepository.Update(admin);
             UnitOfWork.Save();
         }
 
@@ -42,12 +42,12 @@ namespace ISMNewsPortal.BLL.Services
             UnitOfWork.Save();
         }
 
-        public void CreateAdmin(Admin adminDTO)
+        public void CreateAdmin(Admin admin)
         {
-            var createdAdmin = AdminRepository.GetByLogin(adminDTO.Login);
+            var createdAdmin = AdminRepository.GetByLogin(admin.Login);
             if (createdAdmin != null)
                 throw new AdminExistsException("An administrator with this login already exists");
-            AdminRepository.Create(adminDTO);
+            AdminRepository.Create(admin);
             UnitOfWork.Save();
         }
 

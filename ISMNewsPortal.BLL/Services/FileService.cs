@@ -27,9 +27,9 @@ namespace ISMNewsPortal.BLL.Services
             return file;
         }
 
-        public int CreateFile(FileModel fileDTO)
+        public int CreateFile(FileModel fileModel)
         {
-            int id = FileRepository.Create(fileDTO);
+            int id = FileRepository.Create(fileModel);
             UnitOfWork.Save();
             return id;
         }
