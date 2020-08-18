@@ -5,6 +5,7 @@ using ISMNewsPortal.Helpers;
 using ISMNewsPortal.Accounts;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.UI;
+using System.Web.Caching;
 
 namespace ISMNewsPortal.Controllers
 {
