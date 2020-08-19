@@ -47,7 +47,7 @@ namespace ISMNewsPortal.DAL.Repositories
         public override IEnumerable<Comment> GetWithOptions(object requirements)
         {
             var options = requirements as OptionsCollectionById;
-            IEnumerable<Comment> items = hibernateUnitOfWork.Session.Query<Comment>().Where(u => u.NewsPostId == options.TargetId);
+            IQueryable<Comment> items = hibernateUnitOfWork.Session.Query<Comment>().Where(u => u.NewsPostId == options.TargetId);
 
             if (!string.IsNullOrEmpty(options.Search))
             {

@@ -28,10 +28,10 @@ namespace ISMNewsPortal.DAL.Repositories
         public override IEnumerable<NewsPost> GetWithOptions(object requirements)
         {
             var options = requirements as Options;
-            IEnumerable<NewsPost> items;
+            IQueryable<NewsPost> items;
 
             if (!string.IsNullOrEmpty(options.Search))
-                items = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
+                items = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options).AsQueryable();
             else
                 items = hibernateUnitOfWork.Session.Query<NewsPost>();
 

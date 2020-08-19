@@ -2,8 +2,7 @@
 @model ISMNewsPortal.Models.NewsPostSimplifiedView
 
 @{ 
-    IHtmlString htmlText = Html.Raw(Model.Description);
-    string htmlString = Regex.Replace(htmlText.ToString(), "<.*?>", String.Empty);
+    string htmlString = Regex.Replace(Model.Description, "<.*?>", String.Empty);
 }
 
 <div class="row no-gutters">

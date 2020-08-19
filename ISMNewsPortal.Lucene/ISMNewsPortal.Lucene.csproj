@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="LuceneRepositoryFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CommentLuceneRepository.cs" />
     <Compile Include="Repositories\ILuceneRepository.cs" />
     <Compile Include="Repositories\LuceneRepository.cs" />
     <Compile Include="Repositories\NewsPostLuceneRepository.cs" />
