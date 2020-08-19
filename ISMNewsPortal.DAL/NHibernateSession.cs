@@ -34,24 +34,25 @@ namespace ISMNewsPortal
         {
             get
             {
-                //if (!CurrentSessionContext.HasBind(sessionFactory))
-                //    CurrentSessionContext.Bind(sessionFactory.OpenSession());
+                lock(_obj)
+                {
+                    if (openSession == null)
+                        openSession = sessionFactory.OpenSession();
 
-                //return SessionFactory.GetCurrentSession();
-                if (openSession == null)
-                    openSession = sessionFactory.OpenSession();
-
-                return openSession;
+                    return openSession;
+                }
             }
         }
 
         public static void CloseSession()
         {
-            //ISession session = CurrentSessionContext.Unbind(sessionFactory);
-            ISession session = openSession;
-            session.Close();
-            session.Dispose();
-            openSession = null;
+            lock (_obj)
+            {
+                ISession session = openSession;
+                session.Close();
+                session.Dispose();
+                openSession = null;
+            }
         }
 
         private static ISessionFactory CreateSessionFactory(Configuration configuration)
