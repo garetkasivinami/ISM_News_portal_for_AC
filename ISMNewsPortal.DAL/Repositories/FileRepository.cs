@@ -13,17 +13,17 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public FileModel GetByHashCode(string hashCode)
         {
-            return hibernateUnitOfWork.Session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
+            return NHibernateSession.Session.Query<FileModel>().SingleOrDefault(u => u.HashCode == hashCode);
         }
 
         public FileModel GetByName(string name)
         {
-            return hibernateUnitOfWork.Session.Query<FileModel>().SingleOrDefault(u => u.Name == name);
+            return NHibernateSession.Session.Query<FileModel>().SingleOrDefault(u => u.Name == name);
         }
 
         public int GetPostsCount(int fileId)
         {
-            return hibernateUnitOfWork.Session.Query<NewsPost>().Count(u => u.ImageId == fileId);
+            return NHibernateSession.Session.Query<NewsPost>().Count(u => u.ImageId == fileId);
         }
     }
 }

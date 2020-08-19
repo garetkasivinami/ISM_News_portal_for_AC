@@ -15,25 +15,15 @@ namespace ISMNewsPortal.DAL
             sessionFactory = NHibernateSession.SessionFactory;
         }
 
-        public ISession Session
-        {
-            get
-            {
-                if (!CurrentSessionContext.HasBind(sessionFactory))
-                    CurrentSessionContext.Bind(sessionFactory.OpenSession());
-
-                return NHibernateSession.SessionFactory.GetCurrentSession();
-            }
-        }
-
         public void Dispose()
         {
-            if(Session.Transaction != null)
+            ISession session = NHibernateSession.Session;
+            if (session.Transaction != null)
             {
-                Session.Transaction.Dispose();
+                session.Transaction.Dispose();
             }
 
-            ISession session = CurrentSessionContext.Unbind(sessionFactory);
+            session = CurrentSessionContext.Unbind(sessionFactory);
 
             session.Close();
             session.Dispose();
@@ -41,20 +31,21 @@ namespace ISMNewsPortal.DAL
 
         public void BeginTransaction()
         {
-            Session.BeginTransaction();
+            NHibernateSession.Session.BeginTransaction();
         }
 
         public void Save()
         {
+            ISession session = NHibernateSession.Session;
             try
             {
-                if (Session.Transaction != null)
+                if (session.Transaction != null)
                 {
-                    Session.Transaction.Commit();
+                    session.Transaction.Commit();
                 }
             } catch
             {
-                Session.Transaction.Rollback();
+                session.Transaction.Rollback();
             }
             finally
             {

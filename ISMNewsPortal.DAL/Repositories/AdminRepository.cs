@@ -16,17 +16,17 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public Admin GetByEmail(string email)
         {
-            return hibernateUnitOfWork.Session.Query<Admin>().FirstOrDefault(u => u.Email == email);
+            return NHibernateSession.Session.Query<Admin>().FirstOrDefault(u => u.Email == email);
         }
 
         public Admin GetByLogin(string login)
         {
-            return hibernateUnitOfWork.Session.Query<Admin>().SingleOrDefault(u => u.Login == login);
+            return NHibernateSession.Session.Query<Admin>().SingleOrDefault(u => u.Login == login);
         }
 
         public IEnumerable<Admin> GetByRole(string role)
         {
-            return hibernateUnitOfWork.Session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
+            return NHibernateSession.Session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
         }
     }
 }

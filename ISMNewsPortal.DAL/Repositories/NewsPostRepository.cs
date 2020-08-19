@@ -22,7 +22,7 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public int GetCommentsCount(int postId)
         {
-            return hibernateUnitOfWork.Session.Query<Comment>().Count(u => u.NewsPostId == postId);
+            return NHibernateSession.Session.Query<Comment>().Count(u => u.NewsPostId == postId);
         }
 
         public override IEnumerable<NewsPost> GetWithOptions(object requirements)
@@ -33,14 +33,14 @@ namespace ISMNewsPortal.DAL.Repositories
             if (!string.IsNullOrEmpty(options.Search))
                 items = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options).AsQueryable();
             else
-                items = hibernateUnitOfWork.Session.Query<NewsPost>();
+                items = NHibernateSession.Session.Query<NewsPost>();
 
             if (!options.Admin)
             {
                 items = items.Where(u => u.IsVisible == true && u.PublicationDate < DateTime.Now);
             } else {
                 var ids = items.Select(u => u.Id);
-                items = hibernateUnitOfWork.Session.Query<NewsPost>().Where(u => ids.Contains(u.Id));
+                items = NHibernateSession.Session.Query<NewsPost>().Where(u => ids.Contains(u.Id));
             }
 
             if (options.Reversed == true || options.Reversed == null)
@@ -74,31 +74,31 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public IEnumerable<NewsPost> GetByAuthorId(int id)
         {
-            return hibernateUnitOfWork.Session.Query<NewsPost>().Where(u => u.AuthorId == id);
+            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.AuthorId == id);
         }
 
         public IEnumerable<NewsPost> GetByImageId(int id)
         {
-            return hibernateUnitOfWork.Session.Query<NewsPost>().Where(u => u.ImageId == id);
+            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.ImageId == id);
         }
 
         public IEnumerable<NewsPost> GetByName(string name)
         {
-            return hibernateUnitOfWork.Session.Query<NewsPost>().Where(u => u.Name == name);
+            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.Name == name);
         }
 
         public IEnumerable<NewsPost> GetByVisibility(bool visible)
         {
-            return hibernateUnitOfWork.Session.Query<NewsPost>().Where(u => u.IsVisible == visible);
+            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.IsVisible == visible);
         }
 
         public override void Update(NewsPost item)
         {
-            var createdNewsPost = hibernateUnitOfWork.Session.Get<NewsPost>(item.Id);
+            var createdNewsPost = NHibernateSession.Session.Get<NewsPost>(item.Id);
             DateTime createdDate = createdNewsPost.CreatedDate;
             item.CreatedDate = createdDate;
             LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
-            hibernateUnitOfWork.Session.Update(item);
+            NHibernateSession.Session.Update(item);
         }
         public override int Create(NewsPost item)
         {

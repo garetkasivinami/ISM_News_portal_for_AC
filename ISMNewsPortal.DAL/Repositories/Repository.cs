@@ -22,7 +22,7 @@ namespace ISMNewsPortal.DAL.Repositories
         }
         public int Count()
         {
-            return hibernateUnitOfWork.Session.Query<T>().Count();
+            return NHibernateSession.Session.Query<T>().Count();
         }
 
         public virtual int Create(T item)
@@ -31,28 +31,29 @@ namespace ISMNewsPortal.DAL.Repositories
             if (item == null)
                 throw new NullReferenceException();
 
-            hibernateUnitOfWork.Session.Save(item);
+            NHibernateSession.Session.Save(item);
             return item.Id;
         }
 
         public virtual void Delete(int id)
         {
             hibernateUnitOfWork.BeginTransaction();
-            T item = hibernateUnitOfWork.Session.Get<T>(id);
+            ISession session = NHibernateSession.Session;
+            T item = session.Get<T>(id);
             if (item == null)
                 throw new NullReferenceException();
 
-            hibernateUnitOfWork.Session.Delete(item);
+            session.Delete(item);
         }
 
         public T Get(int id)
         {
-            return hibernateUnitOfWork.Session.Get<T>(id);
+            return NHibernateSession.Session.Get<T>(id);
         }
 
         public IEnumerable<T> GetAll()
         {
-            return hibernateUnitOfWork.Session.Query<T>();
+            return NHibernateSession.Session.Query<T>();
         }
 
         public virtual IEnumerable<T> GetWithOptions(object toolBar)
@@ -65,7 +66,7 @@ namespace ISMNewsPortal.DAL.Repositories
             hibernateUnitOfWork.BeginTransaction();
             if (item == null)
                 throw new NullReferenceException();
-            hibernateUnitOfWork.Session.Update(item);
+            NHibernateSession.Session.Update(item);
         }
     }
 }

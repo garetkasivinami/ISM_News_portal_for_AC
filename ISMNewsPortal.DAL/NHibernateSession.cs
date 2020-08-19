@@ -1,5 +1,6 @@
 ﻿using NHibernate;
 using NHibernate.Cfg;
+using NHibernate.Context;
 using NHibernate.Tool.hbm2ddl;
 using System.Web;
 
@@ -25,6 +26,17 @@ namespace ISMNewsPortal
                     }
                 }
                 return sessionFactory;
+            }
+        }
+
+        public static ISession Session
+        {
+            get
+            {
+                if (!CurrentSessionContext.HasBind(sessionFactory))
+                    CurrentSessionContext.Bind(sessionFactory.OpenSession());
+
+                return SessionFactory.GetCurrentSession();
             }
         }
 
