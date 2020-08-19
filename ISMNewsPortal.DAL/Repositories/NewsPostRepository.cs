@@ -18,6 +18,7 @@ namespace ISMNewsPortal.DAL.Repositories
             var luceneRepository = LuceneRepositoryFactory.GetRepository<NewsPost>();
             luceneRepository.DeleteAll();
             luceneRepository.SaveOrUpdate(items);
+            NHibernateSession.CloseSession();
         }
 
         public int GetCommentsCount(int postId)
@@ -94,12 +95,12 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public override void Update(NewsPost item)
         {
-            hibernateUnitOfWork.BeginTransaction();
             var createdNewsPost = NHibernateSession.Session.Get<NewsPost>(item.Id);
             DateTime createdDate = createdNewsPost.CreatedDate;
             item.CreatedDate = createdDate;
+
             LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
-            NHibernateSession.Session.Update(item);
+            base.Update(item);
         }
         public override int Create(NewsPost item)
         {

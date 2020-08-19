@@ -23,10 +23,7 @@ namespace ISMNewsPortal.DAL
                 session.Transaction.Dispose();
             }
 
-            session = CurrentSessionContext.Unbind(sessionFactory);
-
-            session.Close();
-            session.Dispose();
+            NHibernateSession.CloseSession();
         }
 
         public void BeginTransaction()

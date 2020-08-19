@@ -10,6 +10,7 @@ namespace ISMNewsPortal
     {
         private static ISessionFactory sessionFactory;
         private static object _obj = new object();
+        private static ISession openSession;
         
         public static ISessionFactory SessionFactory
         {
@@ -33,11 +34,24 @@ namespace ISMNewsPortal
         {
             get
             {
-                if (!CurrentSessionContext.HasBind(sessionFactory))
-                    CurrentSessionContext.Bind(sessionFactory.OpenSession());
+                //if (!CurrentSessionContext.HasBind(sessionFactory))
+                //    CurrentSessionContext.Bind(sessionFactory.OpenSession());
 
-                return SessionFactory.GetCurrentSession();
+                //return SessionFactory.GetCurrentSession();
+                if (openSession == null)
+                    openSession = sessionFactory.OpenSession();
+
+                return openSession;
             }
+        }
+
+        public static void CloseSession()
+        {
+            //ISession session = CurrentSessionContext.Unbind(sessionFactory);
+            ISession session = openSession;
+            session.Close();
+            session.Dispose();
+            openSession = null;
         }
 
         private static ISessionFactory CreateSessionFactory(Configuration configuration)
