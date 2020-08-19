@@ -94,6 +94,7 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public override void Update(NewsPost item)
         {
+            hibernateUnitOfWork.BeginTransaction();
             var createdNewsPost = NHibernateSession.Session.Get<NewsPost>(item.Id);
             DateTime createdDate = createdNewsPost.CreatedDate;
             item.CreatedDate = createdDate;

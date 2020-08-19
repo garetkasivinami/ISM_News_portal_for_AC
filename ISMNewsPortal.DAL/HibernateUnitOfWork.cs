@@ -39,7 +39,7 @@ namespace ISMNewsPortal.DAL
             ISession session = NHibernateSession.Session;
             try
             {
-                if (session.Transaction != null)
+                if (session.Transaction.IsActive)
                 {
                     session.Transaction.Commit();
                 }
