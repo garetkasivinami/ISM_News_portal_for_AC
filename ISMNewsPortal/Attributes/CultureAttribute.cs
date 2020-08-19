@@ -9,11 +9,6 @@ namespace ISMNewsPortal
     {
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            
-        }
-
-        public void OnActionExecuting(ActionExecutingContext filterContext)
-        {
             string cultureName = filterContext.RouteData.Values["lang"] as string;
 
             // Список культур
@@ -24,6 +19,11 @@ namespace ISMNewsPortal
             }
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(cultureName);
+        }
+
+        public void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            
         }
     }
 }

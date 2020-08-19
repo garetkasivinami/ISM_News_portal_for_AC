@@ -13,11 +13,13 @@ namespace ISMNewsPortal.ConnectionBuilders
     public class XMLConnection : ConnectionBuilder
     {
         private XMLContex xmlContex;
-        public override void CreateRepositories()
+        public XMLConnection()
         {
             string path = Path.Combine(HttpRuntime.AppDomainAppPath, "App_Data", "datebase.xml");
             xmlContex = new XMLContex(path);
-
+        }
+        public override void CreateRepositories()
+        {
             var adminRepository = new AdminRepository(xmlContex);
             var commentRepository = new CommentRepository(xmlContex);
             var newsPostRepository = new NewsPostRepository(xmlContex);
