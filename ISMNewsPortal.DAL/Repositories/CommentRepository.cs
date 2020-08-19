@@ -4,7 +4,7 @@ using ISMNewsPortal.BLL.Repositories;
 using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
-using static ISMNewsPortal.BLL.Services.CommentService;
+using static ISMNewsPortal.BLL.Tools.CommentsSort;
 
 namespace ISMNewsPortal.DAL.Repositories
 {

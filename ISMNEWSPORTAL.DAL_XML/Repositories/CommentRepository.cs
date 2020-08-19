@@ -3,7 +3,7 @@ using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
 using System.Collections.Generic;
 using System.Linq;
-using static ISMNewsPortal.BLL.Services.CommentService;
+using static ISMNewsPortal.BLL.Tools.CommentsSort;
 
 namespace ISMNewsPortal.DAL_XML.Repositories
 {

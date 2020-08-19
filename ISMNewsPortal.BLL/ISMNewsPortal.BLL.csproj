@@ -69,6 +69,8 @@
     <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\NewsPostService.cs" />
     <Compile Include="SessionManager.cs" />
+    <Compile Include="Tools\CommentsSort.cs" />
+    <Compile Include="Tools\NewsPostSort.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -3,7 +3,7 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static ISMNewsPortal.BLL.Services.NewsPostService;
+using static ISMNewsPortal.BLL.Tools.NewsPostSort;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.Lucene;
