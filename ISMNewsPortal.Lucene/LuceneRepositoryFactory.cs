@@ -1,15 +1,22 @@
-﻿using ISMNewsPortal.BLL.Models;
+﻿using ISMNewsPortal.BLL.Lucene;
+using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Lucene.Repositories;
 using System;
 using System.Collections.Generic;
 
 namespace ISMNewsPortal.Lucene
 {
-    public static class LuceneRepositoryFactory
+    public class LuceneRepositoryFactory : ILuceneRepositoryFactory
     {
-        private static Dictionary<Type, object> repositories = new Dictionary<Type, object>();
+        private Dictionary<Type, object> repositories = new Dictionary<Type, object>();
+        private string lucenePath;
 
-        public static ILuceneRepository<T> GetRepository<T>() where T : Model
+        public LuceneRepositoryFactory(string lucenePath)
+        {
+            this.lucenePath = lucenePath;
+        }
+
+        public ILuceneRepository<T> GetRepository<T>() where T : Model
         {
             Type type = typeof(T);
             if (repositories.ContainsKey(type))
@@ -21,12 +28,12 @@ namespace ISMNewsPortal.Lucene
             return repository;
         }
 
-        private static ILuceneRepository<T> GetRepositoryByType<T>() where T : Model
+        private ILuceneRepository<T> GetRepositoryByType<T>() where T : Model
         {
             Type type = typeof(T);
             if (type == typeof(NewsPost))
             {
-                return new NewsPostLuceneRepository() as ILuceneRepository<T>;
+                return new NewsPostLuceneRepository(lucenePath) as ILuceneRepository<T>;
             }
             throw new Exception("Unknown repository type!");
         }

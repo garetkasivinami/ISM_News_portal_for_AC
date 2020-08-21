@@ -50,18 +50,17 @@
   <ItemGroup>
     <Compile Include="LuceneRepositoryFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ILuceneRepository.cs" />
     <Compile Include="Repositories\LuceneRepository.cs" />
     <Compile Include="Repositories\NewsPostLuceneRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ISMNewsPortal.BLL\ISMNewsPortal.BLL.csproj">
       <Project>{efc8a452-cac6-4eb4-b1e8-d5269e18f37d}</Project>
       <Name>ISMNewsPortal.BLL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

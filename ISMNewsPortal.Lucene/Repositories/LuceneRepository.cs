@@ -1,4 +1,5 @@
 ﻿using ISMNewsPortal.BLL.BusinessModels;
+using ISMNewsPortal.BLL.Lucene;
 using ISMNewsPortal.BLL.Models;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
@@ -44,22 +45,28 @@ namespace ISMNewsPortal.Lucene.Repositories
             }
         }
 
-        public LuceneRepository()
+        public LuceneRepository(string path)
         {
             Type type = typeof(T);
-            directory = Path.Combine(HttpRuntime.AppDomainAppPath, "lucene_index", type.Name);
+            directory = Path.Combine(HttpRuntime.AppDomainAppPath, path, type.Name);
         }
 
         public void Delete(IEnumerable<T> items)
         {
-            
+            var ids = items.Select(u => u.Id);
+            Delete(ids);
+        }
+
+        public void Delete(IEnumerable<int> ids)
+        {
+
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
                 using (var writer = new IndexWriter(FSDDirectory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
-                    foreach (T item in items)
+                    foreach (int id in ids)
                     {
-                        var searchQuery = new TermQuery(new Term("Id", item.Id.ToString()));
+                        var searchQuery = new TermQuery(new Term("Id", id.ToString()));
                         writer.DeleteDocuments(searchQuery);
                     }
                 }
@@ -149,7 +156,7 @@ namespace ISMNewsPortal.Lucene.Repositories
             return query;
         }
 
-        private List<T> search(string input)
+        private List<T> search(string input, Options options)
         {
             if (string.IsNullOrEmpty(input.Replace("*", "").Replace("?", "")))
                 return new List<T>();
@@ -162,7 +169,9 @@ namespace ISMNewsPortal.Lucene.Repositories
                     QueryParser parser = new MultiFieldQueryParser(Version.LUCENE_30, GetFields(), analyzer);
                     var query = parseQuery(input, parser);
 
-                    var hits = searcher.Search(query, hits_limit).ScoreDocs;
+                    Filter filter = GetFilter(options);
+                    Sort sort = GetSort(options.SortType, options.Reversed ?? true);
+                    var hits = searcher.Search(query, filter, hits_limit, sort).ScoreDocs;
 
                     return mapLuceneToDataList(hits, searcher);
                 }
@@ -190,11 +199,13 @@ namespace ISMNewsPortal.Lucene.Repositories
                 .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim() + "*");
             input = string.Join(" ", terms);
 
-            return search(input);
+            return search(input, options);
         }
 
-        public abstract T ConvertTo(Document doc);
+        protected abstract T ConvertTo(Document doc);
         protected abstract string[] GetFields();
         protected abstract void PassToIndex(T item, Document doc);
+        protected abstract Sort GetSort(string sortType, bool reversed);
+        protected abstract Filter GetFilter(Options options);
     }
 }

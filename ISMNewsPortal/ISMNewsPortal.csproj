@@ -569,6 +569,10 @@
       <Project>{932cfbaa-e579-4bc9-8199-751bf9b3ad5b}</Project>
       <Name>ISMNewsPortal.DAL_XML</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ISMNewsPortal.Lucene\ISMNewsPortal.Lucene.csproj">
+      <Project>{208E92BB-A6DE-46F0-94BE-04F5901DF0CD}</Project>
+      <Name>ISMNewsPortal.Lucene</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Language.uk.resx">

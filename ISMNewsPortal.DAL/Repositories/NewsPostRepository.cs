@@ -6,21 +6,11 @@ using System.Linq;
 using static ISMNewsPortal.BLL.Tools.NewsPostSort;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
-using ISMNewsPortal.Lucene;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
     public class NewsPostRepository : Repository<NewsPost>, INewsPostRepository
     {
-        public NewsPostRepository() : base()
-        {
-            var items = GetAll();
-            var luceneRepository = LuceneRepositoryFactory.GetRepository<NewsPost>();
-            luceneRepository.DeleteAll();
-            luceneRepository.SaveOrUpdate(items);
-            NHibernateSession.CloseSession();
-        }
-
         public int GetCommentsCount(int postId)
         {
             return NHibernateSession.Session.Query<Comment>().Count(u => u.NewsPostId == postId);
@@ -29,12 +19,7 @@ namespace ISMNewsPortal.DAL.Repositories
         public override IEnumerable<NewsPost> GetWithOptions(object requirements)
         {
             var options = requirements as Options;
-            IQueryable<NewsPost> items;
-
-            if (!string.IsNullOrEmpty(options.Search))
-                items = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options).AsQueryable();
-            else
-                items = NHibernateSession.Session.Query<NewsPost>();
+            var items = NHibernateSession.Session.Query<NewsPost>();
 
             if (!options.Admin)
             {
@@ -98,20 +83,7 @@ namespace ISMNewsPortal.DAL.Repositories
             var createdNewsPost = NHibernateSession.Session.Get<NewsPost>(item.Id);
             DateTime createdDate = createdNewsPost.CreatedDate;
             item.CreatedDate = createdDate;
-
-            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
             base.Update(item);
-        }
-        public override int Create(NewsPost item)
-        {
-            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
-            return base.Create(item);
-        }
-
-        public override void Delete(int id)
-        {
-            LuceneRepositoryFactory.GetRepository<NewsPost>().Delete(id);
-            base.Delete(id);
         }
     }
 }

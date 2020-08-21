@@ -4,6 +4,7 @@ using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Exceptions;
 using static ISMNewsPortal.BLL.SessionManager;
+using System.Net;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -17,16 +18,19 @@ namespace ISMNewsPortal.BLL.Services
 
         public IEnumerable<NewsPost> GetNewsPostsWithTools(Options options)
         {
-            var newsPosts = NewsPostRepository.GetWithOptions(options);
+            IEnumerable<NewsPost> newsPosts;
+            if (string.IsNullOrEmpty(options.Search))
+                newsPosts = NewsPostRepository.GetWithOptions(options);
+            else
+                newsPosts = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
+            
             return newsPosts;
         }
 
         public IEnumerable<NewsPost> GetNewsPostsWithAdminTools(Options options)
         {
             options.Admin = true;
-            var newsPosts = NewsPostRepository.GetWithOptions(options);
-            options.Pages = options.Pages;
-            return newsPosts;
+            return GetNewsPostsWithTools(options);
         }
 
         public NewsPost GetNewsPost(int id)
@@ -40,12 +44,14 @@ namespace ISMNewsPortal.BLL.Services
         public void UpdateNewsPost(NewsPost newsPost)
         {
             NewsPostRepository.Update(newsPost);
+            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(newsPost);
             UnitOfWork.Save();
         }
 
         public void CreateNewsPost(NewsPost newsPost)
         {
             NewsPostRepository.Create(newsPost);
+            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(newsPost);
             UnitOfWork.Save();
         }
 
@@ -53,6 +59,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             NewsPostRepository.Delete(id);
             CommentRepository.DeleteCommentsByPostId(id);
+            LuceneRepositoryFactory.GetRepository<NewsPost>().Delete(id);
             UnitOfWork.Save();
         }
 
@@ -64,6 +71,14 @@ namespace ISMNewsPortal.BLL.Services
         public int CommentsCount(int id)
         {
             return CommentRepository.GetCountByPostId(id);
+        }
+
+        public void UpdateLucene()
+        {
+            LuceneRepositoryFactory.GetRepository<NewsPost>().DeleteAll();
+            LuceneRepositoryFactory.GetRepository<NewsPost>().Optimize();
+            var items = NewsPostRepository.GetAll();
+            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(items);
         }
     }
 }

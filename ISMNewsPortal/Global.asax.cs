@@ -7,6 +7,8 @@ using System.Configuration;
 using ISMNewsPortal.Config;
 using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.ConnectionBuilders;
+using ISMNewsPortal.Lucene;
+using ISMNewsPortal.BLL.Services;
 
 namespace ISMNewsPortal
 {
@@ -14,7 +16,8 @@ namespace ISMNewsPortal
     {
         protected void Application_Start()
         {
-            TypeConnection typeConnection = GetTypeConnection(ConfigurationManager.AppSettings["typeConnection"]);
+            var typeConnectionString = ConfigurationManager.AppSettings["typeConnection"];
+            var typeConnection = GetTypeConnection(typeConnectionString);
 
             ConnectionBuilder connectionBuilder;
             switch (typeConnection) {
@@ -31,7 +34,16 @@ namespace ISMNewsPortal
             IUnitOfWork unitOfWork = connectionBuilder.GetUnitOfWork();
             SessionManager.SetUnitOfWork(unitOfWork);
 
+            string luceneFolderRelativePath = ConfigurationManager.ConnectionStrings["lucene"].ConnectionString;
+            string lucenePath = $"{luceneFolderRelativePath}/{typeConnectionString}";
+            var luceneRepositoryFactory = new LuceneRepositoryFactory(lucenePath);
+            SessionManager.SetLuceneRepositoryFactory(luceneRepositoryFactory);
+
             connectionBuilder.CreateRepositories();
+
+            var updateLuceneValue = ConfigurationManager.AppSettings["updateLucene"];
+            if (bool.Parse(updateLuceneValue))
+                new NewsPostService().UpdateLucene();
 
             GlobalFilters.Filters.Add(new ElmahExceptionLogger());
 

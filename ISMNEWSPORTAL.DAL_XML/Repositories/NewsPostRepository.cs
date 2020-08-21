@@ -1,7 +1,6 @@
 ﻿using ISMNewsPortal.BLL.BusinessModels;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
-using ISMNewsPortal.Lucene;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +12,7 @@ namespace ISMNewsPortal.DAL_XML.Repositories
     {
         public NewsPostRepository(XMLContex contex) : base(contex) 
         {
-            var items = GetAll();
-            var luceneRepository = LuceneRepositoryFactory.GetRepository<NewsPost>();
-            luceneRepository.DeleteAll();
-            luceneRepository.SaveOrUpdate(items);
+
         }
 
         public IEnumerable<NewsPost> GetByAuthorId(int id)
@@ -44,18 +40,6 @@ namespace ISMNewsPortal.DAL_XML.Repositories
             return contex.GetAll<Comment>().Where(u => u.NewsPostId == postId).Count();
         }
 
-        public override int Create(NewsPost item)
-        {
-            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
-            return base.Create(item);
-        }
-
-        public override void Delete(int id)
-        {
-            LuceneRepositoryFactory.GetRepository<NewsPost>().Delete(id);
-            base.Delete(id);
-        }
-
         public static int CalculatePages(int count, int countInOnePage)
         {
             int pages = count / countInOnePage;
@@ -68,18 +52,16 @@ namespace ISMNewsPortal.DAL_XML.Repositories
 
         public override void Update(NewsPost item)
         {
-            LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(item);
+            var createdNewsPost = Get(item.Id);
+            DateTime createdDate = createdNewsPost.CreatedDate;
+            item.CreatedDate = createdDate;
             base.Update(item);
         }
 
         public override IEnumerable<NewsPost> GetWithOptions(object requirements)
         {
             Options options = requirements as Options;
-            IEnumerable<NewsPost> result;
-            if (!string.IsNullOrEmpty(options.Search))
-                result = LuceneRepositoryFactory.GetRepository<NewsPost>().Search(options);
-            else
-                result = base.GetWithOptions(options);
+            var result = base.GetWithOptions(options);
 
             if (!options.Admin)
             {
