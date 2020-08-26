@@ -9,9 +9,9 @@ namespace ISMNewsPortal.BLL.Repositories
 {
     public interface ICacheRepository<T> where T:Model
     {
-        T GetItem(int id);
+        T GetItem(int id, Type type);
         bool AddItem(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(int id, Type type);
     }
 }

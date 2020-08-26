@@ -37,23 +37,21 @@ namespace ISMNewsPortal.BLL.Services
 
         public NewsPost GetNewsPost(int id)
         {
-            var newsPost = CacheNewsPostRepository.GetItem(id);
+            var newsPost = CacheRepository.GetItem(id, typeof(NewsPost));
+            if (newsPost != null)
+                return newsPost as NewsPost;
 
+            newsPost = NewsPostRepository.Get(id);
             if (newsPost == null)
-            {
-                newsPost = NewsPostRepository.Get(id);
-                if (newsPost == null)
-                    throw new NewsPostNullException();
-                else
-                    CacheNewsPostRepository.AddItem(newsPost);
-            }
-            return newsPost;
+                throw new NewsPostNullException();
+            CacheRepository.AddItem(newsPost);
+            return newsPost as NewsPost;
         }
 
         public void UpdateNewsPost(NewsPost newsPost)
         {
             NewsPostRepository.Update(newsPost);
-            CacheNewsPostRepository.Update(newsPost);
+            CacheRepository.Update(newsPost);
             LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(newsPost);
             UnitOfWork.Save();
         }
@@ -61,7 +59,7 @@ namespace ISMNewsPortal.BLL.Services
         public void CreateNewsPost(NewsPost newsPost)
         {
             NewsPostRepository.Create(newsPost);
-            CacheNewsPostRepository.AddItem(newsPost);
+            CacheRepository.AddItem(newsPost);
             LuceneRepositoryFactory.GetRepository<NewsPost>().SaveOrUpdate(newsPost);
             UnitOfWork.Save();
         }
@@ -69,8 +67,8 @@ namespace ISMNewsPortal.BLL.Services
         public void DeleteNewsPost(int id)
         {
             NewsPostRepository.Delete(id);
-            NewsPostRepository.Delete(id);
             CommentRepository.DeleteCommentsByPostId(id);
+            CacheRepository.Delete(id, typeof(NewsPost));
             LuceneRepositoryFactory.GetRepository<NewsPost>().Delete(id);
             UnitOfWork.Save();
         }

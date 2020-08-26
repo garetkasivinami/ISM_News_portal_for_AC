@@ -14,8 +14,8 @@ namespace ISMNewsPortal.BLL
         private static INewsPostRepository newsPostRepository;
         private static IFileRepository fileRepository;
         private static ILuceneRepositoryFactory luceneRepositoryFactory;
-        private static ICacheRepository<NewsPost> cacheNewsPostRepository;
-        private static ICacheRepository<Comment> cacheCommentRepository;
+        private static ICacheRepository<Model> cacheRepository;
+
         public static IUnitOfWork UnitOfWork 
         {
             get => unitOfWork;
@@ -37,13 +37,9 @@ namespace ISMNewsPortal.BLL
             get => luceneRepositoryFactory;
         }
 
-        public static ICacheRepository<NewsPost> CacheNewsPostRepository
+        public static ICacheRepository<Model> CacheRepository
         {
-            get => cacheNewsPostRepository;
-        }
-        public static ICacheRepository<Comment> CacheCommentRepository
-        {
-            get => cacheCommentRepository;
+            get => cacheRepository;
         }
 
         public static void SetRepositories(IAdminRepository adminRepository, 
@@ -65,10 +61,9 @@ namespace ISMNewsPortal.BLL
             SessionManager.unitOfWork = unitOfWork;
         }
 
-        public static void SetCacheRepositories(ICacheRepository<NewsPost> cacheNewsPostRepository, ICacheRepository<Comment> cacheCommentRepository)
+        public static void SetCacheRepository(ICacheRepository<Model> cacheRepository)
         {
-            SessionManager.cacheNewsPostRepository = cacheNewsPostRepository;
-            SessionManager.cacheCommentRepository = cacheCommentRepository;
+            SessionManager.cacheRepository = cacheRepository;
         }
     }
 }

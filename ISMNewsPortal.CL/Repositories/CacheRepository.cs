@@ -9,32 +9,34 @@ using System.Threading.Tasks;
 
 namespace ISMNewsPortal.CL.Repositories
 {
-    public class CacheCommentRepository : ICacheRepository<Comment>
+    public class CacheRepository<T> : ICacheRepository<T> where T : Model
     {
-        public Comment GetItem(int id)
+        public T GetItem(int id, Type type)
         {
             MemoryCache cache = MemoryCache.Default;
-            return cache.Get(id.ToString()) as Comment;
+            return cache.Get($"{type.Name}_{id}") as T;
         }
 
-        public bool AddItem(Comment item)
+        public bool AddItem(T item)
         {
+            Type type = typeof(T);
             MemoryCache cache = MemoryCache.Default;
-            return cache.Add(item.Id.ToString(), item, DateTime.Now.AddMinutes(10));
+            return cache.Add($"{type.Name}_{item.Id}", item, DateTime.Now.AddMinutes(10));
         }
 
-        public void Update(Comment item)
+        public void Update(T item)
         {
+            Type type = typeof(T);
             MemoryCache cache = MemoryCache.Default;
-            cache.Set(item.Id.ToString(), item, DateTime.Now.AddMinutes(10));
+            cache.Set($"{type.Name}_{item.Id}", item, DateTime.Now.AddMinutes(10));
         }
 
-        public void Delete(int id)
+        public void Delete(int id, Type type)
         {
             MemoryCache cache = MemoryCache.Default;
             if (cache.Contains(id.ToString()))
             {
-                cache.Remove(id.ToString());
+                cache.Remove($"{type.Name}_{id}");
             }
         }
     }
