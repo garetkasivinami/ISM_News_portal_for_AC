@@ -9,6 +9,8 @@ using ISMNewsPortal.BLL.Repositories;
 using ISMNewsPortal.ConnectionBuilders;
 using ISMNewsPortal.Lucene;
 using ISMNewsPortal.BLL.Services;
+using ISMNewsPortal.CL.Repositories;
+using ISMNewsPortal.BLL.Models;
 
 namespace ISMNewsPortal
 {
@@ -38,6 +40,10 @@ namespace ISMNewsPortal
             string lucenePath = $"{luceneFolderRelativePath}/{typeConnectionString}";
             var luceneRepositoryFactory = new LuceneRepositoryFactory(lucenePath);
             SessionManager.SetLuceneRepositoryFactory(luceneRepositoryFactory);
+
+            CacheNewsPostRepository cacheNewsPostRepository = new CacheNewsPostRepository();
+            CacheCommentRepository cacheCommentRepository = new CacheCommentRepository();
+            SessionManager.SetCacheRepositories(cacheNewsPostRepository, cacheCommentRepository);
 
             connectionBuilder.CreateRepositories();
 

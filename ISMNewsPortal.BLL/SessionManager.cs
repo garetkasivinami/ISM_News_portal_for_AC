@@ -2,6 +2,7 @@
 using ISMNewsPortal.BLL.Lucene;
 using System.Runtime.CompilerServices;
 using System.Web;
+using ISMNewsPortal.BLL.Models;
 
 namespace ISMNewsPortal.BLL
 {
@@ -13,7 +14,8 @@ namespace ISMNewsPortal.BLL
         private static INewsPostRepository newsPostRepository;
         private static IFileRepository fileRepository;
         private static ILuceneRepositoryFactory luceneRepositoryFactory;
-
+        private static ICacheRepository<NewsPost> cacheNewsPostRepository;
+        private static ICacheRepository<Comment> cacheCommentRepository;
         public static IUnitOfWork UnitOfWork 
         {
             get => unitOfWork;
@@ -35,6 +37,15 @@ namespace ISMNewsPortal.BLL
             get => luceneRepositoryFactory;
         }
 
+        public static ICacheRepository<NewsPost> CacheNewsPostRepository
+        {
+            get => cacheNewsPostRepository;
+        }
+        public static ICacheRepository<Comment> CacheCommentRepository
+        {
+            get => cacheCommentRepository;
+        }
+
         public static void SetRepositories(IAdminRepository adminRepository, 
             ICommentRepository commentRepository, INewsPostRepository newsPostRepository, IFileRepository fileRepository)
         {
@@ -52,6 +63,12 @@ namespace ISMNewsPortal.BLL
         public static void SetUnitOfWork(IUnitOfWork unitOfWork)
         {
             SessionManager.unitOfWork = unitOfWork;
+        }
+
+        public static void SetCacheRepositories(ICacheRepository<NewsPost> cacheNewsPostRepository, ICacheRepository<Comment> cacheCommentRepository)
+        {
+            SessionManager.cacheNewsPostRepository = cacheNewsPostRepository;
+            SessionManager.cacheCommentRepository = cacheCommentRepository;
         }
     }
 }

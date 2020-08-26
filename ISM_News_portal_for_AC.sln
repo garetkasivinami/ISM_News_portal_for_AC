@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNewsPortal.DAL_XML", "IS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNewsPortal.Lucene", "ISMNewsPortal.Lucene\ISMNewsPortal.Lucene.csproj", "{208E92BB-A6DE-46F0-94BE-04F5901DF0CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISMNewsPortal.CL", "ISMNewsPortal.CL\ISMNewsPortal.CL.csproj", "{CA037C7D-23F2-4FE3-926E-7EBDB3ADED19}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{208E92BB-A6DE-46F0-94BE-04F5901DF0CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{208E92BB-A6DE-46F0-94BE-04F5901DF0CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{208E92BB-A6DE-46F0-94BE-04F5901DF0CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA037C7D-23F2-4FE3-926E-7EBDB3ADED19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA037C7D-23F2-4FE3-926E-7EBDB3ADED19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA037C7D-23F2-4FE3-926E-7EBDB3ADED19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA037C7D-23F2-4FE3-926E-7EBDB3ADED19}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

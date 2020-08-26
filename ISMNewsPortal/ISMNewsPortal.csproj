@@ -561,6 +561,10 @@
       <Project>{efc8a452-cac6-4eb4-b1e8-d5269e18f37d}</Project>
       <Name>ISMNewsPortal.BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ISMNewsPortal.CL\ISMNewsPortal.CL.csproj">
+      <Project>{ca037c7d-23f2-4fe3-926e-7ebdb3aded19}</Project>
+      <Name>ISMNewsPortal.CL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ISMNewsPortal.DAL\ISMNewsPortal.DAL.csproj">
       <Project>{49ddde19-febb-4869-bfdc-610d79316957}</Project>
       <Name>ISMNewsPortal.DAL</Name>
