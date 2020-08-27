@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ISMNewsPortal.BLL.Repositories
 {
-    public interface ICacheRepository<T> where T:Model
+    public interface ICacheRepository
     {
-        T GetItem(int id, Type type);
-        bool AddItem(T item);
-        void Update(T item);
-        void Delete(int id, Type type);
+        T GetItem<T>(int id) where T : Model;
+        bool AddItem<T>(T item) where T : Model;
+        void Update<T>(T item) where T : Model;
+        void Delete<T>(int id) where T : Model;
     }
 }

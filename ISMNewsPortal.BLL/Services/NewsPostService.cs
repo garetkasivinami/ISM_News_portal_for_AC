@@ -8,6 +8,7 @@ using System.Net;
 using System.Web.Caching;
 using System.Runtime.Caching;
 using ISMNewsPortal.BLL.Repositories;
+using System.ComponentModel;
 
 namespace ISMNewsPortal.BLL.Services
 {
@@ -37,7 +38,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public NewsPost GetNewsPost(int id)
         {
-            var newsPost = CacheRepository.GetItem(id, typeof(NewsPost));
+            var newsPost = CacheRepository.GetItem<NewsPost>(id);
             if (newsPost != null)
                 return newsPost as NewsPost;
 
@@ -68,7 +69,7 @@ namespace ISMNewsPortal.BLL.Services
         {
             NewsPostRepository.Delete(id);
             CommentRepository.DeleteCommentsByPostId(id);
-            CacheRepository.Delete(id, typeof(NewsPost));
+            CacheRepository.Delete<NewsPost>(id);
             LuceneRepositoryFactory.GetRepository<NewsPost>().Delete(id);
             UnitOfWork.Save();
         }
