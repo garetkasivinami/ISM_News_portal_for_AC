@@ -14,9 +14,14 @@ namespace ISMNewsPortal.BLL.Services
 
         public Admin GetAdmin(int id)
         {
-            var admin = AdminRepository.Get(id);
+            var admin = CacheRepository.GetItem<Admin>(id);
+            if (admin != null)
+                return admin;
+
+            admin = AdminRepository.Get(id);
             if (admin == null)
                 throw new AdminNullException();
+            CacheRepository.AddItem(admin);
             return admin;
         }
         
@@ -29,6 +34,7 @@ namespace ISMNewsPortal.BLL.Services
         public void UpdateAdmin(Admin admin)
         {
             AdminRepository.Update(admin);
+            CacheRepository.Update(admin);
             UnitOfWork.Save();
         }
 
@@ -38,8 +44,7 @@ namespace ISMNewsPortal.BLL.Services
             admin.Email = email;
             if (updateRoles)
                 admin.Roles = roles;
-            AdminRepository.Update(admin);
-            UnitOfWork.Save();
+            UpdateAdmin(admin);
         }
 
         public void CreateAdmin(Admin admin)
@@ -48,12 +53,14 @@ namespace ISMNewsPortal.BLL.Services
             if (createdAdmin != null)
                 throw new AdminExistsException("An administrator with this login already exists");
             AdminRepository.Create(admin);
+            CacheRepository.AddItem(admin);
             UnitOfWork.Save();
         }
 
         public void DeleteAdmin(int id)
         {
             AdminRepository.Delete(id);
+            CacheRepository.Delete<Admin>(id);
             UnitOfWork.Save();
         }
 

@@ -13,33 +13,40 @@ namespace ISMNewsPortal.CL.Repositories
     {
         public T GetItem<T>(int id) where T : Model
         {
-            Type type = typeof(T);
             MemoryCache cache = MemoryCache.Default;
-            return cache.Get($"{type.Name}_{id}") as T;
+            Type type = typeof(T);
+            return cache.Get(GetNameOfItem(type, id)) as T;
         }
 
         public bool AddItem<T>(T item) where T : Model
         {
-            Type type = typeof(T);
             MemoryCache cache = MemoryCache.Default;
-            return cache.Add($"{type.Name}_{item.Id}", item, DateTime.Now.AddMinutes(10));
+            return cache.Add(GetNameOfItem(item), item, DateTime.Now.AddMinutes(10));
         }
 
         public void Update<T>(T item) where T : Model
         {
-            Type type = typeof(T);
             MemoryCache cache = MemoryCache.Default;
-            cache.Set($"{type.Name}_{item.Id}", item, DateTime.Now.AddMinutes(10));
+            cache.Set(GetNameOfItem(item), item, DateTime.Now.AddMinutes(10));
         }
 
         public void Delete<T>(int id) where T : Model
         {
-            Type type = typeof(T);
             MemoryCache cache = MemoryCache.Default;
-            if (cache.Contains(id.ToString()))
-            {
-                cache.Remove($"{type.Name}_{id}");
-            }
+            Type type = typeof(T);
+            string key = GetNameOfItem(type, id);
+            if (cache.Contains(key))
+                cache.Remove(key);
+        }
+
+        private string GetNameOfItem(Model item)
+        {
+            Type type = item.GetType();
+            return GetNameOfItem(type, item.Id);
+        }
+        private string GetNameOfItem(Type type, int id)
+        {
+            return $"{type.Name}_{id}";
         }
     }
 }

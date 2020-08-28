@@ -41,7 +41,8 @@ namespace ISMNewsPortal
             var luceneRepositoryFactory = new LuceneRepositoryFactory(lucenePath);
             SessionManager.SetLuceneRepositoryFactory(luceneRepositoryFactory);
 
-            ICacheRepository cacheRepository = new CacheRepository();
+            CacheRepository cacheRepository = new CacheRepository();
+            SessionManager.SetCacheRepository(cacheRepository);
 
             connectionBuilder.CreateRepositories();
 

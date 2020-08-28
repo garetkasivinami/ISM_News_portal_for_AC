@@ -14,9 +14,14 @@ namespace ISMNewsPortal.BLL.Services
 
         public FileModel GetFile(int id)
         {
-            var file = FileRepository.Get(id);
+            var file = CacheRepository.GetItem<FileModel>(id);
+            if (file != null)
+                return file;
+
+            file = FileRepository.Get(id);
             if (file == null)
                 throw new FileNullException();
+            CacheRepository.AddItem(file);
             return file;
         }
 
@@ -30,6 +35,7 @@ namespace ISMNewsPortal.BLL.Services
         public int CreateFile(FileModel fileModel)
         {
             int id = FileRepository.Create(fileModel);
+            CacheRepository.AddItem(fileModel);
             UnitOfWork.Save();
             return id;
         }
@@ -45,6 +51,7 @@ namespace ISMNewsPortal.BLL.Services
         public void DeleteFile(int id)
         {
             FileRepository.Delete(id);
+            CacheRepository.Delete<FileModel>(id);
             UnitOfWork.Save();
         }
 
@@ -55,7 +62,7 @@ namespace ISMNewsPortal.BLL.Services
 
         public string GetNameById(int id)
         {
-            var file = FileRepository.Get(id);
+            var file = GetFile(id);
             if (file == null)
                 throw new FileNullException();
             return file.Name;
