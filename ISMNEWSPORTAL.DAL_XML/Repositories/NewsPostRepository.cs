@@ -76,11 +76,11 @@ namespace ISMNewsPortal.DAL_XML.Repositories
             else
                 result = SortBy(result, options.SortType);
 
-            if (options.MinimumDate != null)
-                result = result.Where(u => u.PublicationDate >= options.MinimumDate);
+            if (options.DateRange.StartDate != null)
+                result = result.Where(u => u.PublicationDate >= options.DateRange.StartDate);
 
-            if (options.MaximumDate != null)
-                result = result.Where(u => u.PublicationDate < options.MaximumDate);
+            if (options.DateRange.EndDate != null)
+                result = result.Where(u => u.PublicationDate < options.DateRange.EndDate);
 
             if (options.Published != null)
             {

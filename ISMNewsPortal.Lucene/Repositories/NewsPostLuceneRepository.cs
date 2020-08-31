@@ -32,8 +32,8 @@ namespace ISMNewsPortal.Lucene.Repositories
 
         protected override Filter GetFilter(Options options)
         {
-            string minDate = DateTools.DateToString(options.MinimumDate ?? DateTime.MinValue, DateTools.Resolution.MILLISECOND);
-            string maxDate = DateTools.DateToString(options.MaximumDate ?? DateTime.MaxValue, DateTools.Resolution.MILLISECOND);
+            string minDate = DateTools.DateToString(options.DateRange.StartDate ?? DateTime.MinValue, DateTools.Resolution.MILLISECOND);
+            string maxDate = DateTools.DateToString(options.DateRange.EndDate ?? DateTime.MaxValue, DateTools.Resolution.MILLISECOND);
             return FieldCacheRangeFilter.NewStringRange("PublicationDate",
                 minDate, maxDate,
                 true, true);

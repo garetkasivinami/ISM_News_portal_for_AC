@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessModels\DateRange.cs" />
     <Compile Include="BusinessModels\Options.cs" />
     <Compile Include="BusinessModels\OptionsCollectionById.cs" />
     <Compile Include="Exceptions\AdminExistsException.cs" />

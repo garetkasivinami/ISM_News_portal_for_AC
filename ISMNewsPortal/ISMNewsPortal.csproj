@@ -303,8 +303,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
-    <Compile Include="Config\CustomSettingsGroup.cs" />
-    <Compile Include="Config\TypeConnectionElement.cs" />
+    <Compile Include="Config\TypeConnection.cs" />
     <Compile Include="ConnectionBuilders\ConnectionBuilder.cs" />
     <Compile Include="ConnectionBuilders\HibernateConnection.cs" />
     <Compile Include="ConnectionBuilders\XMLConnection.cs" />

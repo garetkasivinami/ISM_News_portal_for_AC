@@ -52,19 +52,17 @@ namespace ISMNewsPortal.Models.Tools
         {
             var filter = Filter?.ToLower();
             var currentDate = DateTime.Now;
+
             switch(filter)
             {
                 case "today":
-                    target.MinimumDate = currentDate.Date;
-                    target.MaximumDate = currentDate.AddDays(1).Date;
+                    target.DateRange = new DateRange(currentDate.Date, currentDate.AddDays(1).Date);
                     break;
                 case "yesterday":
-                    target.MinimumDate = currentDate.AddDays(-1).Date;
-                    target.MaximumDate = currentDate.Date;
+                    target.DateRange = new DateRange(currentDate.AddDays(-1).Date, currentDate.Date);
                     break;
                 case "week":
-                    target.MinimumDate = currentDate.AddDays(-6).Date;
-                    target.MaximumDate = currentDate.AddDays(1).Date;
+                    target.DateRange = new DateRange(currentDate.AddDays(-6).Date, currentDate.AddDays(1).Date);
                     break;
                 case "onlypublished":
                     target.Published = true;

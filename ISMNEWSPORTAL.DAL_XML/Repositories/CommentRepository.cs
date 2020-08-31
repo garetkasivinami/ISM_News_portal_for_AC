@@ -65,11 +65,11 @@ namespace ISMNewsPortal.DAL_XML.Repositories
             else
                 items = SortBy(items, options.SortType);
 
-            if (options.MinimumDate != null)
-                items = items.Where(u => u.Date >= options.MinimumDate);
+            if (options.DateRange.StartDate != null)
+                items = items.Where(u => u.Date >= options.DateRange.StartDate);
 
-            if (options.MaximumDate != null)
-                items = items.Where(u => u.Date < options.MaximumDate);
+            if (options.DateRange.EndDate != null)
+                items = items.Where(u => u.Date < options.DateRange.EndDate);
 
             options.Pages = CalculatePages(items.Count(), Comment.CommentsInOnePage);
 
