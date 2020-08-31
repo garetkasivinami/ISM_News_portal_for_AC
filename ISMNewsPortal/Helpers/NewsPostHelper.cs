@@ -14,34 +14,37 @@ namespace ISMNewsPortal.Helpers
 {
     public static class NewsPostHelper
     {
+        public static NewsPostService NewsPostService { get; private set; }
+
+        static NewsPostHelper()
+        {
+            NewsPostService = new NewsPostService();
+        }
+
         public static void CreateNewsPost(NewsPost newsPost)
         {
-            NewsPostService newsPostService = new NewsPostService();
-            newsPostService.CreateNewsPost(newsPost);
+            NewsPostService.CreateNewsPost(newsPost);
         }
 
         public static void UpdateNewsPost(NewsPostEditModel editModel)
         {
-            NewsPostService newsPostService = new NewsPostService();
-            var newsPost = newsPostService.GetNewsPost(editModel.Id);
+            var newsPost = NewsPostService.GetNewsPost(editModel.Id);
             editModel.PassToNewsPost(newsPost);
-            newsPostService.UpdateNewsPost(newsPost);
+            NewsPostService.UpdateNewsPost(newsPost);
         }
 
         public static void DeleteNewsPost(int id, HttpServerUtilityBase server)
         {
-            NewsPostService newsPostService = new NewsPostService();
-            var newsPost = newsPostService.GetNewsPost(id);
-            newsPostService.DeleteNewsPost(id);
+            var newsPost = NewsPostService.GetNewsPost(id);
+            NewsPostService.DeleteNewsPost(id);
             FileModelActions.RemoveFile(newsPost.ImageId, server);
         }
 
         public static NewsPostViewModel GetNewsPostViewModelById(int id, int commentPage, bool allowAdminActions, bool onlyVisible = false)
         {
-            NewsPostService newsPostService = new NewsPostService();
-            CommentService commentService = new CommentService();
+            var commentService = CommentHelper.CommentService;
 
-            var newsPost = newsPostService.GetNewsPost(id);
+            var newsPost = NewsPostService.GetNewsPost(id);
             if (onlyVisible && (!newsPost.IsVisible || newsPost.PublicationDate > DateTime.Now))
                 throw new NewsPostNullException("Post isn`t visible!");
 
@@ -65,12 +68,11 @@ namespace ISMNewsPortal.Helpers
 
         public static NewsPostAdminCollection GenerateNewsPostAdminCollection(ToolsModel model)
         {
-            NewsPostService newsPostService = new NewsPostService();
-            AdminService adminService = new AdminService();
-            CommentService commentService = new CommentService();
+            var adminService = AdminHelper.AdminService;
+            var commentService = CommentHelper.CommentService;
 
             var businessModel = model.ConvertToOptions();
-            var newsPosts = newsPostService.GetNewsPostsWithAdminTools(businessModel);
+            var newsPosts = NewsPostService.GetNewsPostsWithAdminTools(businessModel);
 
             var newsPostAdminViews = new List<NewsPostAdminView>();
             foreach (NewsPost newsPost in newsPosts)
@@ -85,11 +87,10 @@ namespace ISMNewsPortal.Helpers
 
         public static NewsPostSimplifiedCollection GenerateNewsPostSimplifiedCollection(ToolsModel model)
         {
-            NewsPostService newsPostService = new NewsPostService();
-            CommentService commentService = new CommentService();
+            var commentService = CommentHelper.CommentService;
 
             var businessModel = model.ConvertToOptions();
-            var newsPosts = newsPostService.GetNewsPostsWithTools(businessModel);
+            var newsPosts = NewsPostService.GetNewsPostsWithTools(businessModel);
 
             var newsPostSimplifiedViews = new List<NewsPostSimplifiedView>();
             foreach (NewsPost newsPost in newsPosts)
@@ -104,20 +105,17 @@ namespace ISMNewsPortal.Helpers
 
         public static NewsPostAdminView GetNewsPostAdminView(int id)
         {
-            NewsPostService newsPostService = new NewsPostService();
-            AdminService adminService = new AdminService();
+            var adminService = AdminHelper.AdminService;
 
-            var newsPost = newsPostService.GetNewsPost(id);
+            var newsPost = NewsPostService.GetNewsPost(id);
             string newsPostAuthorName = adminService.GetAdmin(newsPost.AuthorId).Login;
-            int commentsCount = newsPostService.CommentsCount(id);
+            int commentsCount = NewsPostService.CommentsCount(id);
             return new NewsPostAdminView(newsPost, newsPostAuthorName, commentsCount);
         }
 
         public static NewsPostEditModel GetNewsPostEditModel(int id)
         {
-            NewsPostService newsPostService = new NewsPostService();
-
-            var newsPost = newsPostService.GetNewsPost(id);
+            var newsPost = NewsPostService.GetNewsPost(id);
             return new NewsPostEditModel(newsPost);
         }
     }

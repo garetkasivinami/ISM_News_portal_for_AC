@@ -298,6 +298,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\CustomRoleProvider.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -329,7 +330,6 @@
     <Compile Include="Models\Comment\CommentCreateModel.cs" />
     <Compile Include="Models\Comment\CommentViewModel.cs" />
     <Compile Include="Models\Comment\CommentViewModelCollection.cs" />
-    <Compile Include="Accounts\CustomRoleProvider.cs" />
     <Compile Include="Helpers\FileModelActions.cs" />
     <Compile Include="Accounts\IdentityStore.cs" />
     <Compile Include="Models\NewsPost\NewsPostAdminCollection.cs" />

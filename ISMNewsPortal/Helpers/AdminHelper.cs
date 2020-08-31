@@ -12,28 +12,31 @@ namespace ISMNewsPortal.Helpers
 {
     public static class AdminHelper
     {
+        public static AdminService AdminService { get; private set; }
+
+        static AdminHelper()
+        {
+            AdminService = new AdminService();
+        }
+
         public static void CreateAdmin(Admin admin)
         {
-            AdminService adminService = new AdminService();
-            adminService.CreateAdmin(admin);
+            AdminService.CreateAdmin(admin);
         }
 
         public static void UpdateAdmin(Admin admin)
         {
-            AdminService adminService = new AdminService();
-            adminService.UpdateAdmin(admin);
+            AdminService.UpdateAdmin(admin);
         }
 
         public static void UpdateAdminPartial(int id, string email, string roles = null, bool updateRoles = false)
         {
-            AdminService adminService = new AdminService();
-            adminService.UpdateAdminPartial(id, email, roles, updateRoles);
+            AdminService.UpdateAdminPartial(id, email, roles, updateRoles);
         }
 
         public static void DeleteAdmin(int id)
         {
-            AdminService adminService = new AdminService();
-            adminService.DeleteAdmin(id);
+            AdminService.DeleteAdmin(id);
         }
 
         public static void SetPassword(Admin admin, string password)
@@ -53,14 +56,12 @@ namespace ISMNewsPortal.Helpers
 
         public static Admin GetAdmin(int id)
         {
-            AdminService adminService = new AdminService();
-            return adminService.GetAdmin(id);
+            return AdminService.GetAdmin(id);
         }
 
         public static Admin GetAdmin(string login)
         {
-            AdminService adminService = new AdminService();
-            return adminService.GetAdminByLogin(login);
+            return AdminService.GetAdminByLogin(login);
         }
 
         public static Admin GetAdminByLoginAndPassword(string login, string password)
@@ -74,8 +75,7 @@ namespace ISMNewsPortal.Helpers
 
         public static AdminViewModelCollection GenerateAdminViewModelCollection()
         {
-            AdminService adminService = new AdminService();
-            var admins = adminService.GetAdmins();
+            var admins = AdminService.GetAdmins();
             var adminViewModels = new List<AdminViewModel>();
             foreach (Admin admin in admins)
             {

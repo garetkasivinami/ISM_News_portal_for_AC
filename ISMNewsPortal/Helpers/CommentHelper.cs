@@ -14,22 +14,26 @@ namespace ISMNewsPortal.Helpers
 {
     public static class CommentHelper
     {
+        public static CommentService CommentService { get; private set; }
+
+        static CommentHelper()
+        {
+            CommentService = new CommentService();
+        }
+
         public static int CreateComment(Comment comment)
         {
-            CommentService commentService = new CommentService();
-            return commentService.CreateComment(comment);
+            return CommentService.CreateComment(comment);
         }
 
         public static void UdpateComment(Comment comment)
         {
-            CommentService commentService = new CommentService();
-            commentService.UpdateComment(comment);
+            CommentService.UpdateComment(comment);
         }
 
         public static void DeleteComment(int id)
         {
-            CommentService commentService = new CommentService();
-            commentService.DeleteComment(id);
+            CommentService.DeleteComment(id);
         }
 
         public static string BuildErrorMessage(ModelStateDictionary modelState)
@@ -50,10 +54,9 @@ namespace ISMNewsPortal.Helpers
 
         public static CommentViewModelCollection GenerateCommentViewModelCollection(CommentToolsModel options)
         {
-            CommentService commentService = new CommentService();
-            NewsPostService newsPostService = new NewsPostService();
+            var newsPostService = NewsPostHelper.NewsPostService;
             var optionsBusiness = options.ConvertToOptionsCollectionById();
-            var comments = commentService.GetCommentsWithTools(optionsBusiness);
+            var comments = CommentService.GetCommentsWithTools(optionsBusiness);
 
             int commentsCount = optionsBusiness.CommentsCount;
 

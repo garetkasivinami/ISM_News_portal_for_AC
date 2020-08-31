@@ -12,6 +12,13 @@ namespace ISMNewsPortal.Helpers
 {
     public static class FileModelActions
     {
+        public static FileService FileService { get; private set; }
+
+        static FileModelActions()
+        {
+            FileService = new FileService();
+        }
+
         public static int SaveFile(HttpPostedFileBase file, HttpServerUtilityBase server)
         {
             byte[] hashBytes;
@@ -22,8 +29,7 @@ namespace ISMNewsPortal.Helpers
                 stream.Seek(0, SeekOrigin.Begin);
             }
             string hashCode = System.Text.Encoding.Unicode.GetString(hashBytes);
-            FileService fileService = new FileService();
-            var equalFileModelDTO = fileService.FindByHashCode(hashCode);
+            var equalFileModelDTO = FileService.FindByHashCode(hashCode);
             if (equalFileModelDTO != null)
                 return equalFileModelDTO.Id;
 
@@ -38,25 +44,23 @@ namespace ISMNewsPortal.Helpers
 
             file.InputStream.Close();
             var fileModelDTO = new FileModel() { HashCode = hashCode, Name = fileName };
-            return fileService.CreateFile(fileModelDTO);
+            return FileService.CreateFile(fileModelDTO);
         }
 
         public static void RemoveFile(int id, HttpServerUtilityBase server)
         {
-            FileService fileService = new FileService();
-            string fileName = fileService.GetNameById(id);
+            string fileName = FileService.GetNameById(id);
             string path = server.MapPath("~/App_Data/Files/" + fileName);
-            if (System.IO.File.Exists(path))
+            if (File.Exists(path))
             {
-                System.IO.File.Delete(path);
-                fileService.SafeDeleteFile(id);
+                File.Delete(path);
+                FileService.SafeDeleteFile(id);
             }
         }
 
         public static string GetNameByIdFormated(int id)
         {
-            FileService fileService = new FileService();
-            return $"/Files/?name={fileService.GetNameById(id)}";
+            return $"/Files/?name={FileService.GetNameById(id)}";
         }
     }
 }
