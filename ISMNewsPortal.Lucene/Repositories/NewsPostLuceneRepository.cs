@@ -32,8 +32,12 @@ namespace ISMNewsPortal.Lucene.Repositories
 
         protected override Filter GetFilter(Options options)
         {
-            string minDate = DateTools.DateToString(options.DateRange.StartDate ?? DateTime.MinValue, DateTools.Resolution.MILLISECOND);
-            string maxDate = DateTools.DateToString(options.DateRange.EndDate ?? DateTime.MaxValue, DateTools.Resolution.MILLISECOND);
+            DateTime minDateValue = options.DateRange.StartDate ?? DateTime.MinValue;
+            string minDate = DateTools.DateToString(minDateValue, DateTools.Resolution.MILLISECOND);
+
+            DateTime maxDateValue = options.DateRange.EndDate ?? DateTime.MaxValue;
+            string maxDate = DateTools.DateToString(maxDateValue, DateTools.Resolution.MILLISECOND);
+
             return FieldCacheRangeFilter.NewStringRange("PublicationDate",
                 minDate, maxDate,
                 true, true);
@@ -80,19 +84,19 @@ namespace ISMNewsPortal.Lucene.Repositories
 
         protected override void PassToIndex(NewsPost item, Document doc)
         {
-            doc.Add(new Field("Id", item.Id.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("AuthorId", item.AuthorId.ToString(), Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("Name", item.Name, Field.Store.YES, Field.Index.ANALYZED));
-            string description = Regex.Replace(item.Description, "<.*?>", String.Empty);
-            doc.Add(new Field("Description", description, Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field("Id", item.Id.ToString(), Field.Store.YES, ANALYZED));
+            doc.Add(new Field("AuthorId", item.AuthorId.ToString(), Field.Store.YES, ANALYZED));
+            doc.Add(new Field("Name", item.Name, Field.Store.YES, ANALYZED));
+            string description = Regex.Replace(item.Description, "<.*?>", string.Empty);
+            doc.Add(new Field("Description", description, Field.Store.YES, ANALYZED));
             var publicationDate = DateTools.DateToString(item.PublicationDate, DateTools.Resolution.MILLISECOND);
-            doc.Add(new Field("PublicationDate", publicationDate, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("PublicationDate", publicationDate, Field.Store.YES, NOT_ANALYZED));
             var editDate = DateTools.DateToString(item.EditDate ?? DateTime.MinValue, DateTools.Resolution.MILLISECOND);
-            doc.Add(new Field("EditDate", editDate, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("EditDate", editDate, Field.Store.YES, NOT_ANALYZED));
             var createdDate = DateTools.DateToString(item.CreatedDate, DateTools.Resolution.MILLISECOND);
-            doc.Add(new Field("CreatedDate", createdDate, Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.Add(new Field("ImageId", item.ImageId.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-            doc.Add(new Field("IsVisible", item.IsVisible.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("CreatedDate", createdDate, Field.Store.YES, NOT_ANALYZED));
+            doc.Add(new Field("ImageId", item.ImageId.ToString(), Field.Store.YES, NOT_ANALYZED));
+            doc.Add(new Field("IsVisible", item.IsVisible.ToString(), Field.Store.YES, NOT_ANALYZED));
         }
     }
 }
