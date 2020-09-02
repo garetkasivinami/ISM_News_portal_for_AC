@@ -37,10 +37,9 @@ namespace ISMNewsPortal.Controllers
                 {
                     var password = Security.SHA512(model.Password, admin.Salt);
                     var result = SignInManager.PasswordSignIn(model.Login, password, true,  false);
+
                     if (result == SignInStatus.Success)
-                    {
                         return RedirectToAction("Index", "Admin");
-                    }
                 }
                 ModelState.AddModelError("", "Invalid login and/or password!");
             }

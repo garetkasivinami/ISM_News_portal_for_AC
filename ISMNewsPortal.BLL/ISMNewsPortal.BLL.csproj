@@ -54,6 +54,7 @@
     <Compile Include="Exceptions\NullExceptions\CommentNullException.cs" />
     <Compile Include="Exceptions\NullExceptions\FileNullException.cs" />
     <Compile Include="Exceptions\NullExceptions\NewsPostNullException.cs" />
+    <Compile Include="Helpers\DALHelper.cs" />
     <Compile Include="Lucene\ILuceneRepository.cs" />
     <Compile Include="Lucene\ILuceneRepositoryFactory.cs" />
     <Compile Include="Models\Admin.cs" />

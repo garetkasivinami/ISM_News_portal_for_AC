@@ -105,9 +105,8 @@ namespace ISMNewsPortal.Controllers
         {
             var admin = AdminHelper.GetAdmin(id);
             if (admin.Login == User.Identity.Name)
-            {
                 return RedirectToAction("AdminsList");
-            }
+
             AdminHelper.DeleteAdmin(id);
             return RedirectToAction("AdminsList");
         }

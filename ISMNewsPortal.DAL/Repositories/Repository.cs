@@ -66,7 +66,14 @@ namespace ISMNewsPortal.DAL.Repositories
             hibernateUnitOfWork.BeginTransaction();
             if (item == null)
                 throw new NullReferenceException();
-            NHibernateSession.Session.Update(item);
+
+            try
+            {
+                NHibernateSession.Session.Update(item);
+            } catch(NonUniqueObjectException)
+            {
+                NHibernateSession.Session.Merge(item);
+            }
         }
     }
 }

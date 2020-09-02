@@ -105,9 +105,8 @@ namespace ISMNewsPortal.Helpers
         public static IEnumerable<string> RoleCutter(string roleString)
         {
             if (roleString == null)
-            {
                 return new string[0];
-            }
+            
             return roleString.Split(',');
         }
 

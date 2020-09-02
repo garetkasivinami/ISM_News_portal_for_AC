@@ -20,9 +20,8 @@ namespace ISMNewsPortal.Lucene
         {
             Type type = typeof(T);
             if (repositories.ContainsKey(type))
-            {
                 return repositories[type] as ILuceneRepository<T>;
-            }
+            
             ILuceneRepository<T> repository = GetRepositoryByType<T>();
             repositories.Add(type, repository);
             return repository;
@@ -32,9 +31,8 @@ namespace ISMNewsPortal.Lucene
         {
             Type type = typeof(T);
             if (type == typeof(NewsPost))
-            {
                 return new NewsPostLuceneRepository(lucenePath) as ILuceneRepository<T>;
-            }
+
             throw new Exception("Unknown repository type!");
         }
     }

@@ -14,9 +14,8 @@ namespace ISMNewsPortal
             // Список культур
             List<string> cultures = new List<string>() { "uk", "en", "ru" };
             if (!cultures.Contains(cultureName))
-            {
                 cultureName = "en";
-            }
+
             Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(cultureName);
             Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture(cultureName);
         }
