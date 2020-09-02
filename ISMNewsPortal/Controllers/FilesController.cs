@@ -6,7 +6,7 @@ namespace ISMNewsPortal.Controllers
     {
         // GET: Files
         [HttpGet]
-        [OutputCache(Duration = 180, Location = System.Web.UI.OutputCacheLocation.Client)]
+        [OutputCache(Duration = 180, Location = System.Web.UI.OutputCacheLocation.Server)]
         public ActionResult GetFile(string name)
         {
             string file_path = ($"~/App_Data/Files/{name}");

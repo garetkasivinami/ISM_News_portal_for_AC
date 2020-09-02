@@ -20,7 +20,12 @@
         {
             <div class="col mb-4">
                 <div class="card border-dark admin-list-item" style="max-width: 18rem;">
-                    <div class="card-header">@Language.Language.Login: @adminView.Login</div>
+                    <div class="card-header">@Language.Language.Login: @adminView.Login
+                        @if (adminView.Login == User.Identity.Name)
+                        {
+                            <i> (is you)</i>
+                        }
+                    </div>
                     <div class="card-body text-dark">
                         <p class="card-text">@Language.Language.AdminId: @adminView.Id</p>
                         <p class="card-text">@Language.Language.Email: @adminView.Email</p>

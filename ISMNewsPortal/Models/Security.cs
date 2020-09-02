@@ -6,11 +6,12 @@ namespace ISMNewsPortal.Models
 {
     public static class Security
     {
-        public const int PasswordUserLength = 64;
+        public const int MinPasswordLength = 8;
+        public const int MaxPasswordLength = 64;
 
         public static string SHA512(string input, out string salt)
         {
-            salt = RandomString(PasswordUserLength);
+            salt = RandomString(MaxPasswordLength);
             return SHA512(input, salt);
         }
 

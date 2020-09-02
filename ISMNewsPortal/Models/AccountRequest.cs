@@ -28,10 +28,11 @@ namespace ISMNewsPortal.Models
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MaxLength(128)]
         [Display(Name = "Login", ResourceType = typeof(Language.Language))]
+        [RegularExpression(@"^[^\s]+$")]
         public string Login { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
-        [MinLength(8)]
-        [MaxLength(128)]
+        [MinLength(Security.MinPasswordLength)]
+        [MaxLength(Security.MaxPasswordLength)]
         [Display(Name = "Password", ResourceType = typeof(Language.Language))]
         [DataType(DataType.Password)]
         public string Password { get; set; }

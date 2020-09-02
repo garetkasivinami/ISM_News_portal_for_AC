@@ -56,7 +56,7 @@ namespace ISMNewsPortal.Controllers
 
         [Authorize]
         [HttpGet]
-        [OutputCache(Location = System.Web.UI.OutputCacheLocation.Client, Duration = 180)]
+        [OutputCache(Location = OutputCacheLocation.Client, Duration = 180)]
         public ActionResult ChangePassword()
         {
             return View();
