@@ -7,15 +7,17 @@ namespace ISMNewsPortal.Models
         [Required]
         [MinLength(4)]
         [MaxLength(128)]
-        [RegularExpression(@"^[^\s]+$")]
+        [RegularExpression(@"^[^\s]+$", ErrorMessageResourceName = "NonValidLogin", ErrorMessageResourceType = typeof(Language.Language))]
         [Display(Name = "Login", ResourceType = typeof(Language.Language))]
         public string Login { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [MinLength(Security.MinPasswordLength)]
         [MaxLength(Security.MaxPasswordLength)]
         [Display(Name = "Password", ResourceType = typeof(Language.Language))]
         public string Password { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         [MinLength(Security.MinPasswordLength)]

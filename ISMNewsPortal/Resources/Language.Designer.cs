@@ -601,6 +601,15 @@ namespace Language {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Non valid login.
+        /// </summary>
+        public static string NonValidLogin {
+            get {
+                return ResourceManager.GetString("NonValidLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Not published.
         /// </summary>
         public static string NotPublished {

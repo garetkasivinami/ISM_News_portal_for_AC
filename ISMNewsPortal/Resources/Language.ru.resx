@@ -294,6 +294,9 @@
   <data name="NoNews" xml:space="preserve">
     <value>Нету новостей</value>
   </data>
+  <data name="NonValidLogin" xml:space="preserve">
+    <value>Недействителен логин!</value>
+  </data>
   <data name="NotPublished" xml:space="preserve">
     <value>Не опубликовано!</value>
   </data>

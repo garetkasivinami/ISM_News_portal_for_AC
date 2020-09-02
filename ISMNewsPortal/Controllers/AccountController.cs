@@ -66,6 +66,9 @@ namespace ISMNewsPortal.Controllers
         [HttpPost]
         public ActionResult ChangePassword(ChangePassword model)
         {
+            if (!ModelState.IsValid)
+                return View(model);
+
             var admin = AdminHelper.GetAdmin(User.Identity.Name);
             if (admin == null)
                 return RedirectToAction("Logoff");

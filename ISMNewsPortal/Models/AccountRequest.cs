@@ -28,7 +28,7 @@ namespace ISMNewsPortal.Models
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MaxLength(128)]
         [Display(Name = "Login", ResourceType = typeof(Language.Language))]
-        [RegularExpression(@"^[^\s]+$")]
+        [RegularExpression(@"^[^\s]+$", ErrorMessageResourceName = "NonValidLogin", ErrorMessageResourceType = typeof(Language.Language))]
         public string Login { get; set; }
         [Required(ErrorMessage = HelperActions.ErrorMessage)]
         [MinLength(Security.MinPasswordLength)]

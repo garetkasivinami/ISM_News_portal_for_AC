@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.Helpers;
 using ISMNewsPortal.Models.Tools;
+using System;
 
 namespace ISMNewsPortal.Controllers
 {
@@ -87,8 +88,9 @@ namespace ISMNewsPortal.Controllers
                 var admin = new Admin() { Login = model.Login.Trim(), Email = model.Email };
                 AdminHelper.SetPassword(admin, model.Password);
                 AdminHelper.CreateAdmin(admin);
+                return RedirectToAction("AdminsList");
             }
-            return RedirectToAction("AdminsList");
+            return View(model);
         }
 
         [HttpGet]
