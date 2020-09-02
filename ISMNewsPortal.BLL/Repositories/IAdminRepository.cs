@@ -7,6 +7,5 @@ namespace ISMNewsPortal.BLL.Repositories
     {
         Admin GetByLogin(string login);
         Admin GetByEmail(string email);
-        IEnumerable<Admin> GetByRole(string role);
     }
 }

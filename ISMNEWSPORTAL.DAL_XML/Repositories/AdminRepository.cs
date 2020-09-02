@@ -22,10 +22,5 @@ namespace ISMNewsPortal.DAL_XML.Repositories
         {
             return GetAll().SingleOrDefault(u => u.Login == login);
         }
-
-        public IEnumerable<Admin> GetByRole(string role)
-        {
-            return GetAll().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
-        }
     }
 }

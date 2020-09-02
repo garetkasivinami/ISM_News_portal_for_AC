@@ -23,10 +23,5 @@ namespace ISMNewsPortal.DAL.Repositories
         {
             return NHibernateSession.Session.Query<Admin>().SingleOrDefault(u => u.Login == login);
         }
-
-        public IEnumerable<Admin> GetByRole(string role)
-        {
-            return NHibernateSession.Session.Query<Admin>().Where(u => Array.IndexOf(u.Roles.Split(','), role) != -1);
-        }
     }
 }
