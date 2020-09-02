@@ -158,7 +158,7 @@ namespace ISMNewsPortal.Controllers
         public ActionResult DeleteComment(int id, int postId)
         {
             CommentHelper.DeleteComment(id);
-            return RedirectToAction("Comments", new { postId });
+            return RedirectToAction("Comments", new { id = postId });
         }
 
         [HttpGet]

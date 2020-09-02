@@ -45,6 +45,7 @@ namespace ISMNewsPortal.Models
                         filterContext.Result = new JsonResult { Data = new { error = true, signinerror = true, message = "Access denied", url = logoff }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
                     else
                         filterContext.Result = new RedirectResult(logoff);
+
                     return;
                 }
                 if (!string.IsNullOrEmpty(base.Roles))
@@ -54,8 +55,10 @@ namespace ISMNewsPortal.Models
                     if (rolesAllowed.Any())
                     {
                         foreach (var role in rolesAllowed)
+                        {
                             if (user.IsInRole(role))
                                 isRoleError = false;
+                        }
                     }
 
                     if (!isRoleError)
@@ -65,6 +68,7 @@ namespace ISMNewsPortal.Models
                     return;
                 }
             }
+
             if (request.IsAjaxRequest())
                 filterContext.Result = new JsonResult { Data = new { error = true, signinerror = true, message = "Access denied", url = accessDeniedUrl }, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
             else
