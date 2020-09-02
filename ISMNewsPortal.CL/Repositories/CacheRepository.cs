@@ -11,32 +11,35 @@ namespace ISMNewsPortal.CL.Repositories
 {
     public class CacheRepository : ICacheRepository
     {
+        private MemoryCache memoryCache;
+
+        public CacheRepository()
+        {
+            memoryCache = MemoryCache.Default;
+        }
+
         public T GetItem<T>(int id) where T : Model
         {
-            MemoryCache cache = MemoryCache.Default;
             Type type = typeof(T);
-            return cache.Get(GetNameOfItem(type, id)) as T;
+            return memoryCache.Get(GetNameOfItem(type, id)) as T;
         }
 
         public bool AddItem<T>(T item) where T : Model
         {
-            MemoryCache cache = MemoryCache.Default;
-            return cache.Add(GetNameOfItem(item), item, DateTime.Now.AddMinutes(10));
+            return memoryCache.Add(GetNameOfItem(item), item, DateTime.Now.AddMinutes(10));
         }
 
         public void Update<T>(T item) where T : Model
         {
-            MemoryCache cache = MemoryCache.Default;
-            cache.Set(GetNameOfItem(item), item, DateTime.Now.AddMinutes(10));
+            memoryCache.Set(GetNameOfItem(item), item, DateTime.Now.AddMinutes(10));
         }
 
         public void Delete<T>(int id) where T : Model
         {
-            MemoryCache cache = MemoryCache.Default;
             Type type = typeof(T);
             string key = GetNameOfItem(type, id);
-            if (cache.Contains(key))
-                cache.Remove(key);
+            if (memoryCache.Contains(key))
+                memoryCache.Remove(key);
         }
 
         private string GetNameOfItem(Model item)

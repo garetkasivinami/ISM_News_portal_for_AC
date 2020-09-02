@@ -3,6 +3,7 @@ using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using static ISMNewsPortal.BLL.Helpers.DALHelper;
 using static ISMNewsPortal.BLL.Tools.CommentsSort;
 
 namespace ISMNewsPortal.DAL_XML.Repositories
@@ -39,16 +40,6 @@ namespace ISMNewsPortal.DAL_XML.Repositories
         public int GetCountByPostId(int id)
         {
             return GetAll().Where(u => u.NewsPostId == id).Count();
-        }
-
-        public static int CalculatePages(int count, int countInOnePage)
-        {
-            int pages = count / countInOnePage;
-            if (count % countInOnePage != 0)
-            {
-                pages++;
-            }
-            return pages;
         }
 
         public override IEnumerable<Comment> GetWithOptions(object requirements)

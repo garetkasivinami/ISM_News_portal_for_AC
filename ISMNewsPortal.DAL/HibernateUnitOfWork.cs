@@ -37,9 +37,8 @@ namespace ISMNewsPortal.DAL
             try
             {
                 if (session.Transaction.IsActive)
-                {
                     session.Transaction.Commit();
-                }
+
             } catch
             {
                 session.Transaction.Rollback();

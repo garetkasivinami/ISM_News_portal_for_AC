@@ -3,9 +3,10 @@ using NHibernate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static ISMNewsPortal.BLL.Tools.NewsPostSort;
 using ISMNewsPortal.BLL.Models;
 using ISMNewsPortal.BLL.BusinessModels;
+using static ISMNewsPortal.BLL.Helpers.DALHelper;
+using static ISMNewsPortal.BLL.Tools.NewsPostSort;
 
 namespace ISMNewsPortal.DAL.Repositories
 {
@@ -49,7 +50,7 @@ namespace ISMNewsPortal.DAL.Repositories
             }
                 
 
-            options.Pages = Helper.CalculatePages(items.Count(), NewsPost.NewsInOnePage);
+            options.Pages = CalculatePages(items.Count(), NewsPost.NewsInOnePage);
 
             items = items.Skip(options.Page * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
 

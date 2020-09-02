@@ -4,6 +4,7 @@ using ISMNewsPortal.BLL.Repositories;
 using NHibernate;
 using System.Collections.Generic;
 using System.Linq;
+using static ISMNewsPortal.BLL.Helpers.DALHelper;
 using static ISMNewsPortal.BLL.Tools.CommentsSort;
 
 namespace ISMNewsPortal.DAL.Repositories
@@ -66,7 +67,7 @@ namespace ISMNewsPortal.DAL.Repositories
             if (options.DateRange.EndDate != null)
                 items = items.Where(u => u.Date < options.DateRange.EndDate);
 
-            options.Pages = Helper.CalculatePages(items.Count(), Comment.CommentsInOnePage);
+            options.Pages = CalculatePages(items.Count(), Comment.CommentsInOnePage);
 
             options.CommentsCount = items.Count();
 
