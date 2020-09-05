@@ -159,7 +159,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Moderator, Roles.Administrator, Roles.Creator)]
         public ActionResult DeleteComment(int id, int postId)
         {
-            CommentHelper.DeleteComment(id);
+            CommentHelper.DeleteComment(id, postId);
             return RedirectToAction("Comments", new { id = postId });
         }
 

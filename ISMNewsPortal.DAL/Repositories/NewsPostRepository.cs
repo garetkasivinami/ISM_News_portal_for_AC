@@ -54,29 +54,27 @@ namespace ISMNewsPortal.DAL.Repositories
 
             items = items.Skip(options.Page * NewsPost.NewsInOnePage).Take(NewsPost.NewsInOnePage);
 
-            var result = items.ToList();
-
-            return result;
+            return items.ToList();
         }
 
         public IEnumerable<NewsPost> GetByAuthorId(int id)
         {
-            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.AuthorId == id);
+            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.AuthorId == id).ToList();
         }
 
         public IEnumerable<NewsPost> GetByImageId(int id)
         {
-            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.ImageId == id);
+            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.ImageId == id).ToList();
         }
 
         public IEnumerable<NewsPost> GetByName(string name)
         {
-            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.Name == name);
+            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.Name == name).ToList();
         }
 
         public IEnumerable<NewsPost> GetByVisibility(bool visible)
         {
-            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.IsVisible == visible);
+            return NHibernateSession.Session.Query<NewsPost>().Where(u => u.IsVisible == visible).ToList();
         }
 
         public override void Update(NewsPost item)

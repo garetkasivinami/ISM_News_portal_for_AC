@@ -64,7 +64,7 @@ namespace ISMNewsPortal.DAL_XML.Repositories
 
             options.Pages = CalculatePages(items.Count(), Comment.CommentsInOnePage);
 
-            options.CommentsCount = items.Count();
+            options.ItemsCount = items.Count();
 
             items = items.Skip(options.Page * Comment.CommentsInOnePage).Take(Comment.CommentsInOnePage);
 

@@ -12,44 +12,54 @@ namespace ISMNewsPortal.CL.Repositories
     public class CacheRepository : ICacheRepository
     {
         private MemoryCache memoryCache;
+        private int minutes;
 
-        public CacheRepository()
+        public CacheRepository(int minutes)
         {
             memoryCache = MemoryCache.Default;
+            this.minutes = minutes;
         }
 
-        public T GetItem<T>(int id) where T : Model
+        public T GetItem<T>(string key) where T : Model
         {
-            Type type = typeof(T);
-            return memoryCache.Get(GetNameOfItem(type, id)) as T;
+            return memoryCache[key] as T;
         }
 
-        public bool AddItem<T>(T item) where T : Model
+        public IEnumerable<T> GetItems<T>(string key) where T : Model
         {
-            return memoryCache.Add(GetNameOfItem(item), item, DateTime.Now.AddMinutes(10));
+            return memoryCache[key] as IEnumerable<T>;
         }
 
-        public void Update<T>(T item) where T : Model
+        public bool Add<T>(T item, string key) where T : Model
         {
-            memoryCache.Set(GetNameOfItem(item), item, DateTime.Now.AddMinutes(10));
+            return memoryCache.Add(key, item, DateTime.Now.AddMinutes(minutes));
         }
 
-        public void Delete<T>(int id) where T : Model
+        public void Update<T>(T item, string key) where T : Model
         {
-            Type type = typeof(T);
-            string key = GetNameOfItem(type, id);
-            if (memoryCache.Contains(key))
-                memoryCache.Remove(key);
+            memoryCache.Set(key, item, DateTime.Now.AddMinutes(minutes));
         }
 
-        private string GetNameOfItem(Model item)
+        public void Delete(string key)
         {
-            Type type = item.GetType();
-            return GetNameOfItem(type, item.Id);
+            memoryCache.Remove(key);
         }
-        private string GetNameOfItem(Type type, int id)
+
+        public bool Add<T>(IEnumerable<T> items, string key) where T : Model
         {
-            return $"{type.Name}_{id}";
+            return memoryCache.Add(key, items, DateTime.Now.AddMinutes(minutes));
+        }
+
+        public void Update<T>(IEnumerable<T> items, string key) where T : Model
+        {
+            memoryCache.Set(key, items, DateTime.Now.AddMinutes(minutes));
+        }
+
+        public void DeleteByPartOfTheKey(string partOfKey)
+        {
+            var keys = memoryCache.Where(u => u.Key.Contains(partOfKey)).Select(u => u.Key);
+            foreach (string key in keys)
+                Delete(key);
         }
     }
 }

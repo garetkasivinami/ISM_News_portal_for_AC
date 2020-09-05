@@ -53,7 +53,7 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public IEnumerable<T> GetAll()
         {
-            return NHibernateSession.Session.Query<T>();
+            return NHibernateSession.Session.Query<T>().ToList();
         }
 
         public virtual IEnumerable<T> GetWithOptions(object toolBar)

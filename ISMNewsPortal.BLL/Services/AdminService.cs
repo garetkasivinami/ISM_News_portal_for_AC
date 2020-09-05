@@ -6,7 +6,7 @@ using static ISMNewsPortal.BLL.SessionManager;
 namespace ISMNewsPortal.BLL.Services
 {
     public class AdminService {
-
+        private const string AdminCache = "admin";
         public IEnumerable<Admin> GetAdmins()
         {
             return AdminRepository.GetAll();
@@ -14,14 +14,14 @@ namespace ISMNewsPortal.BLL.Services
 
         public Admin GetAdmin(int id)
         {
-            var admin = CacheRepository.GetItem<Admin>(id);
+            var admin = CacheRepository.GetItem<Admin>($"{AdminCache}-{id}");
             if (admin != null)
                 return admin;
 
             admin = AdminRepository.Get(id);
             if (admin == null)
                 throw new AdminNullException();
-            CacheRepository.AddItem(admin);
+            CacheRepository.Add(admin, $"{AdminCache}-{id}");
             return admin;
         }
         
@@ -34,7 +34,7 @@ namespace ISMNewsPortal.BLL.Services
         public void UpdateAdmin(Admin admin)
         {
             AdminRepository.Update(admin);
-            CacheRepository.Update(admin);
+            CacheRepository.Update(admin, $"{AdminCache}-{admin.Id}");
             UnitOfWork.Save();
         }
 
@@ -53,14 +53,14 @@ namespace ISMNewsPortal.BLL.Services
             if (createdAdmin != null)
                 throw new AdminExistsException("An administrator with this login already exists");
             AdminRepository.Create(admin);
-            CacheRepository.AddItem(admin);
+            CacheRepository.Add(admin, $"{AdminCache}-{admin.Id}");
             UnitOfWork.Save();
         }
 
         public void DeleteAdmin(int id)
         {
             AdminRepository.Delete(id);
-            CacheRepository.Delete<Admin>(id);
+            CacheRepository.Delete($"{AdminCache}-{id}");
             UnitOfWork.Save();
         }
 

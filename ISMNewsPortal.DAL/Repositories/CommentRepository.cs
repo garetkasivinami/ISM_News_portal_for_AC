@@ -33,17 +33,17 @@ namespace ISMNewsPortal.DAL.Repositories
 
         public IEnumerable<Comment> GetByPostId(int id)
         {
-            return NHibernateSession.Session.Query<Comment>().Where(u => u.NewsPostId == id);
+            return NHibernateSession.Session.Query<Comment>().Where(u => u.NewsPostId == id).ToList();
         }
 
         public IEnumerable<Comment> GetByUserName(string userName)
         {
-            return NHibernateSession.Session.Query<Comment>().Where(u => u.UserName == userName);
+            return NHibernateSession.Session.Query<Comment>().Where(u => u.UserName == userName).ToList();
         }
 
         public IEnumerable<Comment> GetByUserNameAndPostId(string userName, int postId)
         {
-            return NHibernateSession.Session.Query<Comment>().Where(u => u.NewsPostId == postId && u.UserName == userName);
+            return NHibernateSession.Session.Query<Comment>().Where(u => u.NewsPostId == postId && u.UserName == userName).ToList();
         }
 
         public override IEnumerable<Comment> GetWithOptions(object requirements)
@@ -69,13 +69,11 @@ namespace ISMNewsPortal.DAL.Repositories
 
             options.Pages = CalculatePages(items.Count(), Comment.CommentsInOnePage);
 
-            options.CommentsCount = items.Count();
+            options.ItemsCount = items.Count();
 
             items = items.Skip(options.Page * Comment.CommentsInOnePage).Take(Comment.CommentsInOnePage);
 
-            var result = items.ToList();
-
-            return result;
+            return items.ToList();
         }
 
     }

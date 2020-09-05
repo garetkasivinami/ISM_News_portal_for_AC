@@ -22,5 +22,10 @@ namespace ISMNewsPortal.BLL.BusinessModels
             StartDate = startDate;
             EndDate = endDate;
         }
+
+        public override string ToString()
+        {
+            return $"{StartDate}-{EndDate}";
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace ISMNewsPortal.Controllers
         [RoleAuthorize(Roles.Moderator)]
         public ActionResult DeleteComment(int id, int newsPostId, bool detailsMode = true)
         {
-            CommentHelper.DeleteComment(id);
+            CommentHelper.DeleteComment(id, newsPostId);
             string action = detailsMode ? "Details" : "Preview";
             return RedirectToAction(action, new { id = newsPostId });
         }

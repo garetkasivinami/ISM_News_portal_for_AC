@@ -3,6 +3,6 @@
     public class OptionsCollectionById : Options
     {
         public int TargetId { get; set; }
-        public int CommentsCount { get; set; }
+        public int ItemsCount { get; set; }
     }
 }
